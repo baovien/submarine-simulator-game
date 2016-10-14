@@ -1,5 +1,5 @@
 # Asian Games inc.
-![alt text](https://tools.uia.no/bitbucket/projects/DAT220_2016/repos/aginc/browse/logo.png "logo")
+![alt text](logo.png "logo")
 
 ## Synopsis
 
