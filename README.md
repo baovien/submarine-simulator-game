@@ -3,7 +3,7 @@
 
 ## Synopsis
 
-At the top of the file there should be a short introduction and/ or overview that explains **what** the project is. This description should match descriptions added for package managers (Gemspec, package.json, etc.)
+DAT220 Group project
 
 ## Code Example
 
@@ -27,7 +27,12 @@ Describe and show how to run the tests with code examples.
 
 ## Contributors
 
-Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.
+Aleksandar Corovic
+Anders Gouchbar
+Gaute Faklvev Homme
+Kristoffer André Myhren
+Vien Bao Ngo
+Hao Nhien Vu
 
 ## License
 
