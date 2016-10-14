@@ -1,5 +1,4 @@
-# Asian Games inc.
-![alt text](logo.png "logo")
+![alt text](logo.png "logo") # Asian Games inc. 
 
 ## Synopsis
 
