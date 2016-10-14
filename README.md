@@ -1,5 +1,9 @@
 # Asian Games inc.
 ![alt text](hhttps://tools.uia.no/bitbucket/projects/DAT220_2016/repos/aginc/browse/logo.png "logo")
+
+Inline-style: 
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+
 ## Synopsis
 
 At the top of the file there should be a short introduction and/ or overview that explains **what** the project is. This description should match descriptions added for package managers (Gemspec, package.json, etc.)
