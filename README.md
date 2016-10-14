@@ -1,8 +1,5 @@
 # Asian Games inc.
-![alt text](hhttps://tools.uia.no/bitbucket/projects/DAT220_2016/repos/aginc/browse/logo.png "logo")
-
-Inline-style: 
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://tools.uia.no/bitbucket/projects/DAT220_2016/repos/aginc/browse/logo.png "logo")
 
 ## Synopsis
 
