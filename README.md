@@ -27,11 +27,11 @@ Describe and show how to run the tests with code examples.
 
 ## Contributors
 
-Aleksandar Corovic
-Anders Gouchbar
-Gaute Faklvev Homme
-Kristoffer André Myhren
-Vien Bao Ngo
+Aleksandar Corovic  
+Anders Gouchbar  
+Gaute Faklvev Homme  
+Kristoffer André Myhren  
+Vien Bao Ngo  
 Hao Nhien Vu
 
 ## License
