@@ -1,13 +1,13 @@
 #include <iostream>
-#include "gamemode1.h"
-#include "menu.h"
+#include "../../Header Files/States/gamemode1.h"
+#include "../../Header Files/States/menu.h"
 
 void main_menu::Initialize(sf::RenderWindow *window) {
 
     this->selected = 0;
 
     this->font = new sf::Font();
-    this->font->loadFromFile("graphics/font1.otf");
+    this->font->loadFromFile("Graphics/font1.otf");
 
     this->title = new sf::Text("SPACE", *this->font, 86U);
     this->title->setOrigin(this->title->getGlobalBounds().width / 2, this->title->getGlobalBounds().height / 2);

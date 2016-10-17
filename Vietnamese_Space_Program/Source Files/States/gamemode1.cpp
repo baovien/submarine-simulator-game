@@ -1,5 +1,5 @@
-#include "gamemode1.h"
-#include "menu.h"
+#include "../../Header Files/States/gamemode1.h"
+#include "../../Header Files/States/menu.h"
 
 void gamemode1::Initialize(sf::RenderWindow* window)
 {

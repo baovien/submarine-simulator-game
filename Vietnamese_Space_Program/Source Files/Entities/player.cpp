@@ -1,4 +1,4 @@
-#include "playerobject.h"
+#include "../../Header Files/Entities/playerobject.h"
 
 playerObject::playerObject(int playerNumber)
 {

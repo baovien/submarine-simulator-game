@@ -1,8 +1,8 @@
 #include <iostream>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include "state.h"
-#include "menu.h"
+#include "../Header Files/Core/state.h"
+#include "../Header Files/States/menu.h"
 
 game_state coreState;
 bool quitGame = false;

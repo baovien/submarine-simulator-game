@@ -2,7 +2,7 @@
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_MENU_H
 #define VIETNAMESE_SPACE_PROGRAM_MENU_H
-#include "state.h"
+#include "../Core/state.h"
 
 class main_menu : public states{
 public:
