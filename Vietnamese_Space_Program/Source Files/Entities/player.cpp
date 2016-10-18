@@ -1,5 +1,4 @@
 #include "../../Header Files/Entities/playerobject.h"
-
 playerObject::playerObject(int playerNumber)
 {
     this->playerNumber  = playerNumber;
@@ -12,16 +11,35 @@ playerObject::playerObject(int playerNumber)
             break;
     }
 }
+
 void playerObject::Update()
 {
-    switch(this->playerNumber)
-    {
+    bool up, down, left, right;
+    switch(this->playerNumber) {
         case 0:
-            this->velocity.y = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W);
-            this->velocity.x = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A);
-            break;
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))left=1;
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))right=1;
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))up=1;
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))down=1;
+
+            //Bevegelse
+            if (up && speed < maxSpeed)
+                if (speed < 0) speed += dec;
+                else speed += acc;
+
+            if (down && speed >-maxSpeed)
+                if (speed > 0) speed -= dec;
+                else speed -= acc;
+            if (!up && !down)
+                if (speed - dec > 0) speed -= dec;
+                else if (speed + dec < 0) speed += dec;
+                else speed = 0;
+
+            if (right && speed != 0) angle += turnspeed * speed/maxSpeed;
+            if (left && speed != 0) angle -= turnspeed * speed/maxSpeed;
         default:
             break;
+
     }
     Entity::Update();
     if(this->getPosition().y < 0)
