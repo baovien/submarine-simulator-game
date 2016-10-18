@@ -13,8 +13,8 @@ set(SOURCE_FILES Graphics
         "Header Files/Entities/bullet.h" "Header Files/Entities/bulletObject.h" "Source Files/Entities/bullets.cpp"
         "Header Files/States/highscoreState.h" "Source Files/States/highscoreState.cpp"
         "Source Files/States/score.cpp" "Header Files/States/score.h"
-        "Source Files/States/playconfig.cpp" "Header Files/States/playconfig.h")
-
+        "Source Files/States/playconfig.cpp" "Header Files/States/playconfig.h"
+        "Source Files/States/settingsState.cpp" "Header Files/States/settingsState.h")
 add_executable(Vietnamese_Space_Program ${SOURCE_FILES})
 
 # Link with SFML dependencies

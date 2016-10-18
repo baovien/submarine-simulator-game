@@ -2,6 +2,7 @@
 #include "../../Header Files/States/menu.h"
 #include "../../Header Files/States/highscoreState.h"
 #include "../../Header Files/States/playconfig.h"
+#include "../../Header Files/States/settingsState.h"
 
 void main_menu::Initialize(sf::RenderWindow *window) {
 
@@ -63,6 +64,7 @@ void main_menu::Update(sf::RenderWindow *window) {
                 coreState.SetState(new highscoreState);
                 break;
             case 2: //Options
+                coreState.SetState(new settingsState);
                 break;
             case 3: //Exit
                 quitGame = true;
