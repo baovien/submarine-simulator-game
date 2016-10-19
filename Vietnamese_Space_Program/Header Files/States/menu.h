@@ -25,6 +25,6 @@ private:
 
     int selected;
 
-    bool upKey, downKey;
+    bool upKey, downKey, enterKey;
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_MENU_H

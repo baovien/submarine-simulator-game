@@ -1,6 +1,7 @@
 #include <iostream>
-#include "../../Header Files/States/gamemode1.h"
 #include "../../Header Files/States/menu.h"
+#include "../../Header Files/States/gamemode1.h"
+#include "../../Header Files/States/highscoreState.h"
 
 void main_menu::Initialize(sf::RenderWindow *window) {
 
@@ -53,12 +54,13 @@ void main_menu::Update(sf::RenderWindow *window) {
         this->selected = 3;
     }
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
+    if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && this->enterKey){
         switch(this->selected){
             case 0: //Play
                 coreState.SetState(new gamemode1);
                 break;
             case 1: //Highscore
+                coreState.SetState(new highscoreState);
                 break;
             case 2: //Options
                 break;
@@ -70,6 +72,7 @@ void main_menu::Update(sf::RenderWindow *window) {
 
     this->upKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up);
     this->downKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down);
+    this->enterKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return);
 }
 
 void main_menu::Render(sf::RenderWindow *window) {
@@ -105,6 +108,7 @@ void main_menu::Render(sf::RenderWindow *window) {
     window->draw(*this->highscore);
     window->draw(*this->options);
     window->draw(*this->quit);
+
 }
 
 void main_menu::Destroy(sf::RenderWindow *window) {
