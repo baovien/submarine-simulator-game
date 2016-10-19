@@ -44,18 +44,18 @@ void playerObject::Update()
     Entity::Update();
     if(this->getPosition().y < 0)
     {
-        this->move(0, 1.0f);
+        this->move(0, 2.5f);
     }
     if(this->getPosition().y + this->getGlobalBounds().height > 1080)
     {
-        this->move(0, -1.0f);
+        this->move(0, -2.5f);
     }
     if(this->getPosition().x < 0)
     {
-        this->move(1.0f, 0);
+        this->move(2.5f, 0);
     }
     if(this->getPosition().x + this->getGlobalBounds().height > 1920)
     {
-        this->move(-1.0f, 0);
+        this->move(-2.5f, 0);
     }
 }
