@@ -32,8 +32,9 @@ int main() {
         while(window.pollEvent(event))
         {
             //Close down window
-            if(event.type == sf::Event::Closed)
+            if(event.type == sf::Event::Closed){
                 window.close();
+            }
         }
 
         /**

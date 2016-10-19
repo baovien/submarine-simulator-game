@@ -29,7 +29,7 @@ void settingsState::Initialize(sf::RenderWindow *window) {
     this->res2->setOrigin(this->res2->getGlobalBounds().width / 2, this->res2->getGlobalBounds().height / 2);
     this->res2->setPosition(window->getSize().x / 2, this->res2->getGlobalBounds().height*6);
 
-    this->res3 = new sf::Text("640x360", *this->font, 64U);
+    this->res3 = new sf::Text("1024x576", *this->font, 64U);
     this->res3->setOrigin(this->res3->getGlobalBounds().width / 2, this->res3->getGlobalBounds().height / 2);
     this->res3->setPosition(window->getSize().x / 2 +  window->getSize().x / 4, this->res3->getGlobalBounds().height*6);
 
@@ -39,11 +39,11 @@ void settingsState::Initialize(sf::RenderWindow *window) {
 
     this->apply = new sf::Text("Apply", *this->font, 64U);
     this->apply->setOrigin(this->apply->getGlobalBounds().width / 2, this->apply->getGlobalBounds().height / 2);
-    this->apply->setPosition(window->getSize().x / 2, window->getSize().y - this->apply->getGlobalBounds().height*5);
+    this->apply->setPosition(window->getSize().x / 2, this->apply->getGlobalBounds().height*12);
 
     this->back = new sf::Text("Back", *this->font, 64U);
     this->back->setOrigin(this->back->getGlobalBounds().width / 2, this->back->getGlobalBounds().height / 2);
-    this->back->setPosition(window->getSize().x / 2, window->getSize().y - this->back->getGlobalBounds().height*3);
+    this->back->setPosition(window->getSize().x / 2, this->back->getGlobalBounds().height*14);
 
 }
 /**
@@ -99,6 +99,7 @@ void settingsState::Update(sf::RenderWindow *window) {
                 break;
             case 2: //Apply
                 window->setSize(resChoice);
+                window->setView(sf::View(sf::FloatRect(0.f, 0.f, window->getSize().x, window->getSize().y)));
                 this->Initialize(window);
                 break;
             case 3: //Back
@@ -149,8 +150,8 @@ void settingsState::Render(sf::RenderWindow *window) {
                     this->res2->setStyle(1<<3);
                     break;
                 case 2:
-                    resChoice.x = 640;
-                    resChoice.y = 360;
+                    resChoice.x = 1024;
+                    resChoice.y = 576;
                     this->res3->setStyle(1<<3);
                     break;
             }
