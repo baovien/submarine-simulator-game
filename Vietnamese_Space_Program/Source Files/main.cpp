@@ -13,6 +13,9 @@ int main()
     coreState.SetWindow(&window);
     coreState.SetState(new main_menu);
 
+    sf::Clock timer;
+    sf::Time elapsed;
+
     while(window.isOpen())
     {
         //Make event to prevent crash
@@ -23,14 +26,24 @@ int main()
             if(event.type == sf::Event::Closed)
                 window.close();
         }
-        window.clear(sf::Color::Black);
-        coreState.Update();
-        coreState.Render();
-        window.display();
 
-        if(quitGame)
-        {
-            window.close();
+        /**
+         * Vi vil at den skal kjøre med nøyaktighet på 1/60 sekund. 1/60 sekunder = 16666 mikrosekunder.
+         * Dette tilsvarer ca. 60 fps.
+         */
+        elapsed = timer.getElapsedTime();
+        if(elapsed.asMicroseconds() > 16666){
+            window.clear(sf::Color::Black);
+            coreState.Update();
+            coreState.Render();
+            window.display();
+
+            if(quitGame)
+            {
+                window.close();
+            }
+
+            timer.restart();
         }
 
     }
