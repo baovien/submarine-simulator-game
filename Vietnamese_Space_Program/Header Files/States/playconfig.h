@@ -19,10 +19,24 @@ private:
     sf::Text* theme;
     sf::Text* fighter;
     sf::Text* gamemode;
+
+    sf::Text* theme_1;
+    sf::Text* theme_2;
+    sf::Text* theme_3;
+
+    sf::Text* fighter_1;
+    sf::Text* fighter_2;
+    sf::Text* fighter_3;
+
+    sf::Text* gamemode_1;
+    sf::Text* gamemode_2;
+    sf::Text* gamemode_3;
+
+
     sf::Text* back;
     sf::Text* play;
 
-    int selected;
+    int selected, selected_Theme, selected_Fighter, selected_Gamemode;
 
     bool upKey, downKey, leftKey, rightKey, enterKey, escKey;
 };
