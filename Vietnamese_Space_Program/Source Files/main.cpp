@@ -18,6 +18,7 @@ int main() {
     sc.loadScore();
 
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Pong"); // FULL HD OMG
+    window.setVerticalSyncEnabled(true);
 
     coreState.SetWindow(&window);
     coreState.SetState(new main_menu);
