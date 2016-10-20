@@ -5,6 +5,8 @@
 
 
 class highscoreState : public states{
+
+
 public:
     void Initialize(sf::RenderWindow* window);
 
