@@ -25,18 +25,22 @@ void playerObject::Update()
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))down=1;
 
             //Bevegelse
-            if (up && speed < maxSpeed)
+            if (up && speed < maxSpeed) {
                 if (speed < 0) speed += dec;
                 else speed += acc;
-
-            if (down && speed >-maxSpeed)
-                if (speed > 0) speed -= dec;
-                else speed -= acc;
-            if (!up && !down)
+            }
+            if (down && speed >-maxSpeed) {
+                if (speed > 0){
+                    speed -= dec;
+                }else {
+                    speed -= acc;
+                }
+            }
+            if (!up && !down){
                 if (speed - dec > 0) speed -= dec;
                 else if (speed + dec < 0) speed += dec;
                 else speed = 0;
-
+            }
             if (right && speed != 0) angle += turnspeed * speed/maxSpeed;
             if (left && speed != 0) angle -= turnspeed * speed/maxSpeed;
         default:

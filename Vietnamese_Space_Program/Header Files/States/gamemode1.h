@@ -4,6 +4,7 @@
 #include "../Entities/player.h"
 #include "../Entities/playerobject.h"
 #include "../Entities/bulletObject.h"
+#include "../Core/util.h"
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
 #define VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
@@ -19,6 +20,8 @@ private:
     bulletObject* bullet;
     player* player1;
     sf::Font* font;
+    sf::Text* pausedText;
+    Utilities* util;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H

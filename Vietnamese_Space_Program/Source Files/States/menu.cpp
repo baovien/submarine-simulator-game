@@ -71,6 +71,8 @@ void main_menu::Update(sf::RenderWindow *window) {
                 break;
         }
     }
+  //  if((sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)))
+  //      coreState.SetState(new main_menu());
 
     this->enterKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return);
     this->upKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up);
