@@ -43,7 +43,6 @@ void enemyObject::Reset(sf::RenderWindow* window)
 {
     this->velocity.x = 1.0f;
     this->velocity.y = 1.0f;
-
 }
 
 enemyObject::~enemyObject()
