@@ -29,7 +29,7 @@ int main()
 
         /**
          * Vi vil at den skal kjøre med nøyaktighet på 1/60 sekund. 1/60 sekunder = 16666 mikrosekunder.
-         * Dette tilsvarer ca. 60 fps.
+         * Dette tilsvarer ca. 60 fps..
          */
         elapsed = timer.getElapsedTime();
         if(elapsed.asMicroseconds() > 16666){
