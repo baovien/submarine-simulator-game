@@ -23,6 +23,8 @@ public:
     virtual void UpdateEnemy()
     {
         this->move(this->velocity);
+
+
     }
 
     bool checkCollision(Enemy_Entity* entity)
