@@ -3,6 +3,7 @@
 playerObject::playerObject(int playerNumber)
 {
     this->playerNumber  = playerNumber;
+
     switch(this->playerNumber)
     {
         case 0:
@@ -49,6 +50,7 @@ void playerObject::Update()
     }
     //Denne funksjonen passer på at flyet ikke kan fly ut av vinduet.
     Entity::Update();
+
     if(this->getPosition().y < 0)
     {
         this->move(0, 2.5f);
@@ -61,7 +63,7 @@ void playerObject::Update()
     {
         this->move(2.5f, 0);
     }
-    if(this->getPosition().x + this->getGlobalBounds().height > 1920)
+    if(this->getPosition().x + this->getGlobalBounds().width > 1920)
     {
         this->move(-2.5f, 0);
     }

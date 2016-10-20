@@ -4,6 +4,10 @@
 void gamemode1::Initialize(sf::RenderWindow *window) {
     util = new Utilities;
     this->bullet = new bulletObject;
+    this->enemy1 = new enemyObject;
+    this->enemy1->setPosition(rand()%1920, rand()%1080);
+
+
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font.ttf");
 
@@ -16,7 +20,11 @@ void gamemode1::Initialize(sf::RenderWindow *window) {
     this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
 }
 
-void gamemode1::Update(sf::RenderWindow *window) {
+void gamemode1::Update(sf::RenderWindow* window)
+{
+    this->player1->Update();
+    this->enemy1->UpdateEnemy(window);
+    this->enemy1->Reset(window);
 
     if (util->paused && (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)))
     {   //Hvis spillet er pauset og escape trykkes går man til menyen
@@ -41,6 +49,8 @@ void gamemode1::Update(sf::RenderWindow *window) {
 void gamemode1::Render(sf::RenderWindow *window) {
     window->draw(*this->bullet);
     window->draw(*this->player1);
+    window->draw(*this->enemy1);
+
     if (util->paused)
     {
         window->draw(*this->pausedText);
@@ -50,4 +60,5 @@ void gamemode1::Render(sf::RenderWindow *window) {
 void gamemode1::Destroy(sf::RenderWindow *window) {
     delete this->bullet;
     delete this->player1;
+    delete this->enemy1;
 }

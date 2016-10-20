@@ -4,6 +4,7 @@
 #ifndef VIETNAMESE_SPACE_PROGRAM_ENTITY_H
 #define VIETNAMESE_SPACE_PROGRAM_ENTITY_H
 
+
 class Entity : public sf::Sprite
 {
 public:
@@ -27,6 +28,7 @@ public:
         this->move(sin(angle) * speed, -cos(angle)*speed);
         this->setRotation(angle*180/3.141592);
     }
+
     bool checkCollision(Entity* entity)
     {
         return this->getGlobalBounds().intersects(entity->getGlobalBounds());

@@ -5,5 +5,5 @@ bulletObject::bulletObject()
 }
 void bulletObject::Updatebullet()
 {
-    this->move(+0.1, +0.1);
+    this->move(+1, +1);
 }

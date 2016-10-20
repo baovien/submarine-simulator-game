@@ -1,10 +1,11 @@
 #pragma once
 
 #include "../Core/state.h"
+#include "../Core/util.h"
 #include "../Entities/player.h"
 #include "../Entities/playerobject.h"
 #include "../Entities/bulletObject.h"
-#include "../Core/util.h"
+#include "../Entities/enemy.h"
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
 #define VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
@@ -19,6 +20,7 @@ public:
 private:
     bulletObject* bullet;
     player* player1;
+    enemyObject* enemy1;
     sf::Font* font;
     sf::Text* pausedText;
     Utilities* util;
