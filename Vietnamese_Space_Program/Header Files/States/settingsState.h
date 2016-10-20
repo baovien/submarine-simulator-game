@@ -30,8 +30,9 @@ private:
     sf::Vector2u resChoice;
 
     int selected, selectedRes;
+    unsigned int textSize = 56U;
 
-    bool upKey, downKey, leftKey, rightKey, enterKey;
+    bool upKey, downKey, leftKey, rightKey, enterKey, escKey;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_SETTINGSSTATE_H

@@ -1,7 +1,6 @@
 #include "../../Header Files/States/settingsState.h"
 #include "../../Header Files/States/menu.h"
 
-#include <iostream>
 /**
  * Init settingsState.
  * @param window
@@ -13,35 +12,35 @@ void settingsState::Initialize(sf::RenderWindow *window) {
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font1.otf");
 
-    this->title = new sf::Text("SETTINGS", *this->font, 86U);
+    this->title = new sf::Text("SETTINGS", *this->font, textSize + 12);
     this->title->setOrigin(this->title->getGlobalBounds().width / 2, this->title->getGlobalBounds().height / 2);
     this->title->setPosition(window->getSize().x / 2, this->title->getGlobalBounds().height);
 
-    this->screenRes = new sf::Text("ScreenRes", *this->font, 64U);
+    this->screenRes = new sf::Text("ScreenRes", *this->font, textSize);
     this->screenRes->setOrigin(this->screenRes->getGlobalBounds().width / 2, this->screenRes->getGlobalBounds().height / 2);
     this->screenRes->setPosition(window->getSize().x / 2, this->screenRes->getGlobalBounds().height*4);
 
-    this->res1 = new sf::Text("1920x1080", *this->font, 64U);
+    this->res1 = new sf::Text("1920x1080", *this->font, textSize);
     this->res1->setOrigin(this->res1->getGlobalBounds().width / 2, this->res1->getGlobalBounds().height / 2);
     this->res1->setPosition(window->getSize().x / 4, this->res1->getGlobalBounds().height*6);
 
-    this->res2 = new sf::Text("1280x720", *this->font, 64U);
+    this->res2 = new sf::Text("1280x720", *this->font, textSize);
     this->res2->setOrigin(this->res2->getGlobalBounds().width / 2, this->res2->getGlobalBounds().height / 2);
     this->res2->setPosition(window->getSize().x / 2, this->res2->getGlobalBounds().height*6);
 
-    this->res3 = new sf::Text("1024x576", *this->font, 64U);
+    this->res3 = new sf::Text("1024x576", *this->font, textSize);
     this->res3->setOrigin(this->res3->getGlobalBounds().width / 2, this->res3->getGlobalBounds().height / 2);
     this->res3->setPosition(window->getSize().x / 2 +  window->getSize().x / 4, this->res3->getGlobalBounds().height*6);
 
-    this->volume = new sf::Text("Volume", *this->font, 64U);
+    this->volume = new sf::Text("Volume", *this->font, textSize);
     this->volume->setOrigin(this->volume->getGlobalBounds().width / 2, this->volume->getGlobalBounds().height / 2);
     this->volume->setPosition(window->getSize().x / 2, this->volume->getGlobalBounds().height*8);
 
-    this->apply = new sf::Text("Apply", *this->font, 64U);
+    this->apply = new sf::Text("Apply", *this->font, textSize);
     this->apply->setOrigin(this->apply->getGlobalBounds().width / 2, this->apply->getGlobalBounds().height / 2);
     this->apply->setPosition(window->getSize().x / 2, this->apply->getGlobalBounds().height*12);
 
-    this->back = new sf::Text("Back", *this->font, 64U);
+    this->back = new sf::Text("Back", *this->font, textSize);
     this->back->setOrigin(this->back->getGlobalBounds().width / 2, this->back->getGlobalBounds().height / 2);
     this->back->setPosition(window->getSize().x / 2, this->back->getGlobalBounds().height*14);
 
@@ -51,6 +50,10 @@ void settingsState::Initialize(sf::RenderWindow *window) {
  * @param window
  */
 void settingsState::Update(sf::RenderWindow *window) {
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape) && !this->escKey){
+        coreState.SetState(new main_menu);
+    }
 
     //Vertical selection
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && !this->upKey){
@@ -113,8 +116,12 @@ void settingsState::Update(sf::RenderWindow *window) {
     this->leftKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
     this->rightKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right);
     this->enterKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return);
+    this->escKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape);
 }
-
+/**
+ *
+ * @param window
+ */
 void settingsState::Render(sf::RenderWindow *window) {
 
     this->screenRes->setFillColor(sf::Color::White);
@@ -145,13 +152,13 @@ void settingsState::Render(sf::RenderWindow *window) {
                     this->res1->setStyle(1<<3);
                     break;
                 case 1:
-                    resChoice.x = 1280;
-                    resChoice.y = 720;
+                    resChoice.x = 1024;
+                    resChoice.y = 576;
                     this->res2->setStyle(1<<3);
                     break;
                 case 2:
-                    resChoice.x = 1024;
-                    resChoice.y = 576;
+                    resChoice.x = 640;
+                    resChoice.y = 360;
                     this->res3->setStyle(1<<3);
                     break;
             }
