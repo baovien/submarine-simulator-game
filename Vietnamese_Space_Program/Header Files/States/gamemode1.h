@@ -3,6 +3,8 @@
 #include "../Core/state.h"
 #include "../Entities/player.h"
 #include "../Entities/playerobject.h"
+#include "../Entities/bulletObject.h"
+
 #ifndef VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
 #define VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
 
@@ -14,6 +16,7 @@ public:
     void Render(sf::RenderWindow* window);
     void Destroy(sf::RenderWindow* window);
 private:
+    bulletObject* bullet;
     player* player1;
     sf::Font* font;
 };
