@@ -37,7 +37,7 @@ private:
     sf::Text* play;
 
     int selected, selected_Theme, selected_Fighter, selected_Gamemode;
-
+    unsigned int textSize = 20U;
     bool upKey, downKey, leftKey, rightKey, enterKey, escKey;
 };
 

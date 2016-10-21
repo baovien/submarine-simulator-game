@@ -11,34 +11,34 @@ void main_menu::Initialize(sf::RenderWindow *window) {
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font1.otf");
 
-    this->title = new sf::Text("SPACE", *this->font, 86U);
+    this->title = new sf::Text("SPACE", *this->font, textSize+30);
     this->title->setOrigin(this->title->getGlobalBounds().width / 2, this->title->getGlobalBounds().height / 2);
     this->title->setPosition(window->getSize().x / 2, window->getSize().y / 4);
 
-    this->title2 = new sf::Text("SIMULATOR", *this->font, 86U);
+    this->title2 = new sf::Text("SIMULATOR", *this->font, textSize+30);
     this->title2->setOrigin(this->title2->getGlobalBounds().width / 2, this->title2->getGlobalBounds().height / 2);
     this->title2->setPosition(window->getSize().x / 2, window->getSize().y / 4 + this->title2->getGlobalBounds().height);
 
-    this->play = new sf::Text("Play", *this->font, 64U);
+    this->play = new sf::Text("Play", *this->font, textSize);
     this->play->setOrigin(this->play->getGlobalBounds().width / 2, this->play->getGlobalBounds().height / 2);
     this->play->setPosition(window->getSize().x / 2, window->getSize().y / 2);
 
-    this->highscore = new sf::Text("Highscore", *this->font, 64U);
+    this->highscore = new sf::Text("Highscore", *this->font, textSize);
     this->highscore->setOrigin(this->highscore->getGlobalBounds().width / 2, this->highscore->getGlobalBounds().height / 2);
-    this->highscore->setPosition(window->getSize().x / 2, window->getSize().y /2 + this->highscore->getGlobalBounds().height);
+    this->highscore->setPosition(window->getSize().x / 2, window->getSize().y /2 + this->highscore->getGlobalBounds().height*1.5);
 
-    this->options = new sf::Text("Options", *this->font, 64U);
+    this->options = new sf::Text("Options", *this->font, textSize);
     this->options->setOrigin(this->options->getGlobalBounds().width / 2, this->options->getGlobalBounds().height / 2);
-    this->options->setPosition(window->getSize().x / 2, window->getSize().y /2 + this->options->getGlobalBounds().height*2);
+    this->options->setPosition(window->getSize().x / 2, window->getSize().y /2 + this->options->getGlobalBounds().height*3);
 
-    this->quit = new sf::Text("Exit", *this->font, 64U);
+    this->quit = new sf::Text("Exit", *this->font, textSize);
     this->quit->setOrigin(this->quit->getGlobalBounds().width / 2, this->quit->getGlobalBounds().height / 2);
-    this->quit->setPosition(window->getSize().x / 2, window->getSize().y /2 + this->quit->getGlobalBounds().height*3);
+    this->quit->setPosition(window->getSize().x / 2, window->getSize().y /2 + this->quit->getGlobalBounds().height*4.5);
 
 }
 
 void main_menu::Update(sf::RenderWindow *window) {
-
+    //Vertical selection
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && !this->upKey){
         this->selected -= 1;
     }
@@ -46,7 +46,7 @@ void main_menu::Update(sf::RenderWindow *window) {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) && !this->downKey){
         this->selected += 1;
     }
-
+    //Vertical selection bounds
     if(this->selected > 3){
         this->selected = 0;
     }
@@ -54,7 +54,7 @@ void main_menu::Update(sf::RenderWindow *window) {
     if(this->selected < 0){
         this->selected = 3;
     }
-
+    //Stateswitch on enter
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && !this->enterKey){
         switch(this->selected){
             case 0: //Play
@@ -71,8 +71,6 @@ void main_menu::Update(sf::RenderWindow *window) {
                 break;
         }
     }
-  //  if((sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)))
-  //      coreState.SetState(new main_menu());
 
     this->enterKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return);
     this->upKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up);
@@ -90,8 +88,6 @@ void main_menu::Render(sf::RenderWindow *window) {
     this->highscore->setStyle(0);
     this->options->setStyle(0);
     this->quit->setStyle(0);
-
-
 
     switch(this->selected){
         case 0:

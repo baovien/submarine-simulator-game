@@ -17,7 +17,7 @@ int main() {
     score sc;
     sc.loadScore();
 
-    sf::RenderWindow window(sf::VideoMode(1920, 1080), "Pong"); // FULL HD OMG
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Vietnamese Space Program"); // FULL HD OMG
     window.setVerticalSyncEnabled(true);
 
     coreState.SetWindow(&window);
@@ -30,11 +30,16 @@ int main() {
     {
         //Make event to prevent crash
         sf::Event event;
+
         while(window.pollEvent(event))
         {
             //Close down window
             if(event.type == sf::Event::Closed){
                 window.close();
+            }
+
+            if(event.type == sf::Event::Resized){
+                window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
             }
         }
 

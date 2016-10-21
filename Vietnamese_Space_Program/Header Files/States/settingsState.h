@@ -30,7 +30,7 @@ private:
     sf::Vector2u resChoice;
 
     int selected, selectedRes;
-    unsigned int textSize = 56U;
+    unsigned int textSize = 32U;
 
     bool upKey, downKey, leftKey, rightKey, enterKey, escKey;
 };

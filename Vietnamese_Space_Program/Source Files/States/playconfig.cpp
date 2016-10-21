@@ -18,15 +18,15 @@ void playconfig_menu::Initialize(sf::RenderWindow* window)
  * VELG MELLOM DE FORSKJELLIGE THEMENE, FIGHTERENE OG GAMEMODENE
  */
 
-    this->theme = new sf::Text("Select theme", *this->font, 40U);
+    this->theme = new sf::Text("Select theme", *this->font, textSize+10);
     this->theme->setOrigin(this->theme->getGlobalBounds().width / 2, this->theme->getGlobalBounds().height);
     this->theme->setPosition(window->getSize().x / 2, window->getSize().y / 25);
 
-    this->fighter = new sf::Text("Select fighter", *this->font, 40U);
+    this->fighter = new sf::Text("Select fighter", *this->font, textSize+10);
     this->fighter->setOrigin(this->fighter->getGlobalBounds().width / 2, this->theme->getGlobalBounds().height);
     this->fighter->setPosition(window->getSize().x / 2, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 8);
 
-    this->gamemode = new sf::Text("Select gamemode", *this->font, 40U);
+    this->gamemode = new sf::Text("Select gamemode", *this->font, textSize+10);
     this->gamemode->setOrigin(this->gamemode->getGlobalBounds().width / 2, this->theme->getGlobalBounds().height);
     this->gamemode->setPosition(window->getSize().x / 2, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 16);
 
@@ -35,15 +35,15 @@ void playconfig_menu::Initialize(sf::RenderWindow* window)
  * UNDER HER PLASSERES DE FORSKJELLIGE THEMES.
  */
 
-    this->theme_1 = new sf::Text("THEME 1", *this->font, 30U);
+    this->theme_1 = new sf::Text("THEME 1", *this->font, textSize);
     this->theme_1->setOrigin(this->theme_1->getGlobalBounds().width / 2, this->theme->getGlobalBounds().height);
     this->theme_1->setPosition(window->getSize().x / 3, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 4);
 
-    this->theme_2 = new sf::Text("THEME 2", *this->font, 30U);
+    this->theme_2 = new sf::Text("THEME 2", *this->font, textSize);
     this->theme_2->setOrigin(this->theme_2->getGlobalBounds().width / 2, this->theme->getGlobalBounds().height);
     this->theme_2->setPosition(window->getSize().x / 2, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 4);
 
-    this->theme_3 = new sf::Text("THEME 3", *this->font, 30U);
+    this->theme_3 = new sf::Text("THEME 3", *this->font, textSize);
     this->theme_3->setOrigin(this->theme_2->getGlobalBounds().width / 2, this->theme->getGlobalBounds().height);
     this->theme_3->setPosition(window->getSize().x / 1.5F, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 4);
 
@@ -52,15 +52,15 @@ void playconfig_menu::Initialize(sf::RenderWindow* window)
  * UNDER HER PLASSERES DE FORSKJELLIGE FIGHTERENE.
  */
 
-    this->fighter_1 = new sf::Text("FIGHTER 1", *this->font, 30U);
+    this->fighter_1 = new sf::Text("FIGHTER 1", *this->font, textSize);
     this->fighter_1->setOrigin(this->fighter_1->getGlobalBounds().width / 2, this->theme->getGlobalBounds().height);
     this->fighter_1->setPosition(window->getSize().x / 3, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 12);
 
-    this->fighter_2 = new sf::Text("FIGHTER 2", *this->font, 30U);
+    this->fighter_2 = new sf::Text("FIGHTER 2", *this->font, textSize);
     this->fighter_2->setOrigin(this->fighter_2->getGlobalBounds().width / 2, this->theme->getGlobalBounds().height);
     this->fighter_2->setPosition(window->getSize().x / 2, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 12);
 
-    this->fighter_3 = new sf::Text("FIGHTER 3", *this->font, 30U);
+    this->fighter_3 = new sf::Text("FIGHTER 3", *this->font, textSize);
     this->fighter_3->setOrigin(this->fighter_3->getGlobalBounds().width / 2, this->theme->getGlobalBounds().height);
     this->fighter_3->setPosition(window->getSize().x / 1.5F, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 12);
 
@@ -68,26 +68,24 @@ void playconfig_menu::Initialize(sf::RenderWindow* window)
  * GAMEMODE PLASSERING.
  * UNDER HER PLASSERES DE FORSKJELLIGE GAMEMODENE.
  */
-    this->gamemode_1 = new sf::Text("MODE 1", *this->font, 30U);
+    this->gamemode_1 = new sf::Text("MODE 1", *this->font, textSize);
     this->gamemode_1->setOrigin(this->fighter_1->getGlobalBounds().width / 2, this->theme->getGlobalBounds().height);
     this->gamemode_1->setPosition(window->getSize().x / 3, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 20);
 
-    this->gamemode_2 = new sf::Text("MODE 2", *this->font, 30U);
+    this->gamemode_2 = new sf::Text("MODE 2", *this->font, textSize);
     this->gamemode_2->setOrigin(this->fighter_2->getGlobalBounds().width / 2, this->theme->getGlobalBounds().height);
     this->gamemode_2->setPosition(window->getSize().x / 2, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 20);
 
-    this->gamemode_3 = new sf::Text("MODE 3", *this->font, 30U);
+    this->gamemode_3 = new sf::Text("MODE 3", *this->font, textSize);
     this->gamemode_3->setOrigin(this->fighter_3->getGlobalBounds().width / 2, this->theme->getGlobalBounds().height);
     this->gamemode_3->setPosition(window->getSize().x / 1.5F, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 20);
 
 
-
-
-    this->play = new sf::Text("Start", *this->font, 40U);
+    this->play = new sf::Text("Start", *this->font, textSize+10);
     this->play->setOrigin(this->play->getGlobalBounds().width / 2, this->theme->getGlobalBounds().height);
     this->play->setPosition(window->getSize().x / 3, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 25);
 
-    this->back = new sf::Text("Back", *this->font, 40U);
+    this->back = new sf::Text("Back", *this->font, textSize+10);
     this->back->setOrigin(this->back->getGlobalBounds().width / 2, this->theme->getGlobalBounds().height);
     this->back->setPosition(window->getSize().x / 1.5F, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 25);
 
