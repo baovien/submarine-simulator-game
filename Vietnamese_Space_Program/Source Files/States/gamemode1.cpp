@@ -13,6 +13,7 @@ void gamemode1::Initialize(sf::RenderWindow *window) {
     this->player1 = new playerObject(0);
     this->player1->setPosition(500, 500);
     this->player1->setOrigin(this->player1->getGlobalBounds().width / 2, this->player1->getGlobalBounds().height / 2);
+    this->enemy1->setPosition(rand()%1920, rand()%1080);
 
     this->pausedText = new sf::Text("Paused\nPress Escape to Quit", *font, 32U);
     this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2, this->pausedText->getGlobalBounds().height / 2);
