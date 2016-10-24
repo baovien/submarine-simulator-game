@@ -1,44 +1,14 @@
-#pragma once
-
-#include <SFML/Graphics.hpp>
-
+#include "bullet_entity.h"
 #ifndef VIETNAMESE_SPACE_PROGRAM_BULLET_H
 #define VIETNAMESE_SPACE_PROGRAM_BULLET_H
-
-class Bullet : public sf::Sprite {
+class bullet : public bullet_entity
+{
 public:
-    float x, y;
-    sf::Vector2f speed;
-
-    Bullet()
-    {
-        this->texture = new sf::Texture();
-    }
-
-    void Load(std::string filename)
-    {
-        this->texture->loadFromFile("Graphics/Sprites/" + filename);
-        this->setTexture(*this->texture);
-    }
-
-    virtual void Updatebullet()
-    {
-        this->move(this->speed);
-    }
-
-    bool checkCollision(Bullet *entity)
-    {
-        return this->getGlobalBounds().intersects(entity->getGlobalBounds());
-    }
-
-    ~Bullet()
-    {
-        delete this->texture;
-    }
+    bullet();
+    void bulletUpdate(float x, float y);
+    float speed = 10;
+    float x=0, y=0;
 
 protected:
-    sf::Texture *texture;
-
 };
-
 #endif //VIETNAMESE_SPACE_PROGRAM_BULLET_H

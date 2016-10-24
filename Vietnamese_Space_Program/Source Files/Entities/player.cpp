@@ -1,4 +1,5 @@
 #include "../../Header Files/Entities/playerobject.h"
+#include "../../Header Files/Entities/bullet.h"
 //Initiater player, koden vår er satt opp for flere spillere så case 0 er spiller 1.
 playerObject::playerObject(int playerNumber)
 {
@@ -16,7 +17,7 @@ playerObject::playerObject(int playerNumber)
 //Update funksjonen har kontroll på bevegelsen til player 1.
 void playerObject::Update()
 {
-    bool up, down, left, right;
+    bool up=0, down=0, left=0, right=0;
     //Siden koden er laget for flere spillere må man spesifisere hvilken av spillerne som skal oppdateres. Case 0 er fortsatt player 1.
     switch(this->playerNumber) {
         case 0:
@@ -44,6 +45,13 @@ void playerObject::Update()
             }
             if (right && speed != 0) angle += turnspeed * speed/maxSpeed;
             if (left && speed != 0) angle -= turnspeed * speed/maxSpeed;
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+            {
+                //spawn bullet
+            }
+
+
         default:
             break;
 
@@ -51,20 +59,20 @@ void playerObject::Update()
     //Denne funksjonen passer på at flyet ikke kan fly ut av vinduet.
     Entity::Update();
 
-    if(this->getPosition().y < 0)
+    if(this->getPosition().y - this->getGlobalBounds().height/2 < 0)
     {
-        this->move(0, 2.5f);
+        this->move(0, speed);
     }
-    if(this->getPosition().y + this->getGlobalBounds().height > 1080)
+    if(this->getPosition().y + this->getGlobalBounds().height/2 > 600)
     {
-        this->move(0, -2.5f);
+        this->move(0, -speed);
     }
-    if(this->getPosition().x < 0)
+    if(this->getPosition().x - this->getGlobalBounds().width/2 < 0)
     {
-        this->move(2.5f, 0);
+        this->move(speed, 0);
     }
-    if(this->getPosition().x + this->getGlobalBounds().width > 1920)
+    if(this->getPosition().x + this->getGlobalBounds().width/2 > 800)
     {
-        this->move(-2.5f, 0);
+        this->move(-speed, 0);
     }
 }

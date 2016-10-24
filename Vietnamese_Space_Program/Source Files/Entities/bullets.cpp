@@ -1,9 +1,13 @@
-#include "../../Header Files/Entities/bulletObject.h"
-bulletObject::bulletObject()
+#include "../../Header Files/Entities/bullet.h"
+bullet::bullet()
 {
     this->Load("Sprite_ammo.png");
 }
-void bulletObject::Updatebullet()
+
+void bullet::bulletUpdate(float x, float y)
 {
-    this->move(+1, +1);
+    this->setPosition(x, y);
+
 }
+
+

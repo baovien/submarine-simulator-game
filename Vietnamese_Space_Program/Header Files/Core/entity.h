@@ -9,9 +9,9 @@ class Entity : public sf::Sprite
 {
 public:
     float speed = 0, angle = 0;
-    float maxSpeed = 2;
-    float turnspeed = 0.02;
-    float acc = 0.05, dec = 0.05;
+    float maxSpeed = 8;
+    float turnspeed = 0.2;
+    float acc = 0.6, dec = 0.3;
     float x=1, y=1;
 
     Entity()

@@ -9,7 +9,7 @@ class playerObject : public player
 public:
     playerObject(int playerNumber);
     void Update();
-private:
+protected:
     int playerNumber;
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_PLAYEROBJECT_H
