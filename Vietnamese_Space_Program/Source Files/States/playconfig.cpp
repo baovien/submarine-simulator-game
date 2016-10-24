@@ -1,9 +1,9 @@
 
 #include "../../Header Files/States/playconfig.h"
-#include "../../Header Files/States/gamemode1.h"
+#include "../../Header Files/States/Gamemode1.h"
 #include "../../Header Files/States/menu.h"
 
-void playconfig_menu::Initialize(sf::RenderWindow* window)
+void PlayconfigMenu::Initialize(sf::RenderWindow* window)
 {
     this->selected = 0;
     this->selected_Theme = 0;
@@ -91,11 +91,11 @@ void playconfig_menu::Initialize(sf::RenderWindow* window)
 
 }
 
-void playconfig_menu::Update(sf::RenderWindow* window)
+void PlayconfigMenu::Update(sf::RenderWindow* window)
 {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape) && !this->escKey)
     {
-        coreState.SetState(new main_menu);
+        coreState.SetState(new MainMenu);
     }
     if(selected != 4){
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && !this->upKey){
@@ -177,10 +177,10 @@ void playconfig_menu::Update(sf::RenderWindow* window)
 
     if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && this->enterKey){
         if(this->selected == 3) { //Start
-            coreState.SetState(new gamemode1);
+            coreState.SetState(new Gamemode1);
         }
         if(this->selected == 4) { //Back
-            coreState.SetState(new main_menu);
+            coreState.SetState(new MainMenu);
         }
     }
 
@@ -193,7 +193,7 @@ void playconfig_menu::Update(sf::RenderWindow* window)
 }
 
 
-void playconfig_menu::Render(sf::RenderWindow* window)
+void PlayconfigMenu::Render(sf::RenderWindow* window)
 {
     this->theme->setFillColor(sf::Color::White);
     this->fighter->setFillColor(sf::Color::White);
@@ -284,7 +284,7 @@ void playconfig_menu::Render(sf::RenderWindow* window)
 
 }
 
-void playconfig_menu::Destroy(sf::RenderWindow* window)
+void PlayconfigMenu::Destroy(sf::RenderWindow* window)
 {
     delete this->theme;
     delete this->font;

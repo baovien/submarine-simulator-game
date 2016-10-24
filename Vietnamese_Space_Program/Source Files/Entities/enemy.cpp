@@ -1,12 +1,12 @@
 #include "../../Header Files/Entities/enemy.h"
 
 
-enemyObject::enemyObject()
+EnemyObject::EnemyObject()
 {
     this->Load("enemy.png");
 }
 
-void enemyObject::UpdateEnemy(sf::RenderWindow* window)
+void EnemyObject::UpdateEnemy(sf::RenderWindow* window)
 {
 
     if (this->getPosition().y < 0 || this->getPosition().y + this->getGlobalBounds().height > window->getSize().y)
@@ -36,15 +36,15 @@ void enemyObject::UpdateEnemy(sf::RenderWindow* window)
         this->move(-1.0f, 0);
     }
 
-    Enemy_Entity::UpdateEnemy();
+    EnemyEntity::UpdateEnemy();
 }
 
-void enemyObject::Reset(sf::RenderWindow* window)
+void EnemyObject::Reset(sf::RenderWindow* window)
 {
     this->velocity.x = 1.0f;
     this->velocity.y = 1.0f;
 }
 
-enemyObject::~enemyObject()
+EnemyObject::~EnemyObject()
 {
 }

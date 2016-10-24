@@ -4,7 +4,7 @@
 
 #include "../Core/state.h"
 
-class playconfig_menu : public states{
+class PlayconfigMenu : public States{
 public:
     void Initialize(sf::RenderWindow* window);
 

@@ -5,7 +5,7 @@
 
 #include "../Core/state.h"
 
-class settingsState : public states{
+class SettingsState : public States{
 public:
     void Initialize(sf::RenderWindow* window);
 

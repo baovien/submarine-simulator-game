@@ -3,7 +3,7 @@
 #include "../Core/entity.h"
 #ifndef VIETNAMESE_SPACE_PROGRAM_PLAYER_H
 #define VIETNAMESE_SPACE_PROGRAM_PLAYER_H
-class player : public Entity
+class Player : public Entity
 {
 public:
 private:

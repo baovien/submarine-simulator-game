@@ -4,7 +4,7 @@
 #include "../Core/state.h"
 
 
-class highscoreState : public states{
+class highscoreState : public States{
 
 
 public:

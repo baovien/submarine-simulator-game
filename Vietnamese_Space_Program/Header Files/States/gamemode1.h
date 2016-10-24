@@ -2,14 +2,14 @@
 
 #include "../Core/state.h"
 #include "../Core/util.h"
-#include "../Entities/player.h"
+#include "../Entities/Player.h"
 #include "../Entities/playerobject.h"
 #include "../Entities/enemy.h"
-#include "../Entities/bullet.h"
+#include "../Entities/Bullet.h"
 #ifndef VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
 #define VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
 
-class gamemode1 : public states
+class Gamemode1 : public States
 {
 public:
     void Initialize(sf::RenderWindow* window);
@@ -18,9 +18,9 @@ public:
     void Destroy(sf::RenderWindow* window);
 
 protected:
-    bullet* bullet1;
-    player* player1;
-    enemyObject* enemy1;
+    Bullet* bullet1;
+    Player* player1;
+    EnemyObject* enemy1;
     sf::Font* font;
     sf::Text* pausedText;
     Utilities* util;

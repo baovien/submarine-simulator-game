@@ -2,11 +2,11 @@
 #ifndef VIETNAMESE_SPACE_PROGRAM_BULLET_ENTITY_H
 #define VIETNAMESE_SPACE_PROGRAM_BULLET_ENTITY_H
 
-class bullet_entity : public sf::Sprite
+class BulletEntity : public sf::Sprite
 {
 public:
     sf::Vector2f movement;
-    bullet_entity()
+    BulletEntity()
     {
         this->texture = new sf::Texture();
     }
@@ -20,11 +20,11 @@ public:
         this->move(this->movement);
     }
 
-    bool checkCollision(bullet_entity* entity)
+    bool checkCollision(BulletEntity* entity)
     {
         return this->getGlobalBounds().intersects(entity->getGlobalBounds());
     }
-    ~bullet_entity()
+    ~BulletEntity()
     {
         delete this->texture;
     }

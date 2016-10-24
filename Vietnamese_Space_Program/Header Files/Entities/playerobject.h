@@ -1,13 +1,13 @@
 #pragma once
 
-#include "player.h"
+#include "Player.h"
 #ifndef VIETNAMESE_SPACE_PROGRAM_PLAYEROBJECT_H
 #define VIETNAMESE_SPACE_PROGRAM_PLAYEROBJECT_H
 
-class playerObject : public player
+class PlayerObject : public Player
 {
 public:
-    playerObject(int playerNumber);
+    PlayerObject(int playerNumber);
     void Update();
 protected:
     int playerNumber;

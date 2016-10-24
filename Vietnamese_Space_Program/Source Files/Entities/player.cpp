@@ -1,7 +1,7 @@
 #include "../../Header Files/Entities/playerobject.h"
-#include "../../Header Files/Entities/bullet.h"
-//Initiater player, koden vår er satt opp for flere spillere så case 0 er spiller 1.
-playerObject::playerObject(int playerNumber)
+#include "../../Header Files/Entities/Bullet.h"
+//Initiater Player, koden vår er satt opp for flere spillere så case 0 er spiller 1.
+PlayerObject::PlayerObject(int playerNumber)
 {
     this->playerNumber  = playerNumber;
 
@@ -14,11 +14,11 @@ playerObject::playerObject(int playerNumber)
             break;
     }
 }
-//Update funksjonen har kontroll på bevegelsen til player 1.
-void playerObject::Update()
+//Update funksjonen har kontroll på bevegelsen til Player 1.
+void PlayerObject::Update()
 {
     bool up=0, down=0, left=0, right=0;
-    //Siden koden er laget for flere spillere må man spesifisere hvilken av spillerne som skal oppdateres. Case 0 er fortsatt player 1.
+    //Siden koden er laget for flere spillere må man spesifisere hvilken av spillerne som skal oppdateres. Case 0 er fortsatt Player 1.
     switch(this->playerNumber) {
         case 0:
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))left=1;
@@ -48,7 +48,7 @@ void playerObject::Update()
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
             {
-                //spawn bullet
+                //spawn Bullet
             }
 
 

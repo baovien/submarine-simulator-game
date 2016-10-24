@@ -5,7 +5,7 @@
 #ifndef VIETNAMESE_SPACE_PROGRAM_SCORE_H
 #define VIETNAMESE_SPACE_PROGRAM_SCORE_H
 
-class score {
+class Score {
 public:
     void loadScore();
 

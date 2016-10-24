@@ -3,7 +3,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "../Header Files/Core/state.h"
 #include "../Header Files/States/menu.h"
-#include "../Header Files/States/score.h"
+#include "../Header Files/States/Score.h"
 
 #include <fstream>
 
@@ -14,14 +14,14 @@ bool quitGame = false;
 
 int main() {
 
-    score sc;
+    Score sc;
     sc.loadScore();
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "Vietnamese Space Program"); // FULL HD OMG
     window.setVerticalSyncEnabled(true);
 
     coreState.SetWindow(&window);
-    coreState.SetState(new main_menu);
+    coreState.SetState(new MainMenu);
 
     sf::Clock timer;
     sf::Time elapsed;

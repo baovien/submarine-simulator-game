@@ -1,6 +1,6 @@
 #include <iostream>
 #include "../../Header Files/States/highscoreState.h"
-#include "../../Header Files/States/gamemode1.h"
+#include "../../Header Files/States/Gamemode1.h"
 #include "../../Header Files/States/menu.h"
 
 void highscoreState::Initialize(sf::RenderWindow *window) {
@@ -23,7 +23,7 @@ void highscoreState::Initialize(sf::RenderWindow *window) {
 void highscoreState::Update(sf::RenderWindow *window) {
 
     if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && this->enterKey){
-        coreState.SetState(new main_menu);
+        coreState.SetState(new MainMenu);
     }
 
     this->enterKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return);

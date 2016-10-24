@@ -1,19 +1,19 @@
-#include "../../Header Files/States/gamemode1.h"
+#include "../../Header Files/States/Gamemode1.h"
 #include "../../Header Files/States/menu.h"
 
-void gamemode1::Initialize(sf::RenderWindow *window) {
+void Gamemode1::Initialize(sf::RenderWindow *window) {
 
     util = new Utilities;
-    this->enemy1 = new enemyObject;
+    this->enemy1 = new EnemyObject;
     this->enemy1->setPosition(rand()%window->getSize().x, rand()%window->getSize().x);
 
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font.ttf");
 
-    this->player1 = new playerObject(0);
+    this->player1 = new PlayerObject(0);
     this->player1->setPosition(window->getPosition().x/2, window->getPosition().y/2);
     this->player1->setOrigin(this->player1->getGlobalBounds().width / 2, this->player1->getGlobalBounds().height / 2);
-    this->bullet1 = new bullet;
+    this->bullet1 = new Bullet;
     this->bullet1->setPosition(player1->getPosition().x, player1->getPosition().y - player1->getGlobalBounds().height / 2);
     this->bullet1->setOrigin(this->bullet1->getGlobalBounds().width / 2, this->bullet1->getGlobalBounds().height / 2);
 
@@ -24,11 +24,11 @@ void gamemode1::Initialize(sf::RenderWindow *window) {
     this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
 }
 
-void gamemode1::Update(sf::RenderWindow* window)
+void Gamemode1::Update(sf::RenderWindow* window)
 {
     if (util->paused && (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)))
     {   //Hvis spillet er pauset og escape trykkes går man til menyen
-        coreState.SetState(new main_menu());
+        coreState.SetState(new MainMenu());
     }
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
@@ -49,7 +49,7 @@ void gamemode1::Update(sf::RenderWindow* window)
     }
 }
 
-void gamemode1::Render(sf::RenderWindow *window) {
+void Gamemode1::Render(sf::RenderWindow *window) {
     window->draw(*this->bullet1);
     window->draw(*this->player1);
     window->draw(*this->enemy1);
@@ -60,7 +60,7 @@ void gamemode1::Render(sf::RenderWindow *window) {
     }
 }
 
-void gamemode1::Destroy(sf::RenderWindow *window) {
+void Gamemode1::Destroy(sf::RenderWindow *window) {
     delete this->bullet1;
     delete this->player1;
     delete this->enemy1;

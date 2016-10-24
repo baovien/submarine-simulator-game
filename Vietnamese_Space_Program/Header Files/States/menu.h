@@ -4,7 +4,7 @@
 #define VIETNAMESE_SPACE_PROGRAM_MENU_H
 #include "../Core/state.h"
 
-class main_menu : public states{
+class MainMenu : public States{
 public:
     void Initialize(sf::RenderWindow* window);
 

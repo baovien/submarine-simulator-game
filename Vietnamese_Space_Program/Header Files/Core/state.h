@@ -4,7 +4,7 @@
 #define VIETNAMESE_SPACE_PROGRAM_STATE_H
 #include <SFML/Graphics.hpp>
 
-class states
+class States
 {
 public:
     virtual void Initialize(sf::RenderWindow* window)
@@ -23,7 +23,7 @@ public:
     {
 
     }
-    ~states()
+    ~States()
     {
 
     }
@@ -40,7 +40,7 @@ public:
     {
         this->window = window;
     }
-    void SetState(states* state)
+    void SetState(States* state)
     {
         if(this->state != NULL)
         {
@@ -76,7 +76,7 @@ public:
     }
 private:
     sf::RenderWindow* window;
-    states* state;
+    States* state;
 };
 
 extern game_state coreState;
