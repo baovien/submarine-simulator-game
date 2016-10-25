@@ -5,7 +5,7 @@
 #include "../Core/state.h"
 #include "../../Header Files/Core/machine.h"
 
-class PlayConfigMenu : public States{
+class statePlayConfig : public States{
 public:
     void initialize(sf::RenderWindow *window);
 

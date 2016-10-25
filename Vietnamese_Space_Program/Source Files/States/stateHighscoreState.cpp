@@ -23,7 +23,7 @@ void stateHighscoreState::initialize(sf::RenderWindow *window) {
 void stateHighscoreState::update(sf::RenderWindow *window) {
 
     if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && this->enterKey){
-        machine.setState(new MainMenu);
+        machine.setState(new stateMainMenu);
     }
 
     this->enterKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return);

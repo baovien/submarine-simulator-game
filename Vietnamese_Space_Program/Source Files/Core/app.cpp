@@ -8,7 +8,7 @@ void App::run(){
     window.setVerticalSyncEnabled(true);
 
     machine.setWindow(&window);
-    machine.setState(new MainMenu);
+    machine.setState(new stateMainMenu);
 
     sf::Clock timer;
     sf::Time elapsed;

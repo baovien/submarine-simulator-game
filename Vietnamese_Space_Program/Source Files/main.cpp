@@ -3,8 +3,6 @@
 Machine machine;
 bool quitGame = false;
 
-
-
 int main() {
 
     App app;

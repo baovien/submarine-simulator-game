@@ -28,7 +28,7 @@ void stateGameMode1::update(sf::RenderWindow *window)
 {
     if (util->paused && (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)))
     {   //Hvis spillet er pauset og escape trykkes går man til menyen
-        machine.setState(new MainMenu());
+        machine.setState(new stateMainMenu());
     }
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {

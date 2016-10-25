@@ -5,7 +5,7 @@
 #include "../Core/state.h"
 #include "../../Header Files/Core/machine.h"
 
-class MainMenu : public States{
+class stateMainMenu : public States{
 public:
     void initialize(sf::RenderWindow *window);
 

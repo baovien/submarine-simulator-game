@@ -4,7 +4,7 @@
 #include "../../Header Files/States/statePlayConfig.h"
 #include "../../Header Files/States/stateSettings.h"
 
-void MainMenu::initialize(sf::RenderWindow *window) {
+void stateMainMenu::initialize(sf::RenderWindow *window) {
 
     this->selected = 0;
 
@@ -37,7 +37,7 @@ void MainMenu::initialize(sf::RenderWindow *window) {
 
 }
 
-void MainMenu::update(sf::RenderWindow *window) {
+void stateMainMenu::update(sf::RenderWindow *window) {
     //Vertical selection
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && !this->upKey){
         this->selected -= 1;
@@ -58,7 +58,7 @@ void MainMenu::update(sf::RenderWindow *window) {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && !this->enterKey){
         switch(this->selected){
             case 0: //Play
-                machine.setState(new PlayConfigMenu);
+                machine.setState(new statePlayConfig);
                 break;
             case 1: //Highscore
                 machine.setState(new stateHighscoreState);
@@ -78,7 +78,7 @@ void MainMenu::update(sf::RenderWindow *window) {
     this->enterKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return);
 }
 
-void MainMenu::render(sf::RenderWindow *window) {
+void stateMainMenu::render(sf::RenderWindow *window) {
 
     this->play->setFillColor(sf::Color::White);
     this->highscore->setFillColor(sf::Color::White);
@@ -112,7 +112,7 @@ void MainMenu::render(sf::RenderWindow *window) {
 
 }
 
-void MainMenu::destroy(sf::RenderWindow *window) {
+void stateMainMenu::destroy(sf::RenderWindow *window) {
     delete this->font;
     delete this->title;
     delete this->title2;

@@ -13,6 +13,9 @@ public:
     void setState(States *state);
     void update();
     void render();
+
+    bool keyPressed[sf::Keyboard::KeyCount];
+    bool keyReleased[sf::Keyboard::KeyCount];
 private:
     sf::RenderWindow* window;
     States* state;

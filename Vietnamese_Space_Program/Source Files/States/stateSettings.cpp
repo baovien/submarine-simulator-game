@@ -52,7 +52,7 @@ void stateSettings::initialize(sf::RenderWindow *window) {
 void stateSettings::update(sf::RenderWindow *window) {
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape) && !this->escKey){
-        machine.setState(new MainMenu);
+        machine.setState(new stateMainMenu);
     }
 
     //Vertical selection
@@ -106,7 +106,7 @@ void stateSettings::update(sf::RenderWindow *window) {
                 this->initialize(window);
                 break;
             case 3: //Back
-                machine.setState(new MainMenu);
+                machine.setState(new stateMainMenu);
                 break;
         }
     }
