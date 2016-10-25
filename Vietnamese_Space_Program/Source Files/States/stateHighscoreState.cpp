@@ -1,9 +1,9 @@
 #include <iostream>
-#include "../../Header Files/States/highscoreState.h"
-#include "../../Header Files/States/Gamemode1.h"
-#include "../../Header Files/States/menu.h"
+#include "../../Header Files/States/stateHighscoreState.h"
+#include "../../Header Files/States/stateGameMode1.h"
+#include "../../Header Files/States/stateMenu.h"
 
-void highscoreState::initialize(sf::RenderWindow *window) {
+void stateHighscoreState::initialize(sf::RenderWindow *window) {
 
     this->selected = 0;
 
@@ -20,16 +20,16 @@ void highscoreState::initialize(sf::RenderWindow *window) {
 
 }
 
-void highscoreState::update(sf::RenderWindow *window) {
+void stateHighscoreState::update(sf::RenderWindow *window) {
 
     if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && this->enterKey){
-        coreState.setState(new MainMenu);
+        machine.setState(new MainMenu);
     }
 
     this->enterKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return);
 }
 
-void highscoreState::render(sf::RenderWindow *window) {
+void stateHighscoreState::render(sf::RenderWindow *window) {
 
     this->title->setFillColor(sf::Color::Blue);
     this->back->setFillColor(sf::Color::Red);
@@ -39,7 +39,7 @@ void highscoreState::render(sf::RenderWindow *window) {
     window->draw(*this->back);
 }
 
-void highscoreState::destroy(sf::RenderWindow *window) {
+void stateHighscoreState::destroy(sf::RenderWindow *window) {
     delete this->font;
     delete this->title;
     delete this->back;

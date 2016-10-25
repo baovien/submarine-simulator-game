@@ -1,8 +1,8 @@
 #include <iostream>
-#include "../../Header Files/States/menu.h"
-#include "../../Header Files/States/highscoreState.h"
-#include "../../Header Files/States/playconfig.h"
-#include "../../Header Files/States/SettingsState.h"
+#include "../../Header Files/States/stateMenu.h"
+#include "../../Header Files/States/stateHighscoreState.h"
+#include "../../Header Files/States/statePlayConfig.h"
+#include "../../Header Files/States/stateSettings.h"
 
 void MainMenu::initialize(sf::RenderWindow *window) {
 
@@ -58,13 +58,13 @@ void MainMenu::update(sf::RenderWindow *window) {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && !this->enterKey){
         switch(this->selected){
             case 0: //Play
-                coreState.setState(new PlayconfigMenu);
+                machine.setState(new PlayConfigMenu);
                 break;
             case 1: //Highscore
-                coreState.setState(new highscoreState);
+                machine.setState(new stateHighscoreState);
                 break;
             case 2: //Options
-                coreState.setState(new SettingsState);
+                machine.setState(new stateSettings);
                 break;
             case 3: //Exit
                 quitGame = true;

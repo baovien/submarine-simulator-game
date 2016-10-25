@@ -1,9 +1,9 @@
 
-#include "../../Header Files/States/playconfig.h"
-#include "../../Header Files/States/Gamemode1.h"
-#include "../../Header Files/States/menu.h"
+#include "../../Header Files/States/statePlayConfig.h"
+#include "../../Header Files/States/stateGameMode1.h"
+#include "../../Header Files/States/stateMenu.h"
 
-void PlayconfigMenu::initialize(sf::RenderWindow *window)
+void PlayConfigMenu::initialize(sf::RenderWindow *window)
 {
     this->selected = 0;
     this->selected_Theme = 0;
@@ -91,11 +91,11 @@ void PlayconfigMenu::initialize(sf::RenderWindow *window)
 
 }
 
-void PlayconfigMenu::update(sf::RenderWindow *window)
+void PlayConfigMenu::update(sf::RenderWindow *window)
 {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape) && !this->escKey)
     {
-        coreState.setState(new MainMenu);
+        machine.setState(new MainMenu);
     }
     if(selected != 4){
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && !this->upKey){
@@ -177,10 +177,10 @@ void PlayconfigMenu::update(sf::RenderWindow *window)
 
     if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && this->enterKey){
         if(this->selected == 3) { //Start
-            coreState.setState(new Gamemode1);
+            machine.setState(new stateGameMode1);
         }
         if(this->selected == 4) { //Back
-            coreState.setState(new MainMenu);
+            machine.setState(new MainMenu);
         }
     }
 
@@ -193,7 +193,7 @@ void PlayconfigMenu::update(sf::RenderWindow *window)
 }
 
 
-void PlayconfigMenu::render(sf::RenderWindow *window)
+void PlayConfigMenu::render(sf::RenderWindow *window)
 {
     this->theme->setFillColor(sf::Color::White);
     this->fighter->setFillColor(sf::Color::White);
@@ -284,7 +284,7 @@ void PlayconfigMenu::render(sf::RenderWindow *window)
 
 }
 
-void PlayconfigMenu::destroy(sf::RenderWindow *window)
+void PlayConfigMenu::destroy(sf::RenderWindow *window)
 {
     delete this->theme;
     delete this->font;

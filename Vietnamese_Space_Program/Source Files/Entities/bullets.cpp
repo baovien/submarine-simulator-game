@@ -1,10 +1,10 @@
-#include "../../Header Files/Entities/Bullet.h"
-Bullet::Bullet()
+#include "../../Header Files/Entities/bullet.h"
+bullet::bullet()
 {
     this->load("Sprite_ammo.png");
 }
 
-void Bullet::bulletUpdate(float x, float y)
+void bullet::bulletUpdate(float x, float y)
 {
     this->setPosition(x, y);
 

@@ -3,8 +3,9 @@
 #define VIETNAMESE_SPACE_PROGRAM_PLAYCONFIG_H
 
 #include "../Core/state.h"
+#include "../../Header Files/Core/machine.h"
 
-class PlayconfigMenu : public States{
+class PlayConfigMenu : public States{
 public:
     void initialize(sf::RenderWindow *window);
 

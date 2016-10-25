@@ -1,10 +1,10 @@
-#include "../../Header Files/States/Score.h"
 #include <iostream>
+#include "../../Header Files/Core/score.h"
 #include <stdio.h>
 
 using namespace std;
 
-void Score::loadScore(){
+void score::loadScore(){
     file.open("Scorestatus.txt");
     file << "Heihei BAO BAO BAO BAO BAO BAO"<<endl;
     file.close();

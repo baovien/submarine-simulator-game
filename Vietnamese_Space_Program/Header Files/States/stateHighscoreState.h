@@ -2,9 +2,9 @@
 #define VIETNAMESE_SPACE_PROGRAM_HIGHSCORESTATE_H
 
 #include "../Core/state.h"
+#include "../../Header Files/Core/machine.h"
 
-
-class highscoreState : public States{
+class stateHighscoreState : public States{
 
 
 public:

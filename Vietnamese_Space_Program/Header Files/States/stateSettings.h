@@ -4,8 +4,9 @@
 #define VIETNAMESE_SPACE_PROGRAM_SETTINGSSTATE_H
 
 #include "../Core/state.h"
+#include "../../Header Files/Core/machine.h"
 
-class SettingsState : public States{
+class stateSettings : public States{
 public:
     void initialize(sf::RenderWindow *window);
 

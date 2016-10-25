@@ -1,5 +1,5 @@
 #pragma once
-#include "../Entities/enemy_entity.h"
+#include "enemyEntity.h"
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_ENEMY_H
 #define VIETNAMESE_SPACE_PROGRAM_ENEMY_H
