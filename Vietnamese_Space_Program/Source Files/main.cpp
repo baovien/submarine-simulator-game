@@ -7,8 +7,6 @@
 
 #include <fstream>
 
-using namespace std;
-
 game_state coreState;
 bool quitGame = false;
 
@@ -20,8 +18,8 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Vietnamese Space Program"); // FULL HD OMG
     window.setVerticalSyncEnabled(true);
 
-    coreState.SetWindow(&window);
-    coreState.SetState(new MainMenu);
+    coreState.setWindow(&window);
+    coreState.setState(new MainMenu);
 
     sf::Clock timer;
     sf::Time elapsed;
@@ -50,8 +48,8 @@ int main() {
         elapsed = timer.getElapsedTime();
         if(elapsed.asMicroseconds() > 16666){
             window.clear(sf::Color::Black);
-            coreState.Update();
-            coreState.Render();
+            coreState.update();
+            coreState.render();
             window.display();
 
             if(quitGame)

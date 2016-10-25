@@ -4,7 +4,7 @@
 #include "../../Header Files/States/playconfig.h"
 #include "../../Header Files/States/SettingsState.h"
 
-void MainMenu::Initialize(sf::RenderWindow *window) {
+void MainMenu::initialize(sf::RenderWindow *window) {
 
     this->selected = 0;
 
@@ -37,7 +37,7 @@ void MainMenu::Initialize(sf::RenderWindow *window) {
 
 }
 
-void MainMenu::Update(sf::RenderWindow *window) {
+void MainMenu::update(sf::RenderWindow *window) {
     //Vertical selection
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && !this->upKey){
         this->selected -= 1;
@@ -58,13 +58,13 @@ void MainMenu::Update(sf::RenderWindow *window) {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && !this->enterKey){
         switch(this->selected){
             case 0: //Play
-                coreState.SetState(new PlayconfigMenu);
+                coreState.setState(new PlayconfigMenu);
                 break;
             case 1: //Highscore
-                coreState.SetState(new highscoreState);
+                coreState.setState(new highscoreState);
                 break;
             case 2: //Options
-                coreState.SetState(new SettingsState);
+                coreState.setState(new SettingsState);
                 break;
             case 3: //Exit
                 quitGame = true;
@@ -78,7 +78,7 @@ void MainMenu::Update(sf::RenderWindow *window) {
     this->enterKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return);
 }
 
-void MainMenu::Render(sf::RenderWindow *window) {
+void MainMenu::render(sf::RenderWindow *window) {
 
     this->play->setFillColor(sf::Color::White);
     this->highscore->setFillColor(sf::Color::White);
@@ -112,7 +112,7 @@ void MainMenu::Render(sf::RenderWindow *window) {
 
 }
 
-void MainMenu::Destroy(sf::RenderWindow *window) {
+void MainMenu::destroy(sf::RenderWindow *window) {
     delete this->font;
     delete this->title;
     delete this->title2;

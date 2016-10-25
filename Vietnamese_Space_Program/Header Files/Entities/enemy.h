@@ -8,8 +8,8 @@ class EnemyObject : public EnemyEntity
 {
 public:
     EnemyObject();
-    void UpdateEnemy(sf::RenderWindow* window);
-    void Reset(sf::RenderWindow* window);
+    void updateEnemy(sf::RenderWindow *window);
+    void reset(sf::RenderWindow *window);
     ~EnemyObject();
 };
 

@@ -3,10 +3,10 @@
 
 EnemyObject::EnemyObject()
 {
-    this->Load("enemy.png");
+    this->load("enemy.png");
 }
 
-void EnemyObject::UpdateEnemy(sf::RenderWindow* window)
+void EnemyObject::updateEnemy(sf::RenderWindow *window)
 {
 
     if (this->getPosition().y < 0 || this->getPosition().y + this->getGlobalBounds().height > window->getSize().y)
@@ -36,10 +36,10 @@ void EnemyObject::UpdateEnemy(sf::RenderWindow* window)
         this->move(-1.0f, 0);
     }
 
-    EnemyEntity::UpdateEnemy();
+    EnemyEntity::updateEnemy();
 }
 
-void EnemyObject::Reset(sf::RenderWindow* window)
+void EnemyObject::reset(sf::RenderWindow *window)
 {
     this->velocity.x = 1.0f;
     this->velocity.y = 1.0f;

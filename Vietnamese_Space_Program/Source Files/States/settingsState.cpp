@@ -5,7 +5,7 @@
  * Init settingsState.
  * @param window
  */
-void SettingsState::Initialize(sf::RenderWindow *window) {
+void SettingsState::initialize(sf::RenderWindow *window) {
 
     this->selected = 0;
 
@@ -49,10 +49,10 @@ void SettingsState::Initialize(sf::RenderWindow *window) {
  * Update on keyevent, navigation through settings
  * @param window
  */
-void SettingsState::Update(sf::RenderWindow *window) {
+void SettingsState::update(sf::RenderWindow *window) {
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape) && !this->escKey){
-        coreState.SetState(new MainMenu);
+        coreState.setState(new MainMenu);
     }
 
     //Vertical selection
@@ -103,10 +103,10 @@ void SettingsState::Update(sf::RenderWindow *window) {
             case 2: //Apply
                 window->setSize(resChoice);
                 window->setView(sf::View(sf::FloatRect(0.f, 0.f, window->getSize().x, window->getSize().y)));
-                this->Initialize(window);
+                this->initialize(window);
                 break;
             case 3: //Back
-                coreState.SetState(new MainMenu);
+                coreState.setState(new MainMenu);
                 break;
         }
     }
@@ -122,7 +122,7 @@ void SettingsState::Update(sf::RenderWindow *window) {
  *
  * @param window
  */
-void SettingsState::Render(sf::RenderWindow *window) {
+void SettingsState::render(sf::RenderWindow *window) {
 
     this->screenRes->setFillColor(sf::Color::White);
     this->res1->setFillColor(sf::Color::White);
@@ -185,7 +185,7 @@ void SettingsState::Render(sf::RenderWindow *window) {
     window->draw(*this->back);
 }
 
-void SettingsState::Destroy(sf::RenderWindow *window) {
+void SettingsState::destroy(sf::RenderWindow *window) {
     delete this->font;
     delete this->title;
     delete this->screenRes;

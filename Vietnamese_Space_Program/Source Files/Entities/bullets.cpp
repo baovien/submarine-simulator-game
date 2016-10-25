@@ -1,7 +1,7 @@
 #include "../../Header Files/Entities/Bullet.h"
 Bullet::Bullet()
 {
-    this->Load("Sprite_ammo.png");
+    this->load("Sprite_ammo.png");
 }
 
 void Bullet::bulletUpdate(float x, float y)

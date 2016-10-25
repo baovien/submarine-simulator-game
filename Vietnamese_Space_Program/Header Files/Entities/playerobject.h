@@ -8,7 +8,7 @@ class PlayerObject : public Player
 {
 public:
     PlayerObject(int playerNumber);
-    void Update();
+    void update();
 protected:
     int playerNumber;
 };

@@ -1,7 +1,7 @@
 #include "../../Header Files/States/Gamemode1.h"
 #include "../../Header Files/States/menu.h"
 
-void Gamemode1::Initialize(sf::RenderWindow *window) {
+void Gamemode1::initialize(sf::RenderWindow *window) {
 
     util = new Utilities;
     this->enemy1 = new EnemyObject;
@@ -24,18 +24,18 @@ void Gamemode1::Initialize(sf::RenderWindow *window) {
     this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
 }
 
-void Gamemode1::Update(sf::RenderWindow* window)
+void Gamemode1::update(sf::RenderWindow *window)
 {
     if (util->paused && (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)))
     {   //Hvis spillet er pauset og escape trykkes går man til menyen
-        coreState.SetState(new MainMenu());
+        coreState.setState(new MainMenu());
     }
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
-        this->player1->Update();
+        this->player1->update();
         this->bullet1->bulletUpdate(player1->getPosition().x, player1->getPosition().y - player1->getGlobalBounds().height / 2);
-        this->enemy1->UpdateEnemy(window);
-        this->enemy1->Reset(window);
+        this->enemy1->updateEnemy(window);
+        this->enemy1->reset(window);
 
     }
 
@@ -49,7 +49,7 @@ void Gamemode1::Update(sf::RenderWindow* window)
     }
 }
 
-void Gamemode1::Render(sf::RenderWindow *window) {
+void Gamemode1::render(sf::RenderWindow *window) {
     window->draw(*this->bullet1);
     window->draw(*this->player1);
     window->draw(*this->enemy1);
@@ -60,7 +60,7 @@ void Gamemode1::Render(sf::RenderWindow *window) {
     }
 }
 
-void Gamemode1::Destroy(sf::RenderWindow *window) {
+void Gamemode1::destroy(sf::RenderWindow *window) {
     delete this->bullet1;
     delete this->player1;
     delete this->enemy1;

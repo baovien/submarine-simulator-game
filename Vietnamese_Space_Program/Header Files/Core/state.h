@@ -7,19 +7,19 @@
 class States
 {
 public:
-    virtual void Initialize(sf::RenderWindow* window)
+    virtual void initialize(sf::RenderWindow *window)
     {
 
     }
-    virtual void Update(sf::RenderWindow* window)
+    virtual void update(sf::RenderWindow *window)
     {
 
     }
-    virtual void Render(sf::RenderWindow* window)
+    virtual void render(sf::RenderWindow *window)
     {
 
     }
-    virtual void Destroy(sf::RenderWindow* window)
+    virtual void destroy(sf::RenderWindow *window)
     {
 
     }
@@ -36,42 +36,42 @@ public:
     {
         this->state = NULL;
     }
-    void SetWindow(sf::RenderWindow* window)
+    void setWindow(sf::RenderWindow *window)
     {
         this->window = window;
     }
-    void SetState(States* state)
+    void setState(States *state)
     {
         if(this->state != NULL)
         {
-            this->state->Destroy(this->window);
+            this->state->destroy(this->window);
         }
         this->state = state;
         if(this->state != NULL)
         {
-            this->state->Initialize(this->window);
+            this->state->initialize(this->window);
         }
     }
 
-    void Update()
+    void update()
     {
         if(this->state != NULL)
         {
-            this->state->Update(this->window);
+            this->state->update(this->window);
         }
     }
-    void Render()
+    void render()
     {
         if(this->state != NULL)
         {
-            this->state->Render(this->window);
+            this->state->render(this->window);
         }
     }
     ~game_state()
     {
         if(this->state != NULL)
         {
-            this->state->Destroy(this->window);
+            this->state->destroy(this->window);
         }
     }
 private:

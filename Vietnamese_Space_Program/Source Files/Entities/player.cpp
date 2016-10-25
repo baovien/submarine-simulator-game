@@ -8,14 +8,14 @@ PlayerObject::PlayerObject(int playerNumber)
     switch(this->playerNumber)
     {
         case 0:
-            this->Load("Sprite_ship_1.png");
+            this->load("Sprite_ship_1.png");
             break;
         default:
             break;
     }
 }
-//Update funksjonen har kontroll på bevegelsen til Player 1.
-void PlayerObject::Update()
+//update funksjonen har kontroll på bevegelsen til Player 1.
+void PlayerObject::update()
 {
     bool up=0, down=0, left=0, right=0;
     //Siden koden er laget for flere spillere må man spesifisere hvilken av spillerne som skal oppdateres. Case 0 er fortsatt Player 1.
@@ -57,7 +57,7 @@ void PlayerObject::Update()
 
     }
     //Denne funksjonen passer på at flyet ikke kan fly ut av vinduet.
-    Entity::Update();
+    Entity::update();
 
     if(this->getPosition().y - this->getGlobalBounds().height/2 < 0)
     {

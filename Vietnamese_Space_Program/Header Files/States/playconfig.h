@@ -6,13 +6,13 @@
 
 class PlayconfigMenu : public States{
 public:
-    void Initialize(sf::RenderWindow* window);
+    void initialize(sf::RenderWindow *window);
 
-    void Update(sf::RenderWindow* window);
+    void update(sf::RenderWindow *window);
 
-    void Render(sf::RenderWindow* window);
+    void render(sf::RenderWindow *window);
 
-    void Destroy(sf::RenderWindow* window);
+    void destroy(sf::RenderWindow *window);
 
 private:
     sf::Font* font;

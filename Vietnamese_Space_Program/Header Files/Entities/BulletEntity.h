@@ -10,12 +10,12 @@ public:
     {
         this->texture = new sf::Texture();
     }
-    void Load(std::string filename)
+    void load(std::string filename)
     {
         this->texture->loadFromFile("Graphics/Sprites/" + filename);
         this->setTexture(*this->texture);
     }
-    virtual void Update()
+    virtual void update()
     {
         this->move(this->movement);
     }
