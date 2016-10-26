@@ -1,23 +1,26 @@
 #include "../../Header Files/Entities/player.h"
+#include <iostream>
 //Initiater player, koden vår er satt opp for flere spillere så case 0 er spiller 1.
-Player::Player(float x, float y)
+Player::Player(EntityManager* manager, float x, float y)
 {
     this->load("Sprite_ship_1.png");
     this->active = 1;
     this->groupId =1;
+    this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
     this->setPosition(x, y);
+    this->manager = manager;
+    this->space = false;
 }
-//update funksjonen har kontroll på bevegelsen til player 1.
-void Player::updatePlayer()
+//update funksjonen har kontroll på bevegelsen til player.
+void Player::update(sf::RenderWindow *window)
 {
-    bool up=0, down=0, left=0, right=0;
-
+    up=0,down=0,left=0,right=0;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))left=1;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))right=1;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))up=1;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))down=1;
 
-            //Bevegelse
+    //Bevegelse
     if (up && speed < maxSpeed)
     {
         if (speed < 0) speed += dec;
@@ -40,13 +43,19 @@ void Player::updatePlayer()
     }
     if (right && speed != 0) angle += turnspeed * speed/maxSpeed;
     if (left && speed != 0) angle -= turnspeed * speed/maxSpeed;
+    this->move(sin(angle) * speed, -cos(angle)*speed);
+    this->setRotation(angle*180/3.141592);
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+
+    // this->velocity.x = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
+    if(!this->space && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
     {
-        //spawn bullet
+        std::cout << "FUNKER DETTE ????" << std::endl;
+        this->manager->addEntity("bullet", new Bullet(this->getPosition().x, this->getPosition().y, -1));
     }
+    this->space = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
+    Entity::update(window);
 
-    Entity::update();
     if(this->getPosition().y + this->getGlobalBounds().height/2 < 0)
     {
         this->setPosition(this->getPosition().x, 720 + this->getGlobalBounds().height);

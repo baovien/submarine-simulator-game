@@ -14,6 +14,7 @@ void stateGameMode1::initialize(sf::RenderWindow *window) {
     this->font->loadFromFile("Graphics/font.ttf");
 
     this->enemy1->setPosition(rand()%1280, rand()%720);
+    this->manager.addEntity("ship", new Player(&this->manager, window->getSize().x /2, window->getSize().y/2));
 
     this->pausedText = new sf::Text("Paused\nPress Escape to Quit", *font, 32U);
     this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2, this->pausedText->getGlobalBounds().height / 2);
@@ -24,7 +25,7 @@ void stateGameMode1::update(sf::RenderWindow *window)
 {
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
-        this->manager.updateEntity();
+        this->manager.updateEntity(window);
         this->enemy1->updateEnemy(window);
         this->enemy1->reset(window);
 

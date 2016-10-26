@@ -29,10 +29,13 @@ Entity* EntityManager::getEntity(std::string name)
     {
         return NULL;
     }
-    return this->entities.find(name)->second;
+    else
+    {
+        return found->second;
+    }
 }
 
-void EntityManager::updateEntity()
+void EntityManager::updateEntity(sf::RenderWindow *window)
 {
     std::vector<std::string> toRemove;
     //Denne går gjennom våre enteties og får typen vår entity er, og oppdaterer våre entities.
@@ -54,7 +57,7 @@ void EntityManager::updateEntity()
                 toRemove.push_back(iterator.first);
                 break;
             default:
-                iterator.second->update();
+                iterator.second->update(window);
                 break;
         }
 

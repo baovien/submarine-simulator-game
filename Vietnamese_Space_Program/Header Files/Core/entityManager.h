@@ -4,6 +4,7 @@
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_ENTITYMANAGER_H
 #define VIETNAMESE_SPACE_PROGRAM_ENTITYMANAGER_H
+
 class EntityManager
 {
 public:
@@ -12,7 +13,7 @@ public:
 
     Entity* getEntity(std::string name);
     void addEntity(std::string name, Entity* entity);
-    void updateEntity();
+    void updateEntity(sf::RenderWindow *window);
     void renderEntity(sf::RenderWindow *window);
 
 

@@ -15,7 +15,7 @@ set(SOURCE_FILES Graphics
         "Source Files/States/stateSettings.cpp" "Header Files/States/stateSettings.h"
         "Header Files/Core/util.h"
         "Source Files/Entities/enemy.cpp" "Header Files/Entities/enemy.h" "Header Files/Entities/enemyEntity.h"
-        "Source Files/Core/app.cpp" "Header Files/Core/app.h" "Source Files/Core/machine.cpp" "Header Files/Core/machine.h" "Header Files/Core/entityManager.h" "Source Files/Core/entityManager.cpp")
+        "Source Files/Core/app.cpp" "Header Files/Core/app.h" "Source Files/Core/machine.cpp" "Header Files/Core/machine.h" "Header Files/Core/entityManager.h" "Source Files/Core/entityManager.cpp" "Header Files/Entities/bullet.h" "Source Files/Entities/bullet.cpp" "Source Files/Core/entity.cpp")
 
 add_executable(Vietnamese_Space_Program ${SOURCE_FILES})
 
