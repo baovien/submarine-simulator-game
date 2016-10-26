@@ -3,7 +3,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "../../Header Files/Core/state.h"
-#include "../States/stateMenu.h"
+#include "../States/stateMainMenu.h"
 #include "score.h"
 
 

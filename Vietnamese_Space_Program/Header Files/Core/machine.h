@@ -14,7 +14,7 @@ public:
     void update();
     void render();
 
-    bool keyPressed[sf::Keyboard::KeyCount];
+    bool keyPressed[sf::Keyboard::KeyCount];    //For å beholde tastetrykk til pollEventet i App
     bool keyReleased[sf::Keyboard::KeyCount];
 private:
     sf::RenderWindow* window;

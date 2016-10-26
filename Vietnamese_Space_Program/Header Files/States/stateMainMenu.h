@@ -26,7 +26,5 @@ private:
 
     int selected;
     unsigned int textSize = 32U;
-
-    bool upKey, downKey, enterKey;
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_MENU_H

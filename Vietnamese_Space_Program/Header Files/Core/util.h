@@ -8,20 +8,10 @@
 class Utilities{
 public:
 bool paused = false;
-bool pReleased = true;
 
 void pauseScreen(){
     //Funksjonen setter og fjerner pause
-    if(paused && pReleased)
-    {
-            paused = false;
-            pReleased = false;
-    }
-    else if(!paused && pReleased)
-    {
-        pReleased = false;
-        paused = true;
-    }
+    paused = !paused;
 }
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_UTIL_H

@@ -1,7 +1,10 @@
+#include <cstring>
 #include "../../Header Files/States/stateGameMode1.h"
-#include "../../Header Files/States/stateMenu.h"
+#include "../../Header Files/States/stateMainMenu.h"
 
 void stateGameMode1::initialize(sf::RenderWindow *window) {
+
+    memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
 
     util = new Utilities;
     this->enemy1 = new EnemyObject;
@@ -26,10 +29,6 @@ void stateGameMode1::initialize(sf::RenderWindow *window) {
 
 void stateGameMode1::update(sf::RenderWindow *window)
 {
-    if (util->paused && (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)))
-    {   //Hvis spillet er pauset og escape trykkes går man til menyen
-        machine.setState(new stateMainMenu());
-    }
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
         this->player1->update();
@@ -38,14 +37,14 @@ void stateGameMode1::update(sf::RenderWindow *window)
         this->enemy1->reset(window);
 
     }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+        machine.setState(new stateMainMenu());
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P))
+
+    if (machine.keyPressed[sf::Keyboard::P])
     {
+        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         util->pauseScreen();                        //Kaller pausefunksjonen
-    }
-    if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P) && util->pReleased == false)
-    { //Sjekker når P slippes, slik at man ikke toggler pause når man holder P inne
-        util->pReleased = true;
     }
 }
 

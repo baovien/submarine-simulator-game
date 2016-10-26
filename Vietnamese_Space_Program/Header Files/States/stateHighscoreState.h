@@ -23,7 +23,6 @@ private:
 
     int selected;
 
-    bool enterKey;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_HIGHSCORESTATE_H

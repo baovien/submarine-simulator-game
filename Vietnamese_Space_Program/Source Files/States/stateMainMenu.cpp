@@ -1,10 +1,12 @@
 #include <iostream>
-#include "../../Header Files/States/stateMenu.h"
+#include <cstring>
+#include "../../Header Files/States/stateMainMenu.h"
 #include "../../Header Files/States/stateHighscoreState.h"
 #include "../../Header Files/States/statePlayConfig.h"
 #include "../../Header Files/States/stateSettings.h"
-
 void stateMainMenu::initialize(sf::RenderWindow *window) {
+
+    memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
 
     this->selected = 0;
 
@@ -39,12 +41,14 @@ void stateMainMenu::initialize(sf::RenderWindow *window) {
 
 void stateMainMenu::update(sf::RenderWindow *window) {
     //Vertical selection
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && !this->upKey){
+    if(machine.keyPressed[sf::Keyboard::Up]){
         this->selected -= 1;
+        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
     }
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) && !this->downKey){
+    if(machine.keyPressed[sf::Keyboard::Down]){
         this->selected += 1;
+        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
     }
     //Vertical selection bounds
     if(this->selected > 3){
@@ -55,8 +59,9 @@ void stateMainMenu::update(sf::RenderWindow *window) {
         this->selected = 3;
     }
     //Stateswitch on enter
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && !this->enterKey){
-        switch(this->selected){
+    if(machine.keyPressed[sf::Keyboard::Return]){
+        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
+        switch(this->selected) {
             case 0: //Play
                 machine.setState(new statePlayConfig);
                 break;
@@ -71,11 +76,6 @@ void stateMainMenu::update(sf::RenderWindow *window) {
                 break;
         }
     }
-
-    this->enterKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return);
-    this->upKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up);
-    this->downKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down);
-    this->enterKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return);
 }
 
 void stateMainMenu::render(sf::RenderWindow *window) {

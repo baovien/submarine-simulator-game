@@ -1,4 +1,13 @@
+#include <cstring>
 #include "../../Header Files/Core/app.h"
+
+//Tastetrykk som kun skal registreres én gang:
+//if(machine.keyPressed[sf::Keyboard:::DinTast])
+// {
+//memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
+//KODE
+//}
+//om du skal triggere det på release bruker du bare keyReleased istedet for keyPressed
 
 void App::run(){
     score sc;
@@ -6,6 +15,7 @@ void App::run(){
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "Vietnamese Space Program"); // FULL HD OMG
     window.setVerticalSyncEnabled(true);
+    window.setKeyRepeatEnabled(false);
 
     machine.setWindow(&window);
     machine.setState(new stateMainMenu);
@@ -28,6 +38,11 @@ void App::run(){
             if(event.type == sf::Event::Resized){
                 window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
             }
+            if (event.type == sf::Event::KeyPressed)                    //Array som inneholder alle taster.
+                machine.keyPressed[event.key.code] = true;              //De er her for å lagre tastetrykk og slipp uten
+                                                                        //å måtte ha alt inne i pollEventet.
+            if (event.type == sf::Event::KeyReleased)                   //De opprettes i machine.h
+                machine.keyReleased[event.key.code] = true;
         }
 
         /**

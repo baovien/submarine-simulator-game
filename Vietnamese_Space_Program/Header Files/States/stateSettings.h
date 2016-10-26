@@ -33,7 +33,6 @@ private:
     int selected, selectedRes;
     unsigned int textSize = 32U;
 
-    bool upKey, downKey, leftKey, rightKey, enterKey, escKey;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_SETTINGSSTATE_H

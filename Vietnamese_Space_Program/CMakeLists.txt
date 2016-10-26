@@ -6,7 +6,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -pedantic")
 set(SOURCE_FILES Graphics
         "Source Files/main.cpp"
         "Source Files/Entities/player.cpp" "Header Files/Entities/player.h"
-        "Source Files/States/stateMenu.cpp" "Header Files/States/stateMenu.h"
+        "Source Files/States/stateMainMenu.cpp" "Header Files/States/stateMainMenu.h"
         "Header Files/Core/state.h" "Header Files/Core/entity.h"
         "Header Files/Entities/playerobject.h"
         "Source Files/States/stateGameMode1.cpp" "Header Files/States/stateGameMode1.h"

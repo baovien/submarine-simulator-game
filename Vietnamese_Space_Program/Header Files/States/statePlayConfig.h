@@ -39,7 +39,6 @@ private:
 
     int selected, selected_Theme, selected_Fighter, selected_Gamemode;
     unsigned int textSize = 20U;
-    bool upKey, downKey, leftKey, rightKey, enterKey, escKey;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_PLAYCONFIG_H

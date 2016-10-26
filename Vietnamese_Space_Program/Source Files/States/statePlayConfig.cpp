@@ -1,10 +1,13 @@
 
+#include <cstring>
 #include "../../Header Files/States/statePlayConfig.h"
 #include "../../Header Files/States/stateGameMode1.h"
-#include "../../Header Files/States/stateMenu.h"
+#include "../../Header Files/States/stateMainMenu.h"
 
 void statePlayConfig::initialize(sf::RenderWindow *window)
 {
+    memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
+
     this->selected = 0;
     this->selected_Theme = 0;
     this->selected_Fighter = 0;
@@ -93,31 +96,37 @@ void statePlayConfig::initialize(sf::RenderWindow *window)
 
 void statePlayConfig::update(sf::RenderWindow *window)
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape) && !this->escKey)
+    if(machine.keyPressed[sf::Keyboard::Escape])
     {
+        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         machine.setState(new stateMainMenu);
     }
     if(selected != 4){
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && !this->upKey){
+        if(machine.keyPressed[sf::Keyboard::Up]){
+            memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
             this->selected -= 1;
         }
     }
 
     if(this->selected < 3){
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) && !this->downKey){
+        if(machine.keyPressed[sf::Keyboard::Down]){
+            memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
             this->selected += 1;
         }
     }
     if(this->selected == 3){ // Start
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) && !this->rightKey){
+        if(machine.keyPressed[sf::Keyboard::Right]){
+            memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
             this->selected += 1;
         }
     }
     if(this->selected == 4){ // Back
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) && !this->leftKey){
+        if(machine.keyPressed[sf::Keyboard::Left]){
+            memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
             this->selected -= 1;
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && !this->upKey){
+        if(machine.keyPressed[sf::Keyboard::Up]){
+            memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
             this->selected = 2;
         }
     }
@@ -131,10 +140,12 @@ void statePlayConfig::update(sf::RenderWindow *window)
     }
 
     if(this->selected == 0) { //Theme
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) && !this->leftKey) {
+        if (machine.keyPressed[sf::Keyboard::Left]) {
+            memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
             this->selected_Theme -= 1;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) && !this->rightKey) {
+        if (machine.keyPressed[sf::Keyboard::Right]) {
+            memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
             this->selected_Theme += 1;
         }
         if (this->selected_Theme > 2) {
@@ -146,10 +157,12 @@ void statePlayConfig::update(sf::RenderWindow *window)
     }
 
     if(this->selected == 1){ //Fighter
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) && !this->leftKey) {
+        if (machine.keyPressed[sf::Keyboard::Left]) {
+            memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
             this->selected_Fighter -= 1;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) && !this->rightKey) {
+        if (machine.keyPressed[sf::Keyboard::Right]) {
+            memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
             this->selected_Fighter += 1;
         }
         if (this->selected_Fighter < 0) {
@@ -160,10 +173,12 @@ void statePlayConfig::update(sf::RenderWindow *window)
         }
     }
     if(this->selected == 2){ //Gamemode
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) && !this->leftKey) {
+        if (machine.keyPressed[sf::Keyboard::Left]) {
+            memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
             this->selected_Gamemode -= 1;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) && !this->rightKey) {
+        if (machine.keyPressed[sf::Keyboard::Right]) {
+            memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
             this->selected_Gamemode += 1;
         }
         if (this->selected_Gamemode < 0) {
@@ -175,7 +190,8 @@ void statePlayConfig::update(sf::RenderWindow *window)
     }
 
 
-    if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && this->enterKey){
+    if(machine.keyPressed[sf::Keyboard::Return]){
+        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         if(this->selected == 3) { //Start
             machine.setState(new stateGameMode1);
         }
@@ -184,12 +200,6 @@ void statePlayConfig::update(sf::RenderWindow *window)
         }
     }
 
-    this->escKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape);
-    this->enterKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return);
-    this->upKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up);
-    this->downKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down);
-    this->leftKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
-    this->rightKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right);
 }
 
 

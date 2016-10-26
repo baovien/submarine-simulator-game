@@ -1,11 +1,15 @@
 #include "../../Header Files/States/stateSettings.h"
-#include "../../Header Files/States/stateMenu.h"
+#include "../../Header Files/States/stateMainMenu.h"
+
+#include <cstring>
 
 /**
  * Init settingsState.
  * @param window
  */
 void stateSettings::initialize(sf::RenderWindow *window) {
+
+    memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
 
     this->selected = 0;
 
@@ -51,16 +55,19 @@ void stateSettings::initialize(sf::RenderWindow *window) {
  */
 void stateSettings::update(sf::RenderWindow *window) {
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape) && !this->escKey){
+    if(machine.keyPressed[sf::Keyboard::Return]){
+        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         machine.setState(new stateMainMenu);
     }
 
     //Vertical selection
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && !this->upKey){
+    if(machine.keyPressed[sf::Keyboard::Up]){
+        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         this->selected -= 1;
     }
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) && !this->downKey){
+    if(machine.keyPressed[sf::Keyboard::Down]){
+        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         this->selected += 1;
     }
 
@@ -75,11 +82,13 @@ void stateSettings::update(sf::RenderWindow *window) {
     //Horizontal selection resolution
     
     if(this->selected == 0){
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) && !this->leftKey){
+        if(machine.keyPressed[sf::Keyboard::Left]){
+            memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
             this->selectedRes -= 1;
         }
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) && !this->rightKey){
+        if(machine.keyPressed[sf::Keyboard::Right]){
+            memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
             this->selectedRes += 1;
         }
 
@@ -94,7 +103,8 @@ void stateSettings::update(sf::RenderWindow *window) {
     
     //Selection on returnkey
 
-    if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && this->enterKey){
+    if(machine.keyPressed[sf::Keyboard::Return]){
+        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         switch(this->selected){
             case 0: //Screenres
                 break;
@@ -111,12 +121,6 @@ void stateSettings::update(sf::RenderWindow *window) {
         }
     }
 
-    this->upKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up);
-    this->downKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down);
-    this->leftKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
-    this->rightKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right);
-    this->enterKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return);
-    this->escKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape);
 }
 /**
  *
