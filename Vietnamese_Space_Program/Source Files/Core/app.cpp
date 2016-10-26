@@ -13,7 +13,7 @@ void App::run(){
     score sc;
     sc.loadScore();
 
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Vietnamese Space Program"); // FULL HD OMG
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "Vietnamese Space Program"); // FULL HD OMG
     window.setVerticalSyncEnabled(true);
     window.setKeyRepeatEnabled(false);
 

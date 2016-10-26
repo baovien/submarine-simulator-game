@@ -8,7 +8,6 @@ set(SOURCE_FILES Graphics
         "Source Files/Entities/player.cpp" "Header Files/Entities/player.h"
         "Source Files/States/stateMainMenu.cpp" "Header Files/States/stateMainMenu.h"
         "Header Files/Core/state.h" "Header Files/Core/entity.h"
-        "Header Files/Entities/playerobject.h"
         "Source Files/States/stateGameMode1.cpp" "Header Files/States/stateGameMode1.h"
         "Header Files/States/stateHighscoreState.h" "Source Files/States/stateHighscoreState.cpp"
         "Source Files/Core/score.cpp" "Header Files/Core/score.h"
@@ -16,7 +15,7 @@ set(SOURCE_FILES Graphics
         "Source Files/States/stateSettings.cpp" "Header Files/States/stateSettings.h"
         "Header Files/Core/util.h"
         "Source Files/Entities/enemy.cpp" "Header Files/Entities/enemy.h" "Header Files/Entities/enemyEntity.h"
-        "Header Files/Entities/bullet.h" "Header Files/Entities/bulletEntity.h" "Source Files/Entities/bullets.cpp" "Source Files/Core/app.cpp" "Header Files/Core/app.h" "Source Files/Core/machine.cpp" "Header Files/Core/machine.h")
+        "Source Files/Core/app.cpp" "Header Files/Core/app.h" "Source Files/Core/machine.cpp" "Header Files/Core/machine.h" "Header Files/Core/entityManager.h" "Source Files/Core/entityManager.cpp")
 
 add_executable(Vietnamese_Space_Program ${SOURCE_FILES})
 

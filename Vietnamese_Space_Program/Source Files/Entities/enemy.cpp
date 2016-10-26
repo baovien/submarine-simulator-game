@@ -4,6 +4,9 @@
 EnemyObject::EnemyObject()
 {
     this->load("enemy.png");
+
+    this->velocity.x = 5.0f;
+    this->velocity.y = 5.0f;
 }
 
 void EnemyObject::updateEnemy(sf::RenderWindow *window)
@@ -41,8 +44,6 @@ void EnemyObject::updateEnemy(sf::RenderWindow *window)
 
 void EnemyObject::reset(sf::RenderWindow *window)
 {
-    this->velocity.x = 1.0f;
-    this->velocity.y = 1.0f;
 }
 
 EnemyObject::~EnemyObject()

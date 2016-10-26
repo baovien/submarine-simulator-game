@@ -4,9 +4,8 @@
 #include "../Core/util.h"
 #include "../../Header Files/Core/machine.h"
 #include "../Entities/player.h"
-#include "../Entities/playerobject.h"
 #include "../Entities/enemy.h"
-#include "../Entities/bullet.h"
+#include "../Core/entityManager.h"
 #ifndef VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
 #define VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
 
@@ -19,12 +18,11 @@ public:
     void destroy(sf::RenderWindow *window);
 
 protected:
-    bullet* bullet1;
-    player* player1;
     EnemyObject* enemy1;
     sf::Font* font;
     sf::Text* pausedText;
     Utilities* util;
+    EntityManager manager;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
