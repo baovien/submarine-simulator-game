@@ -1,10 +1,23 @@
+#include <iostream>
 #include "../../Header Files/Core/entityManager.h"
+
+
+/**
+ *
+ * Når du lager en ny entity må du definere gruppe ID til entitien.
+ *
+ * Player GroupID = 1
+ * Bullet GroupID = 3
+ * Enemies  GroupID = 4
+ *
+ * @return
+ */
+
 
 EntityManager::EntityManager()
 {
 
 }
-
 void EntityManager::addEntity(std::string name, Entity *entity)
 {
     // uordnet map iterator, denne skal brukes for å lete gjennom alle våre entities.
@@ -57,7 +70,7 @@ void EntityManager::updateEntity(sf::RenderWindow *window)
                 toRemove.push_back(iterator.first);
                 break;
             default:
-                iterator.second->update(window);
+                iterator.second->updateEntity(window);
                 break;
         }
 

@@ -9,7 +9,7 @@ class EnemyObject : public Entity
 {
 public:
     EnemyObject(float x, float y, float direction);
-    void updateEnemy(sf::RenderWindow *window);
+    void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
 
 private:

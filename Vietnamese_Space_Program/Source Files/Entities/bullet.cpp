@@ -1,30 +1,37 @@
 #include "../../Header Files/Entities/bullet.h"
-Bullet::Bullet(float x, float y, float direction)
+#include <iostream>
+Bullet::Bullet(float x, float y, float direction, float direction2)
 {
     this->active = 1;
     this->groupId = 3;
     this->load("Sprite_ammo.png");
-    this->velocity.y = 10;
-    this->setPosition(400,400);
+    this->velocity.y = direction;
+    this->velocity.x = direction2;
+    this->setPosition(x - this->getGlobalBounds().width/2, y - this->getGlobalBounds().height/2);
+    // this->setScale(0.5,0.5);
+
 
 }
-void Bullet::updateBullet(sf::RenderWindow *window)
+void Bullet::updateEntity(sf::RenderWindow *window)
 {
-    if(this->getPosition().x <= 0 || this->getPosition().x + this->getGlobalBounds().width >= window->getSize().x)
+    if(this->getPosition().x < 0 || this->getPosition().x > window->getSize().x || this->getPosition().y < 0 || this->getPosition().y > window->getSize().y)
     {
+        std::cout << "Helo helo" << std::endl;
         this->destroyEntity();
     }
-    Entity::update(window);
+    Entity::updateEntity(window);
 }
 
 void Bullet::collision(Entity *entity)
 {
     switch(entity->groupID())
     {
-        case 3:
+        case 4: //Enemies
+            this->destroyEntity();
+        std::cout << "Bullet destroyed";
             break;
         default:
-            this->destroyEntity();
+            // this->destroyEntity();
             break;
     }
 

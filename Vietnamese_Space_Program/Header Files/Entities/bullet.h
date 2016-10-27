@@ -1,14 +1,13 @@
-#include "../Core/entity.h"
-#include "enemy.h"
 #include "../Core/entityManager.h"
+#include "enemy.h"
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_BULLET_H
 #define VIETNAMESE_SPACE_PROGRAM_BULLET_H
 class Bullet : public Entity
 {
 public:
-    Bullet(float x, float y, float direction);
-    void updateBullet(sf::RenderWindow *window);
+    Bullet(float x, float y, float direction, float direction2);
+    void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
 private:
 };

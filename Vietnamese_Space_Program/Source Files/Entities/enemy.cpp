@@ -13,13 +13,13 @@ EnemyObject::EnemyObject(float x, float y, float direction)
 
 }
 //update funksjonen har kontroll på bevegelsen til player.
-void EnemyObject::updateEnemy(sf::RenderWindow *window)
+void EnemyObject::updateEntity(sf::RenderWindow *window)
 {
     if(this->getPosition().x <= 0)
     {
         this->destroyEntity();
     }
-    Entity::update(window);
+    Entity::updateEntity(window);
     this->setRotation(2+rand() % 1);
 }
 //Her sjekker vi om fienden blir skutt av kuler.
@@ -27,9 +27,7 @@ void EnemyObject::collision(Entity* entity)
 {
     switch(entity->groupID())
     {
-        case 0:
-            break;
-        case 3:
+        case 3: //Bullets
             this->destroyEntity();
             break;
     }

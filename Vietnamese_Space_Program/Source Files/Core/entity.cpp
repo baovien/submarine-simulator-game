@@ -10,7 +10,7 @@ void Entity::load(std::string filename)
     this->texture->loadFromFile("Graphics/Sprites/" + filename);
     this->setTexture(*this->texture);
 }
-void Entity::update(sf::RenderWindow *window)
+void Entity::updateEntity(sf::RenderWindow *window)
 {
     this->move(this->velocity);
 }

@@ -10,7 +10,7 @@ class Entity : public sf::Sprite
 public:
     Entity();
     void load(std::string filename);
-    virtual void update(sf::RenderWindow *window);
+    virtual void updateEntity(sf::RenderWindow *window);
     bool checkCollision(Entity* entity);
     virtual void collision(Entity* entity);
     int activeEntity();

@@ -1,9 +1,10 @@
 #include "../../Header Files/Entities/player.h"
 #include "../../Header Files/Core/app.h"
+
 //Initiater player, koden vår er satt opp for flere spillere så case 0 er spiller 1.
 Player::Player(EntityManager* manager, float x, float y)
 {
-    this->load("Sprite_ship_1.png");
+    this->load("fighter3_green_big_test.png");
     this->active = 1;
     this->groupId =1;
     this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
@@ -11,9 +12,10 @@ Player::Player(EntityManager* manager, float x, float y)
     this->manager = manager;
     this->space = false;
 
+   //  this->setScale(0.5,0.5);
 }
 //update funksjonen har kontroll på bevegelsen til player.
-void Player::update(sf::RenderWindow *window)
+void Player::updateEntity(sf::RenderWindow *window)
 {
     up=0,down=0,left=0,right=0;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))left=1;
@@ -47,12 +49,11 @@ void Player::update(sf::RenderWindow *window)
     this->move(sin(angle) * speed, -cos(angle)*speed);
     this->setRotation(angle*180/3.141592);
 
-
     // this->velocity.x = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
     if(!this->space && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
     {
         std::cout << "FUNKER DETTE ????" << std::endl;
-        this->manager->addEntity("bullet", new Bullet(this->getPosition().x, this->getPosition().y, -1));
+        this->manager->addEntity("bullet", new Bullet(this->getPosition().x + ((this->getGlobalBounds().height)/2)*sin(angle) , this->getPosition().y - (this->getGlobalBounds().height/2)*cos(angle)  , -cos(angle)*15, sin(angle)*15));
     }
 
     //Spawne enemy ved å trykke på N knappen
@@ -64,7 +65,7 @@ void Player::update(sf::RenderWindow *window)
     this->space = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
     this->nKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::N);
 
-    Entity::update(window);
+    Entity::updateEntity(window);
 
     if(this->getPosition().y - this->getGlobalBounds().height/2 < 0)
     {
@@ -101,5 +102,8 @@ void Player::collision(Entity* entity)
         case 0:
             break;
 
+        case 4:
+            this->destroyEntity();
+            break;
     }
 }
