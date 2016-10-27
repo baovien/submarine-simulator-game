@@ -56,30 +56,30 @@ void Player::update(sf::RenderWindow *window)
     this->space = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
     Entity::update(window);
 
-    if(this->getPosition().y + this->getGlobalBounds().height/2 < 0)
+    if(this->getPosition().y - this->getGlobalBounds().height/2 < 0)
     {
-        this->setPosition(this->getPosition().x, 720 + this->getGlobalBounds().height);
-        //this->move(1,0);
-        //speed = 0;
+        //this->setPosition(this->getPosition().x, 720 + this->getGlobalBounds().height);
+        this->speed = 0;
+        this->move(0,1);
     }
-    if(this->getPosition().y - this->getGlobalBounds().height > 720)
+    if(this->getPosition().y + this->getGlobalBounds().height/2 > window->getSize().y)
     {
-        this->setPosition(this->getPosition().x, 0);
-        // this->move(0, -1);
-        // speed = 0;
+        //this->setPosition(this->getPosition().x, 0);
+        this->speed = 0;
+        this->move(0, -1);
     }
-    if(this->getPosition().x + this->getGlobalBounds().width/2 < 0)
+    if(this->getPosition().x - this->getGlobalBounds().width/2 < 0)
     {
-        this->setPosition(1279 + this->getGlobalBounds().width, this->getPosition().y);
+        //this->setPosition(1279 + this->getGlobalBounds().width, this->getPosition().y);
 
-        //this->move(1, 0);
-        //speed = 0;
+        this->speed = 0;
+        this->move(1, 0);
     }
-    if(this->getPosition().x - this->getGlobalBounds().width/2 > 1280)
+    if(this->getPosition().x + this->getGlobalBounds().width/2 > window->getSize().x)
     {
-        this->setPosition(0, this->getPosition().y);
-        //this->move(-1, 0);
-        //speed = 0;
+        //this->setPosition(0, this->getPosition().y);
+        this->speed = 0;
+        this->move(-1, 0);
     }
 }
 void Player::collision(Entity* entity)
