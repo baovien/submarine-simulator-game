@@ -18,7 +18,6 @@ public:
     void destroy(sf::RenderWindow *window);
 
 protected:
-    EnemyObject* enemy1;
     sf::Font* font;
     sf::Text* pausedText;
     Utilities* util;

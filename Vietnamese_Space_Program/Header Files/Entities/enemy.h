@@ -1,18 +1,19 @@
 #pragma once
-#include "enemyEntity.h"
+#include "../Core/entityManager.h"
 #include "playerLives.h"
+#include <cstdlib>
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_ENEMY_H
 #define VIETNAMESE_SPACE_PROGRAM_ENEMY_H
-
-class EnemyObject : public EnemyEntity
+class EnemyObject : public Entity
 {
 public:
-    EnemyObject();
+    EnemyObject(float x, float y, float direction);
     void updateEnemy(sf::RenderWindow *window);
-    void reset(sf::RenderWindow *window);
-    ~EnemyObject();
+    virtual void collision(Entity* entity);
 
+private:
+    EntityManager* manager;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_ENEMY_H

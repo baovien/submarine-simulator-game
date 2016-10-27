@@ -1,4 +1,7 @@
 #include "../Core/entity.h"
+#include "enemy.h"
+#include "../Core/entityManager.h"
+
 #ifndef VIETNAMESE_SPACE_PROGRAM_BULLET_H
 #define VIETNAMESE_SPACE_PROGRAM_BULLET_H
 class Bullet : public Entity

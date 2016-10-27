@@ -9,6 +9,7 @@
 //om du skal triggere det på release bruker du bare keyReleased istedet for keyPressed
 
 void App::run(){
+
     score sc;
     sc.loadScore();
 

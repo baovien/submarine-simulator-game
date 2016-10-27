@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../Core/entity.h"
 #include "../Core/entityManager.h"
 #include "bullet.h"
 
@@ -18,7 +17,7 @@ public:
 
 private:
     EntityManager* manager;
-    bool space;
+    bool space, nKey;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_PLAYER_H

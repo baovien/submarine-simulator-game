@@ -22,9 +22,9 @@ set(SOURCE_FILES
         "Source Files/States/stateGameMode2.cpp"        "Header Files/States/stateGameMode2.h"
         "Source Files/Entities/playerLives.cpp"         "Header Files/Entities/playerLives.h"
         "Header Files/Core/util.h"
-        "Header Files/Entities/enemyEntity.h"
         "Header Files/Core/state.h"
         )
+
 add_executable(Vietnamese_Space_Program ${SOURCE_FILES})
 
 # Link with SFML dependencies

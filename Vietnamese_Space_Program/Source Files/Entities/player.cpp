@@ -1,5 +1,5 @@
 #include "../../Header Files/Entities/player.h"
-#include <iostream>
+#include "../../Header Files/Core/app.h"
 //Initiater player, koden vår er satt opp for flere spillere så case 0 er spiller 1.
 Player::Player(EntityManager* manager, float x, float y)
 {
@@ -54,7 +54,16 @@ void Player::update(sf::RenderWindow *window)
         std::cout << "FUNKER DETTE ????" << std::endl;
         this->manager->addEntity("bullet", new Bullet(this->getPosition().x, this->getPosition().y, -1));
     }
+
+    //Spawne enemy ved å trykke på N knappen
+    if(!this->nKey && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::N))
+    {
+        this->manager->addEntity("enemy", new EnemyObject(this->getPosition().x, this->getPosition().y, -3));
+    }
+
     this->space = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
+    this->nKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::N);
+
     Entity::update(window);
 
     if(this->getPosition().y - this->getGlobalBounds().height/2 < 0)
@@ -63,6 +72,7 @@ void Player::update(sf::RenderWindow *window)
         this->speed = 0;
         this->move(0,1);
     }
+
     if(this->getPosition().y + this->getGlobalBounds().height/2 > window->getSize().y)
     {
         //this->setPosition(this->getPosition().x, 0);
@@ -90,5 +100,6 @@ void Player::collision(Entity* entity)
     {
         case 0:
             break;
+
     }
 }
