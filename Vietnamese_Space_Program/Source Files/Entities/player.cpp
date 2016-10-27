@@ -82,6 +82,7 @@ void Player::update(sf::RenderWindow *window)
         this->move(-1, 0);
     }
 }
+//Her sjekker vi om vårt fly kræsjer med noen andre
 void Player::collision(Entity* entity)
 {
     switch(entity->groupID())

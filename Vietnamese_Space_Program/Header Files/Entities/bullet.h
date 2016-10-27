@@ -8,6 +8,5 @@ public:
     void updateBullet(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
 private:
-    int playerNumber;
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_BULLET_H
