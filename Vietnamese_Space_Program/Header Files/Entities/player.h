@@ -1,7 +1,9 @@
 #pragma once
 
+#include "../Core/entity.h"
 #include "../Core/entityManager.h"
 #include "bullet.h"
+
 #ifndef VIETNAMESE_SPACE_PROGRAM_PLAYER_H
 #define VIETNAMESE_SPACE_PROGRAM_PLAYER_H
 class Player : public Entity
@@ -13,6 +15,7 @@ public:
     Player(EntityManager* manager, float x, float y);
     void update(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
+
 private:
     EntityManager* manager;
     bool space;

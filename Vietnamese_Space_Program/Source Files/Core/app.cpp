@@ -1,4 +1,3 @@
-#include <cstring>
 #include "../../Header Files/Core/app.h"
 
 //Tastetrykk som kun skal registreres én gang:

@@ -6,8 +6,15 @@ void stateGameMode1::initialize(sf::RenderWindow *window) {
 
     memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
 
+    this->bgTexture = new sf::Texture();
+    this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
+
+    this->background = new sf::Sprite();
+    this->background->setTexture(*this->bgTexture);
+    this->background->scale(1.5,1.5);
+
     util = new Utilities;
-    this->enemy1 = new EnemyObject;
+    this->enemy1 = new EnemyObject();
     this->enemy1->setPosition(rand()%window->getSize().x, rand()%window->getSize().x);
 
     this->font = new sf::Font();
@@ -43,8 +50,10 @@ void stateGameMode1::update(sf::RenderWindow *window)
 
 void stateGameMode1::render(sf::RenderWindow *window)
 {
+    window->draw(*this->background);
     this->manager.renderEntity(window);
     window->draw(*this->enemy1);
+
 
     if (util->paused)
     {
@@ -54,4 +63,9 @@ void stateGameMode1::render(sf::RenderWindow *window)
 
 void stateGameMode1::destroy(sf::RenderWindow *window) {
     delete this->enemy1;
+    delete this->util;
+    delete this->pausedText;
+    delete this->font;
+    delete this->background;
+
 }

@@ -4,13 +4,13 @@
 #include "../Core/util.h"
 #include "../../Header Files/Core/machine.h"
 #include "../Entities/player.h"
-#include "../Entities/enemy.h"
-#include "../Core/entityManager.h"
-#ifndef VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
-#define VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
+#include "../Entities/playerLives.h"
 
-class stateGameMode1 : public States
-{
+#ifndef VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE2_H
+#define VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE2_H
+
+class stateGameMode2 : public States{
+
 public:
     void initialize(sf::RenderWindow *window);
     void update(sf::RenderWindow *window);
@@ -18,13 +18,10 @@ public:
     void destroy(sf::RenderWindow *window);
 
 protected:
-    EnemyObject* enemy1;
     sf::Font* font;
     sf::Text* pausedText;
     Utilities* util;
-    EntityManager manager;
-    sf::Texture* bgTexture;
-    sf::Sprite* background;
+    Lives* lives;
 };
 
-#endif //VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
+#endif //VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE2_H

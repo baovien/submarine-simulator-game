@@ -11,6 +11,13 @@ void stateSettings::initialize(sf::RenderWindow *window) {
 
     memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
 
+    this->bgTexture = new sf::Texture();
+    this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
+
+    this->background = new sf::Sprite();
+    this->background->setTexture(*this->bgTexture);
+    this->background->scale(1.5,1.5);
+
     this->selected = 0;
 
     this->font = new sf::Font();
@@ -178,7 +185,7 @@ void stateSettings::render(sf::RenderWindow *window) {
             this->back->setStyle(1<<3);
             break;
     }
-
+    window->draw(*this->background);
     window->draw(*this->title);
     window->draw(*this->screenRes);
     window->draw(*this->res1);
@@ -199,5 +206,7 @@ void stateSettings::destroy(sf::RenderWindow *window) {
     delete this->volume;
     delete this->apply;
     delete this->back;
+    delete this->background;
+
 }
 

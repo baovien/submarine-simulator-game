@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <cstdlib>
+#include "../Entities/playerLives.h"
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_ENEMY_ENTITY_H
 #define VIETNAMESE_SPACE_PROGRAM_ENEMY_ENTITY_H
@@ -31,6 +31,7 @@ public:
     {
         return this->getGlobalBounds().intersects(entity->getGlobalBounds());
     }
+
     ~EnemyEntity()
     {
         delete this->texture;

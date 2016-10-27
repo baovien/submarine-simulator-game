@@ -30,6 +30,9 @@ private:
     sf::Text* back;
     sf::Vector2u resChoice;
 
+    sf::Texture* bgTexture;
+    sf::Sprite* background;
+
     int selected, selectedRes;
     unsigned int textSize = 32U;
 

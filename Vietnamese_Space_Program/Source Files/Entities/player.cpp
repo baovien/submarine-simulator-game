@@ -10,6 +10,7 @@ Player::Player(EntityManager* manager, float x, float y)
     this->setPosition(x, y);
     this->manager = manager;
     this->space = false;
+
 }
 //update funksjonen har kontroll på bevegelsen til player.
 void Player::update(sf::RenderWindow *window)

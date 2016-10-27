@@ -23,6 +23,8 @@ private:
     sf::Text* options;
     sf::Text* highscore;
     sf::Text* quit;
+    sf::Texture* bgTexture;
+    sf::Sprite* background;
 
     int selected;
     unsigned int textSize = 32U;

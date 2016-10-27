@@ -1,12 +1,21 @@
 
-#include <cstring>
 #include "../../Header Files/States/statePlayConfig.h"
 #include "../../Header Files/States/stateGameMode1.h"
 #include "../../Header Files/States/stateMainMenu.h"
+#include "../../Header Files/States/stateGameMode2.h"
+#include "../../Header Files/States/stateSettings.h"
+
 
 void statePlayConfig::initialize(sf::RenderWindow *window)
 {
     memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
+
+    this->bgTexture = new sf::Texture();
+    this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
+
+    this->background = new sf::Sprite();
+    this->background->setTexture(*this->bgTexture);
+    this->background->scale(1.5,1.5);
 
     this->selected = 0;
     this->selected_Theme = 0;
@@ -96,18 +105,25 @@ void statePlayConfig::initialize(sf::RenderWindow *window)
 
 void statePlayConfig::update(sf::RenderWindow *window)
 {
+    // Trykk Escape for aa komme til mainmenu
     if(machine.keyPressed[sf::Keyboard::Escape])
     {
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         machine.setState(new stateMainMenu);
     }
-    if(selected != 4){
+
+    if(selected == 0){ // Ikke mulig a gaa opp når du velger theme
         if(machine.keyPressed[sf::Keyboard::Up]){
+            memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
+            this->selected = 0;
+        }
+    }
+    if(selected != 4) {
+        if (machine.keyPressed[sf::Keyboard::Up]) {
             memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
             this->selected -= 1;
         }
     }
-
     if(this->selected < 3){
         if(machine.keyPressed[sf::Keyboard::Down]){
             memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
@@ -129,6 +145,7 @@ void statePlayConfig::update(sf::RenderWindow *window)
             memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
             this->selected = 2;
         }
+
     }
 
     if(this->selected > 4){
@@ -193,7 +210,15 @@ void statePlayConfig::update(sf::RenderWindow *window)
     if(machine.keyPressed[sf::Keyboard::Return]){
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         if(this->selected == 3) { //Start
-            machine.setState(new stateGameMode1);
+            if(this->selected_Gamemode == 0) {
+                machine.setState(new stateGameMode1);
+            }
+            else if(this->selected_Gamemode == 1) {
+                machine.setState(new stateGameMode2);
+            }
+            else if(this->selected_Gamemode == 2){
+                machine.setState(new stateSettings);
+            }
         }
         if(this->selected == 4) { //Back
             machine.setState(new stateMainMenu);
@@ -274,6 +299,8 @@ void statePlayConfig::render(sf::RenderWindow *window)
             break;
     }
 
+    window->draw(*this->background);
+
     window->draw(*this->theme);
     window->draw(*this->fighter);
     window->draw(*this->gamemode);
@@ -314,5 +341,7 @@ void statePlayConfig::destroy(sf::RenderWindow *window)
     delete this->gamemode_1;
     delete this->gamemode_2;
     delete this->gamemode_3;
+
+    delete this->background;
 
 }

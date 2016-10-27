@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstring>
 #include "../../Header Files/States/stateMainMenu.h"
 #include "../../Header Files/States/stateHighscoreState.h"
 #include "../../Header Files/States/statePlayConfig.h"
@@ -7,6 +6,13 @@
 void stateMainMenu::initialize(sf::RenderWindow *window) {
 
     memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
+
+    this->bgTexture = new sf::Texture();
+    this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
+
+    this->background = new sf::Sprite();
+    this->background->setTexture(*this->bgTexture);
+    this->background->scale(1.5,1.5);
 
     this->selected = 0;
 
@@ -103,6 +109,7 @@ void stateMainMenu::render(sf::RenderWindow *window) {
             this->quit->setStyle(1<<3);
             break;
     }
+    window->draw(*this->background);
     window->draw(*this->title);
     window->draw(*this->title2);
     window->draw(*this->play);
@@ -120,5 +127,7 @@ void stateMainMenu::destroy(sf::RenderWindow *window) {
     delete this->highscore;
     delete this->options;
     delete this->quit;
+    delete this->bgTexture;
+    delete this->background;
 }
 

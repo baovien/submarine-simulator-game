@@ -33,9 +33,11 @@ private:
     sf::Text* gamemode_2;
     sf::Text* gamemode_3;
 
-
     sf::Text* back;
     sf::Text* play;
+
+    sf::Texture* bgTexture;
+    sf::Sprite* background;
 
     int selected, selected_Theme, selected_Fighter, selected_Gamemode;
     unsigned int textSize = 20U;

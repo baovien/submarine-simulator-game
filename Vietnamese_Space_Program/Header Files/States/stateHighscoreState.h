@@ -20,6 +20,8 @@ private:
     sf::Font* font;
     sf::Text* title;
     sf::Text* back;
+    sf::Texture* bgTexture;
+    sf::Sprite* background;
 
     int selected;
 

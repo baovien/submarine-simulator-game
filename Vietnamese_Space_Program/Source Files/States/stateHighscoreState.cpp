@@ -8,6 +8,13 @@ void stateHighscoreState::initialize(sf::RenderWindow *window) {
 
     memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
 
+    this->bgTexture = new sf::Texture();
+    this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
+
+    this->background = new sf::Sprite();
+    this->background->setTexture(*this->bgTexture);
+    this->background->scale(1.5,1.5);
+
     this->selected = 0;
 
     this->font = new sf::Font();
@@ -36,7 +43,7 @@ void stateHighscoreState::render(sf::RenderWindow *window) {
     this->title->setFillColor(sf::Color::Blue);
     this->back->setFillColor(sf::Color::Red);
 
-
+    window->draw(*this->background);
     window->draw(*this->title);
     window->draw(*this->back);
 }
@@ -45,5 +52,6 @@ void stateHighscoreState::destroy(sf::RenderWindow *window) {
     delete this->font;
     delete this->title;
     delete this->back;
+    delete this->background;
 }
 
