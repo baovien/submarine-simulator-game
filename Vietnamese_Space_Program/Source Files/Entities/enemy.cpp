@@ -6,9 +6,9 @@ EnemyObject::EnemyObject(float x, float y, float direction)
 
     this->load("enemy.png");
     this->active = 1;
-    this->groupId = 4;
+    this->groupId = 3;
     this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
-    this->velocity.x = -3;
+    this->velocity.x = -1;
     this->setPosition(1500,rand() % 500 + 50);
 
 }
@@ -25,10 +25,10 @@ void EnemyObject::updateEntity(sf::RenderWindow *window)
 //Her sjekker vi om fienden blir skutt av kuler.
 void EnemyObject::collision(Entity* entity)
 {
-    switch(entity->groupID())
+    /*switch(entity->groupID())
     {
-        case 3: //Bullets
-            this->destroyEntity();
+        case 2: //Bullets
+            this->destroyEntity(); - VI VIL IKKE AT ENEMIES SKAL SJEKKE OM DE BLIR TRUFFET OG AT DE SKAL SLETTE SEG SELV. DETTE ER BULLETS SIN OPPGAVE
             break;
-    }
+    }*/
 }

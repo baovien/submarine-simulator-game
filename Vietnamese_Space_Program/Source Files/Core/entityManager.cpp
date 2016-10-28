@@ -58,7 +58,8 @@ void EntityManager::updateEntity(sf::RenderWindow *window)
         {
             if(iterator.first != iterator2.first)
             {
-                if (iterator.second->checkCollision(iterator2.second)) {
+                if (iterator.second->checkCollision(iterator2.second))
+                {
                     iterator.second->collision(iterator2.second);
                 }
             }

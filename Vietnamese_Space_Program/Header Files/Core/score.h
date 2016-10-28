@@ -2,16 +2,20 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <SFML/Graphics.hpp>
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_SCORE_H
 #define VIETNAMESE_SPACE_PROGRAM_SCORE_H
 
-class score {
+class Score : public sf::Text
+{
 public:
-    void loadScore();
+    Score();
+    void IncrementScore();
+    void Update();
 
 protected:
-    std::ofstream file;
+    int Value;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_SCORE_H

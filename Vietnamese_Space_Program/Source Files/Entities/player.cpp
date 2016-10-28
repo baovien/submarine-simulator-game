@@ -12,7 +12,7 @@ Player::Player(EntityManager* manager, float x, float y)
     this->manager = manager;
     this->space = false;
 
-   //  this->setScale(0.5,0.5);
+    this->setScale(0.5,0.5);
 }
 //update funksjonen har kontroll på bevegelsen til player.
 void Player::updateEntity(sf::RenderWindow *window)

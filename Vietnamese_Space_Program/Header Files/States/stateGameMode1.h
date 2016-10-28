@@ -21,7 +21,7 @@ protected:
     sf::Font* font;
     sf::Text* pausedText;
     Utilities* util;
-    EntityManager manager;
+    EntityManager* manager;
     sf::Texture* bgTexture;
     sf::Sprite* background;
 };
