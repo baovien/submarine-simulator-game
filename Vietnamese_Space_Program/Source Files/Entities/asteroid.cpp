@@ -1,7 +1,7 @@
 #include "../../Header Files/Entities/asteroid.h"
 
-//Initiater player, koden vår er satt opp for flere spillere så case 0 er spiller 1.
-EnemyObject::EnemyObject(float x, float y, float direction)
+//Initiater asteroid, koden vår er satt opp for flere spillere så case 0 er spiller 1.
+AsteroidObject::AsteroidObject(float x, float y, float direction)
 {
 
     this->load("ASSteroids_brown.png");
@@ -15,7 +15,7 @@ EnemyObject::EnemyObject(float x, float y, float direction)
 
 }
 //update funksjonen har kontroll på bevegelsen til player.
-void EnemyObject::updateEntity(sf::RenderWindow *window)
+void AsteroidObject::updateEntity(sf::RenderWindow *window)
 {
     if(this->getPosition().x <= 0)
     {
@@ -25,7 +25,7 @@ void EnemyObject::updateEntity(sf::RenderWindow *window)
     this->setRotation(2+rand() % 5);
 }
 //Her sjekker vi om fienden blir skutt av kuler.
-void EnemyObject::collision(Entity* entity)
+void AsteroidObject::collision(Entity* entity)
 {
     switch(entity->groupID())
     {

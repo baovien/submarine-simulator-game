@@ -4,10 +4,10 @@
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_ENEMY_H
 #define VIETNAMESE_SPACE_PROGRAM_ENEMY_H
-class EnemyObject : public Entity
+class AsteroidObject : public Entity
 {
 public:
-    EnemyObject(float x, float y, float direction);
+    AsteroidObject(float x, float y, float direction);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
 
