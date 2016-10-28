@@ -59,11 +59,18 @@ void Player::updateEntity(sf::RenderWindow *window)
     //Spawne enemy ved å trykke på N knappen
     if(!this->nKey && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::N))
     {
-        this->manager->addEntity("enemy", new EnemyObject(this->getPosition().x, this->getPosition().y, -3));
+        this->manager->addEntity("asteroid", new AsteroidObject(this->getPosition().x, this->getPosition().y, -3));
     }
+    //Spawne gold ved å trykke på M knappen
+    if(!this->mKey && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::M))
+    {
+        this->manager->addEntity("enemy", new EnemyObject(this->getPosition().x, this->getPosition().y));
+    }
+
 
     this->space = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
     this->nKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::N);
+    this->mKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::M);
 
     Entity::updateEntity(window);
 

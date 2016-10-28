@@ -2,8 +2,8 @@
 #include "../Core/entityManager.h"
 #include <cstdlib>
 
-#ifndef VIETNAMESE_SPACE_PROGRAM_ENEMY_H
-#define VIETNAMESE_SPACE_PROGRAM_ENEMY_H
+#ifndef VIETNAMESE_SPACE_PROGRAM_ASTEROID_H
+#define VIETNAMESE_SPACE_PROGRAM_ASTEROID_H
 class AsteroidObject : public Entity
 {
 public:
@@ -15,4 +15,4 @@ private:
     EntityManager* manager;
 };
 
-#endif //VIETNAMESE_SPACE_PROGRAM_ENEMY_H
+#endif //VIETNAMESE_SPACE_PROGRAM_ASTEROID_H

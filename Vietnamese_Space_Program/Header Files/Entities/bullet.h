@@ -1,6 +1,6 @@
 #include "../Core/entityManager.h"
 #include "asteroid.h"
-#include "playerLives.h"
+#include "enemy.h"
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_BULLET_H
 #define VIETNAMESE_SPACE_PROGRAM_BULLET_H

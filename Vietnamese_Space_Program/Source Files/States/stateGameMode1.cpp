@@ -34,7 +34,7 @@ void stateGameMode1::update(sf::RenderWindow *window)
     {
         this->manager.updateEntity(window);
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+    else if(machine.keyPressed[sf::Keyboard::Escape])
         machine.setState(new stateMainMenu());
 
     if (machine.keyPressed[sf::Keyboard::P])

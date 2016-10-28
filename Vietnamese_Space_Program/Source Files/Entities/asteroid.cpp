@@ -7,8 +7,8 @@ AsteroidObject::AsteroidObject(float x, float y, float direction)
     this->load("ASSteroids_brown.png");
     this->active = 1;
     this->groupId = 4;
-    this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
     this->velocity.x = -3;
+    this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
     this->setPosition(1500,rand() % 500 + 50);
 
     this->manager = manager;
@@ -22,7 +22,7 @@ void AsteroidObject::updateEntity(sf::RenderWindow *window)
         this->destroyEntity();
     }
     Entity::updateEntity(window);
-    this->setRotation(2+rand() % 5);
+    this->setRotation(2+rand() % 10);
 }
 //Her sjekker vi om fienden blir skutt av kuler.
 void AsteroidObject::collision(Entity* entity)

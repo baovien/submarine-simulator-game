@@ -6,9 +6,10 @@
  *
  * Når du lager en ny entity må du definere gruppe ID til entitien.
  *
- * Player GroupID = 1
- * Bullet GroupID = 3
- * Enemies  GroupID = 4
+ * Player       GroupID = 1
+ * Bullet       GroupID = 3
+ * Asteroids    GroupID = 4
+ * Enemies      GroupID = 5
  *
  * @return
  */

@@ -19,7 +19,7 @@ public:
 
 private:
     EntityManager* manager;
-    bool space, nKey;
+    bool space, nKey, mKey;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_PLAYER_H
