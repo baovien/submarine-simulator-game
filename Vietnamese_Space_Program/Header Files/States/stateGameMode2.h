@@ -21,7 +21,9 @@ protected:
     sf::Font* font;
     sf::Text* pausedText;
     Utilities* util;
-    Lives* lives;
+    EntityManager manager;
+    sf::Texture* bgTexture;
+    sf::Sprite* background;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE2_H

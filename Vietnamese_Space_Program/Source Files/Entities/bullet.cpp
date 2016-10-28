@@ -1,5 +1,6 @@
 #include "../../Header Files/Entities/bullet.h"
 #include <iostream>
+
 Bullet::Bullet(float x, float y, float direction, float direction2)
 {
     this->active = 1;
@@ -31,9 +32,9 @@ void Bullet::collision(Entity *entity)
         std::cout << "Bullet destroyed";
             break;
         default:
+
             // this->destroyEntity();
             break;
     }
-
 }
 

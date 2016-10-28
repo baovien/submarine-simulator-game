@@ -5,15 +5,14 @@
 
 #include <SFML/Graphics.hpp>
 
-class Lives : public sf::Text
+class PlayerLives : public sf::Text
 {
 public:
-    Lives(sf::Font &font, unsigned int size);
-    void decreaseLife();
+    PlayerLives(sf::Font &font, unsigned int size);
     void incrementLife();
+    void decreaseLife();
     void updateLife();
-    int value;
 private:
+    int lifeValue;
 };
-
 #endif //VIETNAMESE_SPACE_PROGRAM_PLAYERLIVES_H

@@ -4,8 +4,9 @@
 #include "../Core/util.h"
 #include "../../Header Files/Core/machine.h"
 #include "../Entities/player.h"
-#include "../Entities/enemy.h"
+#include "../Entities/asteroid.h"
 #include "../Core/entityManager.h"
+#include "../Entities/playerLives.h"
 #ifndef VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
 #define VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
 
@@ -24,6 +25,7 @@ protected:
     EntityManager manager;
     sf::Texture* bgTexture;
     sf::Sprite* background;
+    PlayerLives* lives;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H

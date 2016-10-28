@@ -13,7 +13,7 @@ set(SOURCE_FILES
         "Source Files/Core/score.cpp"                   "Header Files/Core/score.h"
         "Source Files/States/statePlayConfig.cpp"       "Header Files/States/statePlayConfig.h"
         "Source Files/States/stateSettings.cpp"         "Header Files/States/stateSettings.h"
-        "Source Files/Entities/enemy.cpp"               "Header Files/Entities/enemy.h"
+        "Source Files/Entities/asteroid.cpp"               "Header Files/Entities/asteroid.h"
         "Source Files/Core/app.cpp"                     "Header Files/Core/app.h"
         "Source Files/Core/machine.cpp"                 "Header Files/Core/machine.h"
         "Source Files/Core/entityManager.cpp"           "Header Files/Core/entityManager.h"

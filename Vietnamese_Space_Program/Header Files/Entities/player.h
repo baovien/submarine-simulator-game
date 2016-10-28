@@ -2,6 +2,7 @@
 
 #include "../Core/entityManager.h"
 #include "bullet.h"
+#include "playerLives.h"
 #include <iostream>
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_PLAYER_H

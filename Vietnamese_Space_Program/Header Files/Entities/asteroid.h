@@ -1,6 +1,5 @@
 #pragma once
 #include "../Core/entityManager.h"
-#include "playerLives.h"
 #include <cstdlib>
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_ENEMY_H
