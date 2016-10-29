@@ -12,7 +12,7 @@ public:
     void decreaseLife();
     void incrementLife();
     void updateLife();
-    
+
     int value;
 private:
 };
