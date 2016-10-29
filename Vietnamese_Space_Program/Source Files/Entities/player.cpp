@@ -1,7 +1,6 @@
 #include "../../Header Files/Entities/player.h"
 
-//Initiater player, koden vår er satt opp for flere spillere så case 0 er spiller 1.
-Player::Player(Score* score, EntityManager* manager, float x, float y)
+Player::Player(Lives* lives, Score* score, EntityManager* manager, float x, float y)
 {
     this->load("fighter3_green_big_test.png");
     this->active = 1;
@@ -11,6 +10,7 @@ Player::Player(Score* score, EntityManager* manager, float x, float y)
     this->manager = manager;
     this->space = false;
     this->score = score;
+    this->lives = lives;
 
     this->setScale(0.5,0.5);
 }
@@ -52,7 +52,7 @@ void Player::updateEntity(sf::RenderWindow *window)
     // this->velocity.x = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
     if(!this->space && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
     {
-        std::cout << "FUNKER DETTE ????" << std::endl;
+        //std::cout << "FUNKER DETTE ????" << std::endl;
         this->manager->addEntity("bullet", new Bullet(this->score, this->getPosition().x + ((this->getGlobalBounds().height)/2)*sin(angle) , this->getPosition().y - (this->getGlobalBounds().height/2)*cos(angle)  , -cos(angle)*15, sin(angle)*15));
     }
 
@@ -102,8 +102,16 @@ void Player::collision(Entity* entity)
         case 0:
             break;
 
-        case 4:
-            this->destroyEntity();
+        case 3:
+        std::cout << this->lives->value << std::endl;
+            this->lives->decreaseLife();
+            entity->destroyEntity();
+            if(this->lives->value < 0)
+            {
+                this->destroyEntity();
+            }
+            break;
+        default:
             break;
     }
 }

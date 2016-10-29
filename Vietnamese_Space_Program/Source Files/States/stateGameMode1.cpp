@@ -19,9 +19,11 @@ void stateGameMode1::initialize(sf::RenderWindow *window) {
     this->font->loadFromFile("Graphics/font.ttf");
 
     this->score = new Score(*font, 32U);
+    this->lives = new Lives(*font, 32U);
+    this->lives->setPosition(window->getSize().x - 128, 0);
 
     manager = new EntityManager();
-    this->manager->addEntity("ship", new Player(this->score, this->manager, window->getSize().x /2, window->getSize().y/2));
+    this->manager->addEntity("ship", new Player(this->lives, this->score, this->manager, window->getSize().x /2, window->getSize().y/2));
 
     this->pausedText = new sf::Text("Paused\nPress Escape to Quit", *font, 32U);
     this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2, this->pausedText->getGlobalBounds().height / 2);
@@ -34,6 +36,7 @@ void stateGameMode1::update(sf::RenderWindow *window)
     {
         this->manager->updateEntity(window);
         this->score->updateScore();
+        this->lives->updateLife();
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
         machine.setState(new stateMainMenu());
@@ -49,6 +52,7 @@ void stateGameMode1::render(sf::RenderWindow *window)
 {
     window->draw(*this->background);
     window->draw(*this->score);
+    window->draw(*this->lives);
     this->manager->renderEntity(window);
 
 
@@ -61,6 +65,7 @@ void stateGameMode1::render(sf::RenderWindow *window)
 
 void stateGameMode1::destroy(sf::RenderWindow *window)
 {
+    delete this->lives;
     delete this->score;
     delete this->util;
     delete this->pausedText;
