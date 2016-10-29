@@ -6,6 +6,7 @@
 #include "../Entities/player.h"
 #include "../Entities/enemy.h"
 #include "../Core/entityManager.h"
+#include "../Core/score.h"
 #ifndef VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
 #define VIETNAMESE_SPACE_PROGRAM_GAMEMODE1_H
 
@@ -18,6 +19,7 @@ public:
     void destroy(sf::RenderWindow *window);
 
 protected:
+    Score* score;
     sf::Font* font;
     sf::Text* pausedText;
     Utilities* util;

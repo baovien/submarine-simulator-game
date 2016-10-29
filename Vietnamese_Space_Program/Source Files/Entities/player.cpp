@@ -1,8 +1,7 @@
 #include "../../Header Files/Entities/player.h"
-#include "../../Header Files/Core/app.h"
 
 //Initiater player, koden vår er satt opp for flere spillere så case 0 er spiller 1.
-Player::Player(EntityManager* manager, float x, float y)
+Player::Player(Score* score, EntityManager* manager, float x, float y)
 {
     this->load("fighter3_green_big_test.png");
     this->active = 1;
@@ -11,6 +10,7 @@ Player::Player(EntityManager* manager, float x, float y)
     this->setPosition(x, y);
     this->manager = manager;
     this->space = false;
+    this->score = score;
 
     this->setScale(0.5,0.5);
 }
@@ -53,7 +53,7 @@ void Player::updateEntity(sf::RenderWindow *window)
     if(!this->space && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
     {
         std::cout << "FUNKER DETTE ????" << std::endl;
-        this->manager->addEntity("bullet", new Bullet(this->getPosition().x + ((this->getGlobalBounds().height)/2)*sin(angle) , this->getPosition().y - (this->getGlobalBounds().height/2)*cos(angle)  , -cos(angle)*15, sin(angle)*15));
+        this->manager->addEntity("bullet", new Bullet(this->score, this->getPosition().x + ((this->getGlobalBounds().height)/2)*sin(angle) , this->getPosition().y - (this->getGlobalBounds().height/2)*cos(angle)  , -cos(angle)*15, sin(angle)*15));
     }
 
     //Spawne enemy ved å trykke på N knappen

@@ -1,6 +1,4 @@
-#pragma once
-#include <iostream>
-#include <fstream>
+
 #include <string>
 #include <SFML/Graphics.hpp>
 
@@ -10,12 +8,12 @@
 class Score : public sf::Text
 {
 public:
-    Score();
-    void IncrementScore();
-    void Update();
+    Score(sf::Font &font, unsigned int size);
+    void incrementScore();
+    void updateScore();
 
-protected:
-    int Value;
+private:
+    int value;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_SCORE_H
