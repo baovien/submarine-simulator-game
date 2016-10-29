@@ -6,7 +6,7 @@ Lives::Lives(sf::Font &font, unsigned int size) : sf::Text("Lives : 3", font, si
 }
 void Lives::decreaseLife()
 {
-    this->value = this->value - 1;
+    this->value -= 1;
     if(this->value < 0) this->value = 0;
 }
 void Lives::incrementLife()

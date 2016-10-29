@@ -1,4 +1,4 @@
-#pragma once
+
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_PLAYERLIVES_H
 #define VIETNAMESE_SPACE_PROGRAM_PLAYERLIVES_H
@@ -12,6 +12,7 @@ public:
     void decreaseLife();
     void incrementLife();
     void updateLife();
+    
     int value;
 private:
 };

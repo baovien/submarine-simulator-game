@@ -1,5 +1,3 @@
-#pragma once
-
 #include "../Core/entityManager.h"
 #include "../Core/score.h"
 #include "../Entities/playerLives.h"

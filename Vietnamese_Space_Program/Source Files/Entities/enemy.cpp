@@ -7,7 +7,7 @@ EnemyObject::EnemyObject(float x, float y, float direction)
     this->active = 1;
     this->groupId = 3;
     this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
-    this->velocity.x = -1;
+    this->velocity.x = -10;
     this->setPosition(1500,rand() % 500 + 50);
 
 }

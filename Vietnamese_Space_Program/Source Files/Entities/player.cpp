@@ -104,9 +104,12 @@ void Player::collision(Entity* entity)
 
         case 3:
         std::cout << this->lives->value << std::endl;
-            this->lives->decreaseLife();
-            entity->destroyEntity();
-            if(this->lives->value < 0)
+            if(this->lives->value > 0)
+            {
+                entity->destroyEntity();
+                this->lives->decreaseLife();
+            }
+            if(this->lives->value <= 0)
             {
                 this->destroyEntity();
             }
