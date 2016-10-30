@@ -7,9 +7,9 @@
  * Når du lager en ny entity må du definere gruppe ID til entitien.
  *
  * Player       GroupID = 1
- * Bullet       GroupID = 3
- * Asteroids    GroupID = 4
- * Enemies      GroupID = 5
+ * Bullet       GroupID = 2
+ * Asteroids    GroupID = 3
+ * Enemies      GroupID = 4
  *
  * @return
  */
@@ -59,7 +59,8 @@ void EntityManager::updateEntity(sf::RenderWindow *window)
         {
             if(iterator.first != iterator2.first)
             {
-                if (iterator.second->checkCollision(iterator2.second)) {
+                if (iterator.second->checkCollision(iterator2.second))
+                {
                     iterator.second->collision(iterator2.second);
                 }
             }

@@ -14,14 +14,23 @@ void stateGameMode1::initialize(sf::RenderWindow *window) {
     this->background->scale(1.5,1.5);
 
     util = new Utilities;
-    this->manager.addEntity("ship", new Player(&this->manager, window->getSize().x /2, window->getSize().y/2));
-
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font.ttf");
 
-    this->lives = new PlayerLives(*font, 32U);
-    this->lives->setPosition(window->getSize().x - this->lives->getGlobalBounds().width, 0);
+    this->score = new Score(*font, 32U);
+    this->score->setPosition(20, 5);
 
+    this->lives = new Lives(*font, 32U);
+    this->lives->setPosition(window->getSize().x - this->lives->getGlobalBounds().width - 20, 5);
+
+    manager = new EntityManager();
+    this->manager->addEntity("ship", new Player(this->score, this->manager, window->getSize().x /2, window->getSize().y/2));
+
+
+    this->manager->addEntity("enemy", new EnemyObject(this->lives, 32,32));
+    this->manager->addEntity("enemy", new EnemyObject(this->lives, 32,32));
+    this->manager->addEntity("enemy", new EnemyObject(this->lives, 32,32));
+    this->manager->addEntity("enemy", new EnemyObject(this->lives, 32,32));
 
     this->pausedText = new sf::Text("Paused\nPress Escape to Quit", *font, 32U);
     this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2, this->pausedText->getGlobalBounds().height / 2);
@@ -32,7 +41,9 @@ void stateGameMode1::update(sf::RenderWindow *window)
 {
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
-        this->manager.updateEntity(window);
+        this->manager->updateEntity(window);
+        this->score->updateScore();
+        this->lives->updateLife();
     }
     else if(machine.keyPressed[sf::Keyboard::Escape])
         machine.setState(new stateMainMenu());
@@ -47,9 +58,9 @@ void stateGameMode1::update(sf::RenderWindow *window)
 void stateGameMode1::render(sf::RenderWindow *window)
 {
     window->draw(*this->background);
+    window->draw(*this->score);
     window->draw(*this->lives);
-    this->manager.renderEntity(window);
-
+    this->manager->renderEntity(window);
 
     if (util->paused)
     {
@@ -57,10 +68,13 @@ void stateGameMode1::render(sf::RenderWindow *window)
     }
 }
 
-void stateGameMode1::destroy(sf::RenderWindow *window) {
+void stateGameMode1::destroy(sf::RenderWindow *window)
+{
+    delete this->lives;
+    delete this->score;
     delete this->util;
     delete this->pausedText;
     delete this->font;
     delete this->background;
-    delete this->lives;
+    delete this->manager;
 }

@@ -1,9 +1,9 @@
 #pragma once
 #include "../Core/entityManager.h"
-#include <cstdlib>
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_ASTEROID_H
 #define VIETNAMESE_SPACE_PROGRAM_ASTEROID_H
+
 class AsteroidObject : public Entity
 {
 public:

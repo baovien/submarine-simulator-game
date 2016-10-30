@@ -1,17 +1,19 @@
-#pragma once
-#include <iostream>
-#include <fstream>
+
 #include <string>
+#include <SFML/Graphics.hpp>
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_SCORE_H
 #define VIETNAMESE_SPACE_PROGRAM_SCORE_H
 
-class score {
+class Score : public sf::Text
+{
 public:
-    void loadScore();
+    Score(sf::Font &font, unsigned int size);
+    void incrementScore();
+    void updateScore();
 
-protected:
-    std::ofstream file;
+private:
+    int value;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_SCORE_H

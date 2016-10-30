@@ -6,12 +6,11 @@ AsteroidObject::AsteroidObject(float x, float y, float direction)
 
     this->load("ASSteroids_brown.png");
     this->active = 1;
-    this->groupId = 4;
+    this->groupId = 3;
     this->velocity.x = -3;
     this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
     this->setPosition(1500,rand() % 500 + 50);
 
-    this->manager = manager;
 
 }
 //update funksjonen har kontroll på bevegelsen til player.

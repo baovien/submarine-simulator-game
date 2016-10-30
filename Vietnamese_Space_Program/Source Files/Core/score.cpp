@@ -1,12 +1,15 @@
-#include <iostream>
 #include "../../Header Files/Core/score.h"
-#include <stdio.h>
 
-using namespace std;
-
-void score::loadScore(){
-    file.open("Scorestatus.txt");
-    file << "Heihei BAO BAO BAO BAO BAO BAO"<<endl;
-    file.close();
-    return;
+Score::Score(sf::Font &font, unsigned int size) : sf::Text("Score: 0", font, size)
+{
+    this->value = 0;
 }
+void Score::incrementScore()
+{
+    this->value += 1;
+}
+void Score::updateScore()
+{
+    this->setString("Score: " + std::to_string(this->value));
+}
+

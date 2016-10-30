@@ -4,7 +4,10 @@
 #include "../Core/util.h"
 #include "../../Header Files/Core/machine.h"
 #include "../Entities/player.h"
-#include "../Entities/playerLives.h"
+#include "../Entities/enemy.h"
+#include "../Core/playerLives.h"
+#include "../Core/entityManager.h"
+#include "../Core/score.h"
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE2_H
 #define VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE2_H
@@ -18,10 +21,12 @@ public:
     void destroy(sf::RenderWindow *window);
 
 protected:
+    Lives* lives;
+    Score* score;
     sf::Font* font;
     sf::Text* pausedText;
     Utilities* util;
-    EntityManager manager;
+    EntityManager* manager;
     sf::Texture* bgTexture;
     sf::Sprite* background;
 };

@@ -1,18 +1,17 @@
-#pragma once
+
+#include <SFML/Graphics.hpp>
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_PLAYERLIVES_H
 #define VIETNAMESE_SPACE_PROGRAM_PLAYERLIVES_H
 
-#include <SFML/Graphics.hpp>
-
-class PlayerLives : public sf::Text
+class Lives : public sf::Text
 {
 public:
-    PlayerLives(sf::Font &font, unsigned int size);
-    void incrementLife();
+    Lives(sf::Font &font, unsigned int size);
+    void increaseLife();
     void decreaseLife();
     void updateLife();
+    int value;
 private:
-    int lifeValue;
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_PLAYERLIVES_H

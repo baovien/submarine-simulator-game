@@ -5,6 +5,7 @@
 #include "../../Header Files/Core/state.h"
 #include "../States/stateMainMenu.h"
 #include "score.h"
+#include "playerLives.h"
 
 
 

@@ -14,7 +14,9 @@ void stateGameMode2::initialize(sf::RenderWindow *window){
     this->background->scale(1.5,1.5);
 
     util = new Utilities();
-    this->manager.addEntity("ship", new Player(&this->manager, window->getSize().x /2, window->getSize().y/2));
+
+    manager = new EntityManager();
+    this->manager->addEntity("ship", new Player(this->score, this->manager, window->getSize().x /2, window->getSize().y/2));
 
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font.ttf");
@@ -27,7 +29,7 @@ void stateGameMode2::update(sf::RenderWindow *window){
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
-        this->manager.updateEntity(window);
+        this->manager->updateEntity(window);
     }
     else if(machine.keyPressed[sf::Keyboard::Escape]){
         machine.setState(new stateMainMenu());
