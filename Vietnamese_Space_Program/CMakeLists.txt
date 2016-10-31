@@ -23,7 +23,7 @@ set(SOURCE_FILES
         "Source Files/Core/playerLives.cpp"         "Header Files/Core/playerLives.h"
         "Header Files/Core/util.h"
         "Header Files/Core/state.h"
-        "Source Files/Entities/enemy.cpp" "Header Files/Entities/enemy.h")
+        "Source Files/Entities/enemy.cpp" "Header Files/Entities/enemy.h" "Source Files/States/stateKeybindings.cpp" "Header Files/States/stateKeybindings.h")
 
 add_executable(Vietnamese_Space_Program ${SOURCE_FILES})
 

@@ -24,12 +24,15 @@ private:
     sf::Text* res3;
 
     sf::Text* volume;
+    sf::Text* keybinds;
     sf::Text* apply;
     sf::Text* back;
     sf::Vector2u resChoice;
 
     sf::Texture* bgTexture;
     sf::Sprite* background;
+
+    bool inKeybindings = false;
 
     int selected, selectedRes;
     unsigned int textSize = 32U;
