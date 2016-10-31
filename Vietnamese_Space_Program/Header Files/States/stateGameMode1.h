@@ -1,5 +1,3 @@
-#pragma once
-
 #include "../Core/state.h"
 #include "../Core/util.h"
 #include "../../Header Files/Core/machine.h"
@@ -31,6 +29,7 @@ protected:
     sf::Sprite* background;
     Player* player;
     EnemyObject* enemyObject;
+    AsteroidObject* asteroidObject;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE1_H

@@ -28,12 +28,6 @@ void Bullet::collision(Entity *entity)
 {
     switch(entity->groupID())
     {
-        case 0:
-            break;
-
-        case 1: // Player
-            break;
-
         case 3: // Asteroids
             entity->destroyEntity();
             this->destroyEntity();

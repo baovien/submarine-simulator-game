@@ -1,16 +1,11 @@
 #include "../../Header Files/Entities/enemy.h"
-#include <iostream>
-
 //Initiater enemy, koden vår er satt opp for flere spillere så case 0 er spiller 1.
-EnemyObject::EnemyObject(Lives* lives, float x, float y)
+EnemyObject::EnemyObject(float x, float y)
 {
 
     this->load("gold.png");
     this->active = 1;
     this->groupId = 4;
-
-    this->lives = lives;
-    this->manager = manager;
 
     this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
 
@@ -71,17 +66,5 @@ void EnemyObject::setEnemy(Player *player) {
 //Her sjekker vi om fienden blir skutt av kuler.
 void EnemyObject::collision(Entity* entity)
 {
-    switch(entity->groupID())
-    {
-        case 1: // Player
-            this->destroyEntity();
-            this->lives->decreaseLife();
-            std::cout << this->lives->value << std::endl;
-            if(this->lives->value <= 0){
-                std::cout << "u ded?" << std::endl;
-                entity->destroyEntity();
-            }
-        break;
-    }
 
 }
