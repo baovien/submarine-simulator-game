@@ -62,11 +62,6 @@ void stateSettings::initialize(sf::RenderWindow *window) {
  */
 void stateSettings::update(sf::RenderWindow *window) {
 
-    if(machine.keyPressed[sf::Keyboard::Return]){
-        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-        machine.setState(new stateMainMenu);
-    }
-
     //Vertical selection
     if(machine.keyPressed[sf::Keyboard::Up]){
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));

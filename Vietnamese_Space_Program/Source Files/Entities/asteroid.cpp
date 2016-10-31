@@ -11,12 +11,27 @@ AsteroidObject::AsteroidObject(float x, float y, float direction)
     this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
     this->setPosition(1500,rand() % 500 + 50);
 
+    //Spawner enemy utenfor vinduet
+    if (randomNumber == 1) {
+        this->setPosition(-200, rand() % 720);
+        this->velocity.x = 3;
+    } else if (randomNumber == 2) {
+        this->setPosition(1480, rand() % 720);
+        this->velocity.x = -3;
+    } else if (randomNumber == 3) {
+        this->setPosition(rand() % 1480, -200);
+        this->velocity.y = 3;
+    } else {
+        this->setPosition(rand() % 1480, 920);
+        this->velocity.y = -3;
+    }
 
 }
 //update funksjonen har kontroll på bevegelsen til player.
 void AsteroidObject::updateEntity(sf::RenderWindow *window)
 {
-    if(this->getPosition().x <= 0)
+
+    if(this->getPosition().x <= -400 || this->getPosition().x >= 1600)
     {
         this->destroyEntity();
     }

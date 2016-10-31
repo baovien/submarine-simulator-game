@@ -12,6 +12,7 @@ public:
     virtual void collision(Entity* entity);
 
 private:
+    int randomNumber = rand()%4;
     EntityManager* manager;
 };
 
