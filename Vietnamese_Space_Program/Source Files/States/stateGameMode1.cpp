@@ -11,7 +11,7 @@ void stateGameMode1::initialize(sf::RenderWindow *window) {
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
-    this->background->scale(1.5,1.5);
+    this->background->scale(window->getSize().x/background->getGlobalBounds().width,window->getSize().y/background->getGlobalBounds().height);
 
     util = new Utilities;
     this->font = new sf::Font();
@@ -24,13 +24,7 @@ void stateGameMode1::initialize(sf::RenderWindow *window) {
     this->lives->setPosition(window->getSize().x - this->lives->getGlobalBounds().width - 20, 5);
 
     manager = new EntityManager();
-    this->manager->addEntity("ship", new Player(this->score, this->manager, window->getSize().x /2, window->getSize().y/2));
-
-
-    this->manager->addEntity("enemy", new EnemyObject(this->lives, 32,32));
-    this->manager->addEntity("enemy", new EnemyObject(this->lives, 32,32));
-    this->manager->addEntity("enemy", new EnemyObject(this->lives, 32,32));
-    this->manager->addEntity("enemy", new EnemyObject(this->lives, 32,32));
+    this->manager->addEntity("ship", new Player(this->lives, this->score, this->manager, window->getSize().x /2, window->getSize().y/2));
 
     this->pausedText = new sf::Text("Paused\nPress Escape to Quit", *font, 32U);
     this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2, this->pausedText->getGlobalBounds().height / 2);
@@ -53,6 +47,17 @@ void stateGameMode1::update(sf::RenderWindow *window)
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         util->pauseScreen();                        //Kaller pausefunksjonen
     }
+
+    //Spawn enemies and asteroids randomly
+    if(rand() % 1000 < 20){
+        this->manager->addEntity("enemy", new EnemyObject(32,32));
+    }
+    if(rand() % 1000 < 20){
+        this->manager->addEntity("asteroid", new AsteroidObject(32,32));
+
+    }
+
+
 }
 
 void stateGameMode1::render(sf::RenderWindow *window)

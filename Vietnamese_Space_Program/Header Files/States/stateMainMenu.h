@@ -1,9 +1,8 @@
-#pragma once
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_MENU_H
 #define VIETNAMESE_SPACE_PROGRAM_MENU_H
-#include "../Core/state.h"
 #include "../../Header Files/Core/machine.h"
+#include "../Core/state.h"
 
 class stateMainMenu : public States{
 public:

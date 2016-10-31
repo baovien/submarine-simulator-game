@@ -16,7 +16,7 @@ void stateSettings::initialize(sf::RenderWindow *window) {
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
-    this->background->scale(1.5,1.5);
+    this->background->scale(window->getSize().x/background->getGlobalBounds().width,window->getSize().y/background->getGlobalBounds().height);
 
     this->selected = 0;
 

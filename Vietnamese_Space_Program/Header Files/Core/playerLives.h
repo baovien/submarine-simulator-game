@@ -1,4 +1,3 @@
-
 #include <SFML/Graphics.hpp>
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_PLAYERLIVES_H
@@ -11,7 +10,9 @@ public:
     void increaseLife();
     void decreaseLife();
     void updateLife();
-    int value;
+    int getValue() const;
+
 private:
+    int value;
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_PLAYERLIVES_H

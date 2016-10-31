@@ -1,9 +1,9 @@
-#pragma once
+#include "../Core/state.h"
+#include "../../Header Files/Core/machine.h"
+
 #ifndef VIETNAMESE_SPACE_PROGRAM_PLAYCONFIG_H
 #define VIETNAMESE_SPACE_PROGRAM_PLAYCONFIG_H
 
-#include "../Core/state.h"
-#include "../../Header Files/Core/machine.h"
 
 class statePlayConfig : public States{
 public:

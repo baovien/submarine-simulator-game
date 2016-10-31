@@ -1,7 +1,8 @@
+#include "state.h"
+
 #ifndef VIETNAMESE_SPACE_PROGRAM_MACHINE_H
 #define VIETNAMESE_SPACE_PROGRAM_MACHINE_H
 
-#include "state.h"
 
 class Machine
 {

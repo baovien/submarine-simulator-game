@@ -1,10 +1,10 @@
 #include "../../Header Files/Entities/player.h"
 
-Player::Player(Score* score, EntityManager* manager, float x, float y)
+Player::Player(Lives* lives, Score* score, EntityManager* manager, float x, float y)
 {
     this->load("fighter3_green_big_test.png");
     this->active = 1;
-    this->groupId =1;
+    this->groupId = 1;
     this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
     this->setPosition(x, y);
     this->manager = manager;
@@ -56,20 +56,8 @@ void Player::updateEntity(sf::RenderWindow *window)
         this->manager->addEntity("bullet", new Bullet(this->score, this->getPosition().x + ((this->getGlobalBounds().height)/2)*sin(angle) , this->getPosition().y - (this->getGlobalBounds().height/2)*cos(angle)  , -cos(angle)*15, sin(angle)*15));
     }
 
-    //Spawne enemy ved å trykke på N knappen
-    if(!this->nKey && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::N))
-    {
-        this->manager->addEntity("asteroid", new AsteroidObject(this->getPosition().x, this->getPosition().y, -3));
-    }
 
-    if(!this->mKey && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::M))
-    {
-        this->manager->addEntity("enemy", new EnemyObject(this->lives,this->getPosition().x, this->getPosition().y));
-    }
-
-    this->mKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::M);
     this->space = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
-    this->nKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::N);
 
     Entity::updateEntity(window);
 
@@ -103,4 +91,21 @@ void Player::updateEntity(sf::RenderWindow *window)
 //Her sjekker vi om vårt fly kræsjer med noen andre
 void Player::collision(Entity* entity)
 {
+    switch(entity->groupID())
+    {
+        case 3: // Asteroid
+            entity->destroyEntity();
+            this->lives->decreaseLife();
+            if(this->lives->getValue() <= 0){
+                this->destroyEntity();
+            }
+            break;
+        case 4: // Enemy
+            entity->destroyEntity();
+            this->lives->decreaseLife();
+            if(this->lives->getValue() <= 0){
+                this->destroyEntity();
+            }
+            break;
+    }
 }
