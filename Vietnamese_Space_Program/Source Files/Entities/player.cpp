@@ -1,3 +1,4 @@
+#include <iostream>
 #include "../../Header Files/Entities/player.h"
 
 Player::Player(Lives* lives, Score* score, EntityManager* manager, float x, float y)
@@ -14,6 +15,7 @@ Player::Player(Lives* lives, Score* score, EntityManager* manager, float x, floa
 
     this->setScale(0.5,0.5);
 }
+
 //update funksjonen har kontroll på bevegelsen til player.
 void Player::updateEntity(sf::RenderWindow *window)
 {
@@ -87,7 +89,9 @@ void Player::updateEntity(sf::RenderWindow *window)
         this->speed = 0;
         this->move(-1, 0);
     }
+
 }
+
 //Her sjekker vi om vårt fly kræsjer med noen andre
 void Player::collision(Entity* entity)
 {

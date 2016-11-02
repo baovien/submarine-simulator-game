@@ -26,13 +26,13 @@ AsteroidObject::AsteroidObject(float x, float y)
         this->velocity.y = -3;
     }
 
-    this->setRotation(2+rand() % 10);
 
 
 }
 //update funksjonen har kontroll på bevegelsen til player.
 void AsteroidObject::updateEntity(sf::RenderWindow *window)
 {
+    this->rotate(2+rand() % 6);
 
     if(this->getPosition().x <= -400 || this->getPosition().x >= 1600)
     {

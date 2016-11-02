@@ -1,4 +1,4 @@
-#include <cstring>
+#include <iostream>
 #include "../../Header Files/States/stateGameMode1.h"
 #include "../../Header Files/States/stateMainMenu.h"
 
@@ -12,7 +12,6 @@ void stateGameMode1::initialize(sf::RenderWindow *window) {
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
     this->background->scale(window->getSize().x/background->getGlobalBounds().width,window->getSize().y/background->getGlobalBounds().height);
-
     util = new Utilities;
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font.ttf");
@@ -23,10 +22,12 @@ void stateGameMode1::initialize(sf::RenderWindow *window) {
     this->lives = new Lives(*font, 32U);
     this->lives->setPosition(window->getSize().x - this->lives->getGlobalBounds().width - 20, 5);
 
+    this->enemyObject = enemyObject;
+
     manager = new EntityManager();
     this->manager->addEntity("ship", new Player(this->lives, this->score, this->manager, window->getSize().x /2, window->getSize().y/2));
 
-    this->pausedText = new sf::Text("Paused\nPress Escape to Quit", *font, 32U);
+    this->pausedText = new sf::Text("Paused\nPress Q to Quit", *font, 32U);
     this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2, this->pausedText->getGlobalBounds().height / 2);
     this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
 }
@@ -39,10 +40,10 @@ void stateGameMode1::update(sf::RenderWindow *window)
         this->score->updateScore();
         this->lives->updateLife();
     }
-    else if(machine.keyPressed[sf::Keyboard::Escape])
+    else if(machine.keyPressed[sf::Keyboard::Q])
         machine.setState(new stateMainMenu());
 
-    if (machine.keyPressed[sf::Keyboard::P])
+    if (machine.keyPressed[sf::Keyboard::P] || machine.keyPressed[sf::Keyboard::Escape])
     {
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         util->pauseScreen();                        //Kaller pausefunksjonen
@@ -50,11 +51,12 @@ void stateGameMode1::update(sf::RenderWindow *window)
 
     //Spawn enemies and asteroids randomly
     if(rand() % 1000 < 20){
-        this->manager->addEntity("enemy", new EnemyObject(32,32));
+        this->manager->addEntity("enemy", new EnemyObject());
+     //   this->enemyObject->setEnemy(player);
+        std::cout << player  << std::endl;
     }
     if(rand() % 1000 < 20){
         this->manager->addEntity("asteroid", new AsteroidObject(32,32));
-
     }
 
 

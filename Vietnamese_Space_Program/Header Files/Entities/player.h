@@ -3,7 +3,6 @@
 #include "../Core/playerLives.h"
 #include "bullet.h"
 #include "asteroid.h"
-#include "enemy.h"
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_PLAYER_H
 #define VIETNAMESE_SPACE_PROGRAM_PLAYER_H
