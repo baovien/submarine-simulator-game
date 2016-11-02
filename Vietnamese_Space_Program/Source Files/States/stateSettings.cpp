@@ -117,7 +117,6 @@ void stateSettings::update(sf::RenderWindow *window) {
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         switch(this->selected){
             case 2:
-                inKeybindings = true;
                 machine.setState(new stateKeybindings);
                 break;
             case 3: //Apply
@@ -210,7 +209,6 @@ void stateSettings::render(sf::RenderWindow *window) {
 }
 
 void stateSettings::destroy(sf::RenderWindow *window) {
-    if(!inKeybindings){
         delete this->font;
         delete this->title;
         delete this->screenRes;
@@ -222,6 +220,5 @@ void stateSettings::destroy(sf::RenderWindow *window) {
         delete this->apply;
         delete this->back;
         delete this->background;
-    }
 }
 

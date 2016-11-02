@@ -18,14 +18,21 @@ public:
 private:
     sf::Font* font;
     sf::Text* gameKeybinds;
-    sf::Text* menuKeybinds;
-    sf::Text* movementText;
+    sf::Text* menuNavigationText;
     sf::Text* navigationText;
 
     sf::Texture* ballTexture;
     sf::Texture* bgTexture;
     sf::Sprite* background;
-    sf::Sprite* keySquare;
+    sf::Sprite* upKeySquare;
+    sf::Sprite* downKeySquare;
+    sf::Sprite* leftKeySquare;
+    sf::Sprite* rightKeySquare;
+    sf::Sprite* backKeySquare;
+    sf::Sprite* selectKeySquare;
+    sf::Sprite* pauseKeySquare;
+    sf::Sprite* shootKeySquare;
+
     int selected;
     unsigned int textSize = 32U;
 

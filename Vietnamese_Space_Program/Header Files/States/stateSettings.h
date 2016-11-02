@@ -32,8 +32,6 @@ private:
     sf::Texture* bgTexture;
     sf::Sprite* background;
 
-    bool inKeybindings = false;
-
     int selected, selectedRes;
     unsigned int textSize = 32U;
 
