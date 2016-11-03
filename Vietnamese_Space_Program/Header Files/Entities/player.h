@@ -22,6 +22,7 @@ private:
     Score* score;
     EntityManager* manager;
     bool space;
+    double overheat = 0;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_PLAYER_H
