@@ -1,3 +1,4 @@
+
 #include "../Core/state.h"
 #include "../Core/util.h"
 #include "../../Header Files/Core/machine.h"
@@ -7,10 +8,10 @@
 #include "../Core/entityManager.h"
 #include "../Core/score.h"
 
-#ifndef VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE1_H
-#define VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE1_H
+#ifndef VIETNAMESE_SPACE_PROGRAM_STATEGAMEOVER_H
+#define VIETNAMESE_SPACE_PROGRAM_STATEGAMEOVER_H
 
-class stateGameMode1 : public States
+class stateGameOver : public States
 {
 public:
     void initialize(sf::RenderWindow *window);
@@ -30,4 +31,4 @@ protected:
     Player* player;
 };
 
-#endif //VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE1_H
+#endif //VIETNAMESE_SPACE_PROGRAM_STATEGAMEOVER_H
