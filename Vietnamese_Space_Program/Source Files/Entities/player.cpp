@@ -47,7 +47,7 @@ void Player::updateEntity(sf::RenderWindow *window)
     if (right && speed != 0) angle += turnspeed * speed/maxSpeed;
     if (left && speed != 0) angle -= turnspeed * speed/maxSpeed;
     this->move(sin(angle) * speed, -cos(angle)*speed);
-    this->setRotation(angle*180/3.141592);
+    this->setRotation(angle*180/pi);
 
     // this->velocity.x = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
     if(!this->space && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
@@ -57,7 +57,7 @@ void Player::updateEntity(sf::RenderWindow *window)
                                                           (this->getPosition().x + ((this->getGlobalBounds().height) / 2) * sin(angle)),
                                                           (this->getPosition().y - (this->getGlobalBounds().height / 2) * cos(angle)),
                                                           ( -cos(angle) * 15),
-                                                          (sin(angle) * 15), (angle*180/3.11592)));
+                                                          (sin(angle) * 15), (angle*180/pi)));
             this->overheat += 2;
             if(this->overheat > 10)this->overheat = 15;
         }
