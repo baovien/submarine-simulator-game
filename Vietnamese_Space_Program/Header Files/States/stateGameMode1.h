@@ -30,6 +30,7 @@ protected:
     sf::Texture* bgTexture;
     sf::Sprite* background;
     Player* player;
+    EnemyObject* enemyObject;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE1_H

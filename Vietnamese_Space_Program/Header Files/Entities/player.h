@@ -3,7 +3,6 @@
 #include "../Core/playerLives.h"
 #include "bullet.h"
 #include "asteroid.h"
-#include "enemy.h"
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_PLAYER_H
 #define VIETNAMESE_SPACE_PROGRAM_PLAYER_H
@@ -17,6 +16,7 @@ public:
     Player(Lives* lives, Score* score, EntityManager* manager, float x, float y);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
+
 
 private:
     Lives* lives;

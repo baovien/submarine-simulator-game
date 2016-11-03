@@ -12,7 +12,7 @@ Bullet::Bullet(Score* score, float x, float y, float direction, float direction2
     this->setPosition(x, y);
     this->setRotation(angle);
     this->score = score;
-    // this->setScale(0.5,0.5);
+    this->setScale(1.5,1.5);
 
 
 }
@@ -36,7 +36,6 @@ void Bullet::collision(Entity *entity)
             break;
 
         case 4: // Enemy
-            entity->destroyEntity();
             this->destroyEntity();
             this->score->incrementScore();
             break;
