@@ -3,14 +3,14 @@
 EnemyObject::EnemyObject(float x, float y)
 {
 
-    this->load("gold.png");
+   /* this->load("gold.png");
     this->active = 1;
     this->groupId = 4;
 
     this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
 
     //Spawner enemy utenfor vinduet
-    if (randomNumber == 1) {
+     if (randomNumber == 1) {
         this->setPosition(-200, rand() % 720);
         this->velocity.x = 3;
     } else if (randomNumber == 2) {
@@ -22,25 +22,11 @@ EnemyObject::EnemyObject(float x, float y)
     } else {
         this->setPosition(rand() % 1480, 920);
         this->velocity.y = -3;
-    }
+    }*/
 }
 
 void EnemyObject::updateEntity(sf::RenderWindow *window)
 {
-    //Følg spillerenfunksjon
-    /*
-    if(this->getPosition().y + this->getGlobalBounds().height / 2 < this->player->getPosition().y)
-    {
-        this->move(0,1);
-    }
-    if(this->getPosition().y + this->getGlobalBounds().height / 2 > this->player->getPosition().y)
-    {
-        this->move(0,-1);
-    }
-*/
-
-
-
 
     if(rand()% 100 < 50){
         this->rotate(rand()% 4+1);
@@ -49,7 +35,6 @@ void EnemyObject::updateEntity(sf::RenderWindow *window)
         this->rotate(-rand()% 4+1);
     }
 
-
     if(this->getPosition().x <= -400 || this->getPosition().x >= 1600)
     {
         this->destroyEntity();
@@ -57,14 +42,8 @@ void EnemyObject::updateEntity(sf::RenderWindow *window)
 
     Entity::updateEntity(window);
 }
-//Denne funksjonen gjør at enemy følger player
-/*
-void EnemyObject::setEnemy(Player *player) {
-    this->player = player;
-}*/
 
 //Her sjekker vi om fienden blir skutt av kuler.
 void EnemyObject::collision(Entity* entity)
 {
-
 }
