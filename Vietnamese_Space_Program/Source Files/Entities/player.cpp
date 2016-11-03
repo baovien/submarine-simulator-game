@@ -51,6 +51,7 @@ void Player::updateEntity(sf::RenderWindow *window)
     this->move(sin(angle) * speed, -cos(angle)*speed);
     this->setRotation(angle*180/3.141592);
 
+
     // this->velocity.x = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
     if(!this->space && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
     {

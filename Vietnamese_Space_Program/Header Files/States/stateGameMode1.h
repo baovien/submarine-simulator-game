@@ -30,7 +30,6 @@ protected:
     sf::Sprite* background;
     Player* player;
     EnemyObject* enemyObject;
-    AsteroidObject* asteroidObject;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE1_H

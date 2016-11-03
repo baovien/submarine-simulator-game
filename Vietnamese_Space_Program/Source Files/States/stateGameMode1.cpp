@@ -22,8 +22,7 @@ void stateGameMode1::initialize(sf::RenderWindow *window) {
     this->lives = new Lives(*font, 32U);
     this->lives->setPosition(window->getSize().x - this->lives->getGlobalBounds().width - 20, 5);
 
-    this->enemyObject = enemyObject;
-
+    this->player = player;
     manager = new EntityManager();
     this->manager->addEntity("ship", new Player(this->lives, this->score, this->manager, window->getSize().x /2, window->getSize().y/2));
 
@@ -52,12 +51,13 @@ void stateGameMode1::update(sf::RenderWindow *window)
     //Spawn enemies and asteroids randomly
     if(rand() % 1000 < 20){
         this->manager->addEntity("enemy", new EnemyObject());
-     //   this->enemyObject->setEnemy(player);
-        std::cout << player  << std::endl;
+        this->enemyObject->setEnemy(this->player);
     }
+
     if(rand() % 1000 < 20){
         this->manager->addEntity("asteroid", new AsteroidObject(32,32));
     }
+
 
 
 }

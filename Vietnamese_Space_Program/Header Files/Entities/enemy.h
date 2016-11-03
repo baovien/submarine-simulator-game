@@ -15,6 +15,7 @@ public:
 private:
     Player* player;
     int randomNumber = rand()%4;
+    int health;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_ENEMY_H
