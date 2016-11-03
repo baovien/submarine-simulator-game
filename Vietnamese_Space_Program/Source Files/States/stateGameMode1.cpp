@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../../Header Files/States/stateGameMode1.h"
 #include "../../Header Files/States/stateMainMenu.h"
 
@@ -22,9 +21,9 @@ void stateGameMode1::initialize(sf::RenderWindow *window) {
     this->lives = new Lives(*font, 32U);
     this->lives->setPosition(window->getSize().x - this->lives->getGlobalBounds().width - 20, 5);
 
-    this->player = player;
     manager = new EntityManager();
-    this->manager->addEntity("ship", new Player(this->lives, this->score, this->manager, window->getSize().x /2, window->getSize().y/2));
+    this->player =  new Player(this->lives, this->score, this->manager, window->getSize().x /2, window->getSize().y/2);
+    this->manager->addEntity("ship", this->player);
 
     this->pausedText = new sf::Text("Paused\nPress Q to Quit", *font, 32U);
     this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2, this->pausedText->getGlobalBounds().height / 2);
@@ -50,7 +49,8 @@ void stateGameMode1::update(sf::RenderWindow *window)
 
     //Spawn enemies and asteroids randomly
     if(rand() % 1000 < 20){
-        this->manager->addEntity("enemy", new EnemyObject());
+        enemyObject = new EnemyObject();
+        this->manager->addEntity("enemy", enemyObject);
         this->enemyObject->setEnemy(this->player);
     }
 

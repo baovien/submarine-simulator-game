@@ -15,6 +15,7 @@ public:
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
 
+
 private:
     Lives* lives;
     Score* score;

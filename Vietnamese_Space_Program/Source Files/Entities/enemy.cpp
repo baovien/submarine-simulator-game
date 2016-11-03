@@ -17,21 +17,19 @@ EnemyObject::EnemyObject()
     //Spawner enemy utenfor vinduet
     if (randomNumber == 1) {
         this->setPosition(-200, rand() % 720);
-        this->velocity.x = 3;
     }
     else if (randomNumber == 2) {
         this->setPosition(1480, rand() % 720);
-        this->velocity.x = -3;
     }
     else if (randomNumber == 3) {
         this->setPosition(rand() % 1480, -200);
-        this->velocity.y = 3;
     }
     else {
         this->setPosition(rand() % 1480, 920);
-        this->velocity.y = -3;
     }
 }
+
+
 void EnemyObject::setEnemy(Player *player) {
     this->player = player;
 }
@@ -39,7 +37,7 @@ void EnemyObject::setEnemy(Player *player) {
 void EnemyObject::updateEntity(sf::RenderWindow *window)
 {
 
-    if (this->getPosition().y + this->getGlobalBounds().height / 2 < player->getPosition().y) {
+    if (this->getPosition().y < player->getPosition().y) {
         this->velocity.y = 2;
     }
     if (this->getPosition().y + this->getGlobalBounds().height / 2 > player->getPosition().y) {
@@ -51,8 +49,6 @@ void EnemyObject::updateEntity(sf::RenderWindow *window)
     if (this->getPosition().x + this->getGlobalBounds().height / 2 > player->getPosition().x) {
         this->velocity.x = -2;
     }
-
-
     if(this->health <= 0){
         this->destroyEntity();
     }
