@@ -10,7 +10,7 @@
 
 void App::run(){
 
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "Vietnamese Space Program"); // FULL HD OMG
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "Vietnamese Space Program", sf::Style::Titlebar | sf::Style::Close); // FULL HD OMG
     window.setVerticalSyncEnabled(true);
     window.setKeyRepeatEnabled(false);
 
@@ -33,7 +33,7 @@ void App::run(){
             }
 
             if(event.type == sf::Event::Resized){
-                window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
+//                window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
             }
             if (event.type == sf::Event::KeyPressed)                    //Array som inneholder alle taster.
                 machine.keyPressed[event.key.code] = true;              //De er her for å lagre tastetrykk og slipp uten
@@ -48,7 +48,7 @@ void App::run(){
          */
         elapsed = timer.getElapsedTime();
         if(elapsed.asMicroseconds() > 16666){
-            window.clear(sf::Color::Black);
+//            window.clear(sf::Color::Black);
             machine.update();
             machine.render();
             window.display();
