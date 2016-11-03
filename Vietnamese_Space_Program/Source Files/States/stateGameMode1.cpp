@@ -1,6 +1,7 @@
 #include <cstring>
 #include "../../Header Files/States/stateGameMode1.h"
 #include "../../Header Files/States/stateMainMenu.h"
+#include "../../Header Files/States/stateGameOver.h"
 
 void stateGameMode1::initialize(sf::RenderWindow *window) {
 
@@ -48,6 +49,11 @@ void stateGameMode1::update(sf::RenderWindow *window)
         util->pauseScreen();                        //Kaller pausefunksjonen
     }
 
+    if(this->lives->getValue() <= 0){
+        machine.setState(new stateGameOver);
+
+    }
+
     //Spawn enemies and asteroids randomly
     if(rand() % 1000 < 20)
     {
@@ -59,6 +65,7 @@ void stateGameMode1::update(sf::RenderWindow *window)
         this->manager->addEntity("asteroid", new AsteroidObject(32,32)); //er clock mer enn 3 sekunder lager jeg en ny astroide
         clock.restart(); //restarter clock(nullstiller)
     }
+
 }
 
 void stateGameMode1::render(sf::RenderWindow *window)
