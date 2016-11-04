@@ -60,8 +60,13 @@ void EnemyObject::updateEntity(sf::RenderWindow *window)
         this->velocity.x = -1;
     }
 
-    if(this->health <= 0){
+    //Endre sprites i forhold til health
+    if(this->health <= 0){       //Destroy
+        this->load("explosion.png");
+        this->scale(1.5,1.5);
         this->destroyEntity();
+    }else if(this->health == 1){ //Damaged
+        this->load("goldDamaged.png");
     }
 
     // Destroy enemy hvis den er utenfor skjermen
