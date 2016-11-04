@@ -8,6 +8,7 @@
 #include "../Core/entityManager.h"
 #include "../Core/score.h"
 #include "../Entities/asteroid.h"
+#include "../Entities/healthPack.h"
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE1_H
 #define VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE1_H
@@ -32,6 +33,7 @@ protected:
     sf::Sprite* background;
     Player* player;
     EnemyObject* enemyObject;
+    HealthPack* healthPack;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE1_H

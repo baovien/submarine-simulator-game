@@ -54,16 +54,21 @@ void stateGameMode1::update(sf::RenderWindow *window)
     //Spawn enemies and asteroids randomly
     sf::Time elapsed1 = clock.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
 
-    if(rand() % 1000 < 15){
+    if(rand() % 1000 < 10){
         enemyObject = new EnemyObject();
         this->manager->addEntity("enemy", enemyObject);
         this->enemyObject->setEnemy(this->player);
     }
+
     if(elapsed1.asMicroseconds() > 3000000) //Sjekker om verdien til clock er mer enn 3 sekunder
     {
-        this->manager->addEntity("asteroid",
-                                 new AsteroidObject(32, 32)); //er clock mer enn 3 sekunder lager jeg en ny astroide
+        this->manager->addEntity("asteroid", new AsteroidObject(32, 32)); //er clock mer enn 3 sekunder lager jeg en ny astroide
         clock.restart(); //restarter clock(nullstiller)
+    }
+
+    if(rand() % 1000 < 5){
+        healthPack = new HealthPack(this->lives);
+        this->manager->addEntity("healthPack", healthPack);
     }
 }
 

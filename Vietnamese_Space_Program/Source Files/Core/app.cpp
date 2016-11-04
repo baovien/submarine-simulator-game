@@ -10,6 +10,7 @@
 
 void App::run(){
 
+    srand(time(0)); //Gjør at rand()% gir random verdier basert på antall sekunder gått fra 1. jan 1970.
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Vietnamese Space Program", sf::Style::Titlebar | sf::Style::Close); // FULL HD OMG
     window.setVerticalSyncEnabled(true);
     window.setKeyRepeatEnabled(false);
