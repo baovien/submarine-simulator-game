@@ -1,8 +1,12 @@
+
+#include <iostream>
 #include "../../Header Files/Entities/enemy.h"
+
 //Initiater enemy, koden vår er satt opp for flere spillere så case 0 er spiller 1.
 EnemyObject::EnemyObject()
 {
 
+    this->player = player;
     this->load("gold.png");
     this->active = 1;
     this->groupId = 4;
@@ -60,8 +64,6 @@ void EnemyObject::updateEntity(sf::RenderWindow *window)
         this->destroyEntity();
     }
 
-    this->rotate(-(2+rand() % 4));
-
     // Destroy enemy hvis den er utenfor skjermen
     if(this->getPosition().x <= -400 || this->getPosition().x >= 1600)
     {
@@ -74,7 +76,8 @@ void EnemyObject::updateEntity(sf::RenderWindow *window)
 //Her sjekker vi om fienden blir skutt av kuler.
 void EnemyObject::collision(Entity* entity)
 {
-    switch(entity->groupID()) {
+    switch(entity->groupID())
+    {
         case 2: // Bullets
             this->health--;
             break;

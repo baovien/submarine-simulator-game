@@ -1,3 +1,4 @@
+#include <iostream>
 #include "../../Header Files/Entities/player.h"
 #include <iostream>
 Player::Player(Lives* lives, Score* score, EntityManager* manager, float x, float y)
@@ -14,6 +15,7 @@ Player::Player(Lives* lives, Score* score, EntityManager* manager, float x, floa
 
     this->setScale(0.5,0.5);
 }
+
 //update funksjonen har kontroll på bevegelsen til player.
 void Player::updateEntity(sf::RenderWindow *window)
 {
@@ -48,6 +50,7 @@ void Player::updateEntity(sf::RenderWindow *window)
     if (left && speed != 0) angle -= turnspeed * speed/maxSpeed;
     this->move(sin(angle) * speed, -cos(angle)*speed);
     this->setRotation(angle*180/pi);
+
 
     // this->velocity.x = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
     if(!this->space && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
@@ -94,7 +97,9 @@ void Player::updateEntity(sf::RenderWindow *window)
         this->speed = 0;
         this->move(-1, 0);
     }
+
 }
+
 //Her sjekker vi om vårt fly kræsjer med noen andre
 void Player::collision(Entity* entity)
 {

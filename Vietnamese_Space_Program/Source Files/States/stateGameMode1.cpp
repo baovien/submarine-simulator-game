@@ -12,7 +12,6 @@ void stateGameMode1::initialize(sf::RenderWindow *window) {
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
     this->background->scale(window->getSize().x/background->getGlobalBounds().width,window->getSize().y/background->getGlobalBounds().height);
-
     util = new Utilities;
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font.ttf");
@@ -62,10 +61,10 @@ void stateGameMode1::update(sf::RenderWindow *window)
     }
     if(elapsed1.asMicroseconds() > 3000000) //Sjekker om verdien til clock er mer enn 3 sekunder
     {
-        this->manager->addEntity("asteroid", new AsteroidObject(32,32)); //er clock mer enn 3 sekunder lager jeg en ny astroide
+        this->manager->addEntity("asteroid",
+                                 new AsteroidObject(32, 32)); //er clock mer enn 3 sekunder lager jeg en ny astroide
         clock.restart(); //restarter clock(nullstiller)
     }
-
 }
 
 void stateGameMode1::render(sf::RenderWindow *window)
