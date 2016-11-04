@@ -66,7 +66,7 @@ void StateGameMode1::update(sf::RenderWindow *window)
     sf::Time elapsed1 = clock.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
     sf::Time elapsed2 = bossclock.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
 
-    if(rand() % 1000 < 2){
+    if(rand() % 1000 < 10){
         enemyObject = new EnemyObject();
         this->manager->addEntity("Enemy", enemyObject);
         this->enemyObject->setEnemy(this->player);
@@ -74,7 +74,7 @@ void StateGameMode1::update(sf::RenderWindow *window)
 
     if(elapsed1.asMicroseconds() > 3000000) //Sjekker om verdien til clock er mer enn 3 sekunder
     {
-        this->manager->addEntity("Asteroid", new AsteroidObject(0,0)); //er clock mer enn 3 sekunder lager jeg en ny astroide
+        this->manager->addEntity("asteroid", new AsteroidObject(32, 32)); //er clock mer enn 3 sekunder lager jeg en ny astroide
         clock.restart(); //restarter clock(nullstiller)
     }
 
@@ -82,6 +82,10 @@ void StateGameMode1::update(sf::RenderWindow *window)
     {
         this->manager->addEntity("Boss", new Boss(this->manager));
         bossclock.restart(); //restarter clock(nullstiller)
+    }
+    if(rand() % 1000 < 5){
+        healthPack = new HealthPack(this->lives);
+        this->manager->addEntity("healthPack", healthPack);
     }
 }
 

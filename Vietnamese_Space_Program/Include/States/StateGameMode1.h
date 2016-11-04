@@ -11,6 +11,7 @@
 #include "../Core/playerLives.h"
 #include "../Core/entityManager.h"
 #include "../Core/score.h"
+#include "../Entities/healthPack.h"
 #include "../Core/soundLoader.h"
 
 class StateGameMode1 : public States
@@ -35,6 +36,7 @@ protected:
     sf::Sprite* background;
     Player* player;
     EnemyObject* enemyObject;
+    HealthPack* healthPack;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE1_H

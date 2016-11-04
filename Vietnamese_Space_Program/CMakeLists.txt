@@ -26,6 +26,7 @@ set(SOURCE_FILES
         "Include/Entities/player.h"            "Source/Entities/player.cpp"
         "Include/Entities/enemy.h"             "Source/Entities/enemy.cpp"
         "Include/Entities/overheat.h"          "Source/Entities/overheat.cpp"
+        "Include/Entities/healthPack.h"        "Source/Entities/healthPack.cpp"
 
         #State Headers
         "Include/States/stateGameMode1.h"      "Source/States/stateGameMode1.cpp"
@@ -36,6 +37,7 @@ set(SOURCE_FILES
         "Include/States/statePlayConfig.h"     "Source/States/statePlayConfig.cpp"
         "Include/States/stateMainMenu.h"       "Source/States/stateMainMenu.cpp"
         "Include/States/stateSettings.h"       "Source/States/stateSettings.cpp")
+
 
 add_executable(Vietnamese_Space_Program ${SOURCE_FILES})
 
