@@ -16,22 +16,39 @@ public:
     void destroy(sf::RenderWindow *window);
 
 private:
+    sf::RenderWindow* window;
+
     sf::Font* font;
-    sf::Text* gameKeybinds;
+    sf::Text* movementText;
     sf::Text* menuNavigationText;
-    sf::Text* navigationText;
+    sf::Text* gameplayText;
 
     sf::Texture* ballTexture;
     sf::Texture* bgTexture;
     sf::Sprite* background;
+
+
     sf::Sprite* upKeySquare;
     sf::Sprite* downKeySquare;
     sf::Sprite* leftKeySquare;
     sf::Sprite* rightKeySquare;
-    sf::Sprite* backKeySquare;
     sf::Sprite* selectKeySquare;
-    sf::Sprite* pauseKeySquare;
+    sf::Sprite* backKeySquare;
     sf::Sprite* shootKeySquare;
+    sf::Sprite* pauseKeySquare;
+
+    //sf::Sprite* keySquares[];
+
+    sf::Text* upText;
+    sf::Text* downText;
+    sf::Text* leftText;
+    sf::Text* rightText;
+    sf::Text* selectText;
+    sf::Text* backText;
+    sf::Text* shootText;
+    sf::Text* pauseText;
+
+    sf::Text* upKeyText;
 
     int selected;
     unsigned int textSize = 32U;

@@ -52,7 +52,6 @@ void App::run(){
             machine.update();
             machine.render();
             window.display();
-
             if(quitGame)
             {
                 window.close();
