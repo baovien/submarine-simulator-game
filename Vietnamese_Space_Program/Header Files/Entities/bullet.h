@@ -6,7 +6,7 @@
 class Bullet : public Entity
 {
 public:
-    Bullet(Score* score, float x, float y, float direction, float direction2);
+    Bullet(Score* score, float x, float y, float direction, float direction2, float angle);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
 private:

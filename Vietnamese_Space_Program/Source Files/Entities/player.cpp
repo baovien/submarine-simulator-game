@@ -1,5 +1,6 @@
+#include <iostream>
 #include "../../Header Files/Entities/player.h"
-
+#include <iostream>
 Player::Player(Lives* lives, Score* score, EntityManager* manager, float x, float y)
 {
     this->load("fighter3_green_big_test.png");
@@ -14,6 +15,7 @@ Player::Player(Lives* lives, Score* score, EntityManager* manager, float x, floa
 
     this->setScale(0.5,0.5);
 }
+
 //update funksjonen har kontroll på bevegelsen til player.
 void Player::updateEntity(sf::RenderWindow *window)
 {
@@ -47,16 +49,24 @@ void Player::updateEntity(sf::RenderWindow *window)
     if (right && speed != 0) angle += turnspeed * speed/maxSpeed;
     if (left && speed != 0) angle -= turnspeed * speed/maxSpeed;
     this->move(sin(angle) * speed, -cos(angle)*speed);
-    this->setRotation(angle*180/3.141592);
+    this->setRotation(angle*180/pi);
+
 
     // this->velocity.x = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
     if(!this->space && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
     {
-        //std::cout << "FUNKER DETTE ????" << std::endl;
-        this->manager->addEntity("bullet", new Bullet(this->score, this->getPosition().x + ((this->getGlobalBounds().height)/2)*sin(angle) , this->getPosition().y - (this->getGlobalBounds().height/2)*cos(angle)  , -cos(angle)*15, sin(angle)*15));
+        if(this->overheat < 10) {
+            this->manager->addEntity("bullet", new Bullet((this->score),
+                                                          (this->getPosition().x + ((this->getGlobalBounds().height) / 2) * sin(angle)),
+                                                          (this->getPosition().y - (this->getGlobalBounds().height / 2) * cos(angle)),
+                                                          ( -cos(angle) * 15),
+                                                          (sin(angle) * 15), (angle*180/pi)));
+            this->overheat += 2;
+            if(this->overheat > 10)this->overheat = 15;
+        }
     }
-
-
+    this->overheat -= 0.1;
+    if(this->overheat < 0)this->overheat = 0;
     this->space = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
 
     Entity::updateEntity(window);
@@ -87,7 +97,9 @@ void Player::updateEntity(sf::RenderWindow *window)
         this->speed = 0;
         this->move(-1, 0);
     }
+
 }
+
 //Her sjekker vi om vårt fly kræsjer med noen andre
 void Player::collision(Entity* entity)
 {
@@ -105,6 +117,7 @@ void Player::collision(Entity* entity)
             this->lives->decreaseLife();
             if(this->lives->getValue() <= 0){
                 this->destroyEntity();
+
             }
             break;
     }

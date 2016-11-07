@@ -4,6 +4,8 @@
 #include "../../Header Files/States/stateHighscoreState.h"
 #include "../../Header Files/States/statePlayConfig.h"
 #include "../../Header Files/States/stateSettings.h"
+#include "../../Header Files/States/stateGameOver.h"
+
 void stateMainMenu::initialize(sf::RenderWindow *window) {
 
     memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
@@ -57,6 +59,14 @@ void stateMainMenu::update(sf::RenderWindow *window) {
         this->selected += 1;
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
     }
+
+    //Midlertidig// Testing purposes
+    if (machine.keyPressed[sf::Keyboard::M])
+    {
+        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
+        machine.setState(new stateGameOver);
+    }
+
     //Vertical selection bounds
     if(this->selected > 3){
         this->selected = 0;

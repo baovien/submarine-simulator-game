@@ -1,4 +1,4 @@
-#pragma once
+
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #ifndef VIETNAMESE_SPACE_PROGRAM_ENTITY_H

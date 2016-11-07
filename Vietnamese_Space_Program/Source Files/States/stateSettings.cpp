@@ -102,7 +102,13 @@ void stateSettings::update(sf::RenderWindow *window) {
             this->selectedRes = 2;
         }
     }
-    
+
+    //Back on escapekey
+    if(machine.keyPressed[sf::Keyboard::Escape]){
+        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
+        machine.setState(new stateMainMenu);
+    }
+
     //Selection on returnkey
 
     if(machine.keyPressed[sf::Keyboard::Return]){

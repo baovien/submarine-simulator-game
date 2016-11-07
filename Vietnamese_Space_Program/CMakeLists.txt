@@ -20,10 +20,12 @@ set(SOURCE_FILES
         "Source Files/Entities/bullet.cpp"              "Header Files/Entities/bullet.h"
         "Source Files/Core/entity.cpp"                  "Header Files/Core/entity.h"
         "Source Files/States/stateGameMode2.cpp"        "Header Files/States/stateGameMode2.h"
-        "Source Files/Core/playerLives.cpp"         "Header Files/Core/playerLives.h"
+        "Source Files/Core/playerLives.cpp"             "Header Files/Core/playerLives.h"
         "Header Files/Core/util.h"
         "Header Files/Core/state.h"
-        "Source Files/Entities/enemy.cpp" "Header Files/Entities/enemy.h")
+        "Source Files/Entities/enemy.cpp"               "Header Files/Entities/enemy.h"
+        "Source Files/Entities/overheat.cpp"            "Header Files/Entities/overheat.h"
+        "Source Files/States/stateGameOver.cpp"         "Header Files/States/stateGameOver.h")
 
 add_executable(Vietnamese_Space_Program ${SOURCE_FILES})
 

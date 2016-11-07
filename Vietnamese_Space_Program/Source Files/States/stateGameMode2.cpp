@@ -21,7 +21,7 @@ void stateGameMode2::initialize(sf::RenderWindow *window){
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font.ttf");
 
-    this->pausedText = new sf::Text("Paused\nPress Escape to Quit", *font, 32U);
+    this->pausedText = new sf::Text("Paused\nPress Q to Quit", *font, 32U);
     this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2, this->pausedText->getGlobalBounds().height / 2);
     this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
 }
@@ -30,12 +30,12 @@ void stateGameMode2::update(sf::RenderWindow *window){
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
         this->manager->updateEntity(window);
+
     }
-    else if(machine.keyPressed[sf::Keyboard::Escape]){
+    else if(machine.keyPressed[sf::Keyboard::Q]){
         machine.setState(new stateMainMenu());
     }
-
-    if (machine.keyPressed[sf::Keyboard::P])
+    if (machine.keyPressed[sf::Keyboard::P] || machine.keyPressed[sf::Keyboard::Escape])
     {
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         util->pauseScreen();                        //Kaller pausefunksjonen

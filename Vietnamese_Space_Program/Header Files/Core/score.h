@@ -10,7 +10,7 @@ public:
     Score(sf::Font &font, unsigned int size);
     void incrementScore();
     void updateScore();
-
+    int getValue() const;
 private:
     int value;
 };

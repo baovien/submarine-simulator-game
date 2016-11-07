@@ -13,3 +13,6 @@ void Score::updateScore()
     this->setString("Score: " + std::to_string(this->value));
 }
 
+int Score::getValue() const {
+    return value;
+}
