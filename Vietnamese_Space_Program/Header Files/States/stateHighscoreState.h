@@ -19,9 +19,28 @@ public:
 private:
     sf::Font* font;
     sf::Text* title;
-    sf::Text* back;
+    sf::Text* playerText;
+    sf::Text* playerPlace;
+    sf::Text* scoreText;
+    sf::Text* backText;
     sf::Texture* bgTexture;
+    sf::Texture* tbTexture;
     sf::Sprite* background;
+    sf::Sprite* table;
+
+#define mellomromIHoyde window->getSize().x / 5.2;
+
+    sf::Text* playerPlace1;
+    sf::Text* playerPlace2;
+    sf::Text* playerPlace3;
+    sf::Text* playerPlace4;
+    sf::Text* playerPlace5;
+    sf::Text* playerPlace6;
+    sf::Text* playerPlace7;
+    sf::Text* playerPlace8;
+    sf::Text* playerPlace9;
+    sf::Text* playerPlace10;
+
 
     int selected;
 
