@@ -20,9 +20,9 @@ public:
 
     sf::Vector2i mouseClick;
 
-    std::map<const std::string, sf::Keyboard::Key> keybindMap = {{"up", sf::Keyboard::W},
-    {"down", sf::Keyboard::S}, {"left", sf::Keyboard::A},{"right", sf::Keyboard::D},{"select", sf::Keyboard::Return},
-    {"back", sf::Keyboard::Escape},{"shoot", sf::Keyboard::Space},{"pause", sf::Keyboard::P}};
+    std::map<const std::string,std::string> keybindMap = {{"up", "escape"},
+    {"down", "s"}, {"left", "a"},{"right", "d"},{"select", "return"},
+    {"back", "escape"},{"shoot", "space"},{"pause", "p"}};
 //    std::map<const std::string, sf::Keyboard::Key>::iterator keybindIterator;
 
 private:

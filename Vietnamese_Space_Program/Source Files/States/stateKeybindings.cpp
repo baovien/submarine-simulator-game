@@ -9,7 +9,6 @@
  * @param window
  */
 void stateKeybindings::initialize(sf::RenderWindow *window) {
-
     memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
 
     this->bgTexture = new sf::Texture();
@@ -71,7 +70,6 @@ void stateKeybindings::initialize(sf::RenderWindow *window) {
     this->pauseKeySquare->setOrigin(this->pauseKeySquare->getGlobalBounds().width / 2, this->pauseKeySquare->getGlobalBounds().height / 2);
     this->pauseKeySquare->scale(window->getSize().x/background->getGlobalBounds().width/8,window->getSize().x/background->getGlobalBounds().width/8);
     this->pauseKeySquare->setPosition(backKeySquare->getPosition().x, (window->getSize().y / 2) + this->background->getGlobalBounds().height/3.5);
-    //this->pauseKeySquare->setColor(sf::Color(255, 255, 255, 125));
 
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font1.otf");
@@ -124,7 +122,33 @@ void stateKeybindings::initialize(sf::RenderWindow *window) {
     this->upKeyText->setOrigin(this->upKeyText->getGlobalBounds().width / 2, this->upKeyText->getGlobalBounds().height / 2);
     this->upKeyText->setPosition(upKeySquare->getPosition().x,upKeySquare->getPosition().y);
 
+    this->downKeyText = new sf::Text("" + machine.keybindMap.find("down")->second, *this->font, 15);
+    this->downKeyText->setOrigin(this->downKeyText->getGlobalBounds().width / 2, this->downKeyText->getGlobalBounds().height / 2);
+    this->downKeyText->setPosition(downKeySquare->getPosition().x,downKeySquare->getPosition().y);
 
+    this->leftKeyText = new sf::Text("" + machine.keybindMap.find("left")->second, *this->font, 15);
+    this->leftKeyText->setOrigin(this->leftKeyText->getGlobalBounds().width / 2, this->leftKeyText->getGlobalBounds().height / 2);
+    this->leftKeyText->setPosition(leftKeySquare->getPosition().x,leftKeySquare->getPosition().y);
+
+    this->rightKeyText = new sf::Text("" + machine.keybindMap.find("right")->second, *this->font, 15);
+    this->rightKeyText->setOrigin(this->rightKeyText->getGlobalBounds().width / 2, this->rightKeyText->getGlobalBounds().height / 2);
+    this->rightKeyText->setPosition(rightKeySquare->getPosition().x,rightKeySquare->getPosition().y);
+
+    this->selectKeyText = new sf::Text("" + machine.keybindMap.find("select")->second, *this->font, 15);
+    this->selectKeyText->setOrigin(this->selectKeyText->getGlobalBounds().width / 2, this->selectKeyText->getGlobalBounds().height / 2);
+    this->selectKeyText->setPosition(selectKeySquare->getPosition().x,selectKeySquare->getPosition().y);
+
+    this->backKeyText = new sf::Text("" + machine.keybindMap.find("back")->second, *this->font, 15);
+    this->backKeyText->setOrigin(this->backKeyText->getGlobalBounds().width / 2, this->backKeyText->getGlobalBounds().height / 2);
+    this->backKeyText->setPosition(backKeySquare->getPosition().x,backKeySquare->getPosition().y);
+
+    this->shootKeyText = new sf::Text("" + machine.keybindMap.find("shoot")->second, *this->font, 15);
+    this->shootKeyText->setOrigin(this->shootKeyText->getGlobalBounds().width / 2, this->shootKeyText->getGlobalBounds().height / 2);
+    this->shootKeyText->setPosition(shootKeySquare->getPosition().x,shootKeySquare->getPosition().y);
+
+    this->pauseKeyText = new sf::Text("" + machine.keybindMap.find("pause")->second, *this->font, 15);
+    this->pauseKeyText->setOrigin(this->pauseKeyText->getGlobalBounds().width / 2, this->pauseKeyText->getGlobalBounds().height / 2);
+    this->pauseKeyText->setPosition(pauseKeySquare->getPosition().x,pauseKeySquare->getPosition().y);
 
 }
 /**
@@ -132,13 +156,7 @@ void stateKeybindings::initialize(sf::RenderWindow *window) {
  * @param window
  */
 void stateKeybindings::update(sf::RenderWindow *window) {
-    if(machine.keyPressed[sf::Keyboard::Escape])
-    {
-        machine.setState(new stateSettings);
-    }
-
-
-    sf::Sprite* keySquares[] = {
+    sf::Sprite* keySquares[8] = {
             upKeySquare,
             downKeySquare,
             leftKeySquare,
@@ -148,6 +166,12 @@ void stateKeybindings::update(sf::RenderWindow *window) {
             shootKeySquare,
             pauseKeySquare
     };
+    if(machine.keyPressed[sf::Keyboard::Escape])
+    {
+        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
+        machine.setState(new stateSettings);
+    }
+
     for (int i = 0; i < 8 ; ++i) {
         if(sf::Mouse::getPosition(*window).x + keySquares[i]->getGlobalBounds().width /2 > keySquares[i]->getPosition().x &&
                 sf::Mouse::getPosition(*window).x - keySquares[i]->getGlobalBounds().width /2 < keySquares[i]->getPosition().x &&
@@ -164,7 +188,7 @@ void stateKeybindings::update(sf::RenderWindow *window) {
            machine.mouseClick.y + keySquares[i]->getGlobalBounds().height /2 > keySquares[i]->getPosition().y &&
            machine.mouseClick.y - keySquares[i]->getGlobalBounds().height /2 < keySquares[i]->getPosition().y)
         {
-            std::cout << i;
+            std::cout << i << std::endl;
         }
     }
     machine.mouseClick = {0,0};
@@ -177,6 +201,7 @@ void stateKeybindings::update(sf::RenderWindow *window) {
 void stateKeybindings::render(sf::RenderWindow *window) {
     this->movementText->setFillColor(sf::Color::White);
     this->movementText->setStyle(0);
+
     window->draw(*this->background);
 
     window->draw(*this->upKeySquare);
@@ -202,11 +227,26 @@ void stateKeybindings::render(sf::RenderWindow *window) {
     window->draw(*this->pauseText);
 
     window->draw(*this->upKeyText);
+    window->draw(*this->downKeyText);
+    window->draw(*this->leftKeyText);
+    window->draw(*this->rightKeyText);
+    window->draw(*this->selectKeyText);
+    window->draw(*this->backKeyText);
+    window->draw(*this->shootKeyText);
+    window->draw(*this->pauseKeyText);
+
 
 }
 
 void stateKeybindings::destroy(sf::RenderWindow *window) {
     delete this->upKeyText;
+    delete this->downKeyText;
+    delete this->leftKeyText;
+    delete this->rightKeyText;
+    delete this->selectKeyText;
+    delete this->backKeyText;
+    delete this->shootKeyText;
+    delete this->pauseKeyText;
 
     delete this->movementText;
     delete this->menuNavigationText;
