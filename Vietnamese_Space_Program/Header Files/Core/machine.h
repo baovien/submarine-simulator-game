@@ -17,6 +17,14 @@ public:
 
     bool keyPressed[sf::Keyboard::KeyCount];    //For å beholde tastetrykk til pollEventet i App
     bool keyReleased[sf::Keyboard::KeyCount];
+
+    sf::Vector2i mouseClick;
+
+    std::map<const std::string,std::string> keybindMap = {{"up", "escape"},
+    {"down", "s"}, {"left", "a"},{"right", "d"},{"select", "return"},
+    {"back", "escape"},{"shoot", "space"},{"pause", "p"}};
+//    std::map<const std::string, sf::Keyboard::Key>::iterator keybindIterator;
+
 private:
     sf::RenderWindow* window;
     States* state;

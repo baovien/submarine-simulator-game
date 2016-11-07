@@ -1,3 +1,4 @@
+#include <cstring>
 #include "../../Header Files/States/stateGameMode1.h"
 #include "../../Header Files/States/stateMainMenu.h"
 #include "../../Header Files/States/stateGameOver.h"

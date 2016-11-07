@@ -24,7 +24,7 @@ void EntityManager::addEntity(std::string name, Entity *entity)
     // uordnet map iterator, denne skal brukes for å lete gjennom alle våre entities.
     std::unordered_map<std::string, Entity*>::const_iterator found = this->entities.find(name);
 
-    //Visst vi finner entities altså at listen ikke er tom så setter den et "0" bak navnet, dette er praktisk visst vi kaller våre entities for det samme navnet.
+    //Hvis vi finner entities altså at listen ikke er tom så setter den et "0" bak navnet, dette er praktisk visst vi kaller våre entities for det samme navnet.
     //Dette forhindrer problemer når vi kaller entitiene samme navn, for eks enemy.
     while(found != this->entities.end())
     {
@@ -32,7 +32,7 @@ void EntityManager::addEntity(std::string name, Entity *entity)
         found = this->entities.find(name);
 
     }
-    //Visst navnet på entityen er unik så blir de pairet sammen vår entity.
+    //Hvis navnet på entityen er unik så blir de pairet sammen vår entity.
     this->entities.insert(std::make_pair(name, entity));
 }
 Entity* EntityManager::getEntity(std::string name)

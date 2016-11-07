@@ -25,7 +25,8 @@ set(SOURCE_FILES
         "Header Files/Core/state.h"
         "Source Files/Entities/enemy.cpp"               "Header Files/Entities/enemy.h"
         "Source Files/Entities/overheat.cpp"            "Header Files/Entities/overheat.h"
-        "Source Files/States/stateGameOver.cpp"         "Header Files/States/stateGameOver.h")
+        "Source Files/States/stateGameOver.cpp"         "Header Files/States/stateGameOver.h"
+        "Source Files/States/stateKeybindings.cpp" "Header Files/States/stateKeybindings.h")
 
 add_executable(Vietnamese_Space_Program ${SOURCE_FILES})
 
