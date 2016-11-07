@@ -1,4 +1,5 @@
 #include "../../Header Files/States/stateKeybindings.h"
+#include "../../Header Files/States/stateSettings.h"
 
 #include <cstring>
 #include <iostream>
@@ -131,6 +132,12 @@ void stateKeybindings::initialize(sf::RenderWindow *window) {
  * @param window
  */
 void stateKeybindings::update(sf::RenderWindow *window) {
+    if(machine.keyPressed[sf::Keyboard::Escape])
+    {
+        machine.setState(new stateSettings);
+    }
+
+
     sf::Sprite* keySquares[] = {
             upKeySquare,
             downKeySquare,
@@ -152,8 +159,15 @@ void stateKeybindings::update(sf::RenderWindow *window) {
         else{
             keySquares[i]->setColor(sf::Color(255,255,255,255));
         }
-
+        if(machine.mouseClick.x + keySquares[i]->getGlobalBounds().width /2 > keySquares[i]->getPosition().x &&
+           machine.mouseClick.x - keySquares[i]->getGlobalBounds().width /2 < keySquares[i]->getPosition().x &&
+           machine.mouseClick.y + keySquares[i]->getGlobalBounds().height /2 > keySquares[i]->getPosition().y &&
+           machine.mouseClick.y - keySquares[i]->getGlobalBounds().height /2 < keySquares[i]->getPosition().y)
+        {
+            std::cout << i;
+        }
     }
+    machine.mouseClick = {0,0};
 
 }
 /**
