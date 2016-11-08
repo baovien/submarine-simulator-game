@@ -28,36 +28,14 @@ private:
     sf::Texture* bgTexture;
     sf::Sprite* background;
 
-
-    sf::Text* upText;
-    sf::Text* downText;
-    sf::Text* leftText;
-    sf::Text* rightText;
-    sf::Text* selectText;
-    sf::Text* backText;
-    sf::Text* shootText;
-    sf::Text* pauseText;
-
-    sf::Sprite* upKeySquare;
-    sf::Sprite* downKeySquare;
-    sf::Sprite* leftKeySquare;
-    sf::Sprite* rightKeySquare;
-    sf::Sprite* selectKeySquare;
-    sf::Sprite* backKeySquare;
-    sf::Sprite* shootKeySquare;
-    sf::Sprite* pauseKeySquare;
-
-    sf::Sprite* keySquares[8];
-
-
-    sf::Text* upKeyText;
-    sf::Text* downKeyText;
-    sf::Text* leftKeyText;
-    sf::Text* rightKeyText;
-    sf::Text* selectKeyText;
-    sf::Text* backKeyText;
-    sf::Text* shootKeyText;
-    sf::Text* pauseKeyText;
+    struct keySquares{
+        sf::Text* keyText;
+        sf::Text* titleText;
+        sf::Sprite* keySquare;
+    };
+    std::vector<keySquares> keyVector;
+    std::string wordList [8]{"up","down","left","right","select","back","shoot","pause"};
+    std::vector<sf::Vector2f> positionList;
 
     std::string keyList[sf::Keyboard::KeyCount] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
                                                    "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
