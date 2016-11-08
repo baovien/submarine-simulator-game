@@ -35,9 +35,13 @@ void App::run(){
             if(event.type == sf::Event::Resized){
 //                window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
             }
-            if (event.type == sf::Event::KeyPressed)                    //Array som inneholder alle taster.
+            if (event.type == sf::Event::KeyPressed){                   //Array som inneholder alle taster.
                 machine.keyPressed[event.key.code] = true;              //De er her for å lagre tastetrykk og slipp uten
-                                                                        //å måtte ha alt inne i pollEventet.
+                if(machine.waitingForInput){
+                machine.keyPressedInBinds = true;
+                machine.waitingForInput = false;
+                }
+            }                                                          //å måtte ha alt inne i pollEventet.
             if (event.type == sf::Event::KeyReleased)                   //De opprettes i machine.h
                 machine.keyReleased[event.key.code] = true;
             if (event.type == sf::Event::MouseButtonPressed)
