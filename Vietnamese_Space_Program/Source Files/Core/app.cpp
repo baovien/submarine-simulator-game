@@ -38,6 +38,8 @@ void App::run(){
             //å måtte ha alt inne i pollEventet.
             if (event.type == sf::Event::KeyReleased)                   //De opprettes i machine.h
                 machine.keyReleased[event.key.code] = true;
+            if (event.type == sf::Event::MouseButtonPressed)
+                machine.mouseClick = sf::Mouse::getPosition(window);          //beholder posisjonen til museklikk som kan sjekkes i andre states
         }
 
         /**
@@ -46,11 +48,10 @@ void App::run(){
          */
         elapsed = timer.getElapsedTime();
         if(elapsed.asMicroseconds() > 16666){
-//            window.clear(sf::Color::Black);
+            //window.clear(sf::Color::Black);
             machine.update();
             machine.render();
             window.display();
-
             if(quitGame)
             {
                 window.close();
