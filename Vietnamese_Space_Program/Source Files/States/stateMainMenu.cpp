@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include "../../Header Files/States/stateMainMenu.h"
-#include "../../Header Files/States/stateHighscoreState.h"
+#include "../../Header Files/States/StateHighscore.h"
 #include "../../Header Files/States/statePlayConfig.h"
 #include "../../Header Files/States/stateSettings.h"
 #include "../../Header Files/States/stateGameOver.h"
@@ -83,7 +83,7 @@ void stateMainMenu::update(sf::RenderWindow *window) {
                 machine.setState(new statePlayConfig);
                 break;
             case 1: //Highscore
-                machine.setState(new stateHighscoreState);
+                machine.setState(new StateHighscore);
                 break;
             case 2: //Options
                 machine.setState(new stateSettings);

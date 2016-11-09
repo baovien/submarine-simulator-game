@@ -9,7 +9,7 @@ set(SOURCE_FILES
         "Source Files/Entities/player.cpp"              "Header Files/Entities/player.h"
         "Source Files/States/stateMainMenu.cpp"         "Header Files/States/stateMainMenu.h"
         "Source Files/States/stateGameMode1.cpp"        "Header Files/States/stateGameMode1.h"
-        "Source Files/States/stateHighscoreState.cpp"   "Header Files/States/stateHighscoreState.h"
+        "Source Files/States/StateHighscore.cpp"   "Header Files/States/StateHighscore.h"
         "Source Files/Core/score.cpp"                   "Header Files/Core/score.h"
         "Source Files/States/statePlayConfig.cpp"       "Header Files/States/statePlayConfig.h"
         "Source Files/States/stateSettings.cpp"         "Header Files/States/stateSettings.h"
