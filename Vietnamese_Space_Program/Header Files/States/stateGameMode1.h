@@ -8,6 +8,7 @@
 #include "../Core/entityManager.h"
 #include "../Core/score.h"
 #include "../Entities/asteroid.h"
+#include "../Entities/boss1.h"
 
 #ifndef VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE1_H
 #define VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE1_H
@@ -21,7 +22,7 @@ public:
     void destroy(sf::RenderWindow *window);
     sf::Clock clock; // starter clocken
 protected:
-
+    Boss* boss;
     Lives* lives;
     Score* score;
     sf::Font* font;

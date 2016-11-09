@@ -57,7 +57,7 @@ void Player::updateEntity(sf::RenderWindow *window)
     {
         if(this->overheat < 10) {
             this->manager->addEntity("bullet", new Bullet((this->score),
-                                                          (this->getPosition().x + ((this->getGlobalBounds().height) / 2) * sin(angle)),
+                                                          (this->getPosition().x + (this->getGlobalBounds().width / 2) * sin(angle)),
                                                           (this->getPosition().y - (this->getGlobalBounds().height / 2) * cos(angle)),
                                                           ( -cos(angle) * 15),
                                                           (sin(angle) * 15), (angle*180/pi)));
@@ -119,6 +119,8 @@ void Player::collision(Entity* entity)
                 this->destroyEntity();
 
             }
+        case 6: //Boss bullet
+            this->lives->decreaseLife();
             break;
     }
 }

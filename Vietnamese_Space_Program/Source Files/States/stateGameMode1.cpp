@@ -23,6 +23,8 @@ void stateGameMode1::initialize(sf::RenderWindow *window) {
     this->lives->setPosition(window->getSize().x - this->lives->getGlobalBounds().width - 20, 5);
 
     manager = new EntityManager();
+    boss = new Boss(this->manager);
+    this->manager->addEntity("boss", new Boss(this->manager));
     this->player =  new Player(this->lives, this->score, this->manager, window->getSize().x /2, window->getSize().y/2);
     this->manager->addEntity("ship", this->player);
 
@@ -53,8 +55,7 @@ void stateGameMode1::update(sf::RenderWindow *window)
     }
     //Spawn enemies and asteroids randomly
     sf::Time elapsed1 = clock.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
-
-    if(rand() % 1000 < 15){
+    if(rand() % 1000 < 2){
         enemyObject = new EnemyObject();
         this->manager->addEntity("enemy", enemyObject);
         this->enemyObject->setEnemy(this->player);

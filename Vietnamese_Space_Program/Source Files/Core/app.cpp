@@ -1,16 +1,14 @@
-#include "../../Header Files/Core/app.h"
-
 //Tastetrykk som kun skal registreres én gang:
 //if(machine.keyPressed[sf::Keyboard:::DinTast])
 // {
 //memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
 //KODE
 //}
-//om du skal triggere det på release bruker du bare keyReleased istedet for keyPressed
+#include "../../Header Files/Core/app.h"
 
 void App::run(){
 
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "Vietnamese Space Program", sf::Style::Titlebar | sf::Style::Close); // FULL HD OMG
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "Vietnamese Space Program" ,sf::Style::Titlebar | sf::Style::Close); // FULL HD OMG
     window.setVerticalSyncEnabled(true);
     window.setKeyRepeatEnabled(false);
 
@@ -37,7 +35,7 @@ void App::run(){
             }
             if (event.type == sf::Event::KeyPressed)                    //Array som inneholder alle taster.
                 machine.keyPressed[event.key.code] = true;              //De er her for å lagre tastetrykk og slipp uten
-                                                                        //å måtte ha alt inne i pollEventet.
+            //å måtte ha alt inne i pollEventet.
             if (event.type == sf::Event::KeyReleased)                   //De opprettes i machine.h
                 machine.keyReleased[event.key.code] = true;
         }
@@ -63,3 +61,7 @@ void App::run(){
 
     }
 }
+
+#include "../../Header Files/Core/app.h"
+
+//om du skal triggere det på release bruker du bare keyReleased istedet for keyPressed
