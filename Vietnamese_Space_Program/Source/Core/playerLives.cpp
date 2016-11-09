@@ -4,11 +4,11 @@ Lives::Lives(sf::Font &font, unsigned int size) : sf::Text("Lives : 3", font, si
     this->value = 10;
 }
 void Lives::decreaseLife() {
-    this->value--;
+    this->value -= 1;
 }
 
 void Lives::increaseLife() {
-    this->value++;
+    this->value += 1;
 }
 
 void Lives::updateLife() {

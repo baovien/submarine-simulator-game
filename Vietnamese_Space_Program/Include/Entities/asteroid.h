@@ -11,6 +11,7 @@ public:
     virtual void collision(Entity* entity);
 
 private:
+    int health;
     int randomNumber = rand()%4;
 };
 

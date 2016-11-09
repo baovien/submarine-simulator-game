@@ -21,8 +21,12 @@ public:
     void update(sf::RenderWindow *window);
     void render(sf::RenderWindow *window);
     void destroy(sf::RenderWindow *window);
-    sf::Clock clock; // starter clocken
-    sf::Clock bossclock;
+
+    sf::Clock clockAsteroid;    // starter clocken for asteroid
+    sf::Clock clockBoss;        // starter clocken for boss
+    sf::Clock clockEnemy;       // starter clocken for enemy
+    sf::Clock clockHealthPack;  // starter clocken for healthpack
+
 protected:
     SoundLoader sl;
     Boss* boss;
@@ -37,6 +41,8 @@ protected:
     Player* player;
     EnemyObject* enemyObject;
     HealthPack* healthPack;
+    sf::Texture* pausedTexture;
+    sf::Sprite* pausedBackground;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE1_H

@@ -1,8 +1,8 @@
-#include "../Core/entityManager.h"
-#include "player.h"
-
 #ifndef VIETNAMESE_SPACE_PROGRAM_ENEMY_H
 #define VIETNAMESE_SPACE_PROGRAM_ENEMY_H
+
+#include "../Core/entityManager.h"
+#include "player.h"
 
 class EnemyObject : public Entity
 {
