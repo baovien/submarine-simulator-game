@@ -47,7 +47,7 @@ void stateKeybindings::initialize(sf::RenderWindow *window) {
     positionList.push_back( sf::Vector2f(positionList[4].x , (window->getSize().y / 2) + this->background->getGlobalBounds().height/3.5));
     positionList.push_back( sf::Vector2f(positionList[5].x, (window->getSize().y / 2) + this->background->getGlobalBounds().height/3.5));
 
-    for (int i = 0; i < keyVector.size(); ++i) {
+    for (int i = 0; i < 8; ++i) {
         keySquares ks;
         keyVector.push_back(ks);
         keyVector[i].keySquare = new sf::Sprite();
@@ -75,7 +75,7 @@ void stateKeybindings::update(sf::RenderWindow *window) {
         machine.setState(new stateSettings);
     }
 
-    for (int i = 0; i < keyVector.size(); ++i) {
+    for (int i = 0; i < 8; ++i) {
 
         if (sf::Mouse::getPosition(*window).x + keyVector[i].keySquare->getGlobalBounds().width / 2 >
             keyVector[i].keySquare->getPosition().x &&
@@ -119,7 +119,7 @@ void stateKeybindings::render(sf::RenderWindow *window) {
     window->draw(*this->menuNavigationText);
     window->draw(*this->gameplayText);
 
-    for (int i = 0; i < keyVector.size(); ++i) {
+    for (int i = 0; i < 8; ++i) {
         window->draw(*this->keyVector[i].keySquare);
         window->draw(*this->keyVector[i].titleText);
         window->draw(*this->keyVector[i].keyText);
@@ -130,7 +130,7 @@ void stateKeybindings::render(sf::RenderWindow *window) {
 
 void stateKeybindings::destroy(sf::RenderWindow *window) {
 
-    for (int i = 0; i < keyVector.size(); ++i) {
+    for (int i = 0; i < 8; ++i) {
         delete this->keyVector[i].keySquare;
         delete this->keyVector[i].titleText;
         delete this->keyVector[i].keyText;
