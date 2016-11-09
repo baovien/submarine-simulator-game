@@ -30,9 +30,9 @@ void Bullet::collision(Entity *entity)
     switch(entity->groupID())
     {
         case 3: // Asteroids
-            entity->destroyEntity();
             this->destroyEntity();
             this->score->incrementScore();
+            entity->destroyEntity();
             break;
 
         case 4: // Enemy

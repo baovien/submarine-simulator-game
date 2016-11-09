@@ -113,11 +113,9 @@ void Player::collision(Entity* entity)
             }
             break;
         case 4: // Enemy
-            entity->destroyEntity();
             this->lives->decreaseLife();
             if(this->lives->getValue() <= 0){
                 this->destroyEntity();
-
             }
             break;
     }
