@@ -3,6 +3,7 @@
 Score::Score(sf::Font &font, unsigned int size) : sf::Text("Score: 0", font, size)
 {
     this->value = 0;
+
 }
 void Score::incrementScore()
 {
@@ -14,5 +15,6 @@ void Score::updateScore()
 }
 
 int Score::getValue() const {
+
     return value;
 }

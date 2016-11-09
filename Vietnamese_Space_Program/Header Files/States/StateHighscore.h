@@ -4,7 +4,8 @@
 #include "../Core/state.h"
 #include "../../Header Files/Core/machine.h"
 
-class stateHighscoreState : public States{
+
+class StateHighscore : public States{
 
 
 public:
@@ -15,12 +16,10 @@ public:
     void render(sf::RenderWindow *window);
 
     void destroy(sf::RenderWindow *window);
-
 private:
     sf::Font* font;
     sf::Text* title;
     sf::Text* playerText;
-    sf::Text* playerPlace;
     sf::Text* scoreText;
     sf::Text* backText;
     sf::Texture* bgTexture;
@@ -28,8 +27,7 @@ private:
     sf::Sprite* background;
     sf::Sprite* table;
 
-#define mellomromIHoyde window->getSize().x / 5.2;
-
+    sf::Text* playerPlace;
     sf::Text* playerPlace1;
     sf::Text* playerPlace2;
     sf::Text* playerPlace3;
