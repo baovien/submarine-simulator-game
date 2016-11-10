@@ -16,17 +16,17 @@ public:
 
 private:
     sf::Font* font;
+
     sf::Text* title;
     sf::Text* screenRes;
-
     sf::Text* res1;
     sf::Text* res2;
     sf::Text* res3;
-
     sf::Text* volume;
-    sf::Text* keybinds;
+    sf::Text* keybindsText;
     sf::Text* apply;
     sf::Text* back;
+
     sf::Vector2u resChoice;
 
     sf::Texture* bgTexture;

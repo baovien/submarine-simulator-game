@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 #include "../../Header Files/States/stateMainMenu.h"
 #include "../../Header Files/States/StateHighscore.h"
 #include "../../Header Files/States/statePlayConfig.h"
