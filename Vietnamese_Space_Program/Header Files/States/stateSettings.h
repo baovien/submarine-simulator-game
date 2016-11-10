@@ -23,7 +23,7 @@ private:
     sf::Text* res2;
     sf::Text* res3;
     sf::Text* volume;
-    sf::Text* keybindsText;
+    sf::Text* keybinds;
     sf::Text* apply;
     sf::Text* back;
 

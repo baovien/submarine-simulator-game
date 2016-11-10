@@ -3,6 +3,7 @@
 #include "../../Header Files/States/stateKeybindings.h"
 
 #include <cstring>
+#include <iostream>
 
 /**
  * Init settingsState.
@@ -17,6 +18,7 @@ void stateSettings::initialize(sf::RenderWindow *window) {
 
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
+
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
@@ -52,9 +54,9 @@ void stateSettings::initialize(sf::RenderWindow *window) {
     this->volume->setOrigin(this->volume->getGlobalBounds().width / 2, this->volume->getGlobalBounds().height / 2);
     this->volume->setPosition(window->getSize().x / 2, this->volume->getGlobalBounds().height*8);
 
-    this->keybindsText = new sf::Text("Keybinds", *this->font, textSize);
-    this->keybindsText->setOrigin(this->keybindsText->getGlobalBounds().width / 2, this->keybindsText->getGlobalBounds().height / 2);
-    this->keybindsText->setPosition(window->getSize().x / 2, this->keybindsText->getGlobalBounds().height*10);
+    this->keybinds = new sf::Text("Keybinds", *this->font, textSize);
+    this->keybinds->setOrigin(this->keybinds->getGlobalBounds().width / 2, this->volume->getGlobalBounds().height / 2);
+    this->keybinds->setPosition(window->getSize().x / 2, this->keybinds->getGlobalBounds().height*10);
 
     this->apply = new sf::Text("Apply", *this->font, textSize);
     this->apply->setOrigin(this->apply->getGlobalBounds().width / 2, this->apply->getGlobalBounds().height / 2);
@@ -143,22 +145,12 @@ void stateSettings::update(sf::RenderWindow *window) {
  * @param window
  */
 void stateSettings::render(sf::RenderWindow *window) {
-/*
-    this->screenRes->setFillColor(sf::Color::White);
-    this->res1->setFillColor(sf::Color::White);
-    this->res2->setFillColor(sf::Color::White);
-    this->res3->setFillColor(sf::Color::White);
-    this->volume->setFillColor(sf::Color::White);
-    this->keybinds->setFillColor(sf::Color::White);
-    this->apply->setFillColor(sf::Color::White);
-    this->back->setFillColor(sf::Color::White);
-*/
 
-    this->back->setStyle(0);
-    this->apply->setStyle(0);
-    this->keybindsText->setStyle(0);
-    this->volume->setStyle(0);
     this->screenRes->setStyle(0);
+    this->volume->setStyle(0);
+    this->keybinds->setStyle(0);
+    this->apply->setStyle(0);
+    this->back->setStyle(0);
 
     switch(this->selected){
         case 0: //ScrRes selected, left right to choose res.
@@ -192,7 +184,7 @@ void stateSettings::render(sf::RenderWindow *window) {
             this->volume->setStyle(1<<3);
             break;
         case 2:
-            this->keybindsText->setStyle(1<<3);
+            this->keybinds->setStyle(1<<3);
             break;
         case 3:
             this->apply->setStyle(1<<3);
@@ -205,31 +197,28 @@ void stateSettings::render(sf::RenderWindow *window) {
 
 
     window->draw(*this->background);
-
-    window->draw(*this->back);
-    window->draw(*this->apply);
-    window->draw(*this->keybindsText);
-    window->draw(*this->volume);
-    window->draw(*this->res3);
-    window->draw(*this->res2);
-    window->draw(*this->res1);
-    window->draw(*this->screenRes);
     window->draw(*this->title);
+    window->draw(*this->screenRes);
+    window->draw(*this->res1);
+    window->draw(*this->res2);
+    window->draw(*this->res3);
+    window->draw(*this->volume);
+    window->draw(*this->keybinds);
+    window->draw(*this->apply);
+    window->draw(*this->back);
 }
 
 void stateSettings::destroy(sf::RenderWindow *window) {
-    delete this->title;
-    delete this->screenRes;
-    delete this->res1;
-    delete this->res2;
-    delete this->res3;
-    delete this->volume;
-    delete this->keybindsText;
-    delete this->apply;
     delete this->back;
-
+    delete this->apply;
+    delete this->keybinds;
     delete this->font;
-    delete this->bgTexture;
+    delete this->volume;
+    delete this->res3;
+    delete this->res2;
+    delete this->res1;
+    delete this->screenRes;
+    delete this->title;
     delete this->background;
 }
 
