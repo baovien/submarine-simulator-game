@@ -5,6 +5,9 @@
 
 void stateGameMode1::initialize(sf::RenderWindow *window) {
 
+    sf::View newView( sf::FloatRect( 0, 0, window->getSize().x, window->getSize().y ) );
+    window->setView(newView);
+
     memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
 
     this->bgTexture = new sf::Texture();
@@ -53,6 +56,7 @@ void stateGameMode1::update(sf::RenderWindow *window)
 
     if(this->lives->getValue() <= 0) {
         machine.setState(new stateGameOver);
+        return;
     }
     //Spawn enemies and asteroids randomly
     sf::Time elapsed1 = clock.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
