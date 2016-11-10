@@ -25,6 +25,9 @@ private:
     sf::Texture* bgTexture;
     sf::Sprite* background;
 
+    std::vector<sf::Text*> menuTexts;
+
+
     int selected;
     unsigned int textSize = 32U;
 };

@@ -9,6 +9,10 @@
 
 void statePlayConfig::initialize(sf::RenderWindow *window)
 {
+
+    sf::View newView( sf::FloatRect( 0, 0, window->getSize().x, window->getSize().y ) );
+    window->setView(newView);
+
     memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
 
     this->bgTexture = new sf::Texture();
