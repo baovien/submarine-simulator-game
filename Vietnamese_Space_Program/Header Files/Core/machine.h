@@ -18,6 +18,9 @@ public:
     bool keyPressed[sf::Keyboard::KeyCount];    //For å beholde tastetrykk til pollEventet i App
     bool keyReleased[sf::Keyboard::KeyCount];
 
+    void setGameOverScore(int playerScore);
+    int getGameOverScore() const;
+
     sf::Vector2i mouseClick;
 
     std::map<const std::string,std::string> keybindMap = {{"up", "w"},
@@ -30,6 +33,7 @@ public:
 private:
     sf::RenderWindow* window;
     States* state;
+    int gameOverScore;
 };
 
 extern Machine machine;

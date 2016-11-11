@@ -24,15 +24,15 @@ void stateGameOver::initialize(sf::RenderWindow *window) {
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font1.otf");
 
-    this->score = new Score(*font, 32U);
-    this->score->setOrigin(this->score->getGlobalBounds().width/2, this->score->getGlobalBounds().height/2);
-    this->score->setPosition(window->getSize().x/2, window->getSize().y/2);
-
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
     this->background->setOrigin(this->background->getGlobalBounds().width / 2, this->background->getGlobalBounds().height / 2);
     this->background->scale(window->getSize().x/background->getGlobalBounds().width/2,window->getSize().y/background->getGlobalBounds().height/2);
     this->background->setPosition(window->getSize().x/2, window->getSize().y/2);
+
+    this->score = new sf::Text("Score: " + std::to_string(machine.getGameOverScore()), *font, 25);
+    this->score->setOrigin(this->score->getGlobalBounds().width/2, this->score->getGlobalBounds().height/2);
+    this->score->setPosition(window->getSize().x/2, window->getSize().y/2);
 
     this->gameOverText = new sf::Text("Game Over", *this->font, 25);
     this->gameOverText->setOrigin(this->gameOverText->getGlobalBounds().width / 2, this->gameOverText->getGlobalBounds().height / 2);

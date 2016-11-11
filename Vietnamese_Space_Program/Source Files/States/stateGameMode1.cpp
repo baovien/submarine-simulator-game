@@ -55,6 +55,7 @@ void stateGameMode1::update(sf::RenderWindow *window)
     }
 
     if(this->lives->getValue() <= 0) {
+        machine.setGameOverScore(this->score->getValue());
         machine.setState(new stateGameOver);
         return;
     }

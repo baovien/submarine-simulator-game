@@ -42,3 +42,11 @@ Machine::~Machine()
         this->state->destroy(this->window);
     }
 }
+
+void Machine::setGameOverScore(int playerScore) {
+    Machine::gameOverScore = playerScore;
+}
+
+int Machine::getGameOverScore() const {
+    return gameOverScore;
+}
