@@ -38,6 +38,8 @@ sf::FloatRect Entity::getGlobalBoundsAdjusted()
     sf::FloatRect collisionBounds = this->getGlobalBounds();
     collisionBounds.width *= 0.8;
     collisionBounds.height *= 0.8;
+    collisionBounds.top *= 1.2;
+    collisionBounds.left *= 1.2;
     return collisionBounds;
 }
 

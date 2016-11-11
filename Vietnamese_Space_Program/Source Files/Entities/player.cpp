@@ -34,7 +34,8 @@ void Player::updateEntity(sf::RenderWindow *window)
     }
     if (down && speed >-maxSpeed)
     {
-        if (speed > 0){
+        if (speed > 0)
+        {
             speed -= dec;
         }else
         {
@@ -49,6 +50,7 @@ void Player::updateEntity(sf::RenderWindow *window)
     }
     if (right && speed != 0) angle += turnspeed * speed/maxSpeed;
     if (left && speed != 0) angle -= turnspeed * speed/maxSpeed;
+
     this->move(sin(angle) * speed, -cos(angle)*speed);
     this->setRotation(angle*180/pi);
 
