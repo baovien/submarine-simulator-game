@@ -55,7 +55,7 @@ void Bullet::collision(Entity *entity)
                 this->score->incrementScore();
                 break;
 
-            case 5:
+            case 5: // Boss
                 this->destroyEntity();
                 this->score->incrementScore();
         }

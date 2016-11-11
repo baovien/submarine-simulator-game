@@ -27,8 +27,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->lives->setPosition(window->getSize().x - this->lives->getGlobalBounds().width - 20, 5);
 
     manager = new EntityManager();
-    boss = new Boss(this->manager);
-    this->manager->addEntity("boss", new Boss(this->manager));
+   // boss = new Boss(this->manager);
     this->player =  new Player(this->lives, this->score, this->manager, window->getSize().x /2, window->getSize().y/2);
     this->manager->addEntity("ship", this->player);
 
@@ -61,16 +60,24 @@ void StateGameMode1::update(sf::RenderWindow *window)
     }
     //Spawn enemies and asteroids randomly
     sf::Time elapsed1 = clock.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
+    sf::Time elapsed2 = bossclock.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
+
     if(rand() % 1000 < 2){
         enemyObject = new EnemyObject();
-        this->manager->addEntity("enemy", enemyObject);
+        this->manager->addEntity("Enemy", enemyObject);
         this->enemyObject->setEnemy(this->player);
     }
+
     if(elapsed1.asMicroseconds() > 3000000) //Sjekker om verdien til clock er mer enn 3 sekunder
     {
-        this->manager->addEntity("asteroid",
-                                 new AsteroidObject(32, 32)); //er clock mer enn 3 sekunder lager jeg en ny astroide
+        this->manager->addEntity("Asteroid", new AsteroidObject(0,0)); //er clock mer enn 3 sekunder lager jeg en ny astroide
         clock.restart(); //restarter clock(nullstiller)
+    }
+
+    if(elapsed2.asMicroseconds() > 15000000) //Sjekker om verdien til clock er mer enn 3 sekunder
+    {
+        this->manager->addEntity("Boss", new Boss(this->manager));
+        bossclock.restart(); //restarter clock(nullstiller)
     }
 }
 

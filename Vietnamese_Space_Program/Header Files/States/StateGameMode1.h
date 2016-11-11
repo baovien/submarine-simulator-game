@@ -21,6 +21,7 @@ public:
     void render(sf::RenderWindow *window);
     void destroy(sf::RenderWindow *window);
     sf::Clock clock; // starter clocken
+    sf::Clock bossclock;
 protected:
     Boss* boss;
     Lives* lives;

@@ -6,6 +6,7 @@ Player::Player(Lives* lives, Score* score, EntityManager* manager, float x, floa
     this->load("fighter3_green_big_test.png");
     this->active = 1;
     this->groupId = 1;
+    
     this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
     this->setPosition(x, y);
     this->manager = manager;
