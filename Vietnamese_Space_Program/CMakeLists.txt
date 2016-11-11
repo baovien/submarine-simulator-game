@@ -27,7 +27,6 @@ set(SOURCE_FILES
         "Source Files/States/stateGameOver.cpp"         "Header Files/States/stateGameOver.h"
         "Source Files/Entities/boss1.cpp"               "Header Files/Entities/boss1.h"
         "Source Files/States/stateKeybindings.cpp"      "Header Files/States/stateKeybindings.h")
-
 add_executable(Vietnamese_Space_Program ${SOURCE_FILES})
 
 # Link with SFML dependencies

@@ -56,6 +56,7 @@ void App::run(){
         elapsed = timer.getElapsedTime();
         if(elapsed.asMicroseconds() > 16666){
             //window.clear(sf::Color::Black);
+
             machine.update();
             machine.render();
             window.display();
