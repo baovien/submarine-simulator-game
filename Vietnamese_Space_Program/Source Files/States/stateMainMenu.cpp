@@ -122,6 +122,7 @@ void stateMainMenu::render(sf::RenderWindow *window) {
 
 void stateMainMenu::destroy(sf::RenderWindow *window) {
 
+    //Flippe vectoren, destroye motsatt av draws
     std::reverse(menuTexts.begin(), menuTexts.end());
     for(sf::Text* text: menuTexts)
         delete text;
