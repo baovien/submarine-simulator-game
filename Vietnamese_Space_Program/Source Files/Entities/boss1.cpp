@@ -8,7 +8,7 @@ Boss::Boss(EntityManager* manager)
     this->health = 10;
     //this->setRotation(1);
     this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
-   // this->setScale(3,1);
+    this->setScale(3,3);
     this->setPosition(-50,300);
     this->manager = manager;
     this->velocity.x = 0.5;
