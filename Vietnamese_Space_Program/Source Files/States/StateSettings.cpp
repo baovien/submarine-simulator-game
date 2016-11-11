@@ -1,6 +1,6 @@
-#include "../../Header Files/States/stateSettings.h"
-#include "../../Header Files/States/stateMainMenu.h"
-#include "../../Header Files/States/stateKeybindings.h"
+#include "../../Header Files/States/StateSettings.h"
+#include "../../Header Files/States/StateMainMenu.h"
+#include "../../Header Files/States/StateKeybindings.h"
 
 #include <cstring>
 #include <iostream>
@@ -9,7 +9,7 @@
  * Init settingsState.
  * @param window
  */
-void stateSettings::initialize(sf::RenderWindow *window) {
+void StateSettings::initialize(sf::RenderWindow *window) {
 
     sf::View newView( sf::FloatRect( 0, 0, window->getSize().x, window->getSize().y ) );
     window->setView(newView);
@@ -71,7 +71,7 @@ void stateSettings::initialize(sf::RenderWindow *window) {
  * Update on keyevent, navigation through settings
  * @param window
  */
-void stateSettings::update(sf::RenderWindow *window) {
+void StateSettings::update(sf::RenderWindow *window) {
 
     //Vertical selection
     if(machine.keyPressed[sf::Keyboard::Up]){
@@ -117,7 +117,7 @@ void stateSettings::update(sf::RenderWindow *window) {
     //Back on escapekey
     if(machine.keyPressed[sf::Keyboard::Escape]){
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-        machine.setState(new stateMainMenu);
+        machine.setState(new StateMainMenu);
     }
 
     //Selection on returnkey
@@ -126,7 +126,7 @@ void stateSettings::update(sf::RenderWindow *window) {
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         switch(this->selected){
             case 2:
-                machine.setState(new stateKeybindings);
+                machine.setState(new StateKeybindings);
                 break;
             case 3: //Apply
                 window->setSize(resChoice);
@@ -134,7 +134,7 @@ void stateSettings::update(sf::RenderWindow *window) {
                 this->initialize(window);
                 break;
             case 4: //Back
-                machine.setState(new stateMainMenu);
+                machine.setState(new StateMainMenu);
                 break;
         }
     }
@@ -144,7 +144,7 @@ void stateSettings::update(sf::RenderWindow *window) {
  *
  * @param window
  */
-void stateSettings::render(sf::RenderWindow *window) {
+void StateSettings::render(sf::RenderWindow *window) {
 
     this->screenRes->setStyle(0);
     this->volume->setStyle(0);
@@ -208,7 +208,7 @@ void stateSettings::render(sf::RenderWindow *window) {
     window->draw(*this->back);
 }
 
-void stateSettings::destroy(sf::RenderWindow *window) {
+void StateSettings::destroy(sf::RenderWindow *window) {
     delete this->back;
     delete this->apply;
     delete this->keybinds;

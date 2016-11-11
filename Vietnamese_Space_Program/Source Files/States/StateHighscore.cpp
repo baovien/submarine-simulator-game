@@ -70,7 +70,7 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
 void StateHighscore::update(sf::RenderWindow *window) {
 
     if (machine.keyPressed[sf::Keyboard::Return]) {
-        machine.setState(new stateMainMenu);
+        machine.setState(new StateMainMenu);
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
     }
 
@@ -88,7 +88,7 @@ void StateHighscore::update(sf::RenderWindow *window) {
         machine.mouseClick.y - backText->getGlobalBounds().height / 2 < backText->getPosition().y) {
         //Menu
         machine.mouseClick = {-1, -1};
-        machine.setState(new stateMainMenu);
+        machine.setState(new StateMainMenu);
         return;
     }
 }

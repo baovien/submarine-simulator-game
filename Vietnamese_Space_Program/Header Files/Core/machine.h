@@ -29,14 +29,14 @@ public:
     sf::Vector2i mouseClick;
 
     //Brukes i forbindelse med keybinds
-    std::map<const std::string, std::string> keybindMap = {{"up",     "w"},
-                                                           {"down",   "s"},
-                                                           {"left",   "a"},
-                                                           {"right",  "d"},
-                                                           {"select", "return"},
-                                                           {"back",   "escape"},
-                                                           {"shoot",  "space"},
-                                                           {"pause",  "p"}};
+    std::map<const std::string, std::string> keybindMap = {{"up",     "W"},
+                                                           {"down",   "S"},
+                                                           {"left",   "A"},
+                                                           {"right",  "D"},
+                                                           {"select", "Return"},
+                                                           {"back",   "Escape"},
+                                                           {"shoot",  "Space"},
+                                                           {"pause",  "P"}};
     std::string keyList[sf::Keyboard::KeyCount] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
                                                    "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
                                                    "W", "X", "Y", "Z", "Num0", "Num1", "Num2", "Num3", "Num4",
@@ -50,6 +50,7 @@ public:
                                                    "Numpad4", "Numpad5", "Numpad6", "Numpad7", "Numpad8", "Numpad9", "F1",
                                                    "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12",
                                                    "F13", "F14", "F15", "Pause"};
+    std::string wordList [8]{"up","down","left","right","select","back","shoot","pause"};
     bool waitingForInput = false;
     bool keyPressedInBinds = true;
     int keyToBind;

@@ -1,12 +1,12 @@
 #include <iostream>
 #include <cstring>
-#include "../../Header Files/States/stateMainMenu.h"
+#include "../../Header Files/States/StateMainMenu.h"
 #include "../../Header Files/States/StateHighscore.h"
-#include "../../Header Files/States/statePlayConfig.h"
-#include "../../Header Files/States/stateSettings.h"
-#include "../../Header Files/States/stateGameOver.h"
+#include "../../Header Files/States/StatePlayConfig.h"
+#include "../../Header Files/States/StateSettings.h"
+#include "../../Header Files/States/StateGameOver.h"
 
-void stateMainMenu::initialize(sf::RenderWindow *window) {
+void StateMainMenu::initialize(sf::RenderWindow *window) {
 
     sf::View newView( sf::FloatRect( 0, 0, window->getSize().x, window->getSize().y ) );
     window->setView(newView);
@@ -58,7 +58,7 @@ void stateMainMenu::initialize(sf::RenderWindow *window) {
 
 }
 
-void stateMainMenu::update(sf::RenderWindow *window) {
+void StateMainMenu::update(sf::RenderWindow *window) {
     //Vertical selection
     if (machine.keyPressed[sf::Keyboard::Up]) {
         this->selected -= 1;
@@ -73,7 +73,7 @@ void stateMainMenu::update(sf::RenderWindow *window) {
     //Midlertidig// Testing purposes
     if (machine.keyPressed[sf::Keyboard::M]) {
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-        machine.setState(new stateGameOver);
+        machine.setState(new StateGameOver);
         return;
     }
 
@@ -90,13 +90,13 @@ void stateMainMenu::update(sf::RenderWindow *window) {
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         switch (this->selected) {
             case 0: //Play
-                machine.setState(new statePlayConfig);
+                machine.setState(new StatePlayConfig);
                 return;
             case 1: //Highscore
                 machine.setState(new StateHighscore);
                 return;
             case 2: //Options
-                machine.setState(new stateSettings);
+                machine.setState(new StateSettings);
                 return;
             case 3: //Exit
                 quitGame = true;
@@ -137,7 +137,7 @@ void stateMainMenu::update(sf::RenderWindow *window) {
         machine.mouseClick.y - play->getGlobalBounds().height / 2 < play->getPosition().y) {
         //Play
         machine.mouseClick = {-1, -1};
-        machine.setState(new statePlayConfig);
+        machine.setState(new StatePlayConfig);
         return;
     }
     if (machine.mouseClick.x + highscore->getGlobalBounds().width / 2 > highscore->getPosition().x &&
@@ -156,7 +156,7 @@ void stateMainMenu::update(sf::RenderWindow *window) {
         machine.mouseClick.y - options->getGlobalBounds().height / 2 < options->getPosition().y) {
         //options
         machine.mouseClick = {-1, -1};
-        machine.setState(new stateSettings);
+        machine.setState(new StateSettings);
         return;
     }
     if (machine.mouseClick.x + quit->getGlobalBounds().width / 2 > quit->getPosition().x &&
@@ -169,7 +169,7 @@ void stateMainMenu::update(sf::RenderWindow *window) {
         return;
     }
 }
-void stateMainMenu::render(sf::RenderWindow *window) {
+void StateMainMenu::render(sf::RenderWindow *window) {
 
     //NUllstille textstil på alle texts i menutexts
     for(sf::Text* text: menuTexts)
@@ -186,7 +186,7 @@ void stateMainMenu::render(sf::RenderWindow *window) {
 
 }
 
-void stateMainMenu::destroy(sf::RenderWindow *window) {
+void StateMainMenu::destroy(sf::RenderWindow *window) {
 
     //Flippe vectoren, destroye motsatt av draws
     std::reverse(menuTexts.begin(), menuTexts.end());

@@ -4,7 +4,7 @@
 #include "../Core/state.h"
 #include "../../Header Files/Core/machine.h"
 
-class stateSettings : public States{
+class StateSettings : public States{
 public:
     void initialize(sf::RenderWindow *window);
 

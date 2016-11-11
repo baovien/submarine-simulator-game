@@ -3,8 +3,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "../../Header Files/Core/state.h"
-#include "../States/stateMainMenu.h"
-#include "../../Header Files/States/stateKeybindings.h"
+#include "../States/StateMainMenu.h"
+#include "../States/StateKeybindings.h"
 #include "score.h"
 #include "playerLives.h"
 
@@ -14,6 +14,6 @@ class App
 {
 public:
     void run();
-
+private:
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_APP_H

@@ -13,7 +13,7 @@
 #ifndef VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE1_H
 #define VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE1_H
 
-class stateGameMode1 : public States
+class StateGameMode1 : public States
 {
 public:
     void initialize(sf::RenderWindow *window);

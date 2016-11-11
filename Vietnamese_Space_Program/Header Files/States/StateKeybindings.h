@@ -6,7 +6,7 @@
 #include "../../Header Files/Core/machine.h"
 
 
-class stateKeybindings : public States{
+class StateKeybindings : public States{
 public:
     void initialize(sf::RenderWindow *window);
 
@@ -15,8 +15,6 @@ public:
     void render(sf::RenderWindow *window);
 
     void destroy(sf::RenderWindow *window);
-
-
 private:
     sf::RenderWindow* window;
 
@@ -35,11 +33,6 @@ private:
         sf::Sprite* keySquare;
     };
     std::vector<keySquares> keyVector;
-public:
-    const std::vector<keySquares> &getKeyVector() const;
-
-private:
-    std::string wordList [8]{"up","down","left","right","select","back","shoot","pause"};
     std::vector<sf::Vector2f> positionList;
 };
 

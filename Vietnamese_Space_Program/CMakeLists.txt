@@ -11,8 +11,8 @@ set(SOURCE_FILES
         "Source Files/States/stateGameMode1.cpp"        "Header Files/States/stateGameMode1.h"
         "Source Files/States/StateHighscore.cpp"   "Header Files/States/StateHighscore.h"
         "Source Files/Core/score.cpp"                   "Header Files/Core/score.h"
-        "Source Files/States/statePlayConfig.cpp"       "Header Files/States/statePlayConfig.h"
-        "Source Files/States/stateSettings.cpp"         "Header Files/States/stateSettings.h"
+        "Source Files/States/StatePlayConfig.cpp"       "Header Files/States/StatePlayConfig.h"
+        "Source Files/States/StateSettings.cpp"         "Header Files/States/StateSettings.h"
         "Source Files/Entities/asteroid.cpp"            "Header Files/Entities/asteroid.h"
         "Source Files/Core/app.cpp"                     "Header Files/Core/app.h"
         "Source Files/Core/machine.cpp"                 "Header Files/Core/machine.h"
@@ -24,9 +24,10 @@ set(SOURCE_FILES
         "Header Files/Core/util.h"
         "Header Files/Core/state.h"
         "Source Files/Entities/enemy.cpp"               "Header Files/Entities/enemy.h"
-        "Source Files/States/stateGameOver.cpp"         "Header Files/States/stateGameOver.h"
+        "Source Files/States/StateGameOver.cpp"         "Header Files/States/StateGameOver.h"
         "Source Files/Entities/boss1.cpp"               "Header Files/Entities/boss1.h"
         "Source Files/States/stateKeybindings.cpp"      "Header Files/States/stateKeybindings.h")
+
 add_executable(Vietnamese_Space_Program ${SOURCE_FILES})
 
 # Link with SFML dependencies
