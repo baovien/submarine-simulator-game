@@ -20,8 +20,8 @@ private:
     sf::Text* gameOverText;
     sf::Text* menuText;
     sf::Text* restartText;
+    sf::Text* score;
 
-    Score* score;
     sf::Texture* bgTexture;
     sf::Sprite* background;
 

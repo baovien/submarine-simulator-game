@@ -1,11 +1,9 @@
 #include <iostream>
-#include <cstring>
 #include "../../Header Files/States/stateMainMenu.h"
 #include "../../Header Files/States/stateHighscoreState.h"
 #include "../../Header Files/States/statePlayConfig.h"
 #include "../../Header Files/States/stateSettings.h"
 #include "../../Header Files/States/stateGameOver.h"
-#include "../../Header Files/Core/Foreach.hpp"
 
 void stateMainMenu::initialize(sf::RenderWindow *window) {
 
@@ -107,28 +105,25 @@ void stateMainMenu::update(sf::RenderWindow *window) {
 
 void stateMainMenu::render(sf::RenderWindow *window) {
 
-    FOREACH(sf::Text* text, menuTexts){
+    //NUllstille textstil på alle texts i menutexts
+    for(sf::Text* text: menuTexts)
         text->setStyle(0);
-    }
-    std::vector<sf::Text*> mMenuText;
 
+    //Setter en strek over valgt text
     menuTexts[selected + 2 ]->setStyle(1<<3);
 
+    //Tegne opp background
     window->draw(*this->background);
-    FOREACH(const sf::Text* text, menuTexts)
+    //Tegne opp alle texts i menuTexts
+    for(const sf::Text* text: menuTexts)
         window->draw(*text);
 
 }
 
 void stateMainMenu::destroy(sf::RenderWindow *window) {
-    delete this->font;
-    delete this->title;
-    delete this->title2;
-    delete this->play;
-    delete this->highscore;
-    delete this->options;
-    delete this->quit;
-    delete this->bgTexture;
-    delete this->background;
+
+    std::reverse(menuTexts.begin(), menuTexts.end());
+    for(sf::Text* text: menuTexts)
+        delete text;
 }
 
