@@ -21,6 +21,7 @@ public:
 
     sf::Vector2f velocity;
 protected:
+    virtual sf::FloatRect getGlobalBoundsAdjusted();
     int active;
     int groupId;
 

@@ -5,7 +5,7 @@ AsteroidObject::AsteroidObject(float x, float y)
 {
     this->load("Assteroids_brown.png");
     //Scaler opp bildet for å slippe å lage nytt
-    this->scale(2,2);
+    this->setScale(2,2);
     this->active = 1;
     this->groupId = 3;
     //Setter origin til midten av astroiden. Må dele på 4 istedenfor 2 pga scalinga

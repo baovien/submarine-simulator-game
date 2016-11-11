@@ -11,7 +11,7 @@ Boss::Boss(EntityManager* manager)
     this->setScale(3,3);
     this->setPosition(300,300);
     this->manager = manager;
-    this->velocity.x = 1;
+    this->velocity.x = 0.5;
     this->score = score;
 
 }
@@ -33,10 +33,23 @@ void Boss::updateEntity(sf::RenderWindow *window)
     sf::Time elapsed1 = clock.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
     if(elapsed1.asMicroseconds() > 1000000)
     {
-        this->manager->addEntity("Bullet", new Bullet((this->getPosition().x + (this->getGlobalBounds().width / 2) * sin(this->getRotation())),
-                                                      (this->getPosition().y - (this->getGlobalBounds().height / 2) * cos(this->getRotation())),
-                                                      ( -cos(this->getRotation()) * 15),
-                                                      (sin(this->getRotation()) * 15), (this->getRotation()*180/3.141592)));
+        this->manager->addEntity("Bullet", new Bullet((this->getPosition().x + (this->getGlobalBounds().width / 2) * sin(this->getRotation()*3.141592/180)),
+                                                      (this->getPosition().y - (this->getGlobalBounds().height / 2) * cos(this->getRotation()*3.141592/180)),
+                                                      (-cos(this->getRotation()*3.141592/180) * 5),
+                                                      (sin(this->getRotation()*3.141592/180) * 5),
+                                                      (this->getRotation())));
+        this->manager->addEntity("Bullet", new Bullet((this->getPosition().x - (this->getGlobalBounds().width / 2) * sin(this->getRotation()*3.141592/180)),
+                                                      (this->getPosition().y + (this->getGlobalBounds().height / 2) * cos(this->getRotation()*3.141592/180)),
+                                                      (cos(this->getRotation()*3.141592/180) * 5),
+                                                      (-sin(this->getRotation()*3.141592/180) * 5),
+                                                      (this->getRotation())));
+        this->manager->addEntity("Bullet", new Bullet((this->getPosition().x - (this->getGlobalBounds().width / 2) * sin(this->getRotation()*3.141592/180)),
+                                                      (this->getPosition().y),
+                                                      (cos(this->getRotation()*3.141592/180) * 5),
+                                                      (-sin(this->getRotation()*3.141592/180) * 5),
+                                                      (this->getRotation())));
+
+
         /*this->manager->addEntity("Bullet", new Bullet(this->getPosition().x - this->getGlobalBounds().width/2, this->getPosition().y - this->getGlobalBounds().height/2, -5.0f, -5.0f, 315));
         this->manager->addEntity("Bullet", new Bullet(this->getPosition().x, this->getPosition().y - this->getGlobalBounds().height/2, 0.0f, -5.0f, 0));
         this->manager->addEntity("Bullet", new Bullet(this->getPosition().x + this->getGlobalBounds().width/2, this->getPosition().y - this->getGlobalBounds().height/2 , 5.0f, -5.0f, 45));
@@ -45,7 +58,6 @@ void Boss::updateEntity(sf::RenderWindow *window)
         this->manager->addEntity("Bullet", new Bullet(this->getPosition().x, this->getPosition().y + this->getGlobalBounds().height/2, 0.0f, 5.0f, 180));
         this->manager->addEntity("Bullet", new Bullet(this->getPosition().x - this->getGlobalBounds().width/2, this->getPosition().y + this->getGlobalBounds().height/2, -5.0f, 5.0f, 225));
         */
-        this->velocity.x = -1;
         clock.restart(); //restarter clock(nullstiller)
     }
 

@@ -12,8 +12,9 @@ Player::Player(Lives* lives, Score* score, EntityManager* manager, float x, floa
     this->space = false;
     this->score = score;
     this->lives = lives;
+    this->scale(0.4,0.4);
 
-    this->setScale(0.5,0.5);
+
 }
 
 //update funksjonen har kontroll på bevegelsen til player.
@@ -59,7 +60,7 @@ void Player::updateEntity(sf::RenderWindow *window)
             this->manager->addEntity("bullet", new Bullet((this->score),
                                                           (this->getPosition().x + (this->getGlobalBounds().width / 2) * sin(angle)),
                                                           (this->getPosition().y - (this->getGlobalBounds().height / 2) * cos(angle)),
-                                                          ( -cos(angle) * 15),
+                                                          (-cos(angle) * 15),
                                                           (sin(angle) * 15), (angle*180/pi)));
             this->overheat += 2;
             if(this->overheat > 10)this->overheat = 15;

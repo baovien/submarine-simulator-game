@@ -16,7 +16,7 @@ void Entity::updateEntity(sf::RenderWindow *window)
 }
 bool Entity::checkCollision(Entity* entity)
 {
-    return this->getGlobalBounds().intersects(entity->getGlobalBounds());
+    return this->getGlobalBoundsAdjusted().intersects(entity->getGlobalBoundsAdjusted());
 }
 void Entity::collision(Entity* entity)
 {
@@ -32,6 +32,13 @@ int Entity::groupID()
 void Entity::destroyEntity()
 {
     this->active = 0;
+}
+sf::FloatRect Entity::getGlobalBoundsAdjusted()
+{
+    sf::FloatRect collisionBounds = this->getGlobalBounds();
+    collisionBounds.width *= 0.8;
+    collisionBounds.height *= 0.8;
+    return collisionBounds;
 }
 
 Entity::~Entity()
