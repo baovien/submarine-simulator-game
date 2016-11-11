@@ -10,7 +10,7 @@
 void statePlayConfig::initialize(sf::RenderWindow *window)
 {
     memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
-
+    machine.mouseClick = {-1,-1};
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
 
@@ -223,6 +223,7 @@ void statePlayConfig::update(sf::RenderWindow *window)
         }
         if(this->selected == 4) { //Back
             machine.setState(new stateMainMenu);
+            return;
         }
     }
 

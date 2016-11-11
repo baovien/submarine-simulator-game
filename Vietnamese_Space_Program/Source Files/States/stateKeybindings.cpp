@@ -38,7 +38,7 @@ void stateKeybindings::initialize(sf::RenderWindow *window) {
     this->menuNavigationText->setOrigin(this->menuNavigationText->getGlobalBounds().width / 2, this->movementText->getGlobalBounds().height / 2);
     this->menuNavigationText->setPosition(((window->getSize().x / 2) + this->background->getGlobalBounds().width/4) , movementText->getPosition().y);
 
-    positionList.push_back(sf::Vector2f((window->getSize().x / 2) - this->background->getGlobalBounds().width/4,(window->getSize().y / 2) - this->background->getGlobalBounds().height/6));
+    positionList.push_back( sf::Vector2f((window->getSize().x / 2) - this->background->getGlobalBounds().width/4,(window->getSize().y / 2) - this->background->getGlobalBounds().height/6));
     positionList.push_back( sf::Vector2f(positionList[0].x , (window->getSize().y / 2) + this->background->getGlobalBounds().height/7));
     positionList.push_back( sf::Vector2f((window->getSize().x / 2) - this->background->getGlobalBounds().width/2.4 , positionList[1].y));
     positionList.push_back( sf::Vector2f(((window->getSize().x / 2) - this->background->getGlobalBounds().width/2 + this->background->getGlobalBounds().width/2.4) , positionList[1].y));
@@ -73,30 +73,24 @@ void stateKeybindings::update(sf::RenderWindow *window) {
     if (machine.keyPressed[sf::Keyboard::Escape]) {
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         machine.setState(new stateSettings);
+        return;
     }
 
     for (int i = 0; i < 8; ++i) {
 
-        if (sf::Mouse::getPosition(*window).x + keyVector[i].keySquare->getGlobalBounds().width / 2 >
-            keyVector[i].keySquare->getPosition().x &&
-            sf::Mouse::getPosition(*window).x - keyVector[i].keySquare->getGlobalBounds().width / 2 <
-            keyVector[i].keySquare->getPosition().x &&
-            sf::Mouse::getPosition(*window).y + keyVector[i].keySquare->getGlobalBounds().height / 2 >
-            keyVector[i].keySquare->getPosition().y &&
-            sf::Mouse::getPosition(*window).y - keyVector[i].keySquare->getGlobalBounds().height / 2 <
-            keyVector[i].keySquare->getPosition().y) {
+        if (sf::Mouse::getPosition(*window).x + keyVector[i].keySquare->getGlobalBounds().width / 2 > keyVector[i].keySquare->getPosition().x &&
+            sf::Mouse::getPosition(*window).x - keyVector[i].keySquare->getGlobalBounds().width / 2 < keyVector[i].keySquare->getPosition().x &&
+            sf::Mouse::getPosition(*window).y + keyVector[i].keySquare->getGlobalBounds().height / 2 > keyVector[i].keySquare->getPosition().y &&
+            sf::Mouse::getPosition(*window).y - keyVector[i].keySquare->getGlobalBounds().height / 2 < keyVector[i].keySquare->getPosition().y) {
             keyVector[i].keySquare->setColor(sf::Color(255, 255, 255, 125));
+
         } else {
             keyVector[i].keySquare->setColor(sf::Color(255, 255, 255, 255));
         }
-        if (machine.mouseClick.x + keyVector[i].keySquare->getGlobalBounds().width / 2 >
-            keyVector[i].keySquare->getPosition().x &&
-            machine.mouseClick.x - keyVector[i].keySquare->getGlobalBounds().width / 2 <
-            keyVector[i].keySquare->getPosition().x &&
-            machine.mouseClick.y + keyVector[i].keySquare->getGlobalBounds().height / 2 >
-            keyVector[i].keySquare->getPosition().y &&
-            machine.mouseClick.y - keyVector[i].keySquare->getGlobalBounds().height / 2 <
-            keyVector[i].keySquare->getPosition().y) {
+        if (machine.mouseClick.x + keyVector[i].keySquare->getGlobalBounds().width / 2 > keyVector[i].keySquare->getPosition().x &&
+            machine.mouseClick.x - keyVector[i].keySquare->getGlobalBounds().width / 2 < keyVector[i].keySquare->getPosition().x &&
+            machine.mouseClick.y + keyVector[i].keySquare->getGlobalBounds().height / 2 > keyVector[i].keySquare->getPosition().y &&
+            machine.mouseClick.y - keyVector[i].keySquare->getGlobalBounds().height / 2 < keyVector[i].keySquare->getPosition().y) {
                 if(machine.keyPressedInBinds){
                     machine.keyPressedInBinds = false;
                     machine.keybindMap.find(wordList[i])->second = "";
