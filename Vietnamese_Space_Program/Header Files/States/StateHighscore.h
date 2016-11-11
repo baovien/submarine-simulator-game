@@ -3,7 +3,7 @@
 
 #include "../Core/state.h"
 #include "../../Header Files/Core/machine.h"
-
+#include <vector>
 
 class StateHighscore : public States{
 
@@ -26,21 +26,13 @@ private:
     sf::Texture* tbTexture;
     sf::Sprite* background;
     sf::Sprite* table;
+    sf::Text* place;
 
-    sf::Text* playerPlace;
-    sf::Text* playerPlace1;
-    sf::Text* playerPlace2;
-    sf::Text* playerPlace3;
-    sf::Text* playerPlace4;
-    sf::Text* playerPlace5;
-    sf::Text* playerPlace6;
-    sf::Text* playerPlace7;
-    sf::Text* playerPlace8;
-    sf::Text* playerPlace9;
-    sf::Text* playerPlace10;
-
+    std::vector<sf::Text*> placeVector;
+    std::string numbers [10]{"1.","2.","3.","4.","5.","6.","7.","8.","9.","10."};
 
     int selected;
+
 
 };
 

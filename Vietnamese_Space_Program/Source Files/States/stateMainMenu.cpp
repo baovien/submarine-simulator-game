@@ -9,6 +9,7 @@
 void stateMainMenu::initialize(sf::RenderWindow *window) {
 
     memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
+    machine.mouseClick = {-1,-1};
 
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
@@ -50,51 +51,115 @@ void stateMainMenu::initialize(sf::RenderWindow *window) {
 
 void stateMainMenu::update(sf::RenderWindow *window) {
     //Vertical selection
-    if(machine.keyPressed[sf::Keyboard::Up]){
+    if (machine.keyPressed[sf::Keyboard::Up]) {
         this->selected -= 1;
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
     }
 
-    if(machine.keyPressed[sf::Keyboard::Down]){
+    if (machine.keyPressed[sf::Keyboard::Down]) {
         this->selected += 1;
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
     }
 
     //Midlertidig// Testing purposes
-    if (machine.keyPressed[sf::Keyboard::M])
-    {
+    if (machine.keyPressed[sf::Keyboard::M]) {
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         machine.setState(new stateGameOver);
+        return;
     }
 
     //Vertical selection bounds
-    if(this->selected > 3){
+    if (this->selected > 3) {
         this->selected = 0;
     }
 
-    if(this->selected < 0){
+    if (this->selected < 0) {
         this->selected = 3;
     }
     //Stateswitch on enter
-    if(machine.keyPressed[sf::Keyboard::Return]){
+    if (machine.keyPressed[sf::Keyboard::Return]) {
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-        switch(this->selected) {
+        switch (this->selected) {
             case 0: //Play
                 machine.setState(new statePlayConfig);
-                break;
+                return;
             case 1: //Highscore
                 machine.setState(new StateHighscore);
-                break;
+                return;
             case 2: //Options
                 machine.setState(new stateSettings);
-                break;
+                return;
             case 3: //Exit
                 quitGame = true;
                 break;
         }
     }
-}
 
+    if (sf::Mouse::getPosition(*window).x + play->getGlobalBounds().width / 2 > play->getPosition().x &&
+        sf::Mouse::getPosition(*window).x - play->getGlobalBounds().width / 2 < play->getPosition().x &&
+        sf::Mouse::getPosition(*window).y + play->getGlobalBounds().height / 2 > play->getPosition().y &&
+        sf::Mouse::getPosition(*window).y - play->getGlobalBounds().height / 2 < play->getPosition().y) {
+        this->selected = 0;
+
+    }
+    if (sf::Mouse::getPosition(*window).x + highscore->getGlobalBounds().width / 2 > highscore->getPosition().x &&
+        sf::Mouse::getPosition(*window).x - highscore->getGlobalBounds().width / 2 < highscore->getPosition().x &&
+        sf::Mouse::getPosition(*window).y + highscore->getGlobalBounds().height / 2 > highscore->getPosition().y &&
+        sf::Mouse::getPosition(*window).y - highscore->getGlobalBounds().height / 2 < highscore->getPosition().y) {
+        this->selected = 1;
+    }
+    if (sf::Mouse::getPosition(*window).x + options->getGlobalBounds().width / 2 > options->getPosition().x &&
+        sf::Mouse::getPosition(*window).x - options->getGlobalBounds().width / 2 < options->getPosition().x &&
+        sf::Mouse::getPosition(*window).y + options->getGlobalBounds().height / 2 > options->getPosition().y &&
+        sf::Mouse::getPosition(*window).y - options->getGlobalBounds().height / 2 < options->getPosition().y) {
+        this->selected = 2;
+
+    }
+    if (sf::Mouse::getPosition(*window).x + quit->getGlobalBounds().width / 2 > quit->getPosition().x &&
+        sf::Mouse::getPosition(*window).x - quit->getGlobalBounds().width / 2 < quit->getPosition().x &&
+        sf::Mouse::getPosition(*window).y + quit->getGlobalBounds().height / 2 > quit->getPosition().y &&
+        sf::Mouse::getPosition(*window).y - quit->getGlobalBounds().height / 2 < quit->getPosition().y) {
+        this->selected = 3;
+    }
+
+    if (machine.mouseClick.x + play->getGlobalBounds().width / 2 > play->getPosition().x &&
+        machine.mouseClick.x - play->getGlobalBounds().width / 2 < play->getPosition().x &&
+        machine.mouseClick.y + play->getGlobalBounds().height / 2 > play->getPosition().y &&
+        machine.mouseClick.y - play->getGlobalBounds().height / 2 < play->getPosition().y) {
+        //Play
+        machine.mouseClick = {-1, -1};
+        machine.setState(new statePlayConfig);
+        return;
+    }
+    if (machine.mouseClick.x + highscore->getGlobalBounds().width / 2 > highscore->getPosition().x &&
+        machine.mouseClick.x - highscore->getGlobalBounds().width / 2 < highscore->getPosition().x &&
+        machine.mouseClick.y + highscore->getGlobalBounds().height / 2 > highscore->getPosition().y &&
+        machine.mouseClick.y - highscore->getGlobalBounds().height / 2 < highscore->getPosition().y) {
+        //highscore
+        machine.mouseClick = {-1, -1};
+        machine.setState(new StateHighscore);
+        return;
+
+    }
+    if (machine.mouseClick.x + options->getGlobalBounds().width / 2 > options->getPosition().x &&
+        machine.mouseClick.x - options->getGlobalBounds().width / 2 < options->getPosition().x &&
+        machine.mouseClick.y + options->getGlobalBounds().height / 2 > options->getPosition().y &&
+        machine.mouseClick.y - options->getGlobalBounds().height / 2 < options->getPosition().y) {
+        //options
+        machine.mouseClick = {-1, -1};
+        machine.setState(new stateSettings);
+        return;
+    }
+    if (machine.mouseClick.x + quit->getGlobalBounds().width / 2 > quit->getPosition().x &&
+        machine.mouseClick.x - quit->getGlobalBounds().width / 2 < quit->getPosition().x &&
+        machine.mouseClick.y + quit->getGlobalBounds().height / 2 > quit->getPosition().y &&
+        machine.mouseClick.y - quit->getGlobalBounds().height / 2 < quit->getPosition().y) {
+        //exit
+        machine.mouseClick = {-1, -1};
+        quitGame=true;
+        return;
+    }
+}
 void stateMainMenu::render(sf::RenderWindow *window) {
 
     this->play->setFillColor(sf::Color::White);
@@ -120,6 +185,7 @@ void stateMainMenu::render(sf::RenderWindow *window) {
             this->quit->setStyle(1<<3);
             break;
     }
+    
     window->draw(*this->background);
     window->draw(*this->title);
     window->draw(*this->title2);

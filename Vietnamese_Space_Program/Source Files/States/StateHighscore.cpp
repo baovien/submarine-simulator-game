@@ -7,6 +7,7 @@
 
 void StateHighscore::initialize(sf::RenderWindow *window) {
     memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
+    machine.mouseClick = {-1,-1};
 
 
 
@@ -26,7 +27,6 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
     this->table->setOrigin(this->table->getGlobalBounds().width / 2, this->table->getGlobalBounds().height / 2);
     this->table->scale(1,0.7);
     this->table->setPosition(window->getSize().x/2,window->getSize().y/2);
-
 
     this->selected = 0;
 
@@ -49,101 +49,84 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
     this->scoreText->setOrigin(this->scoreText->getGlobalBounds().width / 2, this->scoreText->getGlobalBounds().height / 2);
     this->scoreText->setPosition(window->getSize().x / 1.24, window->getSize().y / 4.9);
 
+    this->place = new sf::Text("#", *this->font, 35U);
+    this->place->setOrigin(this->place->getGlobalBounds().width / 2, this->place->getGlobalBounds().height / 2);
+    this->place->setPosition(window->getSize().x / 5.3, window->getSize().y / 4.9);
+    
 
-    this->playerPlace = new sf::Text("#", *this->font, 35U);
-    this->playerPlace->setOrigin(this->playerPlace->getGlobalBounds().width / 2, this->playerPlace->getGlobalBounds().height / 2);
-    this->playerPlace->setPosition(window->getSize().x / 5.3, window->getSize().y / 4.9);
+    //For-løkke for plasseringstallene i tabellen
+    for (int i = 0; i <10 ; ++i) {
+        sf::Text* pt;
+        placeVector.push_back(pt);
+        placeVector[i] = new sf::Text(numbers[i], *this->font, 30);
+        placeVector[i]->setOrigin(placeVector[i]->getGlobalBounds().width / 2,placeVector[i]->getGlobalBounds().height / 2);
+        placeVector[i]->setPosition(window->getSize().x / 5.2,window->getSize().y / 3.77 - (window->getSize().y / 3.77-window->getSize().y / 3.115)*i);
 
-    this->playerPlace1 = new sf::Text("1.", *this->font, 35U);
-    this->playerPlace1->setOrigin(this->playerPlace1->getGlobalBounds().width / 2, this->playerPlace1->getGlobalBounds().height / 2);
-    this->playerPlace1->setPosition(window->getSize().x / 5.2, window->getSize().y / 3.7);
 
-    this->playerPlace2 = new sf::Text("2.", *this->font, 35U);
-    this->playerPlace2->setOrigin(this->playerPlace2->getGlobalBounds().width / 2, this->playerPlace2->getGlobalBounds().height / 2);
-    this->playerPlace2->setPosition(window->getSize().x / 5.2, window->getSize().y / 3.06);
-
-    this->playerPlace3 = new sf::Text("3.", *this->font, 35U);
-    this->playerPlace3->setOrigin(this->playerPlace3->getGlobalBounds().width / 2, this->playerPlace3->getGlobalBounds().height / 2);
-    this->playerPlace3->setPosition(window->getSize().x / 5.2, window->getSize().y / 2.61);
-
-    this->playerPlace4 = new sf::Text("4.", *this->font, 35U);
-    this->playerPlace4->setOrigin(this->playerPlace4->getGlobalBounds().width / 2, this->playerPlace4->getGlobalBounds().height / 2);
-    this->playerPlace4->setPosition(window->getSize().x / 5.2, window->getSize().y / 2.28);
-
-    this->playerPlace5 = new sf::Text("5.", *this->font, 35U);
-    this->playerPlace5->setOrigin(this->playerPlace5->getGlobalBounds().width / 2, this->playerPlace5->getGlobalBounds().height / 2);
-    this->playerPlace5->setPosition(window->getSize().x / 5.2, window->getSize().y / 2.02);
-
-    this->playerPlace6 = new sf::Text("6.", *this->font, 35U);
-    this->playerPlace6->setOrigin(this->playerPlace6->getGlobalBounds().width / 2, this->playerPlace6->getGlobalBounds().height / 2);
-    this->playerPlace6->setPosition(window->getSize().x / 5.2, window->getSize().y / 1.815);
-
-    this->playerPlace7 = new sf::Text("7.", *this->font, 35U);
-    this->playerPlace7->setOrigin(this->playerPlace7->getGlobalBounds().width / 2, this->playerPlace7->getGlobalBounds().height / 2);
-    this->playerPlace7->setPosition(window->getSize().x / 5.2, window->getSize().y / 1.65);
-
-    this->playerPlace8 = new sf::Text("8.", *this->font, 35U);
-    this->playerPlace8->setOrigin(this->playerPlace8->getGlobalBounds().width / 2, this->playerPlace8->getGlobalBounds().height / 2);
-    this->playerPlace8->setPosition(window->getSize().x / 5.2, window->getSize().y / 1.51);
-
-    this->playerPlace9 = new sf::Text("9.", *this->font, 35U);
-    this->playerPlace9->setOrigin(this->playerPlace9->getGlobalBounds().width / 2, this->playerPlace9->getGlobalBounds().height / 2);
-    this->playerPlace9->setPosition(window->getSize().x / 5.2, window->getSize().y / 1.39);
-
-    this->playerPlace10 = new sf::Text("10.", *this->font, 35U);
-    this->playerPlace10->setOrigin(this->playerPlace10->getGlobalBounds().width / 2, this->playerPlace10->getGlobalBounds().height / 2);
-    this->playerPlace10->setPosition(window->getSize().x / 5.2, window->getSize().y / 1.29);
+    }
 
 }
 
 void StateHighscore::update(sf::RenderWindow *window) {
 
-    if(machine.keyPressed[sf::Keyboard::Return]){
+    if (machine.keyPressed[sf::Keyboard::Return]) {
         machine.setState(new stateMainMenu);
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
     }
+
+    if (sf::Mouse::getPosition(*window).x + backText->getGlobalBounds().width / 2 > backText->getPosition().x &&
+        sf::Mouse::getPosition(*window).x - backText->getGlobalBounds().width / 2 < backText->getPosition().x &&
+        sf::Mouse::getPosition(*window).y + backText->getGlobalBounds().height / 2 > backText->getPosition().y &&
+        sf::Mouse::getPosition(*window).y - backText->getGlobalBounds().height / 2 < backText->getPosition().y) {
+        this->selected = 0;
+    } else {
+        this->selected = 1;
+    }
+    if (machine.mouseClick.x + backText->getGlobalBounds().width / 2 > backText->getPosition().x &&
+        machine.mouseClick.x - backText->getGlobalBounds().width / 2 < backText->getPosition().x &&
+        machine.mouseClick.y + backText->getGlobalBounds().height / 2 > backText->getPosition().y &&
+        machine.mouseClick.y - backText->getGlobalBounds().height / 2 < backText->getPosition().y) {
+        //Menu
+        machine.mouseClick = {-1, -1};
+        machine.setState(new stateMainMenu);
+        return;
+    }
 }
+
 
 void StateHighscore::render(sf::RenderWindow *window) {
 
-    this->title->setFillColor(sf::Color::Green);
-    this->backText->setFillColor(sf::Color::Green);
+    this->title->setFillColor(sf::Color::Cyan);
+    this->backText->setFillColor(sf::Color::Cyan);
     this->playerText->setFillColor(sf::Color::Magenta);
     this->scoreText->setFillColor(sf::Color::Magenta);
+    this->place->setFillColor(sf::Color::Magenta);
+    this->backText->setStyle(0);
 
-    this->playerPlace->setFillColor(sf::Color::Magenta);
-    this->playerPlace1->setFillColor(sf::Color::White);
-    this->playerPlace2->setFillColor(sf::Color::White);
-    this->playerPlace3->setFillColor(sf::Color::White);
-    this->playerPlace4->setFillColor(sf::Color::White);
-    this->playerPlace5->setFillColor(sf::Color::White);
-    this->playerPlace6->setFillColor(sf::Color::White);
-    this->playerPlace7->setFillColor(sf::Color::White);
-    this->playerPlace8->setFillColor(sf::Color::White);
-    this->playerPlace9->setFillColor(sf::Color::White);
-    this->playerPlace10->setFillColor(sf::Color::White);
+    switch(this->selected){
+        case 0:
+            this->backText->setStyle(1<<3);
+            break;
+    }
+    //Farge for plasseringstallene i tabellen
+    for (int i = 0; i <10 ; ++i) {
+        this->placeVector[i]->setFillColor(sf::Color::White);
 
-
-
+    }
+    
     window->draw(*this->background);
     window->draw(*this->table);
     window->draw(*this->playerText);
-    //window->draw(*this->playerPlace);
+    window->draw(*this->place);
     window->draw(*this->scoreText);
     window->draw(*this->title);
     window->draw(*this->backText);
 
-    window->draw(*this->playerPlace1);
-    window->draw(*this->playerPlace2);
-    window->draw(*this->playerPlace3);
-    window->draw(*this->playerPlace4);
-    window->draw(*this->playerPlace5);
-    window->draw(*this->playerPlace6);
-    window->draw(*this->playerPlace7);
-    window->draw(*this->playerPlace8);
-    window->draw(*this->playerPlace9);
-    window->draw(*this->playerPlace10);
+    for (int i = 0; i <10 ; ++i) {
 
+        window->draw(*this->placeVector[i]);
+    }
+   
 }
 
 void StateHighscore::destroy(sf::RenderWindow *window) {
@@ -153,23 +136,15 @@ void StateHighscore::destroy(sf::RenderWindow *window) {
     delete this->title;
     delete this->backText;
     delete this->playerText;
-    delete this->playerPlace;
     delete this->scoreText;
+    delete this->place;
 
-    delete this->playerPlace1;
-    delete this->playerPlace2;
-    delete this->playerPlace3;
-    delete this->playerPlace4;
-    delete this->playerPlace5;
-    delete this->playerPlace6;
-    delete this->playerPlace7;
-    delete this->playerPlace8;
-    delete this->playerPlace9;
-    delete this->playerPlace10;
+    for (int i = 0; i <10 ; ++i) {
 
+        delete this->placeVector[i];
 
-
-
+    }
+    
 }
 
 
