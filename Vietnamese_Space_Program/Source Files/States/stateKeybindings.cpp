@@ -13,9 +13,8 @@ void stateKeybindings::initialize(sf::RenderWindow *window) {
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
 
-    machine.mouseClick = {-1, -1};
-    memset(machine.keyPressed, 0,
-           sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
+    machine.mouseClick = {-1, -1}; //Resetter mouseClick slik at museklikk fra tidligere states ikke triggerer if-sjekker.
+    memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
 
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
@@ -25,21 +24,18 @@ void stateKeybindings::initialize(sf::RenderWindow *window) {
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
-    this->background->setOrigin(this->background->getGlobalBounds().width / 2,
-                                this->background->getGlobalBounds().height / 2);
-    this->background->scale(window->getSize().x / background->getGlobalBounds().width / 2,
-                            window->getSize().y / background->getGlobalBounds().height / 2);
+
+    this->background->setOrigin(this->background->getGlobalBounds().width / 2, this->background->getGlobalBounds().height / 2);
+    this->background->scale(window->getSize().x / background->getGlobalBounds().width / 2, window->getSize().y / background->getGlobalBounds().height / 2);
     this->background->setPosition(window->getSize().x / 2, window->getSize().y / 2);
 
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font1.otf");
 
     this->movementText = new sf::Text("Movement", *this->font, 25);
-    this->movementText->setOrigin(this->movementText->getGlobalBounds().width / 2,
-                                  this->movementText->getGlobalBounds().height / 2);
-    this->movementText->setPosition(((window->getSize().x / 2) - this->background->getGlobalBounds().width / 4),
-                                    (float) ((window->getSize().y / 2) -
-                                             this->background->getGlobalBounds().height / 2.25));
+
+    this->movementText->setOrigin(this->movementText->getGlobalBounds().width / 2, this->movementText->getGlobalBounds().height / 2);
+    this->movementText->setPosition(((window->getSize().x / 2) - this->background->getGlobalBounds().width / 4), (float) ((window->getSize().y / 2) - this->background->getGlobalBounds().height / 2.25));
 
     this->gameplayText = new sf::Text("Gameplay", *this->font, 25);
     this->gameplayText->setOrigin(this->gameplayText->getGlobalBounds().width / 2, this->gameplayText->getGlobalBounds().height / 2);
@@ -71,9 +67,14 @@ void stateKeybindings::initialize(sf::RenderWindow *window) {
         keyVector[i].titleText->setOrigin(keyVector[i].titleText->getGlobalBounds().width / 2, keyVector[i].titleText->getGlobalBounds().height / 2);
         keyVector[i].titleText->setPosition(keyVector[i].keySquare->getPosition().x, (float) (keyVector[i].keySquare->getPosition().y - keyVector[i].keySquare->getGlobalBounds().height / 1.5));
 
-        keyVector[i].keyText = new sf::Text("" + machine.keybindMap.find(wordList[i])->second, *this->font, 15);
-        keyVector[i].keyText->setOrigin(keyVector[i].keyText->getGlobalBounds().width / 2, keyVector[i].keyText->getGlobalBounds().height / 2);
+        keyVector[i].keyText = new sf::Text("" + machine.keybindMap.find(wordList[i])->second, *this->font, 20);
         keyVector[i].keyText->setPosition(keyVector[i].keySquare->getPosition().x, keyVector[i].keySquare->getPosition().y);
+        if (keyVector[i].keyText->getGlobalBounds().width*2 > keyVector[i].keySquare->getGlobalBounds().width) {
+            keyVector[i].keyText->setCharacterSize(12);
+        } else {
+            keyVector[i].keyText->setCharacterSize(22);
+        }
+        keyVector[i].keyText->setOrigin(keyVector[i].keyText->getGlobalBounds().width / 2, keyVector[i].keyText->getGlobalBounds().height / 2);
     }
 
 }
@@ -83,9 +84,11 @@ void stateKeybindings::initialize(sf::RenderWindow *window) {
  * @param window
  */
 void stateKeybindings::update(sf::RenderWindow *window) {
-    if (machine.keyPressed[sf::Keyboard::Escape]) {
+
+    if (machine.keyPressed[sf::Keyboard::Key::Escape]) {
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         machine.setState(new stateSettings);
+        return;
     }
     for (int i = 0; i < 8; ++i) {
         if (sf::Mouse::getPosition(*window).x + keyVector[i].keySquare->getGlobalBounds().width / 2 > keyVector[i].keySquare->getPosition().x &&
@@ -103,16 +106,33 @@ void stateKeybindings::update(sf::RenderWindow *window) {
             if (machine.keyPressedInBinds) {
                 machine.keyPressedInBinds = false;
                 machine.waitingForInput = true;
-
                 machine.keybindMap.find(wordList[i])->second = "";
-                keyVector[i].keyText = new sf::Text("" + machine.keybindMap.find(wordList[i])->second, *this->font, 15);
+                keyVector[i].keyText->setString(machine.keybindMap.find(wordList[i])->second);
+                keyVector[i].keyText->setCharacterSize(20);
             }
-            std::cout << i << std::endl;
         }
+        if (machine.keybindMap.find(wordList[i])->second == "" && !machine.waitingForInput) {
+            machine.keybindMap.find(wordList[i])->second = machine.keyList[machine.keyToBind];
+            keyVector[i].keyText->setString("" + machine.keybindMap.find(wordList[i])->second);
+            if (keyVector[i].keyText->getGlobalBounds().width*2 > keyVector[i].keySquare->getGlobalBounds().width) {
+                keyVector[i].keyText->setCharacterSize(12);
+            } else {
+                keyVector[i].keyText->setCharacterSize(22);
+            }
+            keyVector[i].keyText->setOrigin(keyVector[i].keyText->getGlobalBounds().width / 2, keyVector[i].keyText->getGlobalBounds().height / 2);
 
+            /*std::cout <<
+                      "key: " << keyList[machine.keyToBind] << std::endl <<
+                      "waitingForInput(bool): " << machine.waitingForInput << std::endl <<
+                      "x pos keyText: " << keyVector[i].keyText->getPosition().x << std::endl <<
+                      "y pos keyText: " << keyVector[i].keyText->getPosition().y << std::endl <<
+                      "x origin keyText: " << keyVector[i].keyText->getOrigin().x << std::endl <<
+                      "y origin keyText: " << keyVector[i].keyText->getOrigin().y << std::endl <<
+                      "x bound keyText: " << keyVector[i].keyText->getGlobalBounds().width << std::endl <<
+                      "x bound keyText: " << keyVector[i].keyText->getGlobalBounds().height << std::endl << std::endl;*/
+        }
     }
     machine.mouseClick = {-1, -1};
-
 }
 
 /**
@@ -151,6 +171,13 @@ void stateKeybindings::destroy(sf::RenderWindow *window) {
     delete this->ballTexture;
     delete this->bgTexture;
     delete this->background;
+
+    machine.waitingForInput = false;
+    machine.keyPressedInBinds = true;
+}
+
+const std::vector<stateKeybindings::keySquares> &stateKeybindings::getKeyVector() const {
+    return keyVector;
 }
 
 

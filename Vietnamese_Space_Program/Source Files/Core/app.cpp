@@ -1,3 +1,7 @@
+
+#include <iostream>
+#include "../../Header Files/Core/app.h"
+
 //Tastetrykk som kun skal registreres én gang:
 //if(machine.keyPressed[sf::Keyboard:::DinTast])
 // {
@@ -39,14 +43,23 @@ void App::run(){
 
             if (event.type == sf::Event::KeyPressed)
             {                   //Array som inneholder alle taster.
-                machine.keyPressed[event.key.code] = true;              //De er her for å lagre tastetrykk og slipp uten
-                if(machine.waitingForInput)
+                machine.keyPressed[event.key.code] = true;              //Lagrer tastetrykk i et array for senere bruk. Husk å bruke memset etter å ha brukt arrayet
+
+                if(machine.waitingForInput && event.key.code !=-1)
                 {
+/*
+                    bool exists = std::any_of(std::begin(stateK), std::end(myArray), [&](int i)
+                    {
+                        return i == val;
+                    });
+
+*/
                     machine.keyPressedInBinds = true;
                     machine.waitingForInput = false;
+                    machine.keyToBind = event.key.code;
                 }
-            }                                                          //å måtte ha alt inne i pollEventet.
-            if (event.type == sf::Event::KeyReleased)                   //De opprettes i machine.h
+            }
+            if (event.type == sf::Event::KeyReleased)
                 machine.keyReleased[event.key.code] = true;
             if (event.type == sf::Event::MouseButtonPressed)
                 machine.mouseClick = sf::Mouse::getPosition(window);          //beholder posisjonen til museklikk som kan sjekkes i andre states
