@@ -14,6 +14,9 @@ public:
 
     void destroy(sf::RenderWindow *window);
 
+    void handleEvent(sf::RenderWindow *window, sf::Event event);
+
+    void reinitialize(sf::RenderWindow *window);
 private:
     sf::Font* font;
     sf::Text* theme;

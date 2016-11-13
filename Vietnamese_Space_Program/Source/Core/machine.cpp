@@ -20,6 +20,13 @@ void Machine::setState(States *state)
         this->state->initialize(this->window);
     }
 }
+void Machine::reinitialize()
+{
+    if(this->state != NULL)
+    {
+        this->state->reinitialize(this->window);
+    }
+}
 
 void Machine::update()
 {
@@ -40,6 +47,13 @@ Machine::~Machine()
     if(this->state != NULL)
     {
         this->state->destroy(this->window);
+    }
+}
+void Machine::eventHandler(sf::Event event)
+{
+    if(this->state != NULL)
+    {
+        this->state->handleEvent(this->window, event);
     }
 }
 

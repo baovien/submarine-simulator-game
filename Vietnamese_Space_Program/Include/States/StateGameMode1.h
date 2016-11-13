@@ -22,6 +22,8 @@ public:
     void update(sf::RenderWindow *window);
     void render(sf::RenderWindow *window);
     void destroy(sf::RenderWindow *window);
+    void handleEvent(sf::RenderWindow *window, sf::Event event);
+    void reinitialize(sf::RenderWindow *window);
     sf::Clock clockAsteroid;    // starter clocken for asteroid
     sf::Clock clockBoss;        // starter clocken for boss
     sf::Clock clockEnemy;       // starter clocken for enemy

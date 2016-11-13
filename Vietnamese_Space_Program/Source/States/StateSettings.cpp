@@ -2,19 +2,13 @@
 #include "../../Include/States/StateMainMenu.h"
 #include "../../Include/States/StateKeybindings.h"
 
-#include <cstring>
-#include <iostream>
 
-/**
- * Init settingsState.
- * @param window
- */
+
 void StateSettings::initialize(sf::RenderWindow *window) {
 
     sf::View newView( sf::FloatRect( 0, 0, window->getSize().x, window->getSize().y ) );
     window->setView(newView);
 
-    memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
 
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
@@ -67,23 +61,7 @@ void StateSettings::initialize(sf::RenderWindow *window) {
     this->back->setPosition(window->getSize().x / 2, this->back->getGlobalBounds().height*16);
 
 }
-/**
- * Update on keyevent, navigation through settings
- * @param window
- */
 void StateSettings::update(sf::RenderWindow *window) {
-
-    //Vertical selection
-    if(machine.keyPressed[sf::Keyboard::Up]){
-        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-        this->selected -= 1;
-    }
-
-    if(machine.keyPressed[sf::Keyboard::Down]){
-        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-        this->selected += 1;
-    }
-
     if(this->selected > 4){ //Endre hvis flere alternativer
         this->selected = 0;
     }
@@ -92,58 +70,7 @@ void StateSettings::update(sf::RenderWindow *window) {
         this->selected = 4;
     }
 
-    //Horizontal selection resolution
-
-    if(this->selected == 0){
-        if(machine.keyPressed[sf::Keyboard::Left]){
-            memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-            this->selectedRes -= 1;
-        }
-
-        if(machine.keyPressed[sf::Keyboard::Right]){
-            memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-            this->selectedRes += 1;
-        }
-
-        if(this->selectedRes > 2){ //Endre hvis flere alternativer
-            this->selectedRes = 0;
-        }
-
-        if(this->selectedRes < 0){ //Endre hvis flere alternativer
-            this->selectedRes = 2;
-        }
-    }
-
-    //Back on escapekey
-    if(machine.keyPressed[sf::Keyboard::Escape]){
-        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-        machine.setState(new StateMainMenu);
-    }
-
-    //Selection on returnkey
-
-    if(machine.keyPressed[sf::Keyboard::Return]){
-        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-        switch(this->selected){
-            case 2:
-                machine.setState(new StateKeybindings);
-                break;
-            case 3: //Apply
-                window->setSize(resChoice);
-                window->setView(sf::View(sf::FloatRect(0.f, 0.f, window->getSize().x, window->getSize().y)));
-                this->initialize(window);
-                break;
-            case 4: //Back
-                machine.setState(new StateMainMenu);
-                break;
-        }
-    }
-
 }
-/**
- *
- * @param window
- */
 void StateSettings::render(sf::RenderWindow *window) {
 
     this->screenRes->setStyle(0);
@@ -207,7 +134,6 @@ void StateSettings::render(sf::RenderWindow *window) {
     window->draw(*this->apply);
     window->draw(*this->back);
 }
-
 void StateSettings::destroy(sf::RenderWindow *window) {
     delete this->back;
     delete this->apply;
@@ -221,4 +147,62 @@ void StateSettings::destroy(sf::RenderWindow *window) {
     delete this->title;
     delete this->background;
 }
+void StateSettings::handleEvent(sf::RenderWindow *window , sf::Event event){
+    if (event.type == sf::Event::KeyPressed) {
+        //Vertical selection
+        if (event.key.code == sf::Keyboard::Up) {
+            this->selected -= 1;
+        }
 
+        if (event.key.code == sf::Keyboard::Down) {
+            this->selected += 1;
+        }
+        //Horizontal selection resolution
+
+        if (this->selected == 0) {
+            if (event.key.code == sf::Keyboard::Left) {
+                this->selectedRes -= 1;
+            }
+
+            if (event.key.code == sf::Keyboard::Right) {
+                this->selectedRes += 1;
+            }
+
+            if (this->selectedRes > 2) { //Endre hvis flere alternativer
+                this->selectedRes = 0;
+            }
+
+            if (this->selectedRes < 0) { //Endre hvis flere alternativer
+                this->selectedRes = 2;
+            }
+        }
+        //Back on escapekey
+
+        if (event.key.code == machine.keybindMap.find("back")->second.second) {
+            machine.setState(new StateMainMenu);
+            return;
+        }
+
+        //Selection on returnkey
+
+        if (event.key.code == machine.keybindMap.find("select")->second.second) {
+            switch (this->selected) {
+                case 2:
+                    machine.setState(new StateKeybindings);
+                    break;
+                case 3: //Apply
+                    window->setSize(resChoice);
+                    window->setView(sf::View(sf::FloatRect(0.f, 0.f, window->getSize().x, window->getSize().y)));
+                    this->initialize(window);
+                    break;
+                case 4: //Back
+                    machine.setState(new StateMainMenu);
+                    break;
+            }
+        }
+    }
+}
+
+void StateSettings::reinitialize(sf::RenderWindow *window) {
+
+}

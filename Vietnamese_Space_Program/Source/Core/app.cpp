@@ -2,19 +2,14 @@
 #include <iostream>
 #include <cstring>
 #include "../../Include/Core/app.h"
-#include "../../Include/States/StateSettings.h"
-
 
 //Tastetrykk som kun skal registreres én gang:
-//if(machine.keyPressed[sf::Keyboard:::DinTast])
-//{
-//memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-//KODE
-//}
-//om du skal triggere det på release bruker du bare keyReleased istedet for keyPressed
-#include "../../Include/Core/app.h"
+//if(event.key.code == sf::Keyboard::DINTAST){ KODE }
+//Dersom tasten du skal bruke kan endres i keybinds skriver du
+//if(event.key.code == event.key.code == machine.keybindMap.find("DET DU VIL")->second.second){ KODE }
+//der DET DU VIL er navnet på det du ønsker å triggere. Enten up, down, left, right, select, back, shoot eller pause
 
-void App::run(){
+void App::run() {
 
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Vietnamese Space Program"); //, sf::Style::Titlebar | sf::Style::Close) FULL HD OMG
     window.setVerticalSyncEnabled(true);
@@ -36,49 +31,15 @@ void App::run(){
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
-
-            if (event.type == sf::Event::Resized) {
+            else if (event.type == sf::Event::Resized) {
+                machine.reinitialize();
 //                window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
             }
-            if (event.type == sf::Event::KeyPressed) {                   //Array som inneholder alle taster.
-                machine.keyPressed[event.key.code] = true; //Lagrer tastetrykk i et array for senere bruk. Husk å bruke memset etter å ha brukt arrayet
+            else machine.eventHandler(event);
 
-
-                if (machine.keyPressed[sf::Keyboard::Key::Escape]) {
-                    if (!machine.waitingForInput) {
-                        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-                        machine.setState(new StateSettings);
-                        break;
-                    }
-                }
-
-
-                if (machine.waitingForInput && event.key.code != -1) {
-                    bool exists;
-                    for (int i = 0; i < 8; ++i) {
-                        if (machine.keybindMap.find(machine.wordList[i])->second != machine.keyList[event.key.code]) {
-                            exists = false;
-                        } else {
-                            exists = true;
-                            std::cout << "Key already bound" << std::endl;
-                            break;
-                        }
-                    }
-                    for (int i = 0; i < 8; ++i) {
-                        std::cout << i << ": " << machine.keybindMap.find(machine.wordList[i])->second << std::endl;
-                    }
-                    if (!exists) {
-                        machine.keyPressedInBinds = true;
-                        machine.waitingForInput = false;
-                        machine.keyToBind = event.key.code;
-                    }
-                }
-            }
-            if (event.type == sf::Event::KeyReleased)
-                machine.keyReleased[event.key.code] = true;
-            if (event.type == sf::Event::MouseButtonPressed)
-                machine.mouseClick = sf::Mouse::getPosition(
-                        window);          //beholder posisjonen til museklikk som kan sjekkes i andre states
+            if (event.type == sf::Event::MouseButtonPressed) {
+                machine.mouseClick = sf::Mouse::getPosition(window);
+            }          //beholder posisjonen til museklikk som kan sjekkes i andre states
         }
 
         /**

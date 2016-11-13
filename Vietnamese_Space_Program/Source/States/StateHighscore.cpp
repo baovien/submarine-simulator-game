@@ -6,10 +6,10 @@
 
 
 void StateHighscore::initialize(sf::RenderWindow *window) {
-    memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
     machine.mouseClick = {-1,-1};
 
-
+    sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
+    window->setView(newView);
 
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
@@ -41,7 +41,7 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
     this->playerText->setOrigin(this->playerText->getGlobalBounds().width / 2, this->playerText->getGlobalBounds().height / 2);
     this->playerText->setPosition(window->getSize().x / 2, window->getSize().y / 4.9);
 
-    this->backText = new sf::Text("Press enter to go back", *this->font, 16U);
+    this->backText = new sf::Text("Press " + machine.keybindMap.find("back")->second.first + " to go back", *this->font, 16U);
     this->backText->setOrigin(this->backText->getGlobalBounds().width / 2, this->backText->getGlobalBounds().height / 2);
     this->backText->setPosition(window->getSize().x / 2, window->getSize().y / 1.1);
 
@@ -69,11 +69,6 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
 
 void StateHighscore::update(sf::RenderWindow *window) {
 
-    if (machine.keyPressed[sf::Keyboard::Return]) {
-        machine.setState(new StateMainMenu);
-        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-    }
-
     if (sf::Mouse::getPosition(*window).x + backText->getGlobalBounds().width / 2 > backText->getPosition().x &&
         sf::Mouse::getPosition(*window).x - backText->getGlobalBounds().width / 2 < backText->getPosition().x &&
         sf::Mouse::getPosition(*window).y + backText->getGlobalBounds().height / 2 > backText->getPosition().y &&
@@ -92,7 +87,6 @@ void StateHighscore::update(sf::RenderWindow *window) {
         return;
     }
 }
-
 
 void StateHighscore::render(sf::RenderWindow *window) {
 
@@ -147,4 +141,13 @@ void StateHighscore::destroy(sf::RenderWindow *window) {
     
 }
 
+void StateHighscore::handleEvent(sf::RenderWindow *window, sf::Event event){
+    if(event.key.code == machine.keybindMap.find("back")->second.second) {
+        machine.setState(new StateMainMenu);
+        return;
+    }
+}
 
+void StateHighscore::reinitialize(sf::RenderWindow *window) {
+
+}

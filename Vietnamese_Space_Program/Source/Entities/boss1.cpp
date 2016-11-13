@@ -36,7 +36,7 @@ void Boss::updateEntity(sf::RenderWindow *window)
 
     /*if(elapsed1.asMicroseconds() > 1000000)
     {
-        /*this->manager->addEntity("Bullet", new Bullet((this->getPosition().x + (this->getGlobalBounds().width / 2) * sin(this->getRotation()*3.141592/180)),
+        this->manager->addEntity("Bullet", new Bullet((this->getPosition().x + (this->getGlobalBounds().width / 2) * sin(this->getRotation()*3.141592/180)),
                                                       (this->getPosition().y - (this->getGlobalBounds().height / 2) * cos(this->getRotation()*3.141592/180)),
                                                       (-cos(this->getRotation()*3.141592/180) * 5),
                                                       (sin(this->getRotation()*3.141592/180) * 5),

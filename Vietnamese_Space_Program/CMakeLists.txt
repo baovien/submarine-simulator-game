@@ -23,7 +23,7 @@ set(SOURCE_FILES
         "Include/Entities/asteroid.h"          "Source/Entities/asteroid.cpp"
         "Include/Entities/boss1.h"             "Source/Entities/boss1.cpp"
         "Include/Entities/bullet.h"            "Source/Entities/bullet.cpp"
-        "Include/Entities/player.h"            "Source/Entities/player.cpp"
+        "Include/Entities/player.h"
         "Include/Entities/enemy.h"             "Source/Entities/enemy.cpp"
         "Include/Entities/overheat.h"          "Source/Entities/overheat.cpp"
         "Include/Entities/healthPack.h"        "Source/Entities/healthPack.cpp"

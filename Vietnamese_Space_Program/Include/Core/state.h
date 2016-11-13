@@ -10,6 +10,10 @@ public:
     {
 
     }
+    virtual void reinitialize(sf::RenderWindow *window)
+    {
+
+    }
     virtual void update(sf::RenderWindow *window)
     {
 
@@ -19,6 +23,10 @@ public:
 
     }
     virtual void destroy(sf::RenderWindow *window)
+    {
+
+    }
+    virtual void handleEvent(sf::RenderWindow *window, sf::Event event)
     {
 
     }

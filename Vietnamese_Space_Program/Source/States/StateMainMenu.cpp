@@ -13,8 +13,6 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
 
     sf::View newView( sf::FloatRect( 0, 0, window->getSize().x, window->getSize().y ) );
     window->setView(newView);
-
-    memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
     machine.mouseClick = {-1,-1};
 
     this->bgTexture = new sf::Texture();
@@ -60,26 +58,7 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
     this->menuTexts.push_back(this->quit);
 
 }
-
 void StateMainMenu::update(sf::RenderWindow *window) {
-    //Vertical selection
-    if (machine.keyPressed[sf::Keyboard::Up]) {
-        this->selected -= 1;
-        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-    }
-
-    if (machine.keyPressed[sf::Keyboard::Down]) {
-        this->selected += 1;
-        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-    }
-
-    //Midlertidig// Testing purposes
-    if (machine.keyPressed[sf::Keyboard::M]) {
-        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-        machine.setState(new StateGameOver);
-        return;
-    }
-
     //Vertical selection bounds
     if (this->selected > 3) {
         this->selected = 0;
@@ -87,24 +66,6 @@ void StateMainMenu::update(sf::RenderWindow *window) {
 
     if (this->selected < 0) {
         this->selected = 3;
-    }
-    //Stateswitch on enter
-    if (machine.keyPressed[sf::Keyboard::Return]) {
-        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-        switch (this->selected) {
-            case 0: //Play
-                machine.setState(new StatePlayConfig);
-                return;
-            case 1: //Highscore
-                machine.setState(new StateHighscore);
-                return;
-            case 2: //Options
-                machine.setState(new StateSettings);
-                return;
-            case 3: //Exit
-                quitGame = true;
-                break;
-        }
     }
 
     if (sf::Mouse::getPosition(*window).x + play->getGlobalBounds().width / 2 > play->getPosition().x &&
@@ -188,7 +149,6 @@ void StateMainMenu::render(sf::RenderWindow *window) {
         window->draw(*text);
 
 }
-
 void StateMainMenu::destroy(sf::RenderWindow *window) {
 
     //Flippe vectoren, destroye motsatt av draws
@@ -197,5 +157,45 @@ void StateMainMenu::destroy(sf::RenderWindow *window) {
         delete text;
     //TODO
     sl.~SoundLoader();
+}
+void StateMainMenu::handleEvent(sf::RenderWindow *window , sf::Event event) {
+    //Vertical selection
+    if (event.type == sf::Event::KeyPressed) {
+        if (event.key.code == sf::Keyboard::Up) {
+            this->selected -= 1;
+        }
+
+        if (event.key.code == sf::Keyboard::Down) {
+            this->selected += 1;
+        }
+
+        //Midlertidig// Testing purposes
+        if (event.key.code == sf::Keyboard::M) {
+            machine.setState(new StateGameOver);
+            return;
+        }
+
+        //Stateswitch on enter
+        if(event.key.code == machine.keybindMap.find("select")->second.second) {
+            switch (this->selected) {
+                case 0: //Play
+                    machine.setState(new StatePlayConfig);
+                    return;
+                case 1: //Highscore
+                    machine.setState(new StateHighscore);
+                    return;
+                case 2: //Options
+                    machine.setState(new StateSettings);
+                    return;
+                case 3: //Exit
+                    quitGame = true;
+                    break;
+            }
+        }
+
+    }
+}
+void StateMainMenu::reinitialize(sf::RenderWindow *window) {
+
 }
 
