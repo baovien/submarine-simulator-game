@@ -4,7 +4,7 @@
 EnemyObject::EnemyObject()
 {
 
-    this->player = player;
+    //this->player = player;
     this->load("gold.png");
     this->active = 1;
     this->groupId = 4;
@@ -46,7 +46,6 @@ void EnemyObject::setEnemy(Player *player)
 void EnemyObject::updateEntity(sf::RenderWindow *window)
 {
     //roterer objektet relativ til dens nåværende posisjon rundt sentrum
-    this->rotate(180/3.14 * distance);
 
 
     // Gjør at enemien følger spilleren vha. pythagoras. Smoothere bevegelse

@@ -1,9 +1,9 @@
 #include <iostream>
 #include "../../Header Files/Entities/player.h"
-#include <iostream>
+
 Player::Player(Lives* lives, Score* score, EntityManager* manager, float x, float y)
 {
-    this->load("fighter3_green_big_test.png");
+    this->load("fighter.png");
     this->active = 1;
     this->groupId = 1;
     this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
@@ -12,8 +12,7 @@ Player::Player(Lives* lives, Score* score, EntityManager* manager, float x, floa
     this->space = false;
     this->score = score;
     this->lives = lives;
-
-    this->setScale(0.5,0.5);
+    this->scale(0.5,0.5);
 }
 
 //update funksjonen har kontroll på bevegelsen til player.
@@ -58,7 +57,7 @@ void Player::updateEntity(sf::RenderWindow *window)
         if(this->overheat < 10) {
             this->manager->addEntity("bullet", new Bullet((this->score),
                                                           (this->getPosition().x + ((this->getGlobalBounds().height) / 2) * sin(angle)),
-                                                          (this->getPosition().y - (this->getGlobalBounds().height / 2) * cos(angle)),
+                                                          (this->getPosition().y - (this->getGlobalBounds().width / 2) * cos(angle)),
                                                           ( -cos(angle) * 15),
                                                           (sin(angle) * 15), (angle*180/pi)));
             this->overheat += 2;
