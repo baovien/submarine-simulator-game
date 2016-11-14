@@ -3,12 +3,14 @@
 //Initiater asteroid, koden vår er satt opp for flere spillere så case 0 er spiller 1.
 AsteroidObject::AsteroidObject(float x, float y)
 {
-    this->load("Assteroids_brown.png");
+    this->load("asteroid.png");
     //Scaler opp bildet for å slippe å lage nytt
-    this->setScale(2,2);
+
+    this->scale(1.5,1.5);
     this->active = 1;
     this->groupId = 3;
-    //Setter origin til midten av astroiden. Må dele på 4 istedenfor 2 pga scalinga
+
+    //Setter origin til midten av astroiden. Deler på 4 pga scalinga.
     this->setOrigin(this->getGlobalBounds().height/4, this->getGlobalBounds().height/4);
     //setter en absolutt rotasjon
     this->setRotation(2);

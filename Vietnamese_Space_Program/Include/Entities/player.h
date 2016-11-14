@@ -27,6 +27,8 @@ private:
     Score* score;
     EntityManager* manager;
     bool space;
+
+    sf::Texture* texture;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_PLAYER_H

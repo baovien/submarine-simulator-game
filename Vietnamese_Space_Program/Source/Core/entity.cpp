@@ -9,6 +9,7 @@ void Entity::load(std::string filename)
 {
     this->texture->loadFromFile("Graphics/Sprites/" + filename);
     this->setTexture(*this->texture);
+    this->texture->setSmooth(true);
 }
 void Entity::updateEntity(sf::RenderWindow *window)
 {
