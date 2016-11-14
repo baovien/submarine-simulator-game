@@ -1,10 +1,8 @@
-
-#include <cstring>
-#include "../../Include/States/StatePlayConfig.h"
-#include "../../Include/States/StateGameMode1.h"
-#include "../../Include/States/StateMainMenu.h"
-#include "../../Include/States/StateGameMode2.h"
-#include "../../Include/States/StateSettings.h"
+#include "../../Include/States/statePlayConfig.h"
+#include "../../Include/States/stateGameMode1.h"
+#include "../../Include/States/stateMainMenu.h"
+#include "../../Include/States/stateGameMode2.h"
+#include "../../Include/States/stateSettings.h"
 
 
 void StatePlayConfig::initialize(sf::RenderWindow *window) {
@@ -26,7 +24,7 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
     this->selected_Gamemode = 0;
 
     this->font = new sf::Font();
-    this->font->loadFromFile("graphics/font1.otf");
+    this->font->loadFromFile("Graphics/font1.otf");
 
 /**
  * HOVEDVALGENE.

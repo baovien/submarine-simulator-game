@@ -1,7 +1,6 @@
-#include <cstring>
 #include "../../Include/States/stateGameMode1.h"
 #include "../../Include/States/stateMainMenu.h"
-#include "../../Include/States/StateGameOver.h"
+#include "../../Include/States/stateGameOver.h"
 
 void StateGameMode1::initialize(sf::RenderWindow *window) {
     //TODO:

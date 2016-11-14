@@ -4,8 +4,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "../../Include/Core/state.h"
-#include "../States/StateMainMenu.h"
-#include "../States/StateKeybindings.h"
+#include "../States/stateMainMenu.h"
+#include "../States/stateKeybindings.h"
 #include "score.h"
 #include "playerLives.h"
 

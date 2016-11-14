@@ -1,6 +1,6 @@
 #include <cstring>
-#include "../../Include/States/StateGameMode2.h"
-#include "../../Include/States/StateMainMenu.h"
+#include "../../Include/States/stateGameMode2.h"
+#include "../../Include/States/stateMainMenu.h"
 
 void StateGameMode2::initialize(sf::RenderWindow *window) {
 

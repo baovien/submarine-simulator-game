@@ -1,9 +1,8 @@
-#include "../../Include/States/StateGameOver.h"
+#include "../../Include/States/stateGameOver.h"
 #include "../../Include/States/stateGameMode1.h"
 #include "../../Include/States/stateMainMenu.h"
 
 #include <cstring>
-#include <iostream>
 
 /**
  * Init settingsState.

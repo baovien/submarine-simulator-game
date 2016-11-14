@@ -1,7 +1,5 @@
-#include "../../Include/States/StateKeybindings.h"
-#include "../../Include/States/StateSettings.h"
-
-#include <iostream>
+#include "../../Include/States/stateKeybindings.h"
+#include "../../Include/States/stateSettings.h"
 
 /**
  * Init settingsState.

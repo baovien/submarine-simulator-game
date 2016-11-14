@@ -1,6 +1,6 @@
-#include "../../Include/States/StateSettings.h"
-#include "../../Include/States/StateMainMenu.h"
-#include "../../Include/States/StateKeybindings.h"
+#include "../../Include/States/stateSettings.h"
+#include "../../Include/States/stateMainMenu.h"
+#include "../../Include/States/stateKeybindings.h"
 
 
 

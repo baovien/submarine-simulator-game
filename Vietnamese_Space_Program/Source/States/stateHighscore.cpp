@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstring>
-#include "../../Include/States/StateHighscore.h"
+#include "../../Include/States/stateHighscore.h"
 #include "../../Include/States/stateGameMode1.h"
 #include "../../Include/States/stateMainMenu.h"
 

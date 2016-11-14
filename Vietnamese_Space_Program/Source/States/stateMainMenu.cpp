@@ -1,10 +1,10 @@
 #include <iostream>
 #include <cstring>
-#include "../../Include/States/StateMainMenu.h"
-#include "../../Include/States/StateHighscore.h"
-#include "../../Include/States/StatePlayConfig.h"
-#include "../../Include/States/StateSettings.h"
-#include "../../Include/States/StateGameOver.h"
+#include "../../Include/States/stateMainMenu.h"
+#include "../../Include/States/stateHighscore.h"
+#include "../../Include/States/statePlayConfig.h"
+#include "../../Include/States/stateSettings.h"
+#include "../../Include/States/stateGameOver.h"
 
 void StateMainMenu::initialize(sf::RenderWindow *window) {
     //TODO:
