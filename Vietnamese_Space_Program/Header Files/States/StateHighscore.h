@@ -3,8 +3,9 @@
 
 #include "../Core/state.h"
 #include "../../Header Files/Core/machine.h"
+#include <vector>
 
-class stateHighscoreState : public States{
+class StateHighscore : public States{
 
 
 public:
@@ -15,34 +16,23 @@ public:
     void render(sf::RenderWindow *window);
 
     void destroy(sf::RenderWindow *window);
-
 private:
     sf::Font* font;
     sf::Text* title;
     sf::Text* playerText;
-    sf::Text* playerPlace;
     sf::Text* scoreText;
     sf::Text* backText;
     sf::Texture* bgTexture;
     sf::Texture* tbTexture;
     sf::Sprite* background;
     sf::Sprite* table;
+    sf::Text* place;
 
-#define mellomromIHoyde window->getSize().x / 5.2;
-
-    sf::Text* playerPlace1;
-    sf::Text* playerPlace2;
-    sf::Text* playerPlace3;
-    sf::Text* playerPlace4;
-    sf::Text* playerPlace5;
-    sf::Text* playerPlace6;
-    sf::Text* playerPlace7;
-    sf::Text* playerPlace8;
-    sf::Text* playerPlace9;
-    sf::Text* playerPlace10;
-
+    std::vector<sf::Text*> placeVector;
+    std::string numbers [10]{"1.","2.","3.","4.","5.","6.","7.","8.","9.","10."};
 
     int selected;
+
 
 };
 

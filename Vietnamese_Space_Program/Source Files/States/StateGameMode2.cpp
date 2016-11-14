@@ -1,8 +1,11 @@
 #include <cstring>
-#include "../../Header Files/States/stateGameMode2.h"
-#include "../../Header Files/States/stateMainMenu.h"
+#include "../../Header Files/States/StateGameMode2.h"
+#include "../../Header Files/States/StateMainMenu.h"
 
-void stateGameMode2::initialize(sf::RenderWindow *window){
+void StateGameMode2::initialize(sf::RenderWindow *window){
+
+    sf::View newView( sf::FloatRect( 0, 0, window->getSize().x, window->getSize().y ) );
+    window->setView(newView);
 
     memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
 
@@ -26,7 +29,7 @@ void stateGameMode2::initialize(sf::RenderWindow *window){
     this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2, this->pausedText->getGlobalBounds().height / 2);
     this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
 }
-void stateGameMode2::update(sf::RenderWindow *window){
+void StateGameMode2::update(sf::RenderWindow *window){
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
@@ -34,7 +37,7 @@ void stateGameMode2::update(sf::RenderWindow *window){
 
     }
     else if(machine.keyPressed[sf::Keyboard::Q]){
-        machine.setState(new stateMainMenu());
+        machine.setState(new StateMainMenu());
     }
     if (machine.keyPressed[sf::Keyboard::P] || machine.keyPressed[sf::Keyboard::Escape])
     {
@@ -42,7 +45,7 @@ void stateGameMode2::update(sf::RenderWindow *window){
         util->pauseScreen();                        //Kaller pausefunksjonen
     }
 }
-void stateGameMode2::render(sf::RenderWindow *window){
+void StateGameMode2::render(sf::RenderWindow *window){
     window->draw(*this->background);
     this->manager->renderEntity(window);
     if (util->paused)
@@ -50,7 +53,7 @@ void stateGameMode2::render(sf::RenderWindow *window){
         window->draw(*this->pausedText);
     }
 }
-void stateGameMode2::destroy(sf::RenderWindow *window){
+void StateGameMode2::destroy(sf::RenderWindow *window){
     delete this->util;
     delete this->font;
     delete this->pausedText;

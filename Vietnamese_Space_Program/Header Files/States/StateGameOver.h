@@ -5,7 +5,7 @@
 #include "../../Header Files/Core/machine.h"
 #include "../Core/score.h"
 
-class stateGameOver : public States{
+class StateGameOver : public States{
 public:
     void initialize(sf::RenderWindow *window);
 
@@ -20,8 +20,8 @@ private:
     sf::Text* gameOverText;
     sf::Text* menuText;
     sf::Text* restartText;
+    sf::Text* score;
 
-    Score* score;
     sf::Texture* bgTexture;
     sf::Sprite* background;
 

@@ -4,7 +4,7 @@
 #include "../../Header Files/Core/machine.h"
 #include "../Core/state.h"
 
-class stateMainMenu : public States{
+class StateMainMenu : public States{
 public:
     void initialize(sf::RenderWindow *window);
 
@@ -24,6 +24,9 @@ private:
     sf::Text* quit;
     sf::Texture* bgTexture;
     sf::Sprite* background;
+
+    std::vector<sf::Text*> menuTexts;
+
 
     int selected;
     unsigned int textSize = 32U;

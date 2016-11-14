@@ -5,7 +5,7 @@
 #define VIETNAMESE_SPACE_PROGRAM_PLAYCONFIG_H
 
 
-class statePlayConfig : public States{
+class StatePlayConfig : public States{
 public:
     void initialize(sf::RenderWindow *window);
 

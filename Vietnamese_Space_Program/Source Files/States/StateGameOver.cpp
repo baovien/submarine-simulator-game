@@ -1,4 +1,4 @@
-#include "../../Header Files/States/stateGameOver.h"
+#include "../../Header Files/States/StateGameOver.h"
 #include "../../Header Files/States/stateGameMode1.h"
 #include "../../Header Files/States/stateMainMenu.h"
 
@@ -9,7 +9,10 @@
  * Init settingsState.
  * @param window
  */
-void stateGameOver::initialize(sf::RenderWindow *window) {
+void StateGameOver::initialize(sf::RenderWindow *window) {
+
+    sf::View newView( sf::FloatRect( 0, 0, window->getSize().x, window->getSize().y ) );
+    window->setView(newView);
 
     memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
 
@@ -21,15 +24,15 @@ void stateGameOver::initialize(sf::RenderWindow *window) {
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font1.otf");
 
-    this->score = new Score(*font, 32U);
-    this->score->setOrigin(this->score->getGlobalBounds().width/2, this->score->getGlobalBounds().height/2);
-    this->score->setPosition(window->getSize().x/2, window->getSize().y/2);
-
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
     this->background->setOrigin(this->background->getGlobalBounds().width / 2, this->background->getGlobalBounds().height / 2);
     this->background->scale(window->getSize().x/background->getGlobalBounds().width/2,window->getSize().y/background->getGlobalBounds().height/2);
     this->background->setPosition(window->getSize().x/2, window->getSize().y/2);
+
+    this->score = new sf::Text("Score: " + std::to_string(machine.getGameOverScore()), *font, 25);
+    this->score->setOrigin(this->score->getGlobalBounds().width/2, this->score->getGlobalBounds().height/2);
+    this->score->setPosition(window->getSize().x/2, window->getSize().y/2);
 
     this->gameOverText = new sf::Text("Game Over", *this->font, 25);
     this->gameOverText->setOrigin(this->gameOverText->getGlobalBounds().width / 2, this->gameOverText->getGlobalBounds().height / 2);
@@ -48,7 +51,7 @@ void stateGameOver::initialize(sf::RenderWindow *window) {
  * Update on keyevent, navigation through settings
  * @param window
  */
-void stateGameOver::update(sf::RenderWindow *window) {
+void StateGameOver::update(sf::RenderWindow *window) {
 
     if(machine.keyPressed[sf::Keyboard::Left]){
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
@@ -72,11 +75,11 @@ void stateGameOver::update(sf::RenderWindow *window) {
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         switch(this->selected){
             case 0: //Back
-                machine.setState(new stateMainMenu);
+                machine.setState(new StateMainMenu);
                 break;
 
             case 1: //Restart
-                machine.setState(new stateGameMode1);
+                machine.setState(new StateGameMode1);
                 break;
 
         }
@@ -86,7 +89,7 @@ void stateGameOver::update(sf::RenderWindow *window) {
  *
  * @param window
  */
-void stateGameOver::render(sf::RenderWindow *window) {
+void StateGameOver::render(sf::RenderWindow *window) {
     this->gameOverText->setFillColor(sf::Color::White);
     this->menuText->setFillColor(sf::Color::White);
     this->restartText->setFillColor(sf::Color::White);
@@ -113,7 +116,7 @@ void stateGameOver::render(sf::RenderWindow *window) {
     window->draw(*this->restartText);
 }
 
-void stateGameOver::destroy(sf::RenderWindow *window) {
+void StateGameOver::destroy(sf::RenderWindow *window) {
 
     delete this->gameOverText;
     delete this->menuText;

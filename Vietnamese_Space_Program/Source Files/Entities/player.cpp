@@ -1,8 +1,9 @@
 #include <iostream>
 #include "../../Header Files/Entities/player.h"
 
-Player::Player(Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window,
-               int gamemode) {
+
+Player::Player(Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode)
+{
     this->manager = manager;
     this->gamemode = gamemode;
     this->overheat = overheat;
@@ -19,7 +20,6 @@ Player::Player(Lives *lives, Score *score, EntityManager *manager, float x, floa
             this->manager->addEntity("Overheat", new Overheat(window));
             this->scale(0.4, 0.4);
             break;
-
         case 2:
             this->load("fighter2_blue_big.png");
             this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
@@ -32,7 +32,8 @@ Player::Player(Lives *lives, Score *score, EntityManager *manager, float x, floa
 }
 
 //update funksjonen har kontroll på bevegelsen til player.
-void Player::updateEntity(sf::RenderWindow *window) {
+void Player::updateEntity(sf::RenderWindow *window)
+{
     int overheatValue = 0;
     up = 0, down = 0, left = 0, right = 0;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))left = 1;
@@ -40,7 +41,8 @@ void Player::updateEntity(sf::RenderWindow *window) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))up = 1;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))down = 1;
 
-    switch (this->gamemode) {
+    switch (this->gamemode)
+    {
         case 1:
             //Bevegelse
             if (right && speed != 0) angle += turnspeed * speed / maxSpeed;
@@ -96,7 +98,8 @@ void Player::updateEntity(sf::RenderWindow *window) {
     }
     Entity::updateEntity(window);
 
-    switch (this->gamemode) {
+    switch (this->gamemode)
+    {
         case 1:
             if (this->getPosition().y - this->getGlobalBounds().height / 2 < 0) {
                 //this->setPosition(this->getPosition().x, 720 + this->getGlobalBounds().height);

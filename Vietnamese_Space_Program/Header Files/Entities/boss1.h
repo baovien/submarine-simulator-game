@@ -14,6 +14,8 @@ public:
 private:
     Score* score;
     int health;
+    int x,y,height,width,angle;
+    bool lok;
     int randomNumber;
     EntityManager* manager;
 };

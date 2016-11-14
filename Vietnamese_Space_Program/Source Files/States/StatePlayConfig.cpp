@@ -1,16 +1,20 @@
 
 #include <cstring>
-#include "../../Header Files/States/statePlayConfig.h"
-#include "../../Header Files/States/stateGameMode1.h"
-#include "../../Header Files/States/stateMainMenu.h"
-#include "../../Header Files/States/stateGameMode2.h"
-#include "../../Header Files/States/stateSettings.h"
+#include "../../Header Files/States/StatePlayConfig.h"
+#include "../../Header Files/States/StateGameMode1.h"
+#include "../../Header Files/States/StateMainMenu.h"
+#include "../../Header Files/States/StateGameMode2.h"
+#include "../../Header Files/States/StateSettings.h"
 
 
-void statePlayConfig::initialize(sf::RenderWindow *window)
+void StatePlayConfig::initialize(sf::RenderWindow *window)
 {
-    memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
 
+    sf::View newView( sf::FloatRect( 0, 0, window->getSize().x, window->getSize().y ) );
+    window->setView(newView);
+
+    memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
+    machine.mouseClick = {-1,-1};
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
 
@@ -104,13 +108,13 @@ void statePlayConfig::initialize(sf::RenderWindow *window)
 
 }
 
-void statePlayConfig::update(sf::RenderWindow *window)
+void StatePlayConfig::update(sf::RenderWindow *window)
 {
     // Trykk Escape for aa komme til mainmenu
     if(machine.keyPressed[sf::Keyboard::Escape])
     {
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-        machine.setState(new stateMainMenu);
+        machine.setState(new StateMainMenu);
     }
 
     if(selected == 0){ // Ikke mulig a gaa opp når du velger theme
@@ -212,24 +216,25 @@ void statePlayConfig::update(sf::RenderWindow *window)
         memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
         if(this->selected == 3) { //Start
             if(this->selected_Gamemode == 0) {
-                machine.setState(new stateGameMode1);
+                machine.setState(new StateGameMode1);
             }
             else if(this->selected_Gamemode == 1) {
-                machine.setState(new stateGameMode2);
+                machine.setState(new StateGameMode2);
             }
             else if(this->selected_Gamemode == 2){
-                machine.setState(new stateSettings);
+                machine.setState(new StateSettings);
             }
         }
         if(this->selected == 4) { //Back
-            machine.setState(new stateMainMenu);
+            machine.setState(new StateMainMenu);
+            return;
         }
     }
 
 }
 
 
-void statePlayConfig::render(sf::RenderWindow *window)
+void StatePlayConfig::render(sf::RenderWindow *window)
 {
     this->theme->setFillColor(sf::Color::White);
     this->fighter->setFillColor(sf::Color::White);
@@ -322,7 +327,7 @@ void statePlayConfig::render(sf::RenderWindow *window)
 
 }
 
-void statePlayConfig::destroy(sf::RenderWindow *window)
+void StatePlayConfig::destroy(sf::RenderWindow *window)
 {
     delete this->theme;
     delete this->font;

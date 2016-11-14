@@ -1,9 +1,12 @@
 #include <cstring>
 #include "../../Header Files/States/stateGameMode1.h"
 #include "../../Header Files/States/stateMainMenu.h"
-#include "../../Header Files/States/stateGameOver.h"
+#include "../../Header Files/States/StateGameOver.h"
 
-void stateGameMode1::initialize(sf::RenderWindow *window) {
+void StateGameMode1::initialize(sf::RenderWindow *window) {
+
+    sf::View newView( sf::FloatRect( 0, 0, window->getSize().x, window->getSize().y ) );
+    window->setView(newView);
 
     memset(machine.keyPressed, 0, sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
 
@@ -34,7 +37,7 @@ void stateGameMode1::initialize(sf::RenderWindow *window) {
     this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
 }
 
-void stateGameMode1::update(sf::RenderWindow *window)
+void StateGameMode1::update(sf::RenderWindow *window)
 {
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
@@ -43,7 +46,7 @@ void stateGameMode1::update(sf::RenderWindow *window)
         this->lives->updateLife();
     }
     else if(machine.keyPressed[sf::Keyboard::Q])
-        machine.setState(new stateMainMenu());
+        machine.setState(new StateMainMenu());
 
     if (machine.keyPressed[sf::Keyboard::P] || machine.keyPressed[sf::Keyboard::Escape])
     {
@@ -52,24 +55,34 @@ void stateGameMode1::update(sf::RenderWindow *window)
     }
 
     if(this->lives->getValue() <= 0) {
-        machine.setState(new stateGameOver);
+        machine.setGameOverScore(this->score->getValue());
+        machine.setState(new StateGameOver);
+        return;
     }
     //Spawn enemies and asteroids randomly
     sf::Time elapsed1 = clock.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
+    sf::Time elapsed2 = bossclock.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
+
     if(rand() % 1000 < 2){
         enemyObject = new EnemyObject();
-        this->manager->addEntity("enemy", enemyObject);
+        this->manager->addEntity("Enemy", enemyObject);
         this->enemyObject->setEnemy(this->player);
     }
+
     if(elapsed1.asMicroseconds() > 3000000) //Sjekker om verdien til clock er mer enn 3 sekunder
     {
-        this->manager->addEntity("asteroid",
-                                 new AsteroidObject(32, 32)); //er clock mer enn 3 sekunder lager jeg en ny astroide
+        this->manager->addEntity("Asteroid", new AsteroidObject(0,0)); //er clock mer enn 3 sekunder lager jeg en ny astroide
         clock.restart(); //restarter clock(nullstiller)
+    }
+
+    if(elapsed2.asMicroseconds() > 15000000) //Sjekker om verdien til clock er mer enn 3 sekunder
+    {
+        this->manager->addEntity("Boss", new Boss(this->manager));
+        bossclock.restart(); //restarter clock(nullstiller)
     }
 }
 
-void stateGameMode1::render(sf::RenderWindow *window)
+void StateGameMode1::render(sf::RenderWindow *window)
 {
     window->draw(*this->background);
     window->draw(*this->score);
@@ -82,7 +95,7 @@ void stateGameMode1::render(sf::RenderWindow *window)
     }
 }
 
-void stateGameMode1::destroy(sf::RenderWindow *window)
+void StateGameMode1::destroy(sf::RenderWindow *window)
 {
     delete this->lives;
     delete this->score;
