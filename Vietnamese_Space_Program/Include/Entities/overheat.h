@@ -1,5 +1,6 @@
 #ifndef VIETNAMESE_SPACE_PROGRAM_OVERHEAT_H
 #define VIETNAMESE_SPACE_PROGRAM_OVERHEAT_H
+
 #include "../Core/entityManager.h"
 
 class Overheat : public Entity

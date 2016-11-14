@@ -1,6 +1,6 @@
-
 #ifndef VIETNAMESE_SPACE_PROGRAM_STATE_H
 #define VIETNAMESE_SPACE_PROGRAM_STATE_H
+
 #include <SFML/Graphics.hpp>
 
 class States

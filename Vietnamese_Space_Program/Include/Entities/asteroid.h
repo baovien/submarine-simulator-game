@@ -1,7 +1,7 @@
-#include "../Core/entityManager.h"
-
 #ifndef VIETNAMESE_SPACE_PROGRAM_ASTEROID_H
 #define VIETNAMESE_SPACE_PROGRAM_ASTEROID_H
+
+#include "../Core/entityManager.h"
 
 class AsteroidObject : public Entity
 {

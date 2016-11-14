@@ -1,8 +1,8 @@
-#include <string>
-#include <SFML/Graphics.hpp>
-
 #ifndef VIETNAMESE_SPACE_PROGRAM_SCORE_H
 #define VIETNAMESE_SPACE_PROGRAM_SCORE_H
+
+#include <string>
+#include <SFML/Graphics.hpp>
 
 
 class Score : public sf::Text
