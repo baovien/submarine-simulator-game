@@ -1,8 +1,9 @@
+#ifndef VIETNAMESE_SPACE_PROGRAM_BOSS1_H
+#define VIETNAMESE_SPACE_PROGRAM_BOSS1_H
+
 #include "../Core/entityManager.h"
 #include "bullet.h"
 
-#ifndef VIETNAMESE_SPACE_PROGRAM_BOSS1_H
-#define VIETNAMESE_SPACE_PROGRAM_BOSS1_H
 class Boss : public Entity
 {
 public:

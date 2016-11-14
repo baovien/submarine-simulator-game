@@ -4,7 +4,6 @@
 #include "../Core/state.h"
 #include "../Core/machine.h"
 
-
 class StateKeybindings : public States{
 public:
     void initialize(sf::RenderWindow *window);

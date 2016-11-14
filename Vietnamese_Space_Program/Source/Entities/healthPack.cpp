@@ -4,7 +4,7 @@ HealthPack::HealthPack(Lives* lives)
 {
     this->load("healthpack.png");
     this->active = 1;
-    this->groupId = 5;
+    this->groupId = 7;
     this->lives = lives;
     this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
 
