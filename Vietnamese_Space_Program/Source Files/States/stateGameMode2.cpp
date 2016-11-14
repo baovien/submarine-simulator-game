@@ -16,7 +16,8 @@ void stateGameMode2::initialize(sf::RenderWindow *window){
     util = new Utilities();
 
     manager = new EntityManager();
-    this->manager->addEntity("ship", new Player(this->lives, this->score, this->manager, window->getSize().x /2, window->getSize().y/2));
+    this->player =  new Player(this->lives, this->score, this->manager, window->getSize().x/2, window->getSize().y, window, 2);
+    this->manager->addEntity("ship", this->player);
 
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font.ttf");
@@ -43,7 +44,7 @@ void stateGameMode2::update(sf::RenderWindow *window){
 }
 void stateGameMode2::render(sf::RenderWindow *window){
     window->draw(*this->background);
-
+    this->manager->renderEntity(window);
     if (util->paused)
     {
         window->draw(*this->pausedText);

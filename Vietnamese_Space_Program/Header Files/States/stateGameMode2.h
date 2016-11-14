@@ -20,6 +20,7 @@ public:
 
 protected:
     Lives* lives;
+    Player* player;
     Score* score;
     sf::Font* font;
     sf::Text* pausedText;
