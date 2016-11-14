@@ -84,12 +84,11 @@ void Player::updateEntity(sf::RenderWindow *window)
             if (left)this->move(-5, 0);
             if (!this->space && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
                 this->manager->addEntity("bullet", new Bullet((this->score),
-                                                              (this->getPosition().x +
-                                                               (this->getGlobalBounds().width / 2) * sin(angle)),
+                                                              (this->getPosition().x),
                                                               (this->getPosition().y -
-                                                               (this->getGlobalBounds().height / 2) * cos(angle)),
-                                                              (-cos(angle) * 15),
-                                                              (sin(angle) * 15), (angle * 180 / pi)));
+                                                               (this->getGlobalBounds().height / 2)),
+                                                              (-10),
+                                                              (0), 0));
             }
             this->space = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
             break;
