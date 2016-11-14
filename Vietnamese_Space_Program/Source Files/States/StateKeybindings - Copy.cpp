@@ -1,5 +1,5 @@
-#include "../../Header Files/States/StateKeybindings.h"
-#include "../../Header Files/States/StateSettings.h"
+#include "../../Include/States/StateKeybindings.h"
+#include "../../Include/States/StateSettings.h"
 
 #include <iostream>
 
@@ -15,8 +15,6 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
 
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
-
-
 
     this->ballTexture = new sf::Texture();
     this->ballTexture->loadFromFile("Graphics/Sprites/blackbackground.png");
@@ -113,7 +111,7 @@ void StateKeybindings::update(sf::RenderWindow *window) {
 
     this->alreadyBoundText->setFillColor(sf::Color(255,50,50,transparencyValue));
     if(transparencyValue>3)
-    transparencyValue-=3;
+        transparencyValue-=3;
 }
 
 
