@@ -41,4 +41,4 @@ set(SOURCE_FILES
 add_executable(Vietnamese_Space_Program ${SOURCE_FILES})
 
 # Link with SFML dependencies
-target_link_libraries(Vietnamese_Space_Program sfml-graphics sfml-window sfml-system sfml-audio)
+target_link_libraries(Vietnamese_Space_Program sfml-graphics sfml-window sfml-system)

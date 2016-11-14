@@ -21,7 +21,6 @@ void App::run() {
 
     sf::Clock timer;
     sf::Time elapsed;
-
     while (window.isOpen()) {
         //Make event to prevent crash
         sf::Event event;
@@ -53,6 +52,7 @@ void App::run() {
             machine.update();
             machine.render();
             window.display();
+
             if (quitGame) {
                 window.close();
             }

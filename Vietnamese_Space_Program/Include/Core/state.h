@@ -2,6 +2,8 @@
 #define VIETNAMESE_SPACE_PROGRAM_STATE_H
 
 #include <SFML/Graphics.hpp>
+#include <SFGUI/Widget.hpp>
+#include <SFGUI/SFGUI.hpp>
 
 class States
 {

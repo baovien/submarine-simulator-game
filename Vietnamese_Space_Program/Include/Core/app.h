@@ -13,6 +13,6 @@ class App
 {
 public:
     void run();
-private:
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_APP_H
+
