@@ -34,7 +34,7 @@ void EnemyObject::setEnemy(Player *player) {
 }
 
 void EnemyObject::updateEntity(sf::RenderWindow *window) {
-    //roterer objektet relativ til dens nåværende posisjon rundt sentrum
+    //roterer objektet slik at den facer mot direction
 
 
     // Gjør at enemien følger spilleren vha. pythagoras. Smoothere bevegelse

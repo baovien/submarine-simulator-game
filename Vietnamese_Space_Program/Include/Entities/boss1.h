@@ -16,7 +16,8 @@ private:
     int health;
     int x,y,height,width,angle;
     bool lok;
-    int randomNumber;
+    int bulletSpeed = 7;
+
     EntityManager* manager;
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_BOSS1_H

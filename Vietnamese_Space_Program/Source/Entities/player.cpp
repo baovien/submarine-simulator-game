@@ -13,7 +13,7 @@ Player::Player(Lives *lives, Score *score, EntityManager *manager, float x, floa
     this->groupId = 1;
     switch (gamemode) {
         case 1:
-            this->load("fighter3_green_big_test.png");
+            this->load("fighter.png");
             this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
             this->space = false;
             this->setPosition(x, y);

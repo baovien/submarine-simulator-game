@@ -38,7 +38,6 @@ set(SOURCE_FILES
         "Include/States/stateMainMenu.h"       "Source/States/stateMainMenu.cpp"
         "Include/States/stateSettings.h"       "Source/States/stateSettings.cpp")
 
-
 add_executable(Vietnamese_Space_Program ${SOURCE_FILES})
 
 # Link with SFML dependencies

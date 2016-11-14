@@ -10,7 +10,6 @@ AsteroidObject::AsteroidObject(float x, float y)
     this->active = 1;
     this->groupId = 3;
     this->health = 1;
-
     //Setter origin til midten av astroiden. Deler på 4 pga scalinga.
     this->setOrigin(this->getGlobalBounds().height/4, this->getGlobalBounds().height/4);
 

@@ -13,6 +13,7 @@
 #include "../Core/score.h"
 #include "../Entities/healthPack.h"
 #include "../Core/soundLoader.h"
+#include "../Entities/asteroid.h"
 
 class StateGameMode1 : public States
 {
@@ -21,7 +22,6 @@ public:
     void update(sf::RenderWindow *window);
     void render(sf::RenderWindow *window);
     void destroy(sf::RenderWindow *window);
-
     sf::Clock clockAsteroid;    // starter clocken for asteroid
     sf::Clock clockBoss;        // starter clocken for boss
     sf::Clock clockEnemy;       // starter clocken for enemy
