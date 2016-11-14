@@ -1,9 +1,9 @@
+#ifndef VIETNAMESE_SPACE_PROGRAM_ENTITYMANAGER_H
+#define VIETNAMESE_SPACE_PROGRAM_ENTITYMANAGER_H
+
 #include "entity.h"
 #include <unordered_map>
 #include <vector>
-
-#ifndef VIETNAMESE_SPACE_PROGRAM_ENTITYMANAGER_H
-#define VIETNAMESE_SPACE_PROGRAM_ENTITYMANAGER_H
 
 class EntityManager
 {

@@ -1,7 +1,7 @@
-#include <SFML/Graphics.hpp>
-
 #ifndef VIETNAMESE_SPACE_PROGRAM_UTIL_H
 #define VIETNAMESE_SPACE_PROGRAM_UTIL_H
+
+#include <SFML/Graphics.hpp>
 
 class Utilities {
 public:

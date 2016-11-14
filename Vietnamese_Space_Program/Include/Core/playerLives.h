@@ -1,7 +1,7 @@
-#include <SFML/Graphics.hpp>
-
 #ifndef VIETNAMESE_SPACE_PROGRAM_PLAYERLIVES_H
 #define VIETNAMESE_SPACE_PROGRAM_PLAYERLIVES_H
+
+#include <SFML/Graphics.hpp>
 
 class Lives : public sf::Text
 {

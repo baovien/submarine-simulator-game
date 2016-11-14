@@ -1,8 +1,9 @@
-#include "../Core/entityManager.h"
-#include "../Core/score.h"
-
 #ifndef VIETNAMESE_SPACE_PROGRAM_BULLET_H
 #define VIETNAMESE_SPACE_PROGRAM_BULLET_H
+
+#include "../Core/score.h"
+#include "../Core/entityManager.h"
+
 class Bullet : public Entity
 {
 public:

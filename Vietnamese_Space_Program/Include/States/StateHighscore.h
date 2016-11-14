@@ -6,8 +6,6 @@
 #include <vector>
 
 class StateHighscore : public States{
-
-
 public:
     void initialize(sf::RenderWindow *window);
 
