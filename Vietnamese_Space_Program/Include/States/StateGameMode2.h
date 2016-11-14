@@ -9,7 +9,6 @@
 #include "../Core/playerLives.h"
 #include "../Core/entityManager.h"
 #include "../Core/score.h"
-#include "../../Header Files/States/StateMainMenu.h"
 
 class StateGameMode2 : public States{
 

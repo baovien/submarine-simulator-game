@@ -23,10 +23,11 @@ set(SOURCE_FILES
         "Include/Entities/asteroid.h"          "Source/Entities/asteroid.cpp"
         "Include/Entities/boss1.h"             "Source/Entities/boss1.cpp"
         "Include/Entities/bullet.h"            "Source/Entities/bullet.cpp"
-        "Include/Entities/player.h"
+        "Include/Entities/player.h"            "Source/Entities/player.cpp"
         "Include/Entities/enemy.h"             "Source/Entities/enemy.cpp"
         "Include/Entities/overheat.h"          "Source/Entities/overheat.cpp"
         "Include/Entities/healthPack.h"        "Source/Entities/healthPack.cpp"
+        "Include/Entities/button.h"            "Source/Entities/button.cpp"
 
         #State Headers
         "Include/States/stateGameMode1.h"      "Source/States/stateGameMode1.cpp"
@@ -41,4 +42,4 @@ set(SOURCE_FILES
 add_executable(Vietnamese_Space_Program ${SOURCE_FILES})
 
 # Link with SFML dependencies
-target_link_libraries(Vietnamese_Space_Program sfml-graphics sfml-window sfml-system)
+target_link_libraries(Vietnamese_Space_Program sfml-graphics sfml-window sfml-system sfml-audio)

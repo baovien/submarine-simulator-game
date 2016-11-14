@@ -11,9 +11,6 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
 
-    memset(machine.keyPressed, 0,
-           sizeof(machine.keyPressed)); //For at tastetrykk gjort i andre states ikke skal beholdes
-
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
 
@@ -59,12 +56,6 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         this->manager->updateEntity(window);
         this->score->updateScore();
         this->lives->updateLife();
-    } else if (machine.keyPressed[sf::Keyboard::Q])
-        machine.setState(new StateMainMenu());
-
-    if (machine.keyPressed[sf::Keyboard::P] || machine.keyPressed[sf::Keyboard::Escape]) {
-        memset(machine.keyPressed, 0, sizeof(machine.keyPressed));
-        util->pauseScreen();                        //Kaller pausefunksjonen
     }
 
     if (this->lives->getValue() <= 0) {
@@ -130,4 +121,20 @@ void StateGameMode1::destroy(sf::RenderWindow *window) {
 
     //TODO
     sl.~SoundLoader();
+}
+
+void StateGameMode1::handleEvent(sf::RenderWindow *window, sf::Event event) {
+    if (event.type == event.KeyPressed) {
+        if (event.key.code == machine.keybindMap.find("back")->second.second && util->paused) {
+            machine.setState(new StateMainMenu());
+            return;
+        }
+        if (event.key.code == machine.keybindMap.find("pause")->second.second) {
+            util->pauseScreen();                        //Kaller pausefunksjonen
+        }
+    }
+}
+
+void StateGameMode1::reinitialize(sf::RenderWindow *window) {
+
 }
