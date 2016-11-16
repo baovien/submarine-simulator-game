@@ -108,7 +108,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
         if (event.key.code == sf::Keyboard::Right) {
             this->selected -= 1;
         }
-        if (event.key.code == machine.keybindMap.find("select")->second.second) {
+        if (event.key.code == machine.keybindMap->find("select")->second.second) {
             switch (this->selected) {
                 case 0: //Back
                     machine.setState(new StateMainMenu);

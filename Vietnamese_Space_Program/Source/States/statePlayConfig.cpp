@@ -233,7 +233,7 @@ void StatePlayConfig::destroy(sf::RenderWindow *window) {
 void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event) {
     if (event.type == sf::Event::KeyPressed) {
         // Trykk Escape for å komme til mainmenu
-        if (event.key.code == machine.keybindMap.find("back")->second.second) {
+        if (event.key.code == machine.keybindMap->find("back")->second.second) {
             machine.setState(new StateMainMenu);
         }
 
@@ -311,7 +311,7 @@ void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event) {
         }
 
 
-        if (event.key.code == machine.keybindMap.find("select")->second.second) {
+        if (event.key.code == machine.keybindMap->find("select")->second.second) {
             if (this->selected == 3) { //Start
                 if (this->selected_Gamemode == 0) {
                     machine.setState(new StateGameMode1);

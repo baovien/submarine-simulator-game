@@ -41,7 +41,7 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
     this->playerText->setOrigin(this->playerText->getGlobalBounds().width / 2, this->playerText->getGlobalBounds().height / 2);
     this->playerText->setPosition(window->getSize().x / 2, window->getSize().y / 4.9);
 
-    this->backText = new sf::Text("Press " + machine.keybindMap.find("back")->second.first + " to go back", *this->font, 16U);
+    this->backText = new sf::Text("Press " + machine.keybindMap->find("back")->second.first + " to go back", *this->font, 16U);
     this->backText->setOrigin(this->backText->getGlobalBounds().width / 2, this->backText->getGlobalBounds().height / 2);
     this->backText->setPosition(window->getSize().x / 2, window->getSize().y / 1.1);
 
@@ -142,7 +142,7 @@ void StateHighscore::destroy(sf::RenderWindow *window) {
 }
 
 void StateHighscore::handleEvent(sf::RenderWindow *window, sf::Event event){
-    if(event.key.code == machine.keybindMap.find("back")->second.second) {
+    if(event.key.code == machine.keybindMap->find("back")->second.second) {
         machine.setState(new StateMainMenu);
         return;
     }
