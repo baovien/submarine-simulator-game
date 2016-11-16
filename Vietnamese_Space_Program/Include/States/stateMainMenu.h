@@ -4,6 +4,7 @@
 #include "../Core/machine.h"
 #include "../Core/state.h"
 #include "../Core/soundLoader.h"
+#include "../Core/utilities.h"
 
 class StateMainMenu : public States{
 public:
@@ -22,17 +23,18 @@ public:
 private:
     SoundLoader sl;
     sf::Font* font;
-    sf::Text* title;
-    sf::Text* title2;
-    sf::Text* play;
-    sf::Text* options;
-    sf::Text* highscore;
-    sf::Text* quit;
     sf::Texture* bgTexture;
     sf::Sprite* background;
+    Utilities util;
 
+    struct menuTextureStruct{
+        sf::Texture* buttonNormal;
+        sf::Texture* buttonMouseOver;
+        sf::Texture* buttonClicked;
+    };
 
-    std::vector<sf::Text*> menuTexts;
+    menuTextureStruct menuTextures[6];
+    sf::Sprite* menuButtons[6];
 
 
     int selected;

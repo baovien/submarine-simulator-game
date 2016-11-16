@@ -2,7 +2,7 @@
 #define VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE2_H
 
 #include "../Core/state.h"
-#include "../Core/util.h"
+#include "../Core/utilities.h"
 #include "../Core/machine.h"
 #include "../Entities/player.h"
 #include "../Entities/enemy.h"

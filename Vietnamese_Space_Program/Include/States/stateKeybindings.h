@@ -3,6 +3,7 @@
 
 #include "../Core/state.h"
 #include "../Core/machine.h"
+#include "../Core/utilities.h"
 
 class StateKeybindings : public States{
 public:
@@ -19,6 +20,8 @@ public:
     void reinitialize(sf::RenderWindow *window);
 private:
     sf::RenderWindow* window;
+
+    Utilities util;
 
     sf::Font* font;
     sf::Text* movementText;

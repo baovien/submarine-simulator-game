@@ -11,190 +11,121 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
     sl.LoadSounds();
     sl.PlaySound(sl.MAIN_MENU);
 
-    sf::View newView( sf::FloatRect( 0, 0, window->getSize().x, window->getSize().y ) );
+    sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
-    machine.mouseClick = {-1,-1};
+    machine.mouseClick = {-1, -1};
 
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
 
-
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
-    this->background->scale(window->getSize().x/background->getGlobalBounds().width,window->getSize().y/background->getGlobalBounds().height);
+    this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
+
     this->selected = 0;
 
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font1.otf");
 
-    this->title = new sf::Text("SPACE", *this->font, textSize+30);
-    this->title->setOrigin(this->title->getGlobalBounds().width / 2, this->title->getGlobalBounds().height / 2);
-    this->title->setPosition(window->getSize().x / 2, window->getSize().y / 4);
-    this->menuTexts.push_back(this->title);
+    //loader alle knapper og versjoner av knapper. Finnes 3 versjoner av hver (vanlig, mouseover og clicked).
+    //Ganger med 3 fordi jeg kun vil få hver 3. knapp
+    for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i) {
+        menuTextures[i].buttonNormal = new sf::Texture();
+        menuTextures[i].buttonNormal->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3) + ".png");
 
-    this->title2 = new sf::Text("SIMULATOR", *this->font, textSize+30);
-    this->title2->setOrigin(this->title2->getGlobalBounds().width / 2, this->title2->getGlobalBounds().height / 2);
-    this->title2->setPosition(window->getSize().x / 2, window->getSize().y / 4 + this->title2->getGlobalBounds().height);
-    this->menuTexts.push_back(this->title2);
+        menuTextures[i].buttonMouseOver = new sf::Texture();
+        menuTextures[i].buttonMouseOver->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3 + 1) + ".png");
 
-    this->play = new sf::Text("Play", *this->font, textSize);
-    this->play->setOrigin(this->play->getGlobalBounds().width / 2, this->play->getGlobalBounds().height / 2);
-    this->play->setPosition(window->getSize().x / 2, window->getSize().y / 2);
-    this->menuTexts.push_back(this->play);
+        menuTextures[i].buttonClicked = new sf::Texture();
+        menuTextures[i].buttonClicked->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3 + 2) + ".png");
 
-    this->highscore = new sf::Text("Highscore", *this->font, textSize);
-    this->highscore->setOrigin(this->highscore->getGlobalBounds().width / 2, this->highscore->getGlobalBounds().height / 2);
-    this->highscore->setPosition(window->getSize().x / 2, window->getSize().y /2 + this->highscore->getGlobalBounds().height*1.5);
-    this->menuTexts.push_back(this->highscore);
+        menuButtons[i] = new sf::Sprite();
+        menuButtons[i]->setTexture(*this->menuTextures[i].buttonNormal);
+        menuButtons[i]->setOrigin(menuButtons[i]->getGlobalBounds().width / 2, menuButtons[i]->getGlobalBounds().height / 2);
+        menuButtons[i]->scale(window->getSize().x / background->getGlobalBounds().width / 1.5f, window->getSize().x / background->getGlobalBounds().width / 1.5f);
+        menuButtons[i]->setPosition(i * window->getSize().x / 5, window->getSize().y - window->getSize().y / 4);
+    }
+    menuButtons[0]->scale(window->getSize().x / background->getGlobalBounds().width / 0.5f, window->getSize().x / background->getGlobalBounds().width / 0.5f);
+    menuButtons[0]->setPosition(window->getSize().x / 2, window->getSize().y / 2.5f);
 
-    this->options = new sf::Text("Options", *this->font, textSize);
-    this->options->setOrigin(this->options->getGlobalBounds().width / 2, this->options->getGlobalBounds().height / 2);
-    this->options->setPosition(window->getSize().x / 2, window->getSize().y /2 + this->options->getGlobalBounds().height*3);
-    this->menuTexts.push_back(this->options);
+    menuButtons[5]->scale(window->getSize().x / background->getGlobalBounds().width / 3, window->getSize().x / background->getGlobalBounds().width / 3);
+    menuButtons[5]->setPosition(window->getSize().x - window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
 
-    this->quit = new sf::Text("Exit", *this->font, textSize);
-    this->quit->setOrigin(this->quit->getGlobalBounds().width / 2, this->quit->getGlobalBounds().height / 2);
-    this->quit->setPosition(window->getSize().x / 2, window->getSize().y /2 + this->quit->getGlobalBounds().height*4.5);
-    this->menuTexts.push_back(this->quit);
 
 }
+
 void StateMainMenu::update(sf::RenderWindow *window) {
-    //Vertical selection bounds
-    if (this->selected > 3) {
-        this->selected = 0;
+    //Sjekker mouseover for hver knapp og endrer texture om den er mouseovera
+    for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i) {
+        if (util.checkMouseover(menuButtons[i], window)) {
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                menuButtons[i]->setTexture(*this->menuTextures[i].buttonClicked);
+            } else {
+                menuButtons[i]->setTexture(*this->menuTextures[i].buttonMouseOver);
+            }
+        } else {
+            menuButtons[i]->setTexture(*this->menuTextures[i].buttonNormal);
+        }
     }
 
-    if (this->selected < 0) {
-        this->selected = 3;
-    }
-
-    if (sf::Mouse::getPosition(*window).x + play->getGlobalBounds().width / 2 > play->getPosition().x &&
-        sf::Mouse::getPosition(*window).x - play->getGlobalBounds().width / 2 < play->getPosition().x &&
-        sf::Mouse::getPosition(*window).y + play->getGlobalBounds().height / 2 > play->getPosition().y &&
-        sf::Mouse::getPosition(*window).y - play->getGlobalBounds().height / 2 < play->getPosition().y) {
-        this->selected = 0;
-
-    }
-    if (sf::Mouse::getPosition(*window).x + highscore->getGlobalBounds().width / 2 > highscore->getPosition().x &&
-        sf::Mouse::getPosition(*window).x - highscore->getGlobalBounds().width / 2 < highscore->getPosition().x &&
-        sf::Mouse::getPosition(*window).y + highscore->getGlobalBounds().height / 2 > highscore->getPosition().y &&
-        sf::Mouse::getPosition(*window).y - highscore->getGlobalBounds().height / 2 < highscore->getPosition().y) {
-        this->selected = 1;
-    }
-    if (sf::Mouse::getPosition(*window).x + options->getGlobalBounds().width / 2 > options->getPosition().x &&
-        sf::Mouse::getPosition(*window).x - options->getGlobalBounds().width / 2 < options->getPosition().x &&
-        sf::Mouse::getPosition(*window).y + options->getGlobalBounds().height / 2 > options->getPosition().y &&
-        sf::Mouse::getPosition(*window).y - options->getGlobalBounds().height / 2 < options->getPosition().y) {
-        this->selected = 2;
-
-    }
-    if (sf::Mouse::getPosition(*window).x + quit->getGlobalBounds().width / 2 > quit->getPosition().x &&
-        sf::Mouse::getPosition(*window).x - quit->getGlobalBounds().width / 2 < quit->getPosition().x &&
-        sf::Mouse::getPosition(*window).y + quit->getGlobalBounds().height / 2 > quit->getPosition().y &&
-        sf::Mouse::getPosition(*window).y - quit->getGlobalBounds().height / 2 < quit->getPosition().y) {
-        this->selected = 3;
-    }
-
-    if (machine.mouseClick.x + play->getGlobalBounds().width / 2 > play->getPosition().x &&
-        machine.mouseClick.x - play->getGlobalBounds().width / 2 < play->getPosition().x &&
-        machine.mouseClick.y + play->getGlobalBounds().height / 2 > play->getPosition().y &&
-        machine.mouseClick.y - play->getGlobalBounds().height / 2 < play->getPosition().y) {
-        //Play
-        machine.mouseClick = {-1, -1};
-        machine.setState(new StatePlayConfig);
-        return;
-    }
-    if (machine.mouseClick.x + highscore->getGlobalBounds().width / 2 > highscore->getPosition().x &&
-        machine.mouseClick.x - highscore->getGlobalBounds().width / 2 < highscore->getPosition().x &&
-        machine.mouseClick.y + highscore->getGlobalBounds().height / 2 > highscore->getPosition().y &&
-        machine.mouseClick.y - highscore->getGlobalBounds().height / 2 < highscore->getPosition().y) {
-        //highscore
-        machine.mouseClick = {-1, -1};
-        machine.setState(new StateHighscore);
-        return;
-
-    }
-    if (machine.mouseClick.x + options->getGlobalBounds().width / 2 > options->getPosition().x &&
-        machine.mouseClick.x - options->getGlobalBounds().width / 2 < options->getPosition().x &&
-        machine.mouseClick.y + options->getGlobalBounds().height / 2 > options->getPosition().y &&
-        machine.mouseClick.y - options->getGlobalBounds().height / 2 < options->getPosition().y) {
-        //options
-        machine.mouseClick = {-1, -1};
-        machine.setState(new StateSettings);
-        return;
-    }
-    if (machine.mouseClick.x + quit->getGlobalBounds().width / 2 > quit->getPosition().x &&
-        machine.mouseClick.x - quit->getGlobalBounds().width / 2 < quit->getPosition().x &&
-        machine.mouseClick.y + quit->getGlobalBounds().height / 2 > quit->getPosition().y &&
-        machine.mouseClick.y - quit->getGlobalBounds().height / 2 < quit->getPosition().y) {
-        //exit
-        machine.mouseClick = {-1, -1};
-        quitGame=true;
-        return;
-    }
 }
+
 void StateMainMenu::render(sf::RenderWindow *window) {
-
-    //NUllstille textstil på alle texts i menutexts
-    for(sf::Text* text: menuTexts)
-        text->setStyle(0);
-
-    //Setter en strek over valgt text
-    menuTexts[selected + 2 ]->setStyle(1<<3);
-
-    //Tegne opp background
     window->draw(*this->background);
-    //Tegne opp alle texts i menuTexts
-    for(const sf::Text* text: menuTexts)
-        window->draw(*text);
+
+    for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i) {
+        window->draw(*this->menuButtons[i]);
+    }
+    //Tegne opp background
 
 }
+
 void StateMainMenu::destroy(sf::RenderWindow *window) {
 
-    //Flippe vectoren, destroye motsatt av draws
-    std::reverse(menuTexts.begin(), menuTexts.end());
-    for(sf::Text* text: menuTexts)
-        delete text;
+    //Destroyer i motsatt rekkefølge av draws
+    for (int i = sizeof(menuTextures) / sizeof(*menuTextures) - 1; i > 0; --i) {
+        delete this->menuButtons[i];
+    }
+    delete this->background;
+
     //TODO
     sl.~SoundLoader();
 }
-void StateMainMenu::handleEvent(sf::RenderWindow *window , sf::Event event) {
-    //Vertical selection
-    if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == sf::Keyboard::Up) {
-            this->selected -= 1;
-        }
 
-        if (event.key.code == sf::Keyboard::Down) {
-            this->selected += 1;
-        }
-
-        //Midlertidig// Testing purposes
-        if (event.key.code == sf::Keyboard::M) {
-            machine.setState(new StateGameOver);
-            return;
-        }
-
-        //Stateswitch on enter
-        if(event.key.code == machine.keybindMap.find("select")->second.second) {
-            switch (this->selected) {
-                case 0: //Play
-                    machine.setState(new StatePlayConfig);
-                    return;
-                case 1: //Highscore
-                    machine.setState(new StateHighscore);
-                    return;
-                case 2: //Options
-                    machine.setState(new StateSettings);
-                    return;
-                case 3: //Exit
-                    quitGame = true;
-                    break;
+void StateMainMenu::handleEvent(sf::RenderWindow *window, sf::Event event) {
+    if (event.type == sf::Event::MouseButtonReleased) {
+        for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i)
+            if (util.checkMouseclick(menuButtons[i], event)) {
+                switch (i) {
+                    //playknappen trykket
+                    case 0:
+                        machine.setState(new StatePlayConfig());
+                        return;
+                        //highscoreknappen trykket
+                    case 1:
+                        machine.setState(new StateHighscore());
+                        return;
+                        //settingsknappen trykket
+                    case 2:
+                        machine.setState(new StateSettings());
+                        return;
+                        //helpknappen trykket
+                    case 3:
+                        //Her må vi mekke tutorial
+                        return;
+                        //exitknappen trykket
+                    case 4:
+                        quitGame = true;
+                        return;
+                        //volumknappen trykket
+                    case 5:
+                        //Her må vi mekke mute/unmute
+                        return;
+                }
             }
-        }
-
     }
 }
+
 void StateMainMenu::reinitialize(sf::RenderWindow *window) {
 
 }

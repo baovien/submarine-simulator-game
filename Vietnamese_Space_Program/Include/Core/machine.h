@@ -42,7 +42,6 @@ private:
     int gameOverScore;
 
 };
-
 extern Machine machine;
 extern bool quitGame;
 
