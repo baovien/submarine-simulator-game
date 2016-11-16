@@ -192,7 +192,6 @@ void StateSettings::handleEvent(sf::RenderWindow *window , sf::Event event){
                     break;
                 case 3: //Apply
                     window->setSize(resChoice);
-                    window->setView(sf::View(sf::FloatRect(0.f, 0.f, window->getSize().x, window->getSize().y)));
                     this->initialize(window);
                     break;
                 case 4: //Back

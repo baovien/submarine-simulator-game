@@ -2,13 +2,14 @@
 #include "../../Include/Entities/player.h"
 
 
-Player::Player(Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode)
+Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode)
 {
     this->manager = manager;
     this->gamemode = gamemode;
     this->overheat = overheat;
     this->score = score;
     this->lives = lives;
+    this->keybindMap = keybindMap;
     this->active = 1;
     this->groupId = 1;
     switch (gamemode) {
@@ -36,10 +37,15 @@ void Player::updateEntity(sf::RenderWindow *window)
 {
     int overheatValue = 0;
     up = 0, down = 0, left = 0, right = 0;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))left = 1;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))right = 1;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))up = 1;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))down = 1;
+    if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("left")->second.second))left = 1;
+    if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("right")->second.second))right = 1;
+    if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("up")->second.second))up = 1;
+    if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("down")->second.second))down = 1;
+    
+    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))left = 1;
+    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))right = 1;
+    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))up = 1;
+    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))down = 1;
 
     switch (this->gamemode)
     {
@@ -67,7 +73,7 @@ void Player::updateEntity(sf::RenderWindow *window)
             this->move(sin(angle) * speed, -cos(angle) * speed);
             this->setRotation(angle * 180 / pi);
 
-            if (!this->space && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+            if (!this->space && sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second)) {
                 this->manager->addEntity("bullet", new Bullet((this->score),
                                                               (this->getPosition().x +
                                                                (this->getGlobalBounds().width / 2) * sin(angle)),
@@ -76,13 +82,13 @@ void Player::updateEntity(sf::RenderWindow *window)
                                                               (-cos(angle) * 15),
                                                               (sin(angle) * 15), (angle * 180 / pi)));
             }
-            this->space = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
+            this->space = sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second);
             break;
 
         case 2:
             if (right)this->move(5, 0);
             if (left)this->move(-5, 0);
-            if (!this->space && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+            if (!this->space && sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second)) {
                 this->manager->addEntity("bullet", new Bullet((this->score),
                                                               (this->getPosition().x),
                                                               (this->getPosition().y -
@@ -90,7 +96,7 @@ void Player::updateEntity(sf::RenderWindow *window)
                                                               (-10),
                                                               (0), 0));
             }
-            this->space = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
+            this->space = sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second);
             break;
         default:
             break;

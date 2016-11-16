@@ -27,7 +27,7 @@ set(SOURCE_FILES
         "Include/Entities/enemy.h"             "Source/Entities/enemy.cpp"
         "Include/Entities/overheat.h"          "Source/Entities/overheat.cpp"
         "Include/Entities/healthPack.h"        "Source/Entities/healthPack.cpp"
-        "Include/Entities/button.h"            "Source/Entities/button.cpp"
+        "Include/Entities/buttons.h"            "Source/Entities/buttons.cpp"
 
         #State Headers
         "Include/States/stateGameMode1.h"      "Source/States/stateGameMode1.cpp"

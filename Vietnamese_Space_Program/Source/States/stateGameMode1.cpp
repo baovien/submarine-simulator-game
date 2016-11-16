@@ -30,7 +30,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     manager = new EntityManager();
     boss = new Boss(this->manager);
     this->manager->addEntity("boss", new Boss(this->manager));
-    this->player = new Player(this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2,
+    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2,
                               window, 1);
     this->manager->addEntity("ship", this->player);
 
