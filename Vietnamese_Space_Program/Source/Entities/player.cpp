@@ -3,13 +3,19 @@
 
 
 Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode)
+        : manager(manager),
+          gamemode(gamemode),
+          score(score),
+          lives(lives),
+          keybindMap(keybindMap)
 {
-    this->manager = manager;
-    this->gamemode = gamemode;
-    this->overheat = overheat;
-    this->score = score;
-    this->lives = lives;
-    this->keybindMap = keybindMap;
+//    Flyttet alt opp ^
+//    this->manager = manager;
+//    this->gamemode = gamemode;
+//    this->overheat = overheat;
+//    this->score = score;
+//    this->lives = lives;
+//    this->keybindMap = keybindMap;
     this->active = 1;
     this->groupId = 1;
     switch (gamemode) {
@@ -33,22 +39,20 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
 }
 
 //update funksjonen har kontroll på bevegelsen til player.
-void Player::updateEntity(sf::RenderWindow *window)
-{
+void Player::updateEntity(sf::RenderWindow *window) {
     int overheatValue = 0;
     up = 0, down = 0, left = 0, right = 0;
     if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("left")->second.second))left = 1;
     if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("right")->second.second))right = 1;
     if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("up")->second.second))up = 1;
     if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("down")->second.second))down = 1;
-    
+
     //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))left = 1;
     //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))right = 1;
     //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))up = 1;
     //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))down = 1;
 
-    switch (this->gamemode)
-    {
+    switch (this->gamemode) {
         case 1:
             //Bevegelse
             if (right && speed != 0) angle += turnspeed * speed / maxSpeed;
@@ -103,8 +107,7 @@ void Player::updateEntity(sf::RenderWindow *window)
     }
     Entity::updateEntity(window);
 
-    switch (this->gamemode)
-    {
+    switch (this->gamemode) {
         case 1:
             if (this->getPosition().y - this->getGlobalBounds().height / 2 < 0) {
                 //this->setPosition(this->getPosition().x, 720 + this->getGlobalBounds().height);
@@ -131,7 +134,7 @@ void Player::updateEntity(sf::RenderWindow *window)
         case 2:
             if (this->getPosition().x + this->getGlobalBounds().width / 2 > window->getSize().x) this->move(-5, 0);
             if (this->getPosition().x - this->getGlobalBounds().width / 2 < 0) this->move(5, 0);
-                break;
+            break;
     }
 
 }
