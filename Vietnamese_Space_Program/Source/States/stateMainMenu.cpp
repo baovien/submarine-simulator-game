@@ -13,7 +13,6 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
 
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
-    machine.mouseClick = {-1, -1};
 
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
@@ -43,17 +42,25 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
         menuButtons[i] = new sf::Sprite();
         menuButtons[i]->setTexture(*this->menuTextures[i].buttonNormal);
         menuButtons[i]->setOrigin(menuButtons[i]->getGlobalBounds().width / 2, menuButtons[i]->getGlobalBounds().height / 2);
-        menuButtons[i]->scale(window->getSize().x / background->getGlobalBounds().width / 1.5f, window->getSize().x / background->getGlobalBounds().width / 1.5f);
+        menuButtons[i]->scale(window->getSize().x/1920.f,  window->getSize().y/1080.f);
         menuButtons[i]->setPosition(i * window->getSize().x / 5, window->getSize().y - window->getSize().y / 4);
     }
+    //std::cout << window->getSize().y;
     menuButtons[0]->scale(window->getSize().x / background->getGlobalBounds().width / 0.5f, window->getSize().x / background->getGlobalBounds().width / 0.5f);
     menuButtons[0]->setPosition(window->getSize().x / 2, window->getSize().y / 2.5f);
 
     menuButtons[5]->scale(window->getSize().x / background->getGlobalBounds().width / 3, window->getSize().x / background->getGlobalBounds().width / 3);
     menuButtons[5]->setPosition(window->getSize().x - window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
-
+/*
+    menuTextures[6].buttonMouseOver = new sf::Texture();
+    menuTextures[6].buttonMouseOver->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn18.png");
+    menuTextures[6].buttonNormal = new sf::Texture();
+    menuTextures[6].buttonNormal->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn19.png");
+    menuTextures[6].buttonClicked = new sf::Texture();
+    menuTextures[6].buttonClicked->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn20.png");
+*/
     //Text, textsize, origin x, origin y, position x, position y
-    Title = util.addText("Submarine simulator", 75, 2, 2, menuButtons[0]->getPosition().x, menuButtons[0]->getPosition().y - menuButtons[0]->getGlobalBounds().height/1.3f);
+    Title = util.addText("Submarine simulator", 100, 2, 2, menuButtons[0]->getPosition().x, menuButtons[0]->getPosition().y - menuButtons[0]->getGlobalBounds().height/1.1f);
 }
 
 void StateMainMenu::update(sf::RenderWindow *window) {
@@ -124,7 +131,7 @@ void StateMainMenu::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         //volumknappen trykket
                     case 5:
                         //Her må vi mekke mute/unmute
-                        return;
+                        break;
                 }
             }
     }

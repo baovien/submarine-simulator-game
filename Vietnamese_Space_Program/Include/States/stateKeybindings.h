@@ -25,6 +25,7 @@ private:
     Utilities util;
 
     sf::Font* font;
+    sf::Font* keyFont;
     sf::Text* movementText;
     sf::Text* menuNavigationText;
     sf::Text* gameplayText;

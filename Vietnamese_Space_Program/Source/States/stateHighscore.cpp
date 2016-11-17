@@ -6,8 +6,6 @@
 
 
 void StateHighscore::initialize(sf::RenderWindow *window) {
-    machine.mouseClick = {-1,-1};
-
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
 
@@ -77,7 +75,7 @@ void StateHighscore::update(sf::RenderWindow *window) {
     } else {
         this->selected = 1;
     }
-    if (machine.mouseClick.x + backText->getGlobalBounds().width / 2 > backText->getPosition().x &&
+   /* if (machine.mouseClick.x + backText->getGlobalBounds().width / 2 > backText->getPosition().x &&
         machine.mouseClick.x - backText->getGlobalBounds().width / 2 < backText->getPosition().x &&
         machine.mouseClick.y + backText->getGlobalBounds().height / 2 > backText->getPosition().y &&
         machine.mouseClick.y - backText->getGlobalBounds().height / 2 < backText->getPosition().y) {
@@ -85,7 +83,7 @@ void StateHighscore::update(sf::RenderWindow *window) {
         machine.mouseClick = {-1, -1};
         machine.setState(new StateMainMenu);
         return;
-    }
+    }*/
 }
 
 void StateHighscore::render(sf::RenderWindow *window) {

@@ -6,13 +6,9 @@
 
 
 void StatePlayConfig::initialize(sf::RenderWindow *window) {
-
-    machine.mouseClick = {-1, -1}; //Resetter mouseClick slik at museklikk fra tidligere states ikke triggerer if-sjekker.
-
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
 
-    machine.mouseClick = {-1, -1};
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
 

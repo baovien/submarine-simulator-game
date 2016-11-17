@@ -35,11 +35,7 @@ void App::run() {
 //                window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
             }
             else machine.eventHandler(event);
-
-            if (event.type == sf::Event::MouseButtonPressed) {
-                machine.mouseClick = sf::Mouse::getPosition(window);
             }          //beholder posisjonen til museklikk som kan sjekkes i andre states
-        }
 
         /**
          * Vi vil at den skal kjøre med nøyaktighet på 1/60 sekund. 1/60 sekunder = 16666 mikrosekunder.

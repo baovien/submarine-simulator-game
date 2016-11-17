@@ -5,7 +5,6 @@
 
 
 void StateSettings::initialize(sf::RenderWindow *window) {
-
     sf::View newView( sf::FloatRect( 0, 0, window->getSize().x, window->getSize().y ) );
     window->setView(newView);
 
@@ -21,8 +20,8 @@ void StateSettings::initialize(sf::RenderWindow *window) {
     this->selected = 0;
 
     this->font = new sf::Font();
-    this->font->loadFromFile("Graphics/BUBBLEBOY2.TTF");
-
+    this->font->loadFromFile("Graphics/Turtles.otf");
+/*
     this->title = new sf::Text("SETTINGS", *this->font,textSize + 12);
     this->title->setOrigin(this->title->getGlobalBounds().width / 2, this->title->getGlobalBounds().height / 2);
     this->title->setPosition(window->getSize().x / 2, this->title->getGlobalBounds().height);
@@ -59,20 +58,20 @@ void StateSettings::initialize(sf::RenderWindow *window) {
     this->back = new sf::Text("Back", *this->font, textSize);
     this->back->setOrigin(this->back->getGlobalBounds().width / 2, this->back->getGlobalBounds().height / 2);
     this->back->setPosition(window->getSize().x / 2, this->back->getGlobalBounds().height*16);
-
+*/
 }
 void StateSettings::update(sf::RenderWindow *window) {
-    if(this->selected > 4){ //Endre hvis flere alternativer
+/*    if(this->selected > 4){ //Endre hvis flere alternativer
         this->selected = 0;
     }
 
     if(this->selected < 0){ //Endre hvis flere alternativer
         this->selected = 4;
     }
-
+*/
 }
 void StateSettings::render(sf::RenderWindow *window) {
-
+/*
     this->screenRes->setStyle(0);
     this->volume->setStyle(0);
     this->keybinds->setStyle(0);
@@ -123,7 +122,6 @@ void StateSettings::render(sf::RenderWindow *window) {
     }
 
 
-    window->draw(*this->background);
     window->draw(*this->title);
     window->draw(*this->screenRes);
     window->draw(*this->res1);
@@ -133,8 +131,11 @@ void StateSettings::render(sf::RenderWindow *window) {
     window->draw(*this->keybinds);
     window->draw(*this->apply);
     window->draw(*this->back);
+*/
+    window->draw(*this->background);
 }
 void StateSettings::destroy(sf::RenderWindow *window) {
+/*
     delete this->back;
     delete this->apply;
     delete this->keybinds;
@@ -145,10 +146,23 @@ void StateSettings::destroy(sf::RenderWindow *window) {
     delete this->res1;
     delete this->screenRes;
     delete this->title;
+    */
     delete this->background;
 }
 void StateSettings::handleEvent(sf::RenderWindow *window , sf::Event event){
-    if (event.type == sf::Event::KeyPressed) {
+  if (event.type == sf::Event::KeyPressed) {
+//Back on escapekey
+
+      if (event.key.code == machine.keybindMap.find("back")->second.second) {
+          machine.setState(new StateMainMenu);
+          return;
+      }
+      if (event.key.code == machine.keybindMap.find("select")->second.second) {
+          machine.setState(new StateKeybindings);
+          return;
+      }
+  }
+/*
         //Vertical selection
         if (event.key.code == sf::Keyboard::Up) {
             this->selected -= 1;
@@ -176,12 +190,6 @@ void StateSettings::handleEvent(sf::RenderWindow *window , sf::Event event){
                 this->selectedRes = 2;
             }
         }
-        //Back on escapekey
-
-        if (event.key.code == machine.keybindMap.find("back")->second.second) {
-            machine.setState(new StateMainMenu);
-            return;
-        }
 
         //Selection on returnkey
 
@@ -200,6 +208,7 @@ void StateSettings::handleEvent(sf::RenderWindow *window , sf::Event event){
             }
         }
     }
+    */
 }
 
 void StateSettings::reinitialize(sf::RenderWindow *window) {

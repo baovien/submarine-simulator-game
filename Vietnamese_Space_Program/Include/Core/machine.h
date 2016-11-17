@@ -24,9 +24,6 @@ public:
     void setGameOverScore(int playerScore);
     int getGameOverScore() const;
 
-    //For å beholde museklikk til pollEventet i App
-    sf::Vector2i mouseClick;
-
     //Brukes i forbindelse med keybinds
     std::map<const std::string, std::pair<std::string, int>> keybindMap = {{"up", std::make_pair("W" , sf::Keyboard::W)},
                                                            {"down",   std::make_pair("S" , sf::Keyboard::S)},
