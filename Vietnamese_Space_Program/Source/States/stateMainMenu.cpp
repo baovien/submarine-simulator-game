@@ -8,8 +8,8 @@
 
 void StateMainMenu::initialize(sf::RenderWindow *window) {
     //TODO:
-    sl.LoadSounds();
-    sl.PlaySound(sl.MAIN_MENU);
+    //sl.LoadSounds();
+    //sl.PlaySound(sl.MAIN_MENU);
 
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
@@ -100,7 +100,7 @@ void StateMainMenu::destroy(sf::RenderWindow *window) {
     delete this->background;
 
     //TODO
-    sl.~SoundLoader();
+    //sl.~SoundLoader();
 }
 
 void StateMainMenu::handleEvent(sf::RenderWindow *window, sf::Event event) {
