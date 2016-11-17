@@ -31,11 +31,11 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
     //Ganger med 3 fordi jeg kun vil få hver 3. knapp
     for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i)
     {
-        menuTextures[i].buttonNormal = new sf::Texture();
-        menuTextures[i].buttonNormal->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3) + ".png");
-
         menuTextures[i].buttonMouseOver = new sf::Texture();
-        menuTextures[i].buttonMouseOver->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3 + 1) + ".png");
+        menuTextures[i].buttonMouseOver->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3) + ".png");
+
+        menuTextures[i].buttonNormal = new sf::Texture();
+        menuTextures[i].buttonNormal->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3 + 1) + ".png");
 
         menuTextures[i].buttonClicked = new sf::Texture();
         menuTextures[i].buttonClicked->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3 + 2) + ".png");

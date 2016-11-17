@@ -58,7 +58,7 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
         keyVector[i].keySquare = new sf::Sprite();
         keyVector[i].keySquare->setTexture(*this->ballTexture);
         keyVector[i].keySquare->setOrigin(keyVector[i].keySquare->getGlobalBounds().width / 2, keyVector[i].keySquare->getGlobalBounds().height / 2);
-        keyVector[i].keySquare->scale(window->getSize().x / background->getGlobalBounds().width / 4, window->getSize().x / background->getGlobalBounds().width / 4);
+        keyVector[i].keySquare->scale(window->getSize().x / background->getGlobalBounds().width / 4.5f, window->getSize().x / background->getGlobalBounds().width / 4.5f);
         keyVector[i].keySquare->setPosition(positionList[i].x, positionList[i].y);
         //keyVector[i].keySquare->setColor(sf::Color(255,0,0, 50));
 
