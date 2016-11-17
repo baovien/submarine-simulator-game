@@ -17,7 +17,7 @@ void StateGameMode2::initialize(sf::RenderWindow *window) {
     util = new Utilities();
 
     manager = new EntityManager();
-    this->player =  new Player(this->lives, this->score, this->manager, window->getSize().x/2, window->getSize().y, window, 2,1);
+    this->player =  new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x/2, window->getSize().y, window, 2, 1);
     this->manager->addEntity("ship", this->player);
 
     this->font = new sf::Font();

@@ -16,7 +16,7 @@ set(SOURCE_FILES
         "Include/Core/playerLives.h"           "Source/Core/playerLives.cpp"
         "Include/Core/state.h"
         "Include/Core/score.h"                 "Source/Core/score.cpp"
-        "Include/Core/util.h"
+        "Include/Core/utilities.h"
         "Include/Core/soundLoader.h"           "Source/Core/soundLoader.cpp"
 
         #Entities Headers
@@ -26,8 +26,8 @@ set(SOURCE_FILES
         "Include/Entities/player.h"            "Source/Entities/player.cpp"
         "Include/Entities/enemy.h"             "Source/Entities/enemy.cpp"
         "Include/Entities/healthPack.h"        "Source/Entities/healthPack.cpp"
-        "Include/Entities/button.h"            "Source/Entities/button.cpp"
         "Include/Entities/dynamicBar.h"        "Source/Entities/dynamicBar.cpp"
+
 
         #State Headers
         "Include/States/stateGameMode1.h"      "Source/States/stateGameMode1.cpp"

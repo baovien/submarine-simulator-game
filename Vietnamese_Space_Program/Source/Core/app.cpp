@@ -6,7 +6,7 @@
 //Tastetrykk som kun skal registreres én gang:
 //if(event.key.code == sf::Keyboard::DINTAST){ KODE }
 //Dersom tasten du skal bruke kan endres i keybinds skriver du
-//if(event.key.code == event.key.code == machine.keybindMap.find("DET DU VIL")->second.second){ KODE }
+//if(event.key.code == event.key.code == machine.keybindMap->find("DET DU VIL")->second.second){ KODE }
 //der DET DU VIL er navnet på det du ønsker å triggere. Enten up, down, left, right, select, back, shoot eller pause
 
 void App::run() {

@@ -11,7 +11,7 @@ void StateSettings::initialize(sf::RenderWindow *window) {
 
 
     this->bgTexture = new sf::Texture();
-    this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
+    this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
 
 
     this->background = new sf::Sprite();
@@ -21,7 +21,7 @@ void StateSettings::initialize(sf::RenderWindow *window) {
     this->selected = 0;
 
     this->font = new sf::Font();
-    this->font->loadFromFile("Graphics/font1.otf");
+    this->font->loadFromFile("Graphics/BUBBLEBOY2.TTF");
 
     this->title = new sf::Text("SETTINGS", *this->font,textSize + 12);
     this->title->setOrigin(this->title->getGlobalBounds().width / 2, this->title->getGlobalBounds().height / 2);
@@ -192,7 +192,6 @@ void StateSettings::handleEvent(sf::RenderWindow *window , sf::Event event){
                     break;
                 case 3: //Apply
                     window->setSize(resChoice);
-                    window->setView(sf::View(sf::FloatRect(0.f, 0.f, window->getSize().x, window->getSize().y)));
                     this->initialize(window);
                     break;
                 case 4: //Back

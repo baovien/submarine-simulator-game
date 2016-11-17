@@ -36,13 +36,15 @@ public:
                                                            {"back",   std::make_pair("Escape" , sf::Keyboard::Escape)},
                                                            {"shoot",  std::make_pair("Space" , sf::Keyboard::Space)},
                                                            {"pause",  std::make_pair("P" , sf::Keyboard::P)}};
+
+
+
 private:
     sf::RenderWindow* window;
     States* state;
     int gameOverScore;
 
 };
-
 extern Machine machine;
 extern bool quitGame;
 
