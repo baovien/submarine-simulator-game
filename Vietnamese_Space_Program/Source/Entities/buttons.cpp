@@ -7,6 +7,7 @@
 sf::Sprite* Buttons::addButton(sf::Texture texture, float scaleX, float scaleY, float posX, float posY, sf::RenderWindow *window) {
     sf::Sprite* button = new sf::Sprite();
     button->setTexture(texture);
+
     button->setOrigin(button->getGlobalBounds().width / 2, button->getGlobalBounds().height / 2);
    // button->scale(window->getSize().x / button->getGlobalBounds().width / scaleX, window->getSize().x / button->getGlobalBounds().width / scaleY);
     button->setPosition(posX, posY);

@@ -17,29 +17,32 @@ public:
     void handleEvent(sf::RenderWindow *window, sf::Event event);
 
     void reinitialize(sf::RenderWindow *window);
+
 private:
     sf::Font* font;
     sf::Text* theme;
     sf::Text* fighter;
     sf::Text* gamemode;
 
-    sf::Text* theme_1;
-    sf::Text* theme_2;
-    sf::Text* theme_3;
+    void load(std::string filename);
+
+    sf::Text* SpaceTheme;
+    sf::Text* PaperTheme;
 
     sf::Text* fighter_1;
+    sf::Texture DIAZ;
     sf::Text* fighter_2;
     sf::Text* fighter_3;
 
-    sf::Text* gamemode_1;
-    sf::Text* gamemode_2;
-    sf::Text* gamemode_3;
+    sf::Text* Arcade;
+    sf::Text* Classic;
 
-    sf::Text* back;
-    sf::Text* play;
+    std::vector<sf::Vector2f> positionList;
 
     sf::Texture* bgTexture;
     sf::Sprite* background;
+
+    Buttons buttons;
 
     int selected, selected_Theme, selected_Fighter, selected_Gamemode;
     unsigned int textSize = 20U;

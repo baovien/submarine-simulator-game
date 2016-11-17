@@ -18,6 +18,7 @@ public:
     void handleEvent(sf::RenderWindow *window , sf::Event event);
 
     void reinitialize(sf::RenderWindow *window);
+
 private:
     sf::RenderWindow* window;
 
@@ -39,6 +40,7 @@ private:
         sf::Text* titleText;
         sf::Sprite* keySquare;
     };
+
     std::vector<keySquares> keyVector;
     std::vector<sf::Text*> textVector;
     std::vector<sf::Vector2f> positionList;
@@ -56,6 +58,7 @@ private:
                                                    "Numpad4", "Numpad5", "Numpad6", "Numpad7", "Numpad8", "Numpad9", "F1",
                                                    "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12",
                                                    "F13", "F14", "F15", "Pause"};
+
     std::string wordList [8]{"up","down","left","right","select","back","shoot","pause"};
 
     bool waitingForInput = false;
