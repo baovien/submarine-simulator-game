@@ -14,7 +14,7 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
 
     machine.mouseClick = {-1, -1};
     this->bgTexture = new sf::Texture();
-    this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
+    this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);

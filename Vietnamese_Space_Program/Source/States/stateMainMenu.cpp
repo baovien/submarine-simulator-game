@@ -16,7 +16,7 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
     machine.mouseClick = {-1, -1};
 
     this->bgTexture = new sf::Texture();
-    this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
+    this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
@@ -52,7 +52,8 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
     menuButtons[5]->scale(window->getSize().x / background->getGlobalBounds().width / 3, window->getSize().x / background->getGlobalBounds().width / 3);
     menuButtons[5]->setPosition(window->getSize().x - window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
 
-
+    //Text, textsize, origin x, origin y, position x, position y
+    Title = util.addText("Submarine simulator", 75, 2, 2, menuButtons[0]->getPosition().x, menuButtons[0]->getPosition().y - menuButtons[0]->getGlobalBounds().height/1.3f);
 }
 
 void StateMainMenu::update(sf::RenderWindow *window) {
@@ -73,6 +74,7 @@ void StateMainMenu::update(sf::RenderWindow *window) {
 
 void StateMainMenu::render(sf::RenderWindow *window) {
     window->draw(*this->background);
+    window->draw(*this->Title);
 
     for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i) {
         window->draw(*this->menuButtons[i]);
@@ -87,6 +89,7 @@ void StateMainMenu::destroy(sf::RenderWindow *window) {
     for (int i = sizeof(menuTextures) / sizeof(*menuTextures) - 1; i > 0; --i) {
         delete this->menuButtons[i];
     }
+    delete this->Title;
     delete this->background;
 
     //TODO

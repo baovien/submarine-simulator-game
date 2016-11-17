@@ -35,6 +35,7 @@ private:
 
     menuTextureStruct menuTextures[6];
     sf::Sprite* menuButtons[6];
+    sf::Text* Title;
 
 
     int selected;
