@@ -29,7 +29,8 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
 
     //loader alle knapper og versjoner av knapper. Finnes 3 versjoner av hver (vanlig, mouseover og clicked).
     //Ganger med 3 fordi jeg kun vil få hver 3. knapp
-    for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i) {
+    for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i)
+    {
         menuTextures[i].buttonNormal = new sf::Texture();
         menuTextures[i].buttonNormal->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3) + ".png");
 

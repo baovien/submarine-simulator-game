@@ -28,39 +28,39 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font1.otf");
 
-    DIAZ.loadFromFile("fighter.png");
+
 
 
 /**
  * HOVEDVALGENE.
  * VELG MELLOM DE FORSKJELLIGE THEMENE, FIGHTERENE OG GAMEMODENE
  */
-    this->theme = buttons.addText("SELECT THEME", 25, 2, 2,window->getSize().x / 2, window->getSize().y / 25);
-    this->fighter = buttons.addText("SELECT FIGHTER", 25, 2, 2,window->getSize().x / 2, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 8);
-    this->gamemode = buttons.addText("SELECT GAMEMODE", 25, 2, 2,window->getSize().x / 2, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 16);
+    this->theme = util.addText("SELECT THEME", 25, 2, 2,window->getSize().x / 2, window->getSize().y / 25);
+    this->fighter = util.addText("SELECT FIGHTER", 25, 2, 2,window->getSize().x / 2, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 8);
+    this->gamemode = util.addText("SELECT GAMEMODE", 25, 2, 2,window->getSize().x / 2, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 16);
 
 /**
  * THEME PLASSERING.
  * UNDER HER PLASSERES DE FORSKJELLIGE THEMES.
  */
-    this->SpaceTheme = buttons.addText("SPACE", 25, 2, 2,window->getSize().x / 3, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 4);
-    this->PaperTheme = buttons.addText("PAPER", 25, 2, 2,window->getSize().x / 1.5F, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 4);
+    this->SpaceTheme = util.addText("SPACE", 25, 2, 2,window->getSize().x / 3, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 4);
+    this->PaperTheme = util.addText("PAPER", 25, 2, 2,window->getSize().x / 1.5F, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 4);
 
 /**
  * FIGHTER PLASSERING.
  * UNDER HER PLASSERES DE FORSKJELLIGE FIGHTERENE.
  */
-    this->fighter_1 = buttons.addText("ALVAREZ", 25, 2, 2, window->getSize().x / 3, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 12);
-    this->fighter_2 = buttons.addText("MCGREGOR", 25, 2, 2, window->getSize().x / 2, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 12);
-    this->fighter_3 = buttons.addText("DIAZ", 25, 2, 2, window->getSize().x / 1.5F, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 12);
+    this->fighter_1 = util.addText("ALVAREZ", 25, 2, 2, window->getSize().x / 3, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 12);
+    this->fighter_2 = util.addText("MCGREGOR", 25, 2, 2, window->getSize().x / 2, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 12);
+    this->fighter_3 = util.addText("DIAZ", 25, 2, 2, window->getSize().x / 1.5F, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 12);
 
 /**
  * GAMEMODE PLASSERING.
  * UNDER HER PLASSERES DE FORSKJELLIGE GAMEMODENE.
  */
-    this->Arcade = buttons.addText("ARCADE", 25, 2, 2, window->getSize().x / 3, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 20);
+    this->Arcade = util.addText("ARCADE", 25, 2, 2, window->getSize().x / 3, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 20);
 
-    this->Classic = buttons.addText("CLASSIC", 25, 2, 2, window->getSize().x / 1.5F, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 20 );
+    this->Classic = util.addText("CLASSIC", 25, 2, 2, window->getSize().x / 1.5F, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 20 );
 }
 
 void StatePlayConfig::update(sf::RenderWindow *window)
@@ -182,8 +182,7 @@ void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event)
     if (event.type == sf::Event::KeyPressed)
     {
         // Trykk Escape for å komme til mainmenu
-        if (event.key.code == machine.keybindMap->find("back")->second.second)
-        {
+        if (event.key.code == machine.keybindMap.find("back")->second.second) {
             machine.setState(new StateMainMenu);
         }
 
@@ -287,12 +286,9 @@ void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event)
         }
 
 
-        if (event.key.code == machine.keybindMap->find("select")->second.second)
-        {
-            if (this->selected == 3)
-            { //Start
-                if (this->selected_Gamemode == 0)
-                {
+        if (event.key.code == machine.keybindMap.find("select")->second.second) {
+            if (this->selected == 3) { //Start
+                if (this->selected_Gamemode == 0) {
                     machine.setState(new StateGameMode1);
                     return;
 

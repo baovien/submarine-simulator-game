@@ -12,8 +12,8 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
 
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
-
     this->background = new sf::Sprite();
+
     this->background->setTexture(*this->bgTexture);
     this->background->scale(window->getSize().x / background->getGlobalBounds().width,
                             window->getSize().y / background->getGlobalBounds().height);
@@ -29,9 +29,9 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
 
     manager = new EntityManager();
     boss = new Boss(this->manager);
-    this->manager->addEntity("boss", new Boss(this->manager));
     this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2,
                               window, 1);
+    this->manager->addEntity("boss", new Boss(this->manager));
     this->manager->addEntity("ship", this->player);
 
     this->pausedText = new sf::Text("Paused\nPress Q to Quit", *font, 32U);

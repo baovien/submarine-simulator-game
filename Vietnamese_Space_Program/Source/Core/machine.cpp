@@ -3,15 +3,6 @@
 Machine::Machine()
 {
     this->state = NULL;
-    keybindMap = new std::map<const std::string, std::pair<std::string, int>>;
-    *keybindMap ={{"up", std::make_pair("W" , sf::Keyboard::W)},
-                  {"down",   std::make_pair("S" , sf::Keyboard::S)},
-                  {"left",   std::make_pair("A" , sf::Keyboard::A)},
-                  {"right",  std::make_pair("D" , sf::Keyboard::D)},
-                  {"select", std::make_pair("Return" , sf::Keyboard::Return)},
-                  {"back",   std::make_pair("Escape" , sf::Keyboard::Escape)},
-                  {"shoot",  std::make_pair("Space" , sf::Keyboard::Space)},
-                  {"pause",  std::make_pair("P" , sf::Keyboard::P)}};
 }
 void Machine::setWindow(sf::RenderWindow *window)
 {

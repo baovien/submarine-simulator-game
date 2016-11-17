@@ -3,6 +3,7 @@
 
 #include "../Core/state.h"
 #include "../Core/machine.h"
+#include "../Core/utilities.h"
 
 class StatePlayConfig : public States{
 public:
@@ -30,7 +31,6 @@ private:
     sf::Text* PaperTheme;
 
     sf::Text* fighter_1;
-    sf::Texture DIAZ;
     sf::Text* fighter_2;
     sf::Text* fighter_3;
 
@@ -42,7 +42,7 @@ private:
     sf::Texture* bgTexture;
     sf::Sprite* background;
 
-    Buttons buttons;
+    Utilities util;
 
     int selected, selected_Theme, selected_Fighter, selected_Gamemode;
     unsigned int textSize = 20U;

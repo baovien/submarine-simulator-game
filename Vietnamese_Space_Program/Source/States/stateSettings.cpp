@@ -178,14 +178,14 @@ void StateSettings::handleEvent(sf::RenderWindow *window , sf::Event event){
         }
         //Back on escapekey
 
-        if (event.key.code == machine.keybindMap->find("back")->second.second) {
+        if (event.key.code == machine.keybindMap.find("back")->second.second) {
             machine.setState(new StateMainMenu);
             return;
         }
 
         //Selection on returnkey
 
-        if (event.key.code == machine.keybindMap->find("select")->second.second) {
+        if (event.key.code == machine.keybindMap.find("select")->second.second) {
             switch (this->selected) {
                 case 2:
                     machine.setState(new StateKeybindings);
