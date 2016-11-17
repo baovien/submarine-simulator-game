@@ -1,4 +1,5 @@
 #include <cstring>
+#include <iostream>
 #include "../../Header Files/States/stateGameMode1.h"
 #include "../../Header Files/States/stateMainMenu.h"
 #include "../../Header Files/States/StateGameOver.h"
@@ -29,9 +30,8 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     manager = new EntityManager();
     boss = new Boss(this->manager);
     this->manager->addEntity("boss", new Boss(this->manager));
-    this->player =  new Player(this->lives, this->score, this->manager, window->getSize().x /2, window->getSize().y/2, window, 1);
+    this->player =  new Player(this->lives, this->score, this->manager, window->getSize().x /2, window->getSize().y/2, window, 1,2);
     this->manager->addEntity("ship", this->player);
-
     this->pausedText = new sf::Text("Paused\nPress Q to Quit", *font, 32U);
     this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2, this->pausedText->getGlobalBounds().height / 2);
     this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
@@ -62,7 +62,6 @@ void StateGameMode1::update(sf::RenderWindow *window)
     //Spawn enemies and asteroids randomly
     sf::Time elapsed1 = clock.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
     sf::Time elapsed2 = bossclock.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
-
     if(rand() % 1000 < 2){
         enemyObject = new EnemyObject();
         this->manager->addEntity("Enemy", enemyObject);
