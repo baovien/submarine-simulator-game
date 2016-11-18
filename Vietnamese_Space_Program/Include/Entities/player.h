@@ -7,6 +7,7 @@
 #include "bullet.h"
 #include "dynamicBar.h"
 #include "asteroid.h"
+#include "dynamicBar.h"
 
 class Player : public Entity
 {
@@ -21,6 +22,7 @@ private:
     int gamemode;
     int mode;
     int overheatValue;
+    Bar* overheat;
     Lives* lives;
     Score* score;
     EntityManager* manager;

@@ -8,6 +8,7 @@ Bar::Bar(sf::RenderWindow *window, int overHeatValue) {
 
 }
 void Bar::updateEntity(sf::RenderWindow *window) {
+    this->move(0,-1);
     Entity::updateEntity(window);
 }
 Bar::~Bar() {

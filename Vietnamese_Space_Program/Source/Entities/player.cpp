@@ -9,6 +9,7 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
           mode(mode)
 
 {
+    this->overheat = new Bar(window, 1);
     this->active = 1;
     this->groupId = 1;
     switch (gamemode) {
@@ -109,7 +110,7 @@ void Player::updateEntity(sf::RenderWindow *window) {
                                                                cos(angle)),
                                                               (-cos(angle) * 15),
                                                               (sin(angle) * 15), (angle * 180 / pi)));
-                this->overheatValue += 1;
+
             }
             this->space = sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second);
             break;
