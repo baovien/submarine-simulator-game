@@ -10,14 +10,15 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
 
+    this->manager = new EntityManager();
+    this->util = new Utilities;
+
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
     this->background = new sf::Sprite();
 
     this->background->setTexture(*this->bgTexture);
-    this->background->scale(window->getSize().x / background->getGlobalBounds().width,
-                            window->getSize().y / background->getGlobalBounds().height);
-    util = new Utilities;
+    this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font.ttf");
 
@@ -27,16 +28,12 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->lives = new Lives(*font, 32U);
     this->lives->setPosition(window->getSize().x - this->lives->getGlobalBounds().width - 20, 5);
 
-    manager = new EntityManager();
-    boss = new Boss(this->manager);
-    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2,
-                              window, 1, 2);
-    this->manager->addEntity("boss", new Boss(this->manager));
+    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2, window, 1, 2);
     this->manager->addEntity("ship", this->player);
 
+    //Init pauseobjekter
     this->pausedText = new sf::Text("Paused\nPress Q to Quit", *font, 32U);
-    this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2,
-                                this->pausedText->getGlobalBounds().height / 2);
+    this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2, this->pausedText->getGlobalBounds().height / 2);
     this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
 
     this->pausedTexture = new sf::Texture();
@@ -44,8 +41,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
 
     this->pausedBackground = new sf::Sprite();
     this->pausedBackground->setTexture(*this->pausedTexture);
-    this->pausedBackground->setOrigin(this->pausedBackground->getGlobalBounds().width / 2,
-                                      this->pausedBackground->getGlobalBounds().height / 2);
+    this->pausedBackground->setOrigin(this->pausedBackground->getGlobalBounds().width / 2, this->pausedBackground->getGlobalBounds().height / 2);
     this->pausedBackground->setPosition(window->getSize().x / 2, window->getSize().y / 2);
 }
 
@@ -55,6 +51,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         this->manager->updateEntity(window);
         this->score->updateScore();
         this->lives->updateLife();
+
     }
 
     if (this->lives->getValue() <= 0) {
@@ -62,6 +59,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         machine.setState(new StateGameOver);
         return;
     }
+
     //Spawn enemies and asteroids randomly
     sf::Time elapsedAsteroid = clockAsteroid.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
     sf::Time elapsedBoss = clockBoss.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
@@ -69,24 +67,23 @@ void StateGameMode1::update(sf::RenderWindow *window) {
     sf::Time elapsedEnemy = clockEnemy.getElapsedTime();
 
     if (elapsedEnemy.asMicroseconds() > 5000000) {
-        enemyObject = new EnemyObject();
-        this->manager->addEntity("Enemy", enemyObject);
-        this->enemyObject->setEnemy(this->player);
+        this->manager->addEntity("Enemy", new EnemyObject(player));
         clockEnemy.restart();
     }
 
     if (elapsedAsteroid.asMicroseconds() > 3000000) //Sjekker om verdien til clock er mer enn 3 sekunder
     {
-        this->manager->addEntity("asteroid",
-                                 new AsteroidObject(32, 32)); //er clock mer enn 3 sekunder lager jeg en ny astroide
+        this->manager->addEntity("asteroid", new AsteroidObject(32, 32)); //er clock mer enn 3 sekunder lager jeg en ny astroide
         clockAsteroid.restart(); //restarter clock(nullstiller)
     }
 
+    /*
     if (elapsedBoss.asMicroseconds() > 15000000) //Sjekker om verdien til clock er mer enn 3 sekunder
     {
         this->manager->addEntity("Boss", new Boss(this->manager));
         clockBoss.restart(); //restarter clock(nullstiller)
     }
+    */
     if (elapsedHealthPack.asMicroseconds() > 5000000) {
         if (rand() % 10 < 3) {
             healthPack = new HealthPack(this->lives);
@@ -94,6 +91,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         }
         clockHealthPack.restart();
     }
+
 }
 
 void StateGameMode1::render(sf::RenderWindow *window) {
@@ -118,8 +116,6 @@ void StateGameMode1::destroy(sf::RenderWindow *window) {
     delete this->background;
     delete this->manager;*/
 
-    //TODO
-    sl.~SoundLoader();
 }
 
 void StateGameMode1::handleEvent(sf::RenderWindow *window, sf::Event event) {
