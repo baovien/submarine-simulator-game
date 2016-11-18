@@ -42,7 +42,7 @@ private:
     };
 
     std::vector<keySquares> keyVector;
-    std::vector<sf::Text*> textVector;
+
     std::vector<sf::Vector2f> positionList;
 
     std::string keyList[sf::Keyboard::KeyCount] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",

@@ -12,7 +12,7 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
     window->setView(newView);
 
     this->bgTexture = new sf::Texture();
-    this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
+    this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
 
     this->tbTexture = new sf::Texture();
     this->tbTexture->loadFromFile("Graphics/Sprites/table.png");

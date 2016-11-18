@@ -4,7 +4,7 @@
 #include "../Core/state.h"
 #include "../Core/machine.h"
 #include "../Core/utilities.h"
-
+#include <vector>
 class StatePlayConfig : public States{
 public:
     void initialize(sf::RenderWindow *window);
@@ -20,27 +20,43 @@ public:
     void reinitialize(sf::RenderWindow *window);
 
 private:
+
     sf::Font* font;
+
     sf::Text* theme;
     sf::Text* fighter;
     sf::Text* gamemode;
-
-    void load(std::string filename);
-
+    sf::Text* WaterTheme;
     sf::Text* SpaceTheme;
-    sf::Text* PaperTheme;
-
     sf::Text* fighter_1;
     sf::Text* fighter_2;
     sf::Text* fighter_3;
-
     sf::Text* Arcade;
     sf::Text* Classic;
+
+    std::vector<sf::Text> TextVector;
 
     std::vector<sf::Vector2f> positionList;
 
     sf::Texture* bgTexture;
     sf::Sprite* background;
+
+    struct menuTextureStruct
+    {
+        sf::Texture* buttonNormal;
+        sf::Texture* buttonMouseOver;
+        sf::Texture* buttonClicked;
+    };
+    struct PictureTextureStruct
+    {
+        sf::Texture *buttonNormal;
+        sf::Texture *buttonMouseOver;
+    };
+    PictureTextureStruct PictureTexture[7];
+    sf::Sprite* PictureButtons[7];
+
+    menuTextureStruct menuTextures[3];
+    sf::Sprite* menuButtons[3];
 
     Utilities util;
 

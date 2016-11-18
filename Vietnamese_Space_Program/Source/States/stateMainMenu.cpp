@@ -16,7 +16,7 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
     machine.mouseClick = {-1, -1};
 
     this->bgTexture = new sf::Texture();
-    this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
+    this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
@@ -26,6 +26,7 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
 
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font1.otf");
+
 
     //loader alle knapper og versjoner av knapper. Finnes 3 versjoner av hver (vanlig, mouseover og clicked).
     //Ganger med 3 fordi jeg kun vil få hver 3. knapp
