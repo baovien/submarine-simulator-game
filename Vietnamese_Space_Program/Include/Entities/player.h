@@ -21,14 +21,13 @@ public:
 private:
     int gamemode;
     int mode;
-    int overheatValue;
-    Bar* overheat;
+    float overheatValue;
     Lives* lives;
     Score* score;
     EntityManager* manager;
     std::map<const std::string, std::pair<std::string, int>> keybindMap;
+    Bar* bar;
     bool space;
-    sf::Texture* texture;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_PLAYER_H
