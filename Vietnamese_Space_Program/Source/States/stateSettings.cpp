@@ -8,10 +8,8 @@ void StateSettings::initialize(sf::RenderWindow *window) {
     sf::View newView( sf::FloatRect( 0, 0, window->getSize().x, window->getSize().y ) );
     window->setView(newView);
 
-
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
-
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
@@ -21,6 +19,24 @@ void StateSettings::initialize(sf::RenderWindow *window) {
 
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/Turtles.otf");
+
+    for (int i = 0; i < sizeof(settingsFlagTextures) / sizeof(*settingsFlagTextures) ; ++i) {
+        settingsFlagTextures[i] = new sf::Texture();
+        settingsFlagTextures[i]->loadFromFile("Graphics/Sprites/Settings_buttons/flag" + std::to_string(i) + ".png");
+
+        settingsFlagSprites[i] = new sf::Sprite();
+        settingsFlagSprites[i]->setTexture(*this->settingsFlagTextures[i]);
+        settingsFlagSprites[i]->setOrigin(settingsFlagSprites[i]->getGlobalBounds().width / 2, settingsFlagSprites[i]->getGlobalBounds().height / 2);
+        settingsFlagSprites[i]->scale(window->getSize().x/4800.f,  window->getSize().y/2700.f);
+    }
+    settingsFlagSprites[0]->setPosition((5 *window->getSize().x) / 6, window->getSize().y / 4.f);
+    settingsFlagSprites[1]->setPosition((4 * window->getSize().x) / 6, window->getSize().y / 4.f);
+    settingsFlagSprites[2]->setPosition((5 * window->getSize().x) / 6, (1.75f * window->getSize().y) / 4.f);
+    settingsFlagSprites[3]->setPosition((4 * window->getSize().x) / 6, (1.75f * window->getSize().y) / 4.f);
+
+    //Text, textsize, origin x, origin y, position x, position y, window
+    this->title = util.addText("Settings", 100, 2, 2, window->getSize().x/2.f, window->getSize().y/40.f, window);
+
 /*
     this->title = new sf::Text("SETTINGS", *this->font,textSize + 12);
     this->title->setOrigin(this->title->getGlobalBounds().width / 2, this->title->getGlobalBounds().height / 2);
@@ -61,6 +77,13 @@ void StateSettings::initialize(sf::RenderWindow *window) {
 */
 }
 void StateSettings::update(sf::RenderWindow *window) {
+    for (int i = 0; i < sizeof(settingsFlagTextures) / sizeof(*settingsFlagTextures) ; ++i){
+    if(util.checkMouseover(settingsFlagSprites[i], window)){
+        settingsFlagSprites[i]->setColor(sf::Color(255, 255, 255, 255));
+    }
+        else
+        settingsFlagSprites[i]->setColor(sf::Color(255, 255, 255, 125));
+    }
 /*    if(this->selected > 4){ //Endre hvis flere alternativer
         this->selected = 0;
     }
@@ -133,6 +156,10 @@ void StateSettings::render(sf::RenderWindow *window) {
     window->draw(*this->back);
 */
     window->draw(*this->background);
+    for (int i = 0; i < sizeof(settingsFlagTextures) / sizeof(*settingsFlagTextures) ; ++i){
+        window->draw(*this->settingsFlagSprites[i]);
+    }
+    window->draw(*this->title);
 }
 void StateSettings::destroy(sf::RenderWindow *window) {
 /*
@@ -147,7 +174,12 @@ void StateSettings::destroy(sf::RenderWindow *window) {
     delete this->screenRes;
     delete this->title;
     */
+    //Destroyer i motsatt rekkefølge av draws
+    for (int i = (sizeof(settingsFlagSprites) / sizeof(*settingsFlagSprites)) - 2; i > 0; --i) {
+        delete this->settingsFlagSprites[i];
+    }
     delete this->background;
+    delete this->title;
 }
 void StateSettings::handleEvent(sf::RenderWindow *window , sf::Event event){
   if (event.type == sf::Event::KeyPressed) {

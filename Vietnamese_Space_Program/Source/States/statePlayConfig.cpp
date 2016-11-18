@@ -31,32 +31,32 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
  * HOVEDVALGENE.
  * VELG MELLOM DE FORSKJELLIGE THEMENE, FIGHTERENE OG GAMEMODENE
  */
-    this->theme = util.addText("SELECT THEME", 25, 2, 2,window->getSize().x / 2, window->getSize().y / 25);
-    this->fighter = util.addText("SELECT FIGHTER", 25, 2, 2,window->getSize().x / 2, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 8);
-    this->gamemode = util.addText("SELECT GAMEMODE", 25, 2, 2,window->getSize().x / 2, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 16);
+    this->theme = util.addText("SELECT THEME", 25, 2, 2,window->getSize().x / 2, window->getSize().y / 25, window);
+    this->fighter = util.addText("SELECT FIGHTER", 25, 2, 2,window->getSize().x / 2, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 8, window);
+    this->gamemode = util.addText("SELECT GAMEMODE", 25, 2, 2,window->getSize().x / 2, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 16, window);
 
 /**
  * THEME PLASSERING.
  * UNDER HER PLASSERES DE FORSKJELLIGE THEMES.
  */
-    this->SpaceTheme = util.addText("SPACE", 25, 2, 2,window->getSize().x / 3, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 4);
-    this->PaperTheme = util.addText("PAPER", 25, 2, 2,window->getSize().x / 1.5F, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 4);
+    this->SpaceTheme = util.addText("SPACE", 25, 2, 2,window->getSize().x / 3, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 4, window);
+    this->PaperTheme = util.addText("PAPER", 25, 2, 2,window->getSize().x / 1.5F, window->getSize().y / 25 + this->theme->getGlobalBounds().height * 4, window);
 
 /**
  * FIGHTER PLASSERING.
  * UNDER HER PLASSERES DE FORSKJELLIGE FIGHTERENE.
  */
-    this->fighter_1 = util.addText("ALVAREZ", 25, 2, 2, window->getSize().x / 3, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 12);
-    this->fighter_2 = util.addText("MCGREGOR", 25, 2, 2, window->getSize().x / 2, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 12);
-    this->fighter_3 = util.addText("DIAZ", 25, 2, 2, window->getSize().x / 1.5F, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 12);
+    this->fighter_1 = util.addText("ALVAREZ", 25, 2, 2, window->getSize().x / 3, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 12, window);
+    this->fighter_2 = util.addText("MCGREGOR", 25, 2, 2, window->getSize().x / 2, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 12, window);
+    this->fighter_3 = util.addText("DIAZ", 25, 2, 2, window->getSize().x / 1.5F, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 12, window);
 
 /**
  * GAMEMODE PLASSERING.
  * UNDER HER PLASSERES DE FORSKJELLIGE GAMEMODENE.
  */
-    this->Arcade = util.addText("ARCADE", 25, 2, 2, window->getSize().x / 3, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 20);
+    this->Arcade = util.addText("ARCADE", 25, 2, 2, window->getSize().x / 3, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 20, window);
 
-    this->Classic = util.addText("CLASSIC", 25, 2, 2, window->getSize().x / 1.5F, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 20 );
+    this->Classic = util.addText("CLASSIC", 25, 2, 2, window->getSize().x / 1.5F, window->getSize().y / 25 + this->fighter->getGlobalBounds().height * 20 , window);
 }
 
 void StatePlayConfig::update(sf::RenderWindow *window)

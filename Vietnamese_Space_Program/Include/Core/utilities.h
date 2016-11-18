@@ -14,7 +14,7 @@ public:
         paused = !paused;
     }
 
-    //Texture, scale x, scale y, position x, position y
+    //Texture, scale x, scale y, position x, position y, window
     sf::Sprite *addButton(sf::Texture texture, float scaleX, float scaleY, float posX, float posY, sf::RenderWindow *window) {
         sf::Sprite *button = new sf::Sprite();
         button->setTexture(texture);
@@ -25,14 +25,15 @@ public:
         return button;
     }
 
-//Text, textsize, origin x, origin y, position x, position y
-    sf::Text *addText(std::string textContent, unsigned int textSize, int originX, int originY, float posX, float posY) {
+//Text, textsize, origin x, origin y, position x, position y, window
+    sf::Text *addText(std::string textContent, unsigned int textSize, int originX, int originY, float posX, float posY, sf::RenderWindow *window) {
         this->font = new sf::Font();
         this->font->loadFromFile("Graphics/Turtles.otf");
 
         sf::Text *text = new sf::Text(textContent, *this->font, textSize);
         text->setOrigin(text->getGlobalBounds().width / originX, text->getGlobalBounds().height / originY);
         text->setPosition(posX, posY);
+        text->scale(window->getSize().x /1280.f, window->getSize().y/720.f);
         return text;
     }
 

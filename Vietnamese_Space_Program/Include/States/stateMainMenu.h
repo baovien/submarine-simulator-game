@@ -33,7 +33,7 @@ private:
         sf::Texture* buttonClicked;
     };
 
-    menuTextureStruct menuTextures[6];
+    menuTextureStruct menuTextures[7];
     sf::Sprite* menuButtons[6];
     sf::Text* Title;
 

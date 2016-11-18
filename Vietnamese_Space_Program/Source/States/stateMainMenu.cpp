@@ -28,7 +28,7 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
 
     //loader alle knapper og versjoner av knapper. Finnes 3 versjoner av hver (vanlig, mouseover og clicked).
     //Ganger med 3 fordi jeg kun vil få hver 3. knapp
-    for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i)
+    for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)) - 1; ++i)
     {
         menuTextures[i].buttonMouseOver = new sf::Texture();
         menuTextures[i].buttonMouseOver->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3) + ".png");
@@ -51,21 +51,21 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
 
     menuButtons[5]->scale(window->getSize().x / background->getGlobalBounds().width / 3, window->getSize().x / background->getGlobalBounds().width / 3);
     menuButtons[5]->setPosition(window->getSize().x - window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
-/*
+
     menuTextures[6].buttonMouseOver = new sf::Texture();
     menuTextures[6].buttonMouseOver->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn18.png");
     menuTextures[6].buttonNormal = new sf::Texture();
     menuTextures[6].buttonNormal->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn19.png");
     menuTextures[6].buttonClicked = new sf::Texture();
     menuTextures[6].buttonClicked->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn20.png");
-*/
+
     //Text, textsize, origin x, origin y, position x, position y
-    Title = util.addText("Submarine simulator", 100, 2, 2, menuButtons[0]->getPosition().x, menuButtons[0]->getPosition().y - menuButtons[0]->getGlobalBounds().height/1.1f);
+    Title = util.addText("Submarine simulator", 100, 2, 2, menuButtons[0]->getPosition().x, window->getSize().y/40.f, window);
 }
 
 void StateMainMenu::update(sf::RenderWindow *window) {
     //Sjekker mouseover for hver knapp og endrer texture om den er mouseovera
-    for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i) {
+    for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)) - 1; ++i) {
         if (util.checkMouseover(menuButtons[i], window)) {
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                 menuButtons[i]->setTexture(*this->menuTextures[i].buttonClicked);
@@ -83,7 +83,7 @@ void StateMainMenu::render(sf::RenderWindow *window) {
     window->draw(*this->background);
     window->draw(*this->Title);
 
-    for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i) {
+    for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)) - 1; ++i) {
         window->draw(*this->menuButtons[i]);
     }
     //Tegne opp background
@@ -93,7 +93,7 @@ void StateMainMenu::render(sf::RenderWindow *window) {
 void StateMainMenu::destroy(sf::RenderWindow *window) {
 
     //Destroyer i motsatt rekkefølge av draws
-    for (int i = sizeof(menuTextures) / sizeof(*menuTextures) - 1; i > 0; --i) {
+    for (int i = (sizeof(menuTextures) / sizeof(*menuTextures)) - 2; i > 0; --i) {
         delete this->menuButtons[i];
     }
     delete this->Title;
@@ -105,7 +105,7 @@ void StateMainMenu::destroy(sf::RenderWindow *window) {
 
 void StateMainMenu::handleEvent(sf::RenderWindow *window, sf::Event event) {
     if (event.type == sf::Event::MouseButtonReleased) {
-        for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i)
+        for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)) - 1; ++i)
             if (util.checkMouseclick(menuButtons[i], event)) {
                 switch (i) {
                     //playknappen trykket
@@ -131,6 +131,7 @@ void StateMainMenu::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         //volumknappen trykket
                     case 5:
                         //Her må vi mekke mute/unmute
+                    std::swap(menuTextures[5], menuTextures[6]);
                         break;
                 }
             }
