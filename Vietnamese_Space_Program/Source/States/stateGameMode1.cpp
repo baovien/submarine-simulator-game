@@ -52,13 +52,36 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         this->score->updateScore();
         this->lives->updateLife();
 
+        //WAVES
+        if(!inWave){
+            std::cout << "WAVE:" << waveNum << std::endl;
+
+            for (int i = 0; i < 2*waveNum; ++i) {
+                this->manager->addEntity("Enemy", new EnemyObject(player));
+                enemyCount++;
+            }
+            std::cout << "InWave enemies: " << enemyCount << std::endl;
+            inWave = true;
+        }
+
+        if(enemyCount <= 0){
+            std::cout << "WAVE DONE" << std::endl;
+            inWave = false;
+            waveNum++;
+        }
+
+        //END_WAVES
+
+        //Når playerliv blir 0, kommer gameOver splashscreen
+        if (this->lives->getValue() <= 0)
+        {
+            machine.setGameOverScore(this->score->getValue());
+            machine.setState(new StateGameOver);
+            return;
+        }
     }
 
-    if (this->lives->getValue() <= 0) {
-        machine.setGameOverScore(this->score->getValue());
-        machine.setState(new StateGameOver);
-        return;
-    }
+    /*
 
     //Spawn enemies and asteroids randomly
     sf::Time elapsedAsteroid = clockAsteroid.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
@@ -77,13 +100,13 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         clockAsteroid.restart(); //restarter clock(nullstiller)
     }
 
-    /*
+
     if (elapsedBoss.asMicroseconds() > 15000000) //Sjekker om verdien til clock er mer enn 3 sekunder
     {
         this->manager->addEntity("Boss", new Boss(this->manager));
         clockBoss.restart(); //restarter clock(nullstiller)
     }
-    */
+
     if (elapsedHealthPack.asMicroseconds() > 5000000) {
         if (rand() % 10 < 3) {
             healthPack = new HealthPack(this->lives);
@@ -92,6 +115,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         clockHealthPack.restart();
     }
 
+    */
 }
 
 void StateGameMode1::render(sf::RenderWindow *window) {
@@ -127,9 +151,11 @@ void StateGameMode1::handleEvent(sf::RenderWindow *window, sf::Event event) {
         if (event.key.code == machine.keybindMap.find("pause")->second.second) {
             util->pauseScreen();                        //Kaller pausefunksjonen
         }
+        if (event.key.code == sf::Keyboard::N){
+            this->enemyCount--;
+            std::cout << "enemyCount: " << this->enemyCount << std::endl;
+        }
     }
 }
 
-void StateGameMode1::reinitialize(sf::RenderWindow *window) {
-
-}
+void StateGameMode1::reinitialize(sf::RenderWindow *window) {  }

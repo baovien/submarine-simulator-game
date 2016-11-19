@@ -2,6 +2,7 @@
 #define VIETNAMESE_SPACE_PROGRAM_UTIL_H
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class Utilities {
 private:

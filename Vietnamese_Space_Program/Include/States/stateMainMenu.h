@@ -38,7 +38,7 @@ private:
     sf::Text* Title;
 
 
-    int selected;
-    unsigned int textSize = 32U;
+//    int selected;
+//    unsigned int textSize = 32U;
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_MENU_H

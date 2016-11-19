@@ -21,8 +21,6 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
     this->background->setTexture(*this->bgTexture);
     this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
 
-    this->selected = 0;
-
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font1.otf");
 

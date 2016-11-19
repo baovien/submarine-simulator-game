@@ -24,6 +24,7 @@ public:
     void destroy(sf::RenderWindow *window);
     void handleEvent(sf::RenderWindow *window, sf::Event event);
     void reinitialize(sf::RenderWindow *window);
+
     sf::Clock clockAsteroid;    // starter clocken for asteroid
     sf::Clock clockBoss;        // starter clocken for boss
     sf::Clock clockEnemy;       // starter clocken for enemy
@@ -45,6 +46,12 @@ protected:
     HealthPack* healthPack;
     sf::Texture* pausedTexture;
     sf::Sprite* pausedBackground;
+
+    //Branch: Waves
+    int enemyCount = 0;
+    int waveNum = 1;
+    bool inWave = false;
 };
+
 
 #endif //VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE1_H
