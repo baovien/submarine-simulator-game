@@ -56,13 +56,7 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
         }
 
         //Endre sprites i forhold til health
-        if (this->health <= 0) {       //Destroy
-            this->load("explosion.png");
-            this->scale(1.5, 1.5);
-            this->destroyEntity();
-        } else if (this->health == 1) { //Damaged
-            this->load("goldDamaged.png");
-        }
+
 
         // Destroy enemy hvis den er utenfor skjermen
         if (this->getPosition().x <= -400 || this->getPosition().x >= 1600) {
@@ -78,6 +72,15 @@ void EnemyObject::collision(Entity *entity) {
     switch (entity->groupID()) {
         case 2: // Bullets
             this->health--;
+            if (this->health == 0) {       //Destroy
+                this->load("explosion.png");
+                this->scale(1.5, 1.5);
+                this->destroyEntity();
+            } else if (this->health == 1) { //Damaged
+
+                this->load("goldDamaged.png");
+            }
             break;
+
     }
 }
