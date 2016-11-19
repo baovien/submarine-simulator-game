@@ -12,6 +12,7 @@
 void App::run() {
 
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Vietnamese Space Program"); //, sf::Style::Titlebar | sf::Style::Close) FULL HD OMG
+
     window.setVerticalSyncEnabled(true);
     window.setKeyRepeatEnabled(false);
     Utilities util;
@@ -42,7 +43,6 @@ void App::run() {
          */
         deltaTime = timer.getElapsedTime();
         //window.clear(sf::Color::Black);
-
         machine.update();
         machine.render();
         window.display();

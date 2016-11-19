@@ -18,6 +18,7 @@
 class StateGameMode1 : public States
 {
 public:
+
     void initialize(sf::RenderWindow *window);
     void update(sf::RenderWindow *window);
     void render(sf::RenderWindow *window);

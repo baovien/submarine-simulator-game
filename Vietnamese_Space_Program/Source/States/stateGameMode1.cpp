@@ -4,8 +4,8 @@
 
 void StateGameMode1::initialize(sf::RenderWindow *window) {
     //TODO:
-    sl.LoadSounds();
-    sl.PlaySound(sl.ARCADE);
+//    sl.LoadSounds();
+//    sl.PlaySound(sl.ARCADE);
 
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
@@ -23,10 +23,10 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->font->loadFromFile("Graphics/font.ttf");
 
     this->score = new Score(*font, 32U);
-    this->score->setPosition(20, 5);
+    this->score->setPosition(window->getSize().x/10,window->getSize().y/20);
 
     this->lives = new Lives(*font, 32U);
-    this->lives->setPosition(window->getSize().x - this->lives->getGlobalBounds().width - 20, 5);
+    this->lives->setPosition(window->getSize().x - window->getSize().x/5, window->getSize().y/20);
 
     this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2, window, 1, 2);
     this->manager->addEntity("ship", this->player);
@@ -53,18 +53,21 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         this->lives->updateLife();
 
         //WAVES
-        if(!inWave){
+        if (!inWave) {
             std::cout << "WAVE:" << waveNum << std::endl;
 
-            for (int i = 0; i < 2*waveNum; ++i) {
-                this->manager->addEntity("Enemy", new EnemyObject(player));
+            for (int i = 0; i < 2 * waveNum; ++i) {
+                this->enemyObject = new EnemyObject(player);
+                this->manager->addEntity("Enemy", enemyObject);
                 enemyCount++;
             }
+
+
             std::cout << "InWave enemies: " << enemyCount << std::endl;
             inWave = true;
         }
 
-        if(enemyCount <= 0){
+        if (enemyCount <= 0) {
             std::cout << "WAVE DONE" << std::endl;
             inWave = false;
             waveNum++;
@@ -73,8 +76,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         //END_WAVES
 
         //Når playerliv blir 0, kommer gameOver splashscreen
-        if (this->lives->getValue() <= 0)
-        {
+        if (this->lives->getValue() <= 0) {
             machine.setGameOverScore(this->score->getValue());
             machine.setState(new StateGameOver);
             return;
@@ -151,11 +153,7 @@ void StateGameMode1::handleEvent(sf::RenderWindow *window, sf::Event event) {
         if (event.key.code == machine.keybindMap.find("pause")->second.second) {
             util->pauseScreen();                        //Kaller pausefunksjonen
         }
-        if (event.key.code == sf::Keyboard::N){
-            this->enemyCount--;
-            std::cout << "enemyCount: " << this->enemyCount << std::endl;
-        }
     }
 }
 
-void StateGameMode1::reinitialize(sf::RenderWindow *window) {  }
+void StateGameMode1::reinitialize(sf::RenderWindow *window) {}
