@@ -1,7 +1,7 @@
 
 #include <iostream>
-#include <cstring>
 #include "../../Include/Core/app.h"
+#include "../../Include/Core/utilities.h"
 
 //Tastetrykk som kun skal registreres én gang:
 //if(event.key.code == sf::Keyboard::DINTAST){ KODE }
@@ -14,13 +14,14 @@ void App::run() {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Vietnamese Space Program"); //, sf::Style::Titlebar | sf::Style::Close) FULL HD OMG
     window.setVerticalSyncEnabled(true);
     window.setKeyRepeatEnabled(false);
-
+    Utilities util;
+    window.setFramerateLimit(util.getFramerate());
 
     machine.setWindow(&window);
     machine.setState(new StateMainMenu);
 
     sf::Clock timer;
-    sf::Time elapsed;
+    sf::Time deltaTime;
     while (window.isOpen()) {
         //Make event to prevent crash
         sf::Event event;
@@ -29,32 +30,27 @@ void App::run() {
             //Close down window
             if (event.type == sf::Event::Closed) {
                 window.close();
-            }
-            else if (event.type == sf::Event::Resized) {
+            } else if (event.type == sf::Event::Resized) {
                 machine.reinitialize();
 //                window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
-            }
-            else machine.eventHandler(event);
-            }          //beholder posisjonen til museklikk som kan sjekkes i andre states
+            } else machine.eventHandler(event);
+        }
 
         /**
          * Vi vil at den skal kjøre med nøyaktighet på 1/60 sekund. 1/60 sekunder = 16666 mikrosekunder.
          * Dette tilsvarer ca. 60 fps..
          */
-        elapsed = timer.getElapsedTime();
-        if (elapsed.asMicroseconds() > 16666) {
-            //window.clear(sf::Color::Black);
+        deltaTime = timer.getElapsedTime();
+        //window.clear(sf::Color::Black);
 
-            machine.update();
-            machine.render();
-            window.display();
+        machine.update();
+        machine.render();
+        window.display();
 
-            if (quitGame) {
-                window.close();
-            }
-
-            timer.restart();
+        if (quitGame) {
+            window.close();
         }
 
+        timer.restart();
     }
 }

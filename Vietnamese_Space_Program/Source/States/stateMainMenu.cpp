@@ -42,14 +42,15 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
         menuButtons[i] = new sf::Sprite();
         menuButtons[i]->setTexture(*this->menuTextures[i].buttonNormal);
         menuButtons[i]->setOrigin(menuButtons[i]->getGlobalBounds().width / 2, menuButtons[i]->getGlobalBounds().height / 2);
+        if(i<5 && i>0)
         menuButtons[i]->scale(window->getSize().x/1920.f,  window->getSize().y/1080.f);
         menuButtons[i]->setPosition(i * window->getSize().x / 5, window->getSize().y - window->getSize().y / 4);
     }
-    //std::cout << window->getSize().y;
-    menuButtons[0]->scale(window->getSize().x / background->getGlobalBounds().width / 0.5f, window->getSize().x / background->getGlobalBounds().width / 0.5f);
+    //Scaler og posisjoner de som varierer mye ift. de andre utenfor for-løkken
+    menuButtons[0]->scale(window->getSize().x/960.f,  window->getSize().y/540.f);
     menuButtons[0]->setPosition(window->getSize().x / 2, window->getSize().y / 2.5f);
 
-    menuButtons[5]->scale(window->getSize().x / background->getGlobalBounds().width / 3, window->getSize().x / background->getGlobalBounds().width / 3);
+    menuButtons[5]->scale(window->getSize().x/5120.f,  window->getSize().y/2880.f);
     menuButtons[5]->setPosition(window->getSize().x - window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
 
     menuTextures[6].buttonMouseOver = new sf::Texture();
@@ -64,7 +65,7 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
 }
 
 void StateMainMenu::update(sf::RenderWindow *window) {
-    //Sjekker mouseover for hver knapp og endrer texture om den er mouseovera
+    //Sjekker mouseover for hver knapp og endrer texture om den er mouseovera eller trykket
     for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)) - 1; ++i) {
         if (util.checkMouseover(menuButtons[i], window)) {
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
@@ -93,7 +94,7 @@ void StateMainMenu::render(sf::RenderWindow *window) {
 void StateMainMenu::destroy(sf::RenderWindow *window) {
 
     //Destroyer i motsatt rekkefølge av draws
-    for (int i = (sizeof(menuTextures) / sizeof(*menuTextures)) - 2; i > 0; --i) {
+    for (int i = (sizeof(menuTextures) / sizeof(*menuTextures)) - 2; i >= 0; --i) {
         delete this->menuButtons[i];
     }
     delete this->Title;

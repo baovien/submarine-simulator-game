@@ -20,23 +20,27 @@ public:
     void reinitialize(sf::RenderWindow *window);
 private:
     Utilities util;
-    sf::Font* font;
 
     sf::Text* title;
-    sf::Text* screenRes;
-    sf::Text* res1;
-    sf::Text* res2;
-    sf::Text* res3;
-    sf::Text* volume;
-    sf::Text* keybinds;
-    sf::Text* apply;
-    sf::Text* back;
+    struct settingsTextureStruct{
+        sf::Texture* buttonNormal;
+        sf::Texture* buttonMouseOver;
+        sf::Texture* buttonClicked;
+    };
 
+    settingsTextureStruct settingsTextures[5];
+
+    sf::Sprite* settingsButtons[5];
     sf::Texture* settingsFlagTextures[4];
-    sf::Sprite* settingsFlagSprites[4];
+    sf::Sprite* settingsFlagButtons[4];
 
-    sf::Vector2u resChoice;
+    sf::Texture* FPStexture;
+    sf::Sprite* FPSbutton;
+    sf::Text* FPStext;
+    sf::Text* FPS;
 
+    std::string wordList[4] = {"Music", "Controls", "Reset highscore", "Reset controls"};
+    sf::Text* mouseOverText[4];
     sf::Texture* bgTexture;
     sf::Sprite* background;
 

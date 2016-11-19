@@ -6,7 +6,18 @@
 class Utilities {
 private:
     sf::Font *font;
+    unsigned int Framerate = 60;
+
+
 public:
+    unsigned int getFramerate() const {
+        return Framerate;
+    }
+
+    void setFramerate(unsigned int Framerate) {
+        Utilities::Framerate = Framerate;
+    }
+
     bool paused = false;
 
     void pauseScreen() {
