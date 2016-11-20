@@ -41,18 +41,6 @@ private:
     sf::Texture* bgTexture;
     sf::Sprite* background;
 
-
-   /* sf::Texture* bg1Texture;
-    sf::Sprite* window1;
-
-    sf::Texture* bg2Texture;
-    sf::Sprite* window2;
-
-    sf::Texture* bg3Texture;
-    sf::Sprite* window3;*/
-
-
-
     struct menuTextureStruct
     {
         sf::Texture* buttonNormal;
@@ -69,16 +57,6 @@ private:
     };
     PictureTextureStruct PictureTexture[7];
     sf::Sprite* PictureButtons[7];
-
-    /*struct buttonTextureStruct
-    {
-        sf::Texture* buttonNormal;
-        sf::Texture* buttonMouseOver;
-        sf::Texture* buttonClicked;
-    };
-    buttonTextureStruct buttonTexture[7];
-    sf::Sprite* Buttons;*/
-
 
     Utilities util;
 

@@ -21,11 +21,8 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
     this->selected = 0;
 
     this->selected_Theme = 0;
-    this->selected_Fighter = 0;
-    this->selected_Gamemode = 0;
-
-    this->font = new sf::Font();
-    this->font->loadFromFile("Graphics/Turtles.otf");
+    this->selected_Fighter = 4;
+    this->selected_Gamemode = 5;
 
     for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i)
     {
@@ -49,16 +46,20 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
         PictureTexture[i].buttonNormal->loadFromFile("Graphics/Sprites/Picture_buttons/PngBtn" + std::to_string(i * 2)+ ".png");
 
         PictureTexture[i].buttonMouseOver = new sf::Texture();
-        PictureTexture[i].buttonMouseOver->loadFromFile("Graphics/Sprites/Picture_buttons/PngBtn" + std::to_string(i * 2 + 1)+ ".png");
 
+        PictureTexture[i].buttonMouseOver->loadFromFile("Graphics/Sprites/Picture_buttons/PngBtn" + std::to_string(i * 2 + 1)+ ".png");
         PictureButtons[i] = new sf::Sprite();
         PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonNormal);
-        PictureButtons[i]->setOrigin(PictureButtons[i]->getGlobalBounds().width / 2, PictureButtons[i]->getGlobalBounds().height / 2);
     }
 
+    for (int i = 0; i < 7; ++i)
+    {
+        PictureButtons[i]->setOrigin(PictureButtons[i]->getGlobalBounds().width / 2, PictureButtons[i]->getGlobalBounds().height / 2);
+    }
     //THEME
     this->theme = util.addText("SELECT THEME", 35, 2, 2,window->getSize().x / 6.0f, window->getSize().y / 24.0f);
     //SpaceTheme
+
     PictureButtons[0]->scale(window->getSize().x / 3456.0f, window->getSize().x / 3456.0f);
     PictureButtons[0]->setPosition(window->getSize().x / 6.0f, window->getSize().y / 4.5f);
     this->SpaceTheme = util.addText("SPACE", 30, 2, 2,window->getSize().x / 6.0f, window->getSize().y /4.5 + 75);
@@ -131,15 +132,18 @@ void StatePlayConfig::update(sf::RenderWindow *window)
 
     for (unsigned int i = 0; i < sizeof(PictureTexture) / sizeof(*PictureTexture); ++i)
     {
-        if (util.checkMouseover(PictureButtons[i], window)) {
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonMouseOver);
-            } else {
-                PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonMouseOver);
-            }
-        } else {
+        if (util.checkMouseover(PictureButtons[i], window))
+            PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonMouseOver);
+            else {
             PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonNormal);
         }
+        if(i == selected_Fighter)
+            PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonMouseOver);
+        if(i == selected_Theme)
+            PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonMouseOver);
+        if(i == selected_Gamemode)
+            PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonMouseOver);
+
     }
 
 }
@@ -225,24 +229,39 @@ void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event)
                         return;
                         //Playknappen trykket
                     case 1:
-
                         return;
                         //Lydknappen trykket
                     case 2:
                        machine.setState(new StateMainMenu);
                         return;
                         //Returnknappen trykket
+                }
+            }
+        for (unsigned int i = 0; i < sizeof(PictureTexture) / sizeof(*PictureTexture); ++i)
+            if (util.checkMouseclick(PictureButtons[i], event)) {
+                switch (i)
+                {
+                    case 0:
+                        selected_Theme = i;
+                        break;
+                    case 1:
+                        selected_Theme = i;
+                        break;
+                    case 2:
+                        selected_Fighter= i;
+                        break;
                     case 3:
-                        //Her må vi mekke tutorial
-                        return;
-                        //exitknappen trykket
+                        selected_Fighter = i;
+                        break;
                     case 4:
-                        quitGame = true;
-                        return;
-                        //volumknappen trykket
+                        selected_Fighter = i;
+                        break;
                     case 5:
-                        //Her må vi mekke mute/unmute
-                        return;
+                        selected_Gamemode = i;
+                        break;
+                    case 6:
+                        selected_Gamemode = i;
+                        break;
                 }
             }
     }
