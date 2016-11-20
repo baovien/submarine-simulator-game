@@ -38,7 +38,7 @@ EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager
 }
 
 void EnemyObject::updateEntity(sf::RenderWindow *window) {
-    //roterer objektet slik at den facer mot direction
+
     // Gjør at enemien følger spilleren vha. pythagoras. Smoothere bevegelse
     this->xDistance = this->player->getPosition().x - this->getPosition().x;
     this->yDistance = this->player->getPosition().y - this->getPosition().y;

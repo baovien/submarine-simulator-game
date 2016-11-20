@@ -3,20 +3,25 @@
 
 #include "../Core/entityManager.h"
 #include "bullet.h"
+#include "player.h"
 
-class Boss : public Entity
+class BossObject : public Entity
 {
 public:
-    Boss(EntityManager* manager);
+    BossObject(EntityManager* manager, Player* player);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
-    ~Boss();
     sf::Clock clock;
 private:
+    Player* player;
     Score* score;
     int health;
-    int x,y,height,width,angle;
-    bool lok;
+    double angle;
+
+    float xDistance, yDistance, distance;
+    float easingAmount = 0.00015f;
+    float maxSpeed = 0.5f;
+    float pi = 3.141592653599;
     int bulletSpeed = 7;
 
     EntityManager* manager;

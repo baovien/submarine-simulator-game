@@ -30,7 +30,8 @@ Bullet::Bullet(float x, float y, float direction, float direction2, float angle)
 }
 void Bullet::updateEntity(sf::RenderWindow *window)
 {
-    if(this->getPosition().x < 0 || this->getPosition().x > window->getSize().x || this->getPosition().y < 0 || this->getPosition().y > window->getSize().y)
+    if(this->getPosition().x < 0 || this->getPosition().x > window->getSize().x||
+       this->getPosition().y < 0 || this->getPosition().y > window->getSize().y)
     {
         this->destroyEntity();
     }

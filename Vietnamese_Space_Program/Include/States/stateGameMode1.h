@@ -35,7 +35,7 @@ protected:
     sf::Texture overBar;
     sf::Sprite overBarS;
     SoundLoader sl;
-    Boss* boss;
+    BossObject* boss;
     EnemyObject* enemyObject;
     Lives* lives;
     Score* score;
