@@ -1,24 +1,26 @@
 #include <iostream>
 #include "../../Include/Entities/player.h"
 Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode, int mode)
-        : manager(manager),
+        : keybindMap(keybindMap),
+          mode(mode),
+          manager(manager),
           gamemode(gamemode),
           score(score),
-          lives(lives),
-          keybindMap(keybindMap),
-          mode(mode)
-
+          lives(lives)
 {
-    this->overheat = new Bar(window, 1);
     this->active = 1;
     this->groupId = 1;
     switch (gamemode) {
         case 1:
             this->load("fighter.png");
-            this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
+            this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/1.5);
             this->space = false;
             this->setPosition(x, y);
             this->scale(0.4, 0.4);
+            this->bar = new Bar(window);
+            this->manager->addEntity("bar", this->bar);
+            this->overheatValue = 1.0f;
+
             break;
         case 2:
             this->load("fighter2_blue_big.png");
@@ -33,7 +35,6 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
 
 //update funksjonen har kontroll på bevegelsen til player.
 void Player::updateEntity(sf::RenderWindow *window) {
-    int overheatValue = 1;
     up = 0, down = 0, left = 0, right = 0;
     if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("left")->second.second))left = 1;
     if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("right")->second.second))right = 1;
@@ -100,18 +101,25 @@ void Player::updateEntity(sf::RenderWindow *window) {
                     break;
             }
 
-            if (!this->space && sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second)) {
-                this->manager->addEntity("bullet", new Bullet((this->score),
-                                                              (this->getPosition().x +
-                                                               (this->getGlobalBounds().width / 2) *
-                                                               sin(angle)),
-                                                              (this->getPosition().y -
-                                                               (this->getGlobalBounds().height / 2) *
-                                                               cos(angle)),
-                                                              (-cos(angle) * 15),
-                                                              (sin(angle) * 15), (angle * 180 / pi)));
-
+            if (!this->space && sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second))
+            {
+                if(this->overheatValue < 10) {
+                    this->overheatValue += 1;
+                    this->manager->addEntity("bullet", new Bullet((this->score),
+                                                                  (this->getPosition().x +
+                                                                   (this->getGlobalBounds().width / 2) *
+                                                                   sin(angle)),
+                                                                  (this->getPosition().y -
+                                                                   (this->getGlobalBounds().height / 2) *
+                                                                   cos(angle)),
+                                                                  (-cos(angle) * 15),
+                                                                  (sin(angle) * 15), (angle * 180 / pi)));
+                }
+                else if(this->overheatValue > 10)this->overheatValue = 15;
             }
+            this->bar->updateEntity(window, this->overheatValue);
+            this->overheatValue = this->overheatValue - 0.05f;
+            if(this->overheatValue < 1)this->overheatValue = 1;
             this->space = sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second);
             break;
 
@@ -177,13 +185,13 @@ void Player::collision(Entity *entity) {
         case 4: // Enemy
             entity->destroyEntity();
             this->lives->decreaseLife();
-            if (this->lives->getValue() <= 0) {
+            if (this->lives->getValue() <= 0)
+            {
                 this->destroyEntity();
 
             }
             break;
         case 6: //Boss bullet
-            this->lives->decreaseLife();
             break;
     }
 }

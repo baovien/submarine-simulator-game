@@ -109,14 +109,14 @@ void StateGameMode1::render(sf::RenderWindow *window) {
 }
 
 void StateGameMode1::destroy(sf::RenderWindow *window) {
-    delete this->lives;
+   /* delete this->lives;
     delete this->score;
     delete this->util;
     delete this->pausedText;
     delete this->font;
     delete this->pausedBackground;
     delete this->background;
-    delete this->manager;
+    delete this->manager;*/
 
     //TODO
     sl.~SoundLoader();

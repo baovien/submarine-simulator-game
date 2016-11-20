@@ -1,6 +1,5 @@
 #ifndef VIETNAMESE_SPACE_PROGRAM_ENTITY_H
 #define VIETNAMESE_SPACE_PROGRAM_ENTITY_H
-
 #include <SFML/Graphics.hpp>
 #include <cmath>
 
