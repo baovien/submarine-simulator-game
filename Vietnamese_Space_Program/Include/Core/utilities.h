@@ -27,7 +27,7 @@ public:
 //Text, textsize, origin x, origin y, position x, position y
     sf::Text* addText(std::string textContent, unsigned int textSize, int originX, int originY, float posX, float posY) {
         this->font = new sf::Font();
-        this->font->loadFromFile("Graphics/font1.otf");
+        this->font->loadFromFile("Graphics/Turtles.otf");
 
         sf::Text* text = new sf::Text(textContent, *this->font, textSize);
         text->setOrigin(text->getGlobalBounds().width / originX, text->getGlobalBounds().height / originY);

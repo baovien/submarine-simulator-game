@@ -14,7 +14,6 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
 
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
-
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
     this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
@@ -26,8 +25,7 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
     this->selected_Gamemode = 0;
 
     this->font = new sf::Font();
-    this->font->loadFromFile("Graphics/font1.otf");
-
+    this->font->loadFromFile("Graphics/Turtles.otf");
 
     for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i)
     {
@@ -39,7 +37,6 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
 
         menuTextures[i].buttonClicked = new sf::Texture();
         menuTextures[i].buttonClicked->loadFromFile("Graphics/Sprites/PlayConfig_buttons/Btn" + std::to_string(i * 3 + 2) + ".png");
-
 
         menuButtons[i] = new sf::Sprite();
         menuButtons[i]->setTexture(*this->menuTextures[i].buttonNormal);
@@ -60,53 +57,49 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
     }
 
     //THEME
-    this->theme = util.addText("SELECT THEME", 25, 2, 2,window->getSize().x / 2.0f, window->getSize().y / 72.0f);
+    this->theme = util.addText("SELECT THEME", 35, 2, 2,window->getSize().x / 6.0f, window->getSize().y / 24.0f);
     //SpaceTheme
-    PictureButtons[0]->scale(window->getSize().x / background->getGlobalBounds().width /3.5f, window->getSize().x / background->getGlobalBounds().width / 3.5f);
-    PictureButtons[0]->setPosition(window->getSize().x - window->getSize().x / 3, window->getSize().y / 8);
-    this->SpaceTheme = util.addText("SPACE", 25, 2, 2,window->getSize().x - window->getSize().x / 3, window->getSize().y / 8 + 55);
+    PictureButtons[0]->scale(window->getSize().x / 3456.0f, window->getSize().x / 3456.0f);
+    PictureButtons[0]->setPosition(window->getSize().x / 6.0f, window->getSize().y / 4.5f);
+    this->SpaceTheme = util.addText("SPACE", 30, 2, 2,window->getSize().x / 6.0f, window->getSize().y /4.5 + 75);
 
     //WaterTheme
-    PictureButtons[1]->scale(window->getSize().x / background->getGlobalBounds().width /3.5f, window->getSize().x / background->getGlobalBounds().width / 3.5f);
-    PictureButtons[1]->setPosition(window->getSize().x / 3, window->getSize().y / 8);
-    this->WaterTheme = util.addText("WATER", 25, 2, 2,window->getSize().x / 3, window->getSize().y / 8 + 55);
-
-    //FIGHTER
-    this->fighter = util.addText("SELECT FIGHTER", 25, 2, 2,window->getSize().x / 2.0f, window->getSize().y / 4.1143f);
-
-    //Fighter 1
-    PictureButtons[2]->scale(window->getSize().x / background->getGlobalBounds().width /2.0f, window->getSize().x / background->getGlobalBounds().width /2.0f);
-    PictureButtons[2]->rotate(90);
-    PictureButtons[2]->setPosition(window->getSize().x - window->getSize().x / 1.5f ,window->getSize().y - window->getSize().y /1.5f);
-    this->fighter_1 = util.addText("ALVAREZ", 25, 2, 2, window->getSize().x - window->getSize().x / 1.5f , window->getSize().y - window->getSize().y /1.65f);
-
-    //Fighter 2
-    PictureButtons[3]->scale(window->getSize().x / background->getGlobalBounds().width /2.0f, window->getSize().x / background->getGlobalBounds().width /2.0f);
-    PictureButtons[3]->rotate(90);
-    PictureButtons[3]->setPosition(window->getSize().x/2,window->getSize().y - window->getSize().y /1.5f);
-    this->fighter_2 = util.addText("MCGREGOR", 25, 2, 2, window->getSize().x / 2, window->getSize().y - window->getSize().y /1.65f);
-
-    //Fighter3
-    PictureButtons[4]->scale(window->getSize().x / background->getGlobalBounds().width /2.0f, window->getSize().x / background->getGlobalBounds().width /2.0f);
-    PictureButtons[4]->rotate(90);
-    PictureButtons[4]->setPosition(window->getSize().x - window->getSize().x /3.00706f,window->getSize().y - window->getSize().y /1.5f);
-    this->fighter_3 = util.addText("DIAZ", 25, 2, 2, window->getSize().x / 1.5f, window->getSize().y - window->getSize().y /1.65f);
-
-    std::cout << window->getSize().y / 72.0f << std::endl;
-    std::cout << window->getSize().y / 4.1143f << std::endl;
-    std::cout <<window->getSize().y - window->getSize().y /1.8947f << std::endl;
+    PictureButtons[1]->scale(window->getSize().x / 3456.0f, window->getSize().x / 3456.0f);
+    PictureButtons[1]->setPosition(window->getSize().x / 6.0f, window->getSize().y /2.1f);
+    this->WaterTheme = util.addText("WATER", 30, 2, 2,window->getSize().x / 6.0f, window->getSize().y /2.1f + 75);
 
     //GAMEMODE
-    this->gamemode = util.addText("SELECT GAMEMODE", 25, 2, 2,window->getSize().x / 2.0f, window->getSize().y - window->getSize().y /1.8947f);
+    this->gamemode = util.addText("SELECT GAMEMODE", 35, 2, 2, window->getSize().x / 2.0f,window->getSize().y / 24.0f);
     //Arcade
-    PictureButtons[5]->scale(window->getSize().x / background->getGlobalBounds().width /3.5f, window->getSize().x / background->getGlobalBounds().width / 3.5f);
-    PictureButtons[5]->setPosition(window->getSize().x - window->getSize().x / 3,window->getSize().y/1.71428f);
-    this->Arcade = util.addText("ARCADE", 25, 2, 2, window->getSize().x - window->getSize().x / 3, window->getSize().y/1.71428f + 55);
+    PictureButtons[5]->scale(window->getSize().x / 3456.0f, window->getSize().x / 3456.0f);
+    PictureButtons[5]->setPosition(window->getSize().x / 2.0f,window->getSize().y / 4.5f);
+    this->Arcade = util.addText("ARCADE", 30, 2, 2,window->getSize().x / 2.0f, window->getSize().y /4.5 + 75);
 
     //Classic
-    PictureButtons[6]->scale(window->getSize().x / background->getGlobalBounds().width /3.5f, window->getSize().x / background->getGlobalBounds().width / 3.5f);
-    PictureButtons[6]->setPosition(window->getSize().x / 3,window->getSize().y/1.71428f);
-    this->Classic = util.addText("CLASSIC", 25, 2, 2, window->getSize().x / 3,window->getSize().y/1.71428f + 55);
+    PictureButtons[6]->scale(window->getSize().x / 3456.0f, window->getSize().x / 3456.0f);
+    PictureButtons[6]->setPosition(window->getSize().x / 2.0f,window->getSize().y /2.1f);
+    this->Classic = util.addText("CLASSIC", 30, 2, 2, window->getSize().x / 2.0f, window->getSize().y /2.1f + 75);
+
+    //FIGHTER
+    this->fighter = util.addText("SELECT FIGHTER", 35, 2, 2,window->getSize().x-window->getSize().x/6, window->getSize().y / 24.0f);
+
+    //Fighter 1
+    PictureButtons[4]->scale(window->getSize().x / 1536.0f, window->getSize().x / 1536.0f);
+    PictureButtons[4]->rotate(90);
+    PictureButtons[4]->setPosition(window->getSize().x-window->getSize().x/6,window->getSize().y / 4.5f);
+    this->fighter_1 = util.addText("ALVAREZ", 30, 2, 2, window->getSize().x-window->getSize().x/6 , window->getSize().y /4.5 + 75);
+
+    //Fighter 2
+    PictureButtons[3]->scale(window->getSize().x / 1536.0f, window->getSize().x /1536.0f);
+    PictureButtons[3]->rotate(90);
+    PictureButtons[3]->setPosition(window->getSize().x-window->getSize().x/6,window->getSize().y /2.1f);
+    this->fighter_2 = util.addText("MCGREGOR", 30, 2, 2, window->getSize().x-window->getSize().x/6, window->getSize().y /2.1f + 75);
+
+    //Fighter 3
+    PictureButtons[2]->scale(window->getSize().x / 1536.0f, window->getSize().x / 1536.0f);
+    PictureButtons[2]->rotate(90);
+    PictureButtons[2]->setPosition(window->getSize().x-window->getSize().x/6, window->getSize().y /1.4f);
+    this->fighter_3 = util.addText("DIAZ", 30, 2, 2, window->getSize().x-window->getSize().x/6, window->getSize().y /1.4f + 75);
 
     //Setter posisjonen og skalinga til PLAY-button
     menuButtons[0]->scale(window->getSize().x / background->getGlobalBounds().width / 1.2f, window->getSize().x / background->getGlobalBounds().width / 1.2f);
@@ -162,23 +155,20 @@ void StatePlayConfig::render(sf::RenderWindow *window)
         window->draw(*this->PictureButtons[i]);
     }
 
-    this->theme->setFillColor(sf::Color::Red);
-    this->fighter->setFillColor(sf::Color::Red);
-    this->gamemode->setFillColor(sf::Color::Red);
-    this->WaterTheme->setFillColor(sf::Color::Black);
-    this->SpaceTheme->setFillColor(sf::Color::Black);
-    this->fighter_1->setFillColor(sf::Color::Black);
-    this->fighter_2->setFillColor(sf::Color::Black);
-    this->fighter_3->setFillColor(sf::Color::Black);
-    this->Arcade->setFillColor(sf::Color::Black);
-    this->Classic->setFillColor(sf::Color::Black);
+    this->theme->setFillColor(sf::Color::White);
+    this->fighter->setFillColor(sf::Color::White);
+    this->gamemode->setFillColor(sf::Color::White);
+    this->WaterTheme->setFillColor(sf::Color::White);
+    this->SpaceTheme->setFillColor(sf::Color::White);
+    this->fighter_1->setFillColor(sf::Color::White);
+    this->fighter_2->setFillColor(sf::Color::White);
+    this->fighter_3->setFillColor(sf::Color::White);
+    this->Arcade->setFillColor(sf::Color::White);
+    this->Classic->setFillColor(sf::Color::White);
 
     this->theme->setStyle(0);
     this->fighter->setStyle(0);
     this->gamemode->setStyle(0);
-
-
-
 
     window->draw(*this->theme);
     window->draw(*this->fighter);
@@ -216,7 +206,6 @@ void StatePlayConfig::destroy(sf::RenderWindow *window)
     for (int i = sizeof(PictureTexture) / sizeof(*PictureTexture) - 1; i > 0; --i) {
         delete this->PictureButtons[i];
     }
-
     for (int i = sizeof(menuTextures) / sizeof(*menuTextures) - 1; i > 0; --i) {
         delete this->menuButtons[i];
     }
