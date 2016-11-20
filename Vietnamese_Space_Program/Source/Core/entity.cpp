@@ -37,10 +37,10 @@ void Entity::destroyEntity()
 sf::FloatRect Entity::getGlobalBoundsAdjusted()
 {
     sf::FloatRect collisionBounds = this->getGlobalBounds();
-    collisionBounds.width *= 0.95f;
-    collisionBounds.height *= 0.95f;
-    collisionBounds.top *= 1.15f;
-    collisionBounds.left *= 1.15f;
+    collisionBounds.width *= 0.80f;
+    collisionBounds.height *= 0.80f;
+    collisionBounds.top *= 1.20f;
+    collisionBounds.left *= 1.20f;
     return collisionBounds;
 }
 
