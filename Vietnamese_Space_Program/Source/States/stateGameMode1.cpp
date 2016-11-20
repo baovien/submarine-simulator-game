@@ -27,14 +27,12 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->lives = new Lives(*font, 32U);
     this->lives->setPosition(window->getSize().x - this->lives->getGlobalBounds().width - 20, 5);
 
-    manager = new EntityManager();
-    boss = new Boss(this->manager);
+    this->manager = new EntityManager();
     this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2,
                               window, 1, 2);
-    this->manager->addEntity("boss", new Boss(this->manager));
     this->manager->addEntity("ship", this->player);
 
-    this->pausedText = new sf::Text("Paused\nPress Q to Quit", *font, 32U);
+    this->pausedText = new sf::Text("Paused\nPress Back to Quit", *font, 32U);
     this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2,
                                 this->pausedText->getGlobalBounds().height / 2);
     this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
@@ -82,9 +80,10 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         clockAsteroid.restart(); //restarter clock(nullstiller)
     }
 
-    if (elapsedBoss.asMicroseconds() > 15000000) //Sjekker om verdien til clock er mer enn 3 sekunder
+    if (elapsedBoss.asMicroseconds() > 15000000) //Sjekker om verdien til clock er mer enn 15 sekunder (15000000)
     {
-        this->manager->addEntity("Boss", new Boss(this->manager));
+        bossObject = new BossObject(this->manager, this->player);
+        this->manager->addEntity("Boss", bossObject);
         clockBoss.restart(); //restarter clock(nullstiller)
     }
     if (elapsedHealthPack.asMicroseconds() > 5000000) {

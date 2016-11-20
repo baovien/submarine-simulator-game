@@ -11,13 +11,14 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
 {
     this->active = 1;
     this->groupId = 1;
+
     switch (gamemode) {
         case 1:
             this->load("fighter.png");
             this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
             this->space = false;
             this->setPosition(x, y);
-            this->scale(0.4, 0.4);
+            this->scale(0.4,0.4);
             break;
         case 2:
             this->load("fighter2_blue_big.png");
@@ -43,6 +44,10 @@ void Player::updateEntity(sf::RenderWindow *window) {
     //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))right = 1;
     //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))up = 1;
     //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))down = 1;
+
+    if(this->lives->getValue() <= 5 ){
+        this->load("fighterDamaged1.png");
+    }
 
     switch (this->gamemode) {
         case 1:
@@ -182,6 +187,7 @@ void Player::collision(Entity *entity) {
             }
             break;
         case 6: //Boss bullet
+            entity->destroyEntity();
             this->lives->decreaseLife();
             break;
     }

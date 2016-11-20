@@ -31,7 +31,6 @@ public:
 
 protected:
     SoundLoader sl;
-    Boss* boss;
     Lives* lives;
     Score* score;
     sf::Font* font;
@@ -41,6 +40,7 @@ protected:
     sf::Texture* bgTexture;
     sf::Sprite* background;
     Player* player;
+    BossObject* bossObject;
     EnemyObject* enemyObject;
     HealthPack* healthPack;
     sf::Texture* pausedTexture;

@@ -6,12 +6,12 @@
 EnemyObject::EnemyObject() {
 
     //this->player = player;
-    this->load("gold.png");
+    this->load("fighter3_green_big_test.png");
     this->active = 1;
     this->groupId = 4;
     this->health = 2;
     this->randomNumber = rand() % 4;
-    this->setRotation(2);
+    this->scale(0.4, 0.4);
 
     this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
 
@@ -35,6 +35,7 @@ void EnemyObject::setEnemy(Player *player) {
 
 void EnemyObject::updateEntity(sf::RenderWindow *window) {
     //roterer objektet slik at den facer mot direction
+    angle = 3.141592653599 / 180;
 
 
     // Gjør at enemien følger spilleren vha. pythagoras. Smoothere bevegelse
@@ -46,17 +47,21 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
         this->velocity.x += this->xDistance * this->easingAmount;
         this->velocity.y += this->yDistance * this->easingAmount;
 
-        if (this->velocity.x > maxSpeed){
+        if (this->velocity.x > maxSpeed) {
             this->velocity.x = maxSpeed;
+            this->rotate(sin(angle));
         }
-        if (this->velocity.y > maxSpeed){
+        if (this->velocity.y > maxSpeed) {
             this->velocity.y = maxSpeed;
+            this->rotate(cos(angle));
         }
-        if (this->velocity.x < -maxSpeed){
+        if (this->velocity.x < -maxSpeed) {
             this->velocity.x = -maxSpeed;
+            this->rotate(-sin(angle));
         }
-        if (this->velocity.y < -maxSpeed){
+        if (this->velocity.y < -maxSpeed) {
             this->velocity.y = -maxSpeed;
+            this->rotate(-cos(angle));
         }
 
         //Endre sprites i forhold til health
@@ -67,14 +72,15 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
         } else if (this->health == 1) { //Damaged
             this->load("goldDamaged.png");
         }
-
-        // Destroy enemy hvis den er utenfor skjermen
-        if (this->getPosition().x <= -400 || this->getPosition().x >= 1600) {
-            this->destroyEntity();
-        }
-
-        Entity::updateEntity(window);
     }
+    // Destroy enemy hvis den er utenfor skjermen
+    if (this->getPosition().x < -400 || this->getPosition().x >= window->getSize().x + 400 ||
+        this->getPosition().y < -400 || this->getPosition().y >= window->getSize().y + 400) {
+        this->destroyEntity();
+    }
+
+    Entity::updateEntity(window);
+
 }
 
 //Her sjekker vi om fienden blir skutt av kuler.
