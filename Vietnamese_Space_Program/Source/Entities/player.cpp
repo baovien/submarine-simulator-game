@@ -13,7 +13,7 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
     switch (gamemode) {
         case 1:
             this->load("fighter.png");
-            this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
+            this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/1.5);
             this->space = false;
             this->setPosition(x, y);
             this->scale(0.4, 0.4);
@@ -103,16 +103,19 @@ void Player::updateEntity(sf::RenderWindow *window) {
 
             if (!this->space && sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second))
             {
-                this->overheatValue += 1;
-                this->manager->addEntity("bullet", new Bullet((this->score),
-                                                              (this->getPosition().x +
-                                                               (this->getGlobalBounds().width / 2) *
-                                                               sin(angle)),
-                                                              (this->getPosition().y -
-                                                               (this->getGlobalBounds().height / 2) *
-                                                               cos(angle)),
-                                                              (-cos(angle) * 15),
-                                                              (sin(angle) * 15), (angle * 180 / pi)));
+                if(this->overheatValue < 10) {
+                    this->overheatValue += 1;
+                    this->manager->addEntity("bullet", new Bullet((this->score),
+                                                                  (this->getPosition().x +
+                                                                   (this->getGlobalBounds().width / 2) *
+                                                                   sin(angle)),
+                                                                  (this->getPosition().y -
+                                                                   (this->getGlobalBounds().height / 2) *
+                                                                   cos(angle)),
+                                                                  (-cos(angle) * 15),
+                                                                  (sin(angle) * 15), (angle * 180 / pi)));
+                }
+                else if(this->overheatValue > 10)this->overheatValue = 15;
             }
             this->bar->updateEntity(window, this->overheatValue);
             this->overheatValue = this->overheatValue - 0.05f;
