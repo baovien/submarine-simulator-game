@@ -3,200 +3,243 @@
 #include "../../Include/States/stateKeybindings.h"
 
 
-
 void StateSettings::initialize(sf::RenderWindow *window) {
-
-    sf::View newView( sf::FloatRect( 0, 0, window->getSize().x, window->getSize().y ) );
+    sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
-
 
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
 
-
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
-    this->background->scale(window->getSize().x/background->getGlobalBounds().width, window->getSize().y/background->getGlobalBounds().height);
+    this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
 
-    this->selected = 0;
+    //Lager alle flagknappene og laster inn alle textures til flaggene.
+    for (unsigned int i = 0; i < sizeof(settingsFlagTextures) / sizeof(*settingsFlagTextures); ++i) {
+        settingsFlagTextures[i] = new sf::Texture();
+        settingsFlagTextures[i]->loadFromFile("Graphics/Sprites/Settings_buttons/flag" + std::to_string(i) + ".png");
 
-    this->font = new sf::Font();
-    this->font->loadFromFile("Graphics/BUBBLEBOY2.TTF");
+        settingsFlagButtons[i] = new sf::Sprite();
+        settingsFlagButtons[i]->setTexture(*this->settingsFlagTextures[i]);
+        settingsFlagButtons[i]->setOrigin(settingsFlagButtons[i]->getGlobalBounds().width / 2, settingsFlagButtons[i]->getGlobalBounds().height / 2);
+        settingsFlagButtons[i]->scale(window->getSize().x / 4800.f, window->getSize().y / 2700.f);
 
-    this->title = new sf::Text("SETTINGS", *this->font,textSize + 12);
-    this->title->setOrigin(this->title->getGlobalBounds().width / 2, this->title->getGlobalBounds().height / 2);
-    this->title->setPosition(window->getSize().x / 2, this->title->getGlobalBounds().height);
-    this->title->scale(window->getSize().x/window->getSize().y, window->getSize().x/window->getSize().y);
+    }
+    //Lager alle knapper og laster inn alle textures til knappene
+    for (unsigned int i = 0; i < sizeof(settingsTextures) / sizeof(*settingsTextures); ++i) {
+        settingsTextures[i].buttonMouseOver = new sf::Texture();
+        settingsTextures[i].buttonMouseOver->loadFromFile("Graphics/Sprites/Settings_buttons/Btn" + std::to_string(i * 3) + ".png");
 
-    this->screenRes = new sf::Text("ScreenRes", *this->font, textSize);
-    this->screenRes->setOrigin(this->screenRes->getGlobalBounds().width / 2, this->screenRes->getGlobalBounds().height / 2);
-    this->screenRes->setPosition(window->getSize().x / 2, this->screenRes->getGlobalBounds().height*4);
+        settingsTextures[i].buttonNormal = new sf::Texture();
+        settingsTextures[i].buttonNormal->loadFromFile("Graphics/Sprites/Settings_buttons/Btn" + std::to_string(i * 3 + 1) + ".png");
 
-    this->res1 = new sf::Text("1920x1080", *this->font, textSize);
-    this->res1->setOrigin(this->res1->getGlobalBounds().width / 2, this->res1->getGlobalBounds().height / 2);
-    this->res1->setPosition(window->getSize().x / 4, this->res1->getGlobalBounds().height*6);
+        settingsTextures[i].buttonClicked = new sf::Texture();
+        settingsTextures[i].buttonClicked->loadFromFile("Graphics/Sprites/Settings_buttons/Btn" + std::to_string(i * 3 + 2) + ".png");
 
-    this->res2 = new sf::Text("1280x720", *this->font, textSize);
-    this->res2->setOrigin(this->res2->getGlobalBounds().width / 2, this->res2->getGlobalBounds().height / 2);
-    this->res2->setPosition(window->getSize().x / 2, this->res2->getGlobalBounds().height*6);
+        settingsButtons[i] = new sf::Sprite();
+        settingsButtons[i]->setTexture(*this->settingsTextures[i].buttonNormal);
+        settingsButtons[i]->setOrigin(settingsButtons[i]->getGlobalBounds().width / 2, settingsButtons[i]->getGlobalBounds().height / 2);
+        settingsButtons[i]->scale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
+    }
+    fpsTextures.buttonMouseOver = new sf::Texture();
+    fpsTextures.buttonMouseOver->loadFromFile("Graphics/Sprites/Buttons/Button_33.png");
+    fpsTextures.buttonNormal = new sf::Texture();
+    fpsTextures.buttonNormal->loadFromFile("Graphics/Sprites/Buttons/Button_34.png");
+    fpsTextures.buttonClicked = new sf::Texture();
+    fpsTextures.buttonClicked->loadFromFile("Graphics/Sprites/Buttons/Button_35.png");
 
-    this->res3 = new sf::Text("640x360", *this->font, textSize);
-    this->res3->setOrigin(this->res3->getGlobalBounds().width / 2, this->res3->getGlobalBounds().height / 2);
-    this->res3->setPosition(window->getSize().x / 2 +  window->getSize().x / 4, this->res3->getGlobalBounds().height*6);
+    for (int i = 0; i < 3; ++i) {
+        fpsButtons[i] = new sf::Sprite();
+        fpsButtons[i]->setTexture(*this->fpsTextures.buttonNormal);
+        fpsButtons[i]->setOrigin(fpsButtons[i]->getGlobalBounds().width / 2, fpsButtons[i]->getGlobalBounds().height / 2);
+        fpsButtons[i]->scale(window->getSize().x / 2560.f, window->getSize().y / 1440.f);
+        fpsButtons[i]->setPosition(((4 + i * 0.5f) * window->getSize().x) / 6, (3 * window->getSize().y) / 4.f);
 
-    this->volume = new sf::Text("Volume", *this->font, textSize);
-    this->volume->setOrigin(this->volume->getGlobalBounds().width / 2, this->volume->getGlobalBounds().height / 2);
-    this->volume->setPosition(window->getSize().x / 2, this->volume->getGlobalBounds().height*8);
+        fpsNumbers[i] = util.addText(fpsWordList[i], 30, 2, 2, fpsButtons[i]->getPosition().x, fpsButtons[i]->getPosition().y - fpsButtons[i]->getGlobalBounds().height / 8, window);
+    }
 
-    this->keybinds = new sf::Text("Keybinds", *this->font, textSize);
-    this->keybinds->setOrigin(this->keybinds->getGlobalBounds().width / 2, this->volume->getGlobalBounds().height / 2);
-    this->keybinds->setPosition(window->getSize().x / 2, this->keybinds->getGlobalBounds().height*10);
+    //Siden posisjonene er så varierende setter jeg dem utenfor for-løkken.
+    settingsButtons[0]->setPosition(window->getSize().x / 7, window->getSize().y / 2 - window->getSize().y / 6);
+    settingsButtons[1]->setPosition(window->getSize().x / 3, window->getSize().y / 2 - window->getSize().y / 6);
+    settingsButtons[2]->setPosition(window->getSize().x / 7, window->getSize().y / 2 + window->getSize().y / 6);
+    settingsButtons[3]->setPosition(window->getSize().x / 3, window->getSize().y / 2 + window->getSize().y / 6);
+    settingsButtons[4]->setPosition(window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
+    settingsButtons[4]->scale(window->getSize().x / 5120.f, window->getSize().y / 2880.f);
+    settingsFlagButtons[0]->setPosition((5 * window->getSize().x) / 6, window->getSize().y / 4.f);
+    settingsFlagButtons[1]->setPosition((4 * window->getSize().x) / 6, window->getSize().y / 4.f);
+    settingsFlagButtons[2]->setPosition((5 * window->getSize().x) / 6, (1.75f * window->getSize().y) / 4.f);
+    settingsFlagButtons[3]->setPosition((4 * window->getSize().x) / 6, (1.75f * window->getSize().y) / 4.f);
 
-    this->apply = new sf::Text("Apply", *this->font, textSize);
-    this->apply->setOrigin(this->apply->getGlobalBounds().width / 2, this->apply->getGlobalBounds().height / 2);
-    this->apply->setPosition(window->getSize().x / 2, this->apply->getGlobalBounds().height*14);
 
-    this->back = new sf::Text("Back", *this->font, textSize);
-    this->back->setOrigin(this->back->getGlobalBounds().width / 2, this->back->getGlobalBounds().height / 2);
-    this->back->setPosition(window->getSize().x / 2, this->back->getGlobalBounds().height*16);
+    //Lager tekstene som skal komme når man mouser over de 4 store knappene. Tekstene er lagret i wordListarrayet.
+    for (unsigned int i = 0; i < sizeof(mouseOverText) / sizeof(*mouseOverText); ++i) {
+        mouseOverText[i] = util.addText(wordList[i], 30, 2, 2, settingsButtons[i]->getPosition().x, (settingsButtons[i]->getPosition().y - settingsButtons[i]->getGlobalBounds().height / 1.5f), window);
+    }
+    //Text, textsize, origin x, origin y, position x, position y, window
+    this->title = util.addText("Settings", 100, 2, 2, window->getSize().x / 2.f, window->getSize().y / 40.f, window);
+    this->fpsText = util.addText("FPS Cap", 50, 2, 2, (4.5f * window->getSize().x) / 6, (2.5f * window->getSize().y) / 4.f, window);
 
+    util.makeMuteButton(window);
 }
+
 void StateSettings::update(sf::RenderWindow *window) {
-    if(this->selected > 4){ //Endre hvis flere alternativer
-        this->selected = 0;
-    }
+    util.checkMuteMouseOver(window);
 
-    if(this->selected < 0){ //Endre hvis flere alternativer
-        this->selected = 4;
+    //Sjekker mouseover på flagg og gjør dem mindre transparent om de er mouseovera
+    for (unsigned int i = 0; i < sizeof(settingsFlagTextures) / sizeof(*settingsFlagTextures); ++i) {
+        if (util.checkMouseover(settingsFlagButtons[i], window)) {
+            settingsFlagButtons[i]->setColor(sf::Color(255, 255, 255, 255));
+        } else {
+            settingsFlagButtons[i]->setColor(sf::Color(255, 255, 255, 125));
+        }
+        if(i == selectedLanguage) {
+            settingsFlagButtons[i]->setColor(sf::Color(255, 255, 255, 255));
+        }
+    }
+    //Sjekker mouseover og klikk på knapper og setter fargen utifra det.
+    for (unsigned int i = 0; i < sizeof(settingsTextures) / sizeof(*settingsTextures); ++i) {
+        if (util.checkMouseover(settingsButtons[i], window)) {
+            if (i < 4) {
+                mouseOverText[i]->setFillColor(sf::Color(255, 255, 255, 255));
+                mouseOverText[i]->setOutlineColor((sf::Color::Black));
+            }
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                settingsButtons[i]->setTexture(*this->settingsTextures[i].buttonClicked);
+            } else {
+                settingsButtons[i]->setTexture(*this->settingsTextures[i].buttonMouseOver);
+            }
+        } else {
+            if (i < 4) {
+                mouseOverText[i]->setFillColor(sf::Color(255, 255, 255, 0));
+                mouseOverText[i]->setOutlineColor((sf::Color::Transparent));
+            }
+            settingsButtons[i]->setTexture(*this->settingsTextures[i].buttonNormal);
+        }
+    }
+    //sjekker mouseover og klikk på fpsknapper og setter fargen utifra. Setter alltid valgte fps til buttonClicked.
+    for (int i = 0; i < 3; ++i) {
+        if (util.checkMouseover(fpsButtons[i], window)) {
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                fpsButtons[i]->setTexture(*this->fpsTextures.buttonClicked);
+            } else {
+                fpsButtons[i]->setTexture(*this->fpsTextures.buttonMouseOver);
+            }
+        } else {
+            fpsButtons[i]->setTexture(*this->fpsTextures.buttonNormal);
+        }
+        if (i == selectedfps)
+            fpsButtons[i]->setTexture(*this->fpsTextures.buttonClicked);
     }
 
 }
+
 void StateSettings::render(sf::RenderWindow *window) {
-
-    this->screenRes->setStyle(0);
-    this->volume->setStyle(0);
-    this->keybinds->setStyle(0);
-    this->apply->setStyle(0);
-    this->back->setStyle(0);
-
-    switch(this->selected){
-        case 0: //ScrRes selected, left right to choose res.
-            this->res1->setStyle(0);
-            this->res2->setStyle(0);
-            this->res3->setStyle(0);
-
-            this->screenRes->setStyle(1<<3);
-
-            //Endrer resChoice x og y ved valg
-            switch (this->selectedRes){
-                case 0:
-                    resChoice.x = 1920;
-                    resChoice.y = 1080;
-                    this->res1->setStyle(1<<3);
-                    break;
-                case 1:
-                    resChoice.x = 1280;
-                    resChoice.y = 720;
-                    this->res2->setStyle(1<<3);
-                    break;
-                case 2:
-                    resChoice.x = 640;
-                    resChoice.y = 360;
-                    this->res3->setStyle(1<<3);
-                    break;
-            }
-
-            break;
-        case 1:
-            this->volume->setStyle(1<<3);
-            break;
-        case 2:
-            this->keybinds->setStyle(1<<3);
-            break;
-        case 3:
-            this->apply->setStyle(1<<3);
-            break;
-        case 4:
-            this->back->setStyle(1<<3);
-            break;
-
-    }
-
-
     window->draw(*this->background);
+    for (unsigned int i = 0; i < sizeof(settingsFlagTextures) / sizeof(*settingsFlagTextures); ++i) {
+        window->draw(*this->settingsFlagButtons[i]);
+    }
+    for (unsigned int i = 0; i < sizeof(settingsTextures) / sizeof(*settingsTextures); ++i) {
+        window->draw(*this->settingsButtons[i]);
+    }
+    for (unsigned int i = 0; i < sizeof(mouseOverText) / sizeof(*mouseOverText); ++i) {
+        window->draw(*this->mouseOverText[i]);
+    }
+    for (int i = 0; i < 3; ++i) {
+        window->draw(*this->fpsButtons[i]);
+        window->draw(*this->fpsNumbers[i]);
+    }
     window->draw(*this->title);
-    window->draw(*this->screenRes);
-    window->draw(*this->res1);
-    window->draw(*this->res2);
-    window->draw(*this->res3);
-    window->draw(*this->volume);
-    window->draw(*this->keybinds);
-    window->draw(*this->apply);
-    window->draw(*this->back);
+    window->draw(*this->fpsText);
+    window->draw(*util.getMuteButton());
 }
+
 void StateSettings::destroy(sf::RenderWindow *window) {
-    delete this->back;
-    delete this->apply;
-    delete this->keybinds;
-    delete this->font;
-    delete this->volume;
-    delete this->res3;
-    delete this->res2;
-    delete this->res1;
-    delete this->screenRes;
-    delete this->title;
+    //Destroyer i motsatt rekkefølge av draws
+    for (int i = (sizeof(settingsFlagButtons) / sizeof(*settingsFlagButtons)) - 1; i >= 0; --i) {
+        delete this->settingsFlagButtons[i];
+    }
+    for (int i = (sizeof(settingsTextures) / sizeof(*settingsTextures)) - 1; i >= 0; --i) {
+        delete this->settingsButtons[i];
+    }
+    for (int i = (sizeof(mouseOverText) / sizeof(*mouseOverText)) - 1; i >= 0; --i) {
+        delete this->mouseOverText[i];
+    }
     delete this->background;
+    delete this->title;
+    delete this->fpsText;
 }
-void StateSettings::handleEvent(sf::RenderWindow *window , sf::Event event){
+
+void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
     if (event.type == sf::Event::KeyPressed) {
-        //Vertical selection
-        if (event.key.code == sf::Keyboard::Up) {
-            this->selected -= 1;
-        }
-
-        if (event.key.code == sf::Keyboard::Down) {
-            this->selected += 1;
-        }
-        //Horizontal selection resolution
-
-        if (this->selected == 0) {
-            if (event.key.code == sf::Keyboard::Left) {
-                this->selectedRes -= 1;
-            }
-
-            if (event.key.code == sf::Keyboard::Right) {
-                this->selectedRes += 1;
-            }
-
-            if (this->selectedRes > 2) { //Endre hvis flere alternativer
-                this->selectedRes = 0;
-            }
-
-            if (this->selectedRes < 0) { //Endre hvis flere alternativer
-                this->selectedRes = 2;
-            }
-        }
-        //Back on escapekey
+//Back on escapekey
 
         if (event.key.code == machine.keybindMap.find("back")->second.second) {
             machine.setState(new StateMainMenu);
             return;
         }
+    }
+    if (event.type == sf::Event::MouseButtonReleased) {
+        util.checkMuteMouseClick(window, event);
 
-        //Selection on returnkey
-
-        if (event.key.code == machine.keybindMap.find("select")->second.second) {
-            switch (this->selected) {
-                case 2:
-                    machine.setState(new StateKeybindings);
-                    break;
-                case 3: //Apply
-                    window->setSize(resChoice);
-                    this->initialize(window);
-                    break;
-                case 4: //Back
-                    machine.setState(new StateMainMenu);
-                    break;
+        for (unsigned int i = 0; i < (sizeof(settingsTextures) / sizeof(*settingsTextures)); ++i){
+            if (util.checkMouseclick(settingsButtons[i], event)) {
+                switch (i) {
+                    //Musikknappen trykket
+                    case 0:
+                        //HER MÅ VI SKRU AV MUSIKK
+                        return;
+                        //controlsknappen trykket
+                    case 1:
+                        machine.setState(new StateKeybindings());
+                        return;
+                        //reset highscore trykket
+                    case 2:
+                        //HER MÅ VI RESETTE HIGHSCORES
+                        return;
+                        //reset keybinds trykket
+                    case 3:
+                        //HER MÅ VI RESETTE BINDS
+                        return;
+                        //backknappen trykket
+                    case 4:
+                        machine.setState(new StateMainMenu());
+                        return;
+                }
+            }
+        }
+        for (unsigned int i = 0; i < 3; ++i){
+            if (util.checkMouseclick(fpsButtons[i], event)){
+                selectedfps = i;
+                switch (i){
+                    case 0:
+                        util.setFramerate(30);
+                        break;
+                    case 1:
+                        util.setFramerate(60);
+                        break;
+                    case 2:
+                        util.setFramerate(120);
+                        break;
+                }
+            }
+        }
+        for (unsigned int i = 0; i < (sizeof(settingsFlagButtons) / sizeof(*settingsFlagButtons)); ++i){
+            if (util.checkMouseclick(settingsFlagButtons[i], event)){
+                selectedLanguage = i;
+                switch (i){
+                    case 0:
+                        //SET LANGUAGE TO ENGLISH
+                        break;
+                    case 1:
+                        //SET LANGUAGE TO NORWEGIAN
+                        break;
+                    case 2:
+                        //SET LANGUAGE TO SERBIAN
+                        break;
+                    case 3:
+                        //SET LANGUAGE TO RUSSIAN
+                        break;
+                }
             }
         }
     }

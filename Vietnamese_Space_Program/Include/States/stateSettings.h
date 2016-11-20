@@ -3,6 +3,7 @@
 
 #include "../Core/state.h"
 #include "../Core/machine.h"
+#include "../Core/utilities.h"
 
 class StateSettings : public States{
 public:
@@ -18,26 +19,32 @@ public:
 
     void reinitialize(sf::RenderWindow *window);
 private:
-    sf::Font* font;
+    Utilities util;
 
     sf::Text* title;
-    sf::Text* screenRes;
-    sf::Text* res1;
-    sf::Text* res2;
-    sf::Text* res3;
-    sf::Text* volume;
-    sf::Text* keybinds;
-    sf::Text* apply;
-    sf::Text* back;
+    struct settingsTextureStruct{
+        sf::Texture* buttonNormal;
+        sf::Texture* buttonMouseOver;
+        sf::Texture* buttonClicked;
+    };
+    settingsTextureStruct settingsTextures[5];
+    sf::Sprite* settingsButtons[5];
 
-    sf::Vector2u resChoice;
+    sf::Texture* settingsFlagTextures[4];
+    sf::Sprite* settingsFlagButtons[4];
 
+    settingsTextureStruct fpsTextures;
+    sf::Sprite* fpsButtons[3];
+    sf::Text* fpsText;
+    sf::Text* fpsNumbers[3];
+    std::string fpsWordList[3] = {"30", "60", "120"};
+    int selectedfps = 1;
+    int selectedLanguage = 0;
+
+    std::string wordList[4] = {"Music", "Controls", "Reset highscore", "Reset controls"};
+    sf::Text* mouseOverText[4];
     sf::Texture* bgTexture;
     sf::Sprite* background;
-
-    int selected, selectedRes;
-    unsigned int textSize = 32U;
-
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_SETTINGSSTATE_H
