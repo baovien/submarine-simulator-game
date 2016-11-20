@@ -177,10 +177,6 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
             machine.setState(new StateMainMenu);
             return;
         }
-        if (event.key.code == machine.keybindMap.find("select")->second.second) {
-            machine.setState(new StateKeybindings);
-            return;
-        }
     }
     if (event.type == sf::Event::MouseButtonReleased) {
         util.checkMuteMouseClick(window, event);

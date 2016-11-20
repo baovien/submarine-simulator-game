@@ -34,10 +34,6 @@ private:
     sf::Text* Arcade;
     sf::Text* Classic;
 
-    std::vector<sf::Text> TextVector;
-
-    std::vector<sf::Vector2f> positionList;
-
     sf::Texture* bgTexture;
     sf::Sprite* background;
 
@@ -47,8 +43,8 @@ private:
         sf::Texture* buttonMouseOver;
         sf::Texture* buttonClicked;
     };
-    menuTextureStruct menuTextures[3];
-    sf::Sprite* menuButtons[3];
+    menuTextureStruct menuTextures[2];
+    sf::Sprite* menuButtons[2];
 
     struct PictureTextureStruct
     {
