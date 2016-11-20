@@ -32,17 +32,10 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
     this->alreadyBoundText->setPosition(window->getSize().x / 2, window->getSize().y / 1.4f);
     this->alreadyBoundText->setFillColor(sf::Color(255, 0, 0, (sf::Uint8) transparencyValue));
 
-    this->movementText = new sf::Text("Movement", *this->font, 25);
-    this->movementText->setOrigin(this->movementText->getGlobalBounds().width / 2, this->movementText->getGlobalBounds().height / 2);
-    this->movementText->setPosition(((window->getSize().x / 2) - this->background->getGlobalBounds().width / 4), ((window->getSize().y / 2) - this->background->getGlobalBounds().height / 2.25f));
+    this->movementText = util.addText("Movement", 25, 2, 2, ((window->getSize().x / 2) - this->background->getGlobalBounds().width / 4), ((window->getSize().y / 2) - this->background->getGlobalBounds().height / 2.25f), window);
+    this->gameplayText= util.addText("Gameplay", 25, 2, 2, ((window->getSize().x / 2) + this->background->getGlobalBounds().width / 4), (window->getSize().y / 2), window);
+    this->menuNavigationText = util.addText("Menu navigation", 25, 2, 2, ((window->getSize().x / 2) + this->background->getGlobalBounds().width / 4), movementText->getPosition().y, window);
 
-    this->gameplayText = new sf::Text("Gameplay", *this->font, 25);
-    this->gameplayText->setOrigin(this->gameplayText->getGlobalBounds().width / 2, this->gameplayText->getGlobalBounds().height / 2);
-    this->gameplayText->setPosition(((window->getSize().x / 2) + this->background->getGlobalBounds().width / 4), (window->getSize().y / 2));
-
-    this->menuNavigationText = new sf::Text("Menu navigation", *this->font, 25);
-    this->menuNavigationText->setOrigin(this->menuNavigationText->getGlobalBounds().width / 2, this->movementText->getGlobalBounds().height / 2);
-    this->menuNavigationText->setPosition(((window->getSize().x / 2) + this->background->getGlobalBounds().width / 4), movementText->getPosition().y);
 
     positionList.push_back(sf::Vector2f((window->getSize().x / 2) - this->background->getGlobalBounds().width / 4, (window->getSize().y / 2) - this->background->getGlobalBounds().height / 6));
     positionList.push_back(sf::Vector2f(positionList[0].x, (window->getSize().y / 2) + this->background->getGlobalBounds().height / 7));
@@ -61,11 +54,9 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
         keyVector[i].keySquare->setOrigin(keyVector[i].keySquare->getGlobalBounds().width / 2, keyVector[i].keySquare->getGlobalBounds().height / 2);
         keyVector[i].keySquare->scale(window->getSize().x / background->getGlobalBounds().width / 4.5f, window->getSize().x / background->getGlobalBounds().width / 4.5f);
         keyVector[i].keySquare->setPosition(positionList[i].x, positionList[i].y);
-        //keyVector[i].keySquare->setColor(sf::Color(255,0,0, 50));
 
-        keyVector[i].titleText = new sf::Text(wordList[i], *this->font, 15);
-        keyVector[i].titleText->setOrigin(keyVector[i].titleText->getGlobalBounds().width / 2, keyVector[i].titleText->getGlobalBounds().height / 2);
-        keyVector[i].titleText->setPosition(keyVector[i].keySquare->getPosition().x, (keyVector[i].keySquare->getPosition().y - keyVector[i].keySquare->getGlobalBounds().height / 1.5f));
+        //Text, textsize, origin x, origin y, position x, position y, window
+        keyVector[i].titleText = util.addText(wordList[i], 15, 2, 2, keyVector[i].keySquare->getPosition().x, (keyVector[i].keySquare->getPosition().y - keyVector[i].keySquare->getGlobalBounds().height / 1.5f) , window);
 
         keyVector[i].keyText = new sf::Text("" + machine.keybindMap.find(wordList[i])->second.first, *this->keyFont, 20);
         keyVector[i].keyText->setPosition(keyVector[i].keySquare->getPosition().x, keyVector[i].keySquare->getPosition().y);

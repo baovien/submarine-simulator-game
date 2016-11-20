@@ -15,7 +15,6 @@ void App::run() {
     window.setVerticalSyncEnabled(true);
     window.setKeyRepeatEnabled(false);
     Utilities util;
-    window.setFramerateLimit(util.getFramerate());
 
     machine.setWindow(&window);
     machine.setState(new StateMainMenu);
@@ -24,6 +23,7 @@ void App::run() {
     sf::Time deltaTime;
     while (window.isOpen()) {
         //Make event to prevent crash
+        window.setFramerateLimit(util.getFramerate());
         sf::Event event;
 
         while (window.pollEvent(event)) {
@@ -50,7 +50,6 @@ void App::run() {
         if (quitGame) {
             window.close();
         }
-
         timer.restart();
     }
 }

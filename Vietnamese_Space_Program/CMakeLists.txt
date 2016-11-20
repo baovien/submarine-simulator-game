@@ -37,7 +37,7 @@ set(SOURCE_FILES
         "Include/States/stateKeybindings.h"    "Source/States/stateKeybindings.cpp"
         "Include/States/statePlayConfig.h"     "Source/States/statePlayConfig.cpp"
         "Include/States/stateMainMenu.h"       "Source/States/stateMainMenu.cpp"
-        "Include/States/stateSettings.h"       "Source/States/stateSettings.cpp")
+        "Include/States/stateSettings.h"       "Source/States/stateSettings.cpp" Source/Core/utilities.cpp)
 
 
 
