@@ -22,12 +22,18 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font.ttf");
 
+    this->waveText = new sf::Text("Wave ", *this->font, 75);
+    this->waveText->setOrigin(this->waveText->getGlobalBounds().width / 2, this->waveText->getGlobalBounds().height / 2);
+    this->waveText->setPosition(window->getSize().x / 2, window->getSize().y / 4);
+    this->waveText->setFillColor(sf::Color(255, 255, 255, (sf::Uint8) transparencyValue));
+
     this->score = new Score(*font, 32U);
     this->score->setPosition(window->getSize().x/10,window->getSize().y/20);
 
     this->lives = new Lives(*font, 32U);
     this->lives->setPosition(window->getSize().x - window->getSize().x/5, window->getSize().y/20);
 
+    //Init player
     this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2, window, 1, 2);
     this->manager->addEntity("ship", this->player);
 
@@ -52,31 +58,52 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         this->score->updateScore();
         this->lives->updateLife();
 
-        //WAVES
-        if (!inWave) {
-            std::cout << "WAVE:" << waveNum << std::endl;
+        //////////////////////////WAVES
+        name = "Enemy";
+        int enemiesLeft = 0;
 
-            for (int i = 0; i < 2 * waveNum; ++i) {
-                this->enemyObject = new EnemyObject(player);
-                this->manager->addEntity("Enemy", enemyObject);
+        if(!inWave)
+        {
+            for (int i = 0; i < 2*waveNum; ++i)
+            {
+                this->manager->addEntity("Enemy", new EnemyObject(player));
                 enemyCount++;
             }
-
-
             std::cout << "InWave enemies: " << enemyCount << std::endl;
             inWave = true;
         }
 
-        if (enemyCount <= 0) {
-            std::cout << "WAVE DONE" << std::endl;
-            inWave = false;
-            waveNum++;
+        //Teller enemies som er igjen
+        for (int j = 0; j < enemyCount; ++j)
+        {
+            if (j != 0){
+                name += "0";
+            }
+
+            if(this->manager->getEntity(name) != NULL){
+                enemiesLeft++;
+            }
         }
 
-        //END_WAVES
+        //Wave done
+        if(enemiesLeft == 0 || waveNum == 0)
+        {
+            waveNum++;
+            this->transparencyValue = 255;
+            this->waveText->setString("Wave " + std::to_string(this->waveNum));
+            this->waveText->setOrigin(this->waveText->getGlobalBounds().width / 2, this->waveText->getGlobalBounds().height / 2);
+            inWave = false;
+            std::cout << "WAVE DONE" << std::endl;
+        }
+
+        //Fader waveText
+        this->waveText->setFillColor(sf::Color(255, 255, 255, (sf::Uint8) transparencyValue));
+        if(transparencyValue > 1) transparencyValue -= 1;
+        //////////////////////////END_WAVES
 
         //Når playerliv blir 0, kommer gameOver splashscreen
-        if (this->lives->getValue() <= 0) {
+        if (this->lives->getValue() <= 0)
+        {
             machine.setGameOverScore(this->score->getValue());
             machine.setState(new StateGameOver);
             return;
@@ -130,17 +157,20 @@ void StateGameMode1::render(sf::RenderWindow *window) {
         window->draw(*this->pausedBackground);
         window->draw(*this->pausedText);
     }
+    window->draw(*this->waveText);
+
 }
 
 void StateGameMode1::destroy(sf::RenderWindow *window) {
-   /* delete this->lives;
+    delete this->lives;
     delete this->score;
     delete this->util;
     delete this->pausedText;
+    delete this->waveText;
     delete this->font;
     delete this->pausedBackground;
     delete this->background;
-    delete this->manager;*/
+    delete this->manager;
 
 }
 

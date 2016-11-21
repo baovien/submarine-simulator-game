@@ -38,20 +38,22 @@ protected:
     Score* score;
     sf::Font* font;
     sf::Text* pausedText;
+    sf::Text* waveText;
     Utilities* util;
     EntityManager* manager;
     sf::Texture* bgTexture;
     sf::Sprite* background;
     Player* player;
-    EnemyObject* enemyObject;
     HealthPack* healthPack;
     sf::Texture* pausedTexture;
     sf::Sprite* pausedBackground;
 
     //Branch: Waves
     int enemyCount = 0;
-    int waveNum = 1;
+    int transparencyValue = 0;
+    int waveNum = 0;
     bool inWave = false;
+    std::string name = "Enemy";
 };
 
 
