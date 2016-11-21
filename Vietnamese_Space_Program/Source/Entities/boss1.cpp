@@ -54,8 +54,7 @@ void BossObject::updateEntity(sf::RenderWindow *window) {
 
         if (elapsed1.asMicroseconds() > 1350000) {
             angle = (rand()%720 - 360) * pi / 180;
-            std::cout << angle << std::endl;
-
+            
             this->manager->addEntity("Bullet", new Bullet(
                     (this->getPosition().x + (this->getGlobalBounds().width / 2) * sin(angle)),
                     (this->getPosition().y - (this->getGlobalBounds().height / 2) * cos(angle)),
