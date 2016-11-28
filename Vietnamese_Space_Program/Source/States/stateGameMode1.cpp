@@ -72,6 +72,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         {
             for (int i = 0; i < 2*waveNum; ++i)
             {
+
                 this->manager->addEntity("Enemy", new EnemyObject(player, mode));
                 enemyCount++;
             }
