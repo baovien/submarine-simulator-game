@@ -26,6 +26,7 @@ set(SOURCE_FILES
         "Include/Entities/bullet.h"            "Source/Entities/bullet.cpp"
         "Include/Entities/player.h"            "Source/Entities/player.cpp"
         "Include/Entities/enemy.h"             "Source/Entities/enemy.cpp"
+        "Include/Entities/enemy2.h"            "Source/Entities/enemy2.cpp"
         "Include/Entities/healthPack.h"        "Source/Entities/healthPack.cpp"
         "Include/Entities/dynamicBar.h"        "Source/Entities/dynamicBar.cpp"
 

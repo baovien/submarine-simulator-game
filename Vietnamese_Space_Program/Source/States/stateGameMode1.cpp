@@ -44,7 +44,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->overBarS.setScale(2,2);
 
     //Init pauseobjekter
-    this->pausedText = new sf::Text("Paused\nPress Q to Quit", *font, 32U);
+    this->pausedText = new sf::Text("Paused\nPress " + machine.keybindMap.find("back")->second.first + " to Quit", *font, 32U);
     this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2, this->pausedText->getGlobalBounds().height / 2);
     this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
 
