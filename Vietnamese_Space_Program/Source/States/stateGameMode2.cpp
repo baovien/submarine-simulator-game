@@ -1,8 +1,10 @@
 #include <cstring>
 #include "../../Include/States/stateGameMode2.h"
 #include "../../Include/States/stateMainMenu.h"
+#include "../../Include/States/stateGameOver.h"
 
 void StateGameMode2::initialize(sf::RenderWindow *window) {
+
 
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
@@ -16,16 +18,26 @@ void StateGameMode2::initialize(sf::RenderWindow *window) {
 
     util = new Utilities();
 
-    manager = new EntityManager();
-    this->player =  new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x/2, window->getSize().y, window, 2, 1);
-    this->manager->addEntity("ship", this->player);
-
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font.ttf");
 
+    this->score = new Score(*font, 32U);
+    this->score->setPosition(20, 5);
+
+    this->lives = new Lives(*font, 32U);
+    this->lives->setPosition(window->getSize().x - this->lives->getGlobalBounds().width - 20, 5);
+
+    manager = new EntityManager();
+    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y, window, 2, 2);
+    this->manager->addEntity("ship", this->player);
+
+
     this->pausedText = new sf::Text("Paused\nPress " + machine.keybindMap.find("back")->second.first + " to Quit", *font, 32U);
-    this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2, this->pausedText->getGlobalBounds().height / 2);
+    this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2,
+                                this->pausedText->getGlobalBounds().height / 2);
     this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
+
+
 }
 
 void StateGameMode2::update(sf::RenderWindow *window) {
@@ -33,26 +45,109 @@ void StateGameMode2::update(sf::RenderWindow *window) {
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
         this->manager->updateEntity(window);
+        this->score->updateScore();
+        this->lives->updateLife();
 
+        if (this->lives->getValue() <= 0) {
+            machine.setGameOverScore(this->score->getValue());
+            machine.setState(new StateGameOver);
+            return;
+        }
+
+        if (spawna) {
+            for (int i = 0; i < 5; ++i) {
+
+                for (int j = 0; j < 4; ++j) {
+                    //enemies[i,j];
+                    enemy2Object = new Enemy2Object(i, j, window);
+                    this->manager->addEntity("Enemy", enemy2Object);
+                }
+
+            }
+            spawna = false;
+
+        }
+        if (!rightCollision) {
+            std::string name = "Enemy";
+            for (int j = 0; j < 5 * 4; ++j) {
+                if (j != 0) {
+                    name += "0";
+                }
+                if (this->manager->getEntity(name) != NULL) {
+                    if (this->manager->getEntity(name)->getPosition().x > window->getSize().x) {
+                        rightCollision = true;
+                        leftCollision = false;
+                        std::string name = "Enemy";
+                        for (int j = 0; j < 5 * 4; ++j) {
+                            if (j != 0) {
+                                name += "0";
+                            }
+                            this->manager->getEntity(name)->velocity.x = -10;
+                            this->manager->getEntity(name)->setPosition(this->manager->getEntity(name)->getPosition().x,
+                                                                        this->manager->getEntity(
+                                                                                name)->getPosition().y +
+                                                                        this->manager->getEntity(
+                                                                                name)->getGlobalBounds().height);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        if (!leftCollision) {
+            std::string name = "Enemy";
+            for (int j = 0; j < 5 * 4; ++j) {
+                if (j != 0) {
+                    name += "0";
+                }
+                if (this->manager->getEntity(name) != NULL) {
+                    if (this->manager->getEntity(name)->getPosition().x < 0) {
+                        rightCollision = false;
+                        leftCollision = true;
+                        std::string name = "Enemy";
+                        for (int j = 0; j < 5 * 4; ++j) {
+                            if (j != 0) {
+                                name += "0";
+                            }
+                            this->manager->getEntity(name)->velocity.x = 10;
+                            this->manager->getEntity(name)->setPosition(this->manager->getEntity(name)->getPosition().x,
+                                                                        this->manager->getEntity(
+                                                                                name)->getPosition().y +
+                                                                        this->manager->getEntity(
+                                                                                name)->getGlobalBounds().height);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
     }
 }
-void StateGameMode2::render(sf::RenderWindow *window){
+
+void StateGameMode2::render(sf::RenderWindow *window) {
     window->draw(*this->background);
+    window->draw(*this->score);
+    window->draw(*this->lives);
+
     this->manager->renderEntity(window);
-    if (util->paused)
-    {
+    if (util->paused) {
         window->draw(*this->pausedText);
     }
 }
 
 void StateGameMode2::destroy(sf::RenderWindow *window) {
+
+    delete this->lives;
+    delete this->score;
     delete this->util;
     delete this->font;
     delete this->pausedText;
     delete this->background;
+    delete this->manager;
+
 }
 
-void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event) {
+void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event){
     if (event.type == event.KeyPressed) {
         if (event.key.code == machine.keybindMap.find("back")->second.second && util->paused) {
             machine.setState(new StateMainMenu());
@@ -64,6 +159,6 @@ void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event) {
     }
 }
 
-void StateGameMode2::reinitialize(sf::RenderWindow *window) {
+void StateGameMode2::reinitialize(sf::RenderWindow *window){
 
 }
