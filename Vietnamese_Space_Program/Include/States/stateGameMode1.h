@@ -18,12 +18,14 @@
 class StateGameMode1 : public States
 {
 public:
+
     void initialize(sf::RenderWindow *window);
     void update(sf::RenderWindow *window);
     void render(sf::RenderWindow *window);
     void destroy(sf::RenderWindow *window);
     void handleEvent(sf::RenderWindow *window, sf::Event event);
     void reinitialize(sf::RenderWindow *window);
+
     sf::Clock clockAsteroid;    // starter clocken for asteroid
     sf::Clock clockBoss;        // starter clocken for boss
     sf::Clock clockEnemy;       // starter clocken for enemy
@@ -38,15 +40,23 @@ protected:
     Score* score;
     sf::Font* font;
     sf::Text* pausedText;
+    sf::Text* waveText;
     Utilities* util;
     EntityManager* manager;
     sf::Texture* bgTexture;
     sf::Sprite* background;
     Player* player;
-    EnemyObject* enemyObject;
     HealthPack* healthPack;
     sf::Texture* pausedTexture;
     sf::Sprite* pausedBackground;
+
+    //Branch: Waves
+    int enemyCount = 0;
+    int transparencyValue = 0;
+    int waveNum = 0;
+    bool inWave = false;
+    std::string name = "Enemy";
 };
+
 
 #endif //VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE1_H

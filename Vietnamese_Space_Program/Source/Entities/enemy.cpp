@@ -3,9 +3,10 @@
 #include "../../Include/Entities/enemy.h"
 
 //Initiater enemy, koden vår er satt opp for flere spillere så case 0 er spiller 1.
-EnemyObject::EnemyObject() {
+EnemyObject::EnemyObject(Player* player)
+            : player(player)
+{
 
-    //this->player = player;
     this->load("gold.png");
     this->active = 1;
     this->groupId = 4;
@@ -26,11 +27,6 @@ EnemyObject::EnemyObject() {
         this->setPosition(rand() % 1480, 920);
     }
 
-}
-
-
-void EnemyObject::setEnemy(Player *player) {
-    this->player = player;
 }
 
 void EnemyObject::updateEntity(sf::RenderWindow *window) {
@@ -60,13 +56,7 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
         }
 
         //Endre sprites i forhold til health
-        if (this->health <= 0) {       //Destroy
-            this->load("explosion.png");
-            this->scale(1.5, 1.5);
-            this->destroyEntity();
-        } else if (this->health == 1) { //Damaged
-            this->load("goldDamaged.png");
-        }
+
 
         // Destroy enemy hvis den er utenfor skjermen
         if (this->getPosition().x <= -400 || this->getPosition().x >= 1600) {
@@ -82,6 +72,15 @@ void EnemyObject::collision(Entity *entity) {
     switch (entity->groupID()) {
         case 2: // Bullets
             this->health--;
+            if (this->health == 0) {       //Destroy
+                this->load("explosion.png");
+                this->scale(1.5, 1.5);
+                this->destroyEntity();
+            } else if (this->health == 1) { //Damaged
+
+                this->load("goldDamaged.png");
+            }
             break;
+
     }
 }

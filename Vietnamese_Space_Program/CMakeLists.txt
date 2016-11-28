@@ -18,6 +18,7 @@ set(SOURCE_FILES
         "Include/Core/score.h"                 "Source/Core/score.cpp"
         "Include/Core/utilities.h"
         "Include/Core/soundLoader.h"           "Source/Core/soundLoader.cpp"
+        "Include/Core/waveManager.h"           "Source/Core/waveManager.cpp"
 
         #Entities Headers
         "Include/Entities/asteroid.h"          "Source/Entities/asteroid.cpp"

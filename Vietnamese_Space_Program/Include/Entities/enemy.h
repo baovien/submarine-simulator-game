@@ -7,9 +7,8 @@
 class EnemyObject : public Entity
 {
 public:
-    EnemyObject();
+    EnemyObject(Player* player);
     void updateEntity(sf::RenderWindow *window);
-    void setEnemy(Player* player);
     virtual void collision(Entity* entity);
 
 private:
