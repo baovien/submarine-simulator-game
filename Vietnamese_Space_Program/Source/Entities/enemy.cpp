@@ -3,19 +3,25 @@
 #include "../../Include/Entities/enemy.h"
 
 //Initiater enemy, koden vår er satt opp for flere spillere så case 0 er spiller 1.
-EnemyObject::EnemyObject(Player* player)
+EnemyObject::EnemyObject(Player* player, int mode)
             : player(player)
 {
-
     this->load("gold.png");
     this->active = 1;
     this->groupId = 4;
-    this->health = 2;
     this->randomNumber = rand() % 4;
     this->setRotation(2);
-
     this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
 
+        switch(mode) {
+            case 1:
+            this->health = 2;
+            break;
+
+            case 2:
+                this->health = 4;
+                break;
+        }
     //Spawner enemy utenfor vinduet
     if (randomNumber == 1) {
         this->setPosition(-200, rand() % 720);

@@ -52,6 +52,7 @@ protected:
     sf::Sprite* pausedBackground;
 
     //Branch: Waves
+    int mode = 1;
     int enemyCount = 0;
     int transparencyValue = 0;
     int waveNum = 0;

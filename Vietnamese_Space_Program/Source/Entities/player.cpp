@@ -20,7 +20,6 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
             this->bar = new Bar(window);
             this->manager->addEntity("bar", this->bar);
             this->overheatValue = 1.0f;
-
             break;
         case 2:
             this->load("fighter2_blue_big.png");

@@ -67,12 +67,12 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         //////////////////////////WAVES
         name = "Enemy";
         int enemiesLeft = 0;
-
+        if(waveNum >= 5) this->mode = 2;
         if(!inWave)
         {
             for (int i = 0; i < 2*waveNum; ++i)
             {
-                this->manager->addEntity("Enemy", new EnemyObject(player));
+                this->manager->addEntity("Enemy", new EnemyObject(player, mode));
                 enemyCount++;
             }
             std::cout << "InWave enemies: " << enemyCount << std::endl;
