@@ -30,6 +30,8 @@ public:
     sf::Clock clockHealthPack;  // starter clocken for healthpack
 
 protected:
+    sf::Texture overBar;
+    sf::Sprite overBarS;
     SoundLoader sl;
     Boss* boss;
     Lives* lives;

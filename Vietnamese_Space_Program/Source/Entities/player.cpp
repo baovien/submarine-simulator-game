@@ -16,7 +16,7 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
             this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/1.5);
             this->space = false;
             this->setPosition(x, y);
-            this->scale(0.4, 0.4);
+            this->scale(window->getSize().x/3200.0f, window->getSize().y / 1800.0f);
             this->bar = new Bar(window);
             this->manager->addEntity("bar", this->bar);
             this->overheatValue = 1.0f;
@@ -75,7 +75,6 @@ void Player::updateEntity(sf::RenderWindow *window) {
                     break;
 
                 case 2:
-                    this->turnspeed =  0.11f;
                     if (right) angle += turnspeed;
                     if (left) angle -= turnspeed;
 
@@ -171,27 +170,24 @@ void Player::updateEntity(sf::RenderWindow *window) {
             if (this->getPosition().x - this->getGlobalBounds().width / 2 < 0) this->move(5, 0);
             break;
     }
+    if (this->lives->getValue() <= 0) {
+        this->destroyEntity();
+    }
 }
-//Her sjekker vi om vårt fly kræsjer med noen andre
+//Her sjekker vi om vårt fly kræsjer med noe annet
 void Player::collision(Entity *entity) {
     switch (entity->groupID()) {
         case 3: // Asteroid
             entity->destroyEntity();
             this->lives->decreaseLife();
-            if (this->lives->getValue() <= 0) {
-                this->destroyEntity();
-            }
             break;
         case 4: // Enemy
             entity->destroyEntity();
             this->lives->decreaseLife();
-            if (this->lives->getValue() <= 0)
-            {
-                this->destroyEntity();
-
-            }
             break;
         case 6: //Boss bullet
+            entity->destroyEntity();
+            this->lives->decreaseLife();
             break;
     }
 }
