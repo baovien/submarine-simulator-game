@@ -36,7 +36,7 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
     this->gameplayText= util.addText("Gameplay", 25, 2, 2, ((window->getSize().x / 2) + this->background->getGlobalBounds().width / 4), (window->getSize().y / 2), window);
     this->menuNavigationText = util.addText("Menu navigation", 25, 2, 2, ((window->getSize().x / 2) + this->background->getGlobalBounds().width / 4), movementText->getPosition().y, window);
 
-
+    positionList.clear();
     positionList.push_back(sf::Vector2f((window->getSize().x / 2) - this->background->getGlobalBounds().width / 4, (window->getSize().y / 2) - this->background->getGlobalBounds().height / 6));
     positionList.push_back(sf::Vector2f(positionList[0].x, (window->getSize().y / 2) + this->background->getGlobalBounds().height / 7));
     positionList.push_back(sf::Vector2f(((window->getSize().x / 2) - this->background->getGlobalBounds().width / 2.4f), positionList[1].y));
@@ -52,7 +52,7 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
         keyVector[i].keySquare = new sf::Sprite();
         keyVector[i].keySquare->setTexture(*this->ballTexture);
         keyVector[i].keySquare->setOrigin(keyVector[i].keySquare->getGlobalBounds().width / 2, keyVector[i].keySquare->getGlobalBounds().height / 2);
-        keyVector[i].keySquare->scale(window->getSize().x / background->getGlobalBounds().width / 4.5f, window->getSize().x / background->getGlobalBounds().width / 4.5f);
+        keyVector[i].keySquare->scale(window->getSize().x / 2880.f, window->getSize().y / 1620.f);
         keyVector[i].keySquare->setPosition(positionList[i].x, positionList[i].y);
 
         //Text, textsize, origin x, origin y, position x, position y, window
@@ -60,6 +60,7 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
 
         keyVector[i].keyText = new sf::Text("" + machine.keybindMap.find(wordList[i])->second.first, *this->keyFont, 20);
         keyVector[i].keyText->setPosition(keyVector[i].keySquare->getPosition().x, keyVector[i].keySquare->getPosition().y);
+        keyVector[i].keyText->scale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
         if (keyVector[i].keyText->getGlobalBounds().width * 2 > keyVector[i].keySquare->getGlobalBounds().width) {
             keyVector[i].keyText->setCharacterSize(12);
         } else {
@@ -181,5 +182,5 @@ void StateKeybindings::handleEvent(sf::RenderWindow *window, sf::Event event) {
 }
 
 void StateKeybindings::reinitialize(sf::RenderWindow *window) {
-
+    initialize(window);
 }

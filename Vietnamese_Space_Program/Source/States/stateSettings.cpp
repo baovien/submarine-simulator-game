@@ -246,5 +246,5 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
 }
 
 void StateSettings::reinitialize(sf::RenderWindow *window) {
-
+    initialize(window);
 }

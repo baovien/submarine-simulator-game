@@ -15,12 +15,6 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
     this->background->setTexture(*this->bgTexture);
     this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
 
-    this->selected = 0;
-
-    this->selected_Theme = 0;
-    this->selected_Fighter = 4;
-    this->selected_Gamemode = 5;
-
     for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i) {
         menuTextures[i].buttonMouseOver = new sf::Texture();
         menuTextures[i].buttonMouseOver->loadFromFile("Graphics/Sprites/PlayConfig_buttons/Btn" + std::to_string(i * 3) + ".png");
@@ -250,5 +244,5 @@ void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event) {
 }
 
 void StatePlayConfig::reinitialize(sf::RenderWindow *window) {
-
+    initialize(window);
 }
