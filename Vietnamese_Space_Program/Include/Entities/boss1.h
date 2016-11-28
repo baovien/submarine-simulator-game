@@ -18,11 +18,8 @@ private:
     int health;
     double angle;
 
-    float xDistance, yDistance, distance;
-    float easingAmount = 0.00015f;
-    float maxSpeed = 0.5f;
-    float pi = 3.141592653599;
-    int bulletSpeed = 7;
+    float xDistance, yDistance, distance, easingAmount, maxSpeed, pi;
+    int bulletSpeed;
 
     EntityManager* manager;
 };

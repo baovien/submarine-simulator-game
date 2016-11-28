@@ -13,6 +13,12 @@ BossObject::BossObject(EntityManager* manager, Player* player) {
     this->manager = manager;
     this->player = player;
     this->velocity.x = 0.5;
+
+    this->easingAmount = 0.00015f;
+    this->maxSpeed = 0.5f;
+    this->pi = 3.141592653599;
+    this->bulletSpeed = 7;
+
     this->score = score;
 }
 
@@ -52,7 +58,7 @@ void BossObject::updateEntity(sf::RenderWindow *window) {
         // Destroy enemy hvis den er utenfor skjermen
         sf::Time elapsed1 = clock.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
 
-        if (elapsed1.asMicroseconds() > 1350000) {
+        if (elapsed1.asMicroseconds() > 1500000) {
             angle = (rand()%720 - 360) * pi / 180;
             
             this->manager->addEntity("Bullet", new Bullet(

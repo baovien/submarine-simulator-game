@@ -132,16 +132,12 @@ void StateGameMode1::update(sf::RenderWindow *window) {
 
     if (elapsedAsteroid.asMicroseconds() > 3000000) //Sjekker om verdien til clock er mer enn 3 sekunder
     {
-        this->manager->addEntity("asteroid", new AsteroidObject(32, 32)); //er clock mer enn 3 sekunder lager jeg en ny astroide
+        this->manager->addEntity("asteroid",
+                                 new AsteroidObject()); //er clock mer enn 3 sekunder lager jeg en ny astroide
         clockAsteroid.restart(); //restarter clock(nullstiller)
     }
 
-<<<<<<< ceb65aaf761863b23a26d0d1f29e569d9d73f75a
-
-    if (elapsedBoss.asMicroseconds() > 15000000) //Sjekker om verdien til clock er mer enn 3 sekunder
-=======
     if (elapsedBoss.asMicroseconds() > 15000000) //Sjekker om verdien til clock er mer enn 15 sekunder (15000000)
->>>>>>> Fikset boss movement, små bugfixes, code cleanup, AGINC-46
     {
         bossObject = new BossObject(this->manager, this->player);
         this->manager->addEntity("Boss", bossObject);
@@ -149,9 +145,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
     }
 
     if (elapsedHealthPack.asMicroseconds() > 5000000) {
-        int number = rand() % 10;
-        std::cout << number << std::endl;
-        if (number < 3) {
+        if (rand() % 10 < 3) {
             healthPack = new HealthPack(this->lives);
             this->manager->addEntity("healthPack", healthPack);
         }

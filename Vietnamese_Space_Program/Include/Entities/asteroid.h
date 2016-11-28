@@ -6,7 +6,7 @@
 class AsteroidObject : public Entity
 {
 public:
-    AsteroidObject(float x, float y);
+    AsteroidObject();
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
 

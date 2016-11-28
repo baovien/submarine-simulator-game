@@ -1,7 +1,7 @@
 #include "../../Include/Entities/asteroid.h"
 
 //Initiater asteroid, koden vår er satt opp for flere spillere så case 0 er spiller 1.
-AsteroidObject::AsteroidObject(float x, float y)
+AsteroidObject::AsteroidObject()
 {
     this->load("asteroid.png");
     //Scaler opp bildet for å slippe å lage nytt
