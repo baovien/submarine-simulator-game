@@ -36,6 +36,7 @@ protected:
     sf::Sprite overBarS;
     SoundLoader sl;
     Boss* boss;
+    EnemyObject* enemyObject;
     Lives* lives;
     Score* score;
     sf::Font* font;

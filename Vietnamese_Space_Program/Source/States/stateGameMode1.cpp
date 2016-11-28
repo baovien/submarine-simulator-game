@@ -37,6 +37,12 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2, window, 1, 2);
     this->manager->addEntity("ship", this->player);
 
+    this->overBar.loadFromFile("Graphics/Sprites/overheat_border.png");
+    this->overBarS.setTexture(this->overBar);
+    this->overBarS.setOrigin(this->overBarS.getGlobalBounds().width/2, this->overBarS.getGlobalBounds().height/2);
+    this->overBarS.setPosition(window->getSize().x/2, window->getSize().y - this->overBarS.getGlobalBounds().height);
+    this->overBarS.setScale(2,2);
+
     //Init pauseobjekter
     this->pausedText = new sf::Text("Paused\nPress Q to Quit", *font, 32U);
     this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2, this->pausedText->getGlobalBounds().height / 2);
@@ -149,9 +155,10 @@ void StateGameMode1::update(sf::RenderWindow *window) {
 
 void StateGameMode1::render(sf::RenderWindow *window) {
     window->draw(*this->background);
+    this->manager->renderEntity(window);
     window->draw(*this->score);
     window->draw(*this->lives);
-    this->manager->renderEntity(window);
+    window->draw(this->overBarS);
 
     if (util->paused) {
         window->draw(*this->pausedBackground);
