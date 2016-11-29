@@ -1,7 +1,6 @@
 
 #include <iostream>
 #include "../../Include/Core/app.h"
-#include "../../Include/Core/utilities.h"
 
 //Tastetrykk som kun skal registreres én gang:
 //if(event.key.code == sf::Keyboard::DINTAST){ KODE }
@@ -13,20 +12,17 @@ void App::run() {
 
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Vietnamese Space Program"); //, sf::Style::Titlebar | sf::Style::Close) FULL HD OMG
 
-    window.setVerticalSyncEnabled(true);
     window.setKeyRepeatEnabled(false);
-    Utilities util;
 
     machine.setWindow(&window);
     machine.setState(new StateMainMenu);
 
     sf::Clock timer;
     sf::Time deltaTime;
+    window.setFramerateLimit(60);
     while (window.isOpen()) {
         //Make event to prevent crash
-        window.setFramerateLimit(util.getFramerate());
         sf::Event event;
-
         while (window.pollEvent(event)) {
             //Close down window
             if (event.type == sf::Event::Closed) {
@@ -41,7 +37,6 @@ void App::run() {
          * Vi vil at den skal kjøre med nøyaktighet på 1/60 sekund. 1/60 sekunder = 16666 mikrosekunder.
          * Dette tilsvarer ca. 60 fps..
          */
-        deltaTime = timer.getElapsedTime();
         //window.clear(sf::Color::Black);
         machine.update();
         machine.render();
@@ -50,6 +45,10 @@ void App::run() {
         if (quitGame) {
             window.close();
         }
+        deltaTime = timer.getElapsedTime();
+        if(deltaTime.asMilliseconds() != 0)
+            std::cout<< "FPS: " << 1000/deltaTime.asMilliseconds() << "    MUTED: " << *machine.mutedPointer << "    Language: " << machine.settingPointer->selectedLanguage <<
+                     "     Selected FPS: " << machine.settingPointer->selectedFps << "    MutedMusic: "  << *machine.mutedMusicPointer << std::endl;
         timer.restart();
     }
 }

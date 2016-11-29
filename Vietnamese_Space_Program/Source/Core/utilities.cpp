@@ -2,7 +2,7 @@
 #include "../../Include/Core/utilities.h"
 
 
-void Utilities::makeMuteButton(sf::RenderWindow *window) {
+void Utilities::makeMuteButton(sf::RenderWindow *window, bool* mutedPointer) {
     for (unsigned int i = 0; i < (sizeof(muteTextures) / sizeof(*muteTextures)); ++i) {
         muteTextures[i].buttonMouseOver = new sf::Texture();
         muteTextures[i].buttonMouseOver->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(15 + i * 3) + ".png");
@@ -13,7 +13,9 @@ void Utilities::makeMuteButton(sf::RenderWindow *window) {
         muteTextures[i].buttonClicked = new sf::Texture();
         muteTextures[i].buttonClicked->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(15 + i * 3 + 2) + ".png");
     }
-
+    if(*mutedPointer){ //Sjekker om det er muta når jeg lager knappen og bytter til muteversjonen av knappen om de er det.
+        std::swap(muteTextures[0], muteTextures[1]);
+    }
     muteButton = new sf::Sprite();
     muteButton->setTexture(*this->muteTextures[0].buttonNormal);
     muteButton->setOrigin(muteButton->getGlobalBounds().width / 2, muteButton->getGlobalBounds().height / 2);
@@ -34,15 +36,16 @@ void Utilities::checkMuteMouseOver(sf::RenderWindow *window) {
     }
 }
 
-void Utilities::checkMuteMouseClick(sf::RenderWindow *window, sf::Event event) {
+void Utilities::checkMuteMouseClick(sf::RenderWindow *window, sf::Event event, bool* mutedPointer) {
     if(checkMouseclick(muteButton, event)){
+        *mutedPointer = !*mutedPointer;
         std::swap(muteTextures[0], muteTextures[1]);
     }
-    /*if(MUTED){
-        //MÅ MEKKE UNMUTE HER
+    /*if(*mutedPointer){
+        //MÅ MEKKE MUTE HER
     }
     else{
-        //MÅ MEKKE MUTE HER
+        //MÅ MEKKE UNMUTE HER
     }
      */
 }
@@ -92,8 +95,4 @@ bool Utilities::checkMouseclick(sf::Sprite *buttonSprite, sf::Event event) {
 
 sf::Sprite *Utilities::getMuteButton() const {
     return muteButton;
-}
-
-Utilities::Utilities() {
-    framerate = 60;
 }

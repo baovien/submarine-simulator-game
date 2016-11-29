@@ -34,8 +34,19 @@ public:
                                                            {"shoot",  std::make_pair("Space" , sf::Keyboard::Space)},
                                                            {"pause",  std::make_pair("P" , sf::Keyboard::P)}};
 
+private:
+    struct settingStruct{
+        int selectedFps;
+        int selectedLanguage;
+    };
+        bool muted = false;
+        bool mutedMusic = false;
 
-
+    settingStruct settingVariables {1,0};
+public:
+    bool* mutedMusicPointer = &mutedMusic;
+    bool* mutedPointer = &muted;
+    settingStruct* settingPointer = &settingVariables;
 private:
     sf::RenderWindow* window;
     States* state;

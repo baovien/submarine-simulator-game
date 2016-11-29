@@ -48,7 +48,7 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
     menuButtons[0]->scale(window->getSize().x/960.f,  window->getSize().y/540.f);
     menuButtons[0]->setPosition(window->getSize().x / 2, window->getSize().y / 2.5f);
 
-    util.makeMuteButton(window);
+    util.makeMuteButton(window, machine.mutedPointer);
 /*
     menuButtons[5]->scale(window->getSize().x/5120.f,  window->getSize().y/2880.f);
     menuButtons[5]->setPosition(window->getSize().x - window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
@@ -108,7 +108,7 @@ void StateMainMenu::destroy(sf::RenderWindow *window) {
 void StateMainMenu::handleEvent(sf::RenderWindow *window, sf::Event event) {
     if (event.type == sf::Event::MouseButtonReleased) {
 
-        util.checkMuteMouseClick(window, event);
+        util.checkMuteMouseClick(window, event, machine.mutedPointer);
 
         for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)); ++i)
             if (util.checkMouseclick(menuButtons[i], event)) {

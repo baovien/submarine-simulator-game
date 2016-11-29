@@ -27,7 +27,7 @@ private:
         sf::Texture* buttonMouseOver;
         sf::Texture* buttonClicked;
     };
-    settingsTextureStruct settingsTextures[5];
+    settingsTextureStruct settingsTextures[6];
     sf::Sprite* settingsButtons[5];
 
     sf::Texture* settingsFlagTextures[4];
@@ -38,8 +38,6 @@ private:
     sf::Text* fpsText;
     sf::Text* fpsNumbers[3];
     std::string fpsWordList[3] = {"30", "60", "120"};
-    int selectedfps = 1;
-    int selectedLanguage = 0;
 
     std::string wordList[4] = {"Music", "Controls", "Reset highscore", "Reset controls"};
     sf::Text* mouseOverText[4];

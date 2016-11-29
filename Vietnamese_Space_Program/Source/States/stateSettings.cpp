@@ -35,12 +35,18 @@ void StateSettings::initialize(sf::RenderWindow *window) {
 
         settingsTextures[i].buttonClicked = new sf::Texture();
         settingsTextures[i].buttonClicked->loadFromFile("Graphics/Sprites/Settings_buttons/Btn" + std::to_string(i * 3 + 2) + ".png");
-
-        settingsButtons[i] = new sf::Sprite();
-        settingsButtons[i]->setTexture(*this->settingsTextures[i].buttonNormal);
-        settingsButtons[i]->setOrigin(settingsButtons[i]->getGlobalBounds().width / 2, settingsButtons[i]->getGlobalBounds().height / 2);
-        settingsButtons[i]->scale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
+        //Siden jeg laster inn textures som det ikke skal lages sprite av gjør jeg det ikke for den siste loopen.
+        if (i < sizeof(settingsTextures) / sizeof(*settingsTextures) - 1) {
+            settingsButtons[i] = new sf::Sprite();
+            settingsButtons[i]->setTexture(*this->settingsTextures[i].buttonNormal);
+            settingsButtons[i]->setOrigin(settingsButtons[i]->getGlobalBounds().width / 2, settingsButtons[i]->getGlobalBounds().height / 2);
+            settingsButtons[i]->scale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
+        }
     }
+    if(*machine.mutedMusicPointer){
+        std::swap(settingsTextures[0], settingsTextures[sizeof(settingsTextures) / sizeof(*settingsTextures) - 1]);
+    }
+
     fpsTextures.buttonMouseOver = new sf::Texture();
     fpsTextures.buttonMouseOver->loadFromFile("Graphics/Sprites/Buttons/Button_33.png");
     fpsTextures.buttonNormal = new sf::Texture();
@@ -79,7 +85,7 @@ void StateSettings::initialize(sf::RenderWindow *window) {
     this->title = util.addText("Settings", 100, 2, 2, window->getSize().x / 2.f, window->getSize().y / 40.f, window);
     this->fpsText = util.addText("FPS Cap", 50, 2, 2, (4.5f * window->getSize().x) / 6, (2.5f * window->getSize().y) / 4.f, window);
 
-    util.makeMuteButton(window);
+    util.makeMuteButton(window, machine.mutedPointer);
 }
 
 void StateSettings::update(sf::RenderWindow *window) {
@@ -92,12 +98,12 @@ void StateSettings::update(sf::RenderWindow *window) {
         } else {
             settingsFlagButtons[i]->setColor(sf::Color(255, 255, 255, 125));
         }
-        if(i == selectedLanguage) {
+        if (i == machine.settingPointer->selectedLanguage) {
             settingsFlagButtons[i]->setColor(sf::Color(255, 255, 255, 255));
         }
     }
     //Sjekker mouseover og klikk på knapper og setter fargen utifra det.
-    for (unsigned int i = 0; i < sizeof(settingsTextures) / sizeof(*settingsTextures); ++i) {
+    for (unsigned int i = 0; i < sizeof(settingsTextures) / sizeof(*settingsTextures) - 1; ++i) {
         if (util.checkMouseover(settingsButtons[i], window)) {
             if (i < 4) {
                 mouseOverText[i]->setFillColor(sf::Color(255, 255, 255, 255));
@@ -127,7 +133,7 @@ void StateSettings::update(sf::RenderWindow *window) {
         } else {
             fpsButtons[i]->setTexture(*this->fpsTextures.buttonNormal);
         }
-        if (i == selectedfps)
+        if (i == machine.settingPointer->selectedFps)
             fpsButtons[i]->setTexture(*this->fpsTextures.buttonClicked);
     }
 
@@ -138,7 +144,7 @@ void StateSettings::render(sf::RenderWindow *window) {
     for (unsigned int i = 0; i < sizeof(settingsFlagTextures) / sizeof(*settingsFlagTextures); ++i) {
         window->draw(*this->settingsFlagButtons[i]);
     }
-    for (unsigned int i = 0; i < sizeof(settingsTextures) / sizeof(*settingsTextures); ++i) {
+    for (unsigned int i = 0; i < sizeof(settingsTextures) / sizeof(*settingsTextures) - 1; ++i) {
         window->draw(*this->settingsButtons[i]);
     }
     for (unsigned int i = 0; i < sizeof(mouseOverText) / sizeof(*mouseOverText); ++i) {
@@ -158,7 +164,7 @@ void StateSettings::destroy(sf::RenderWindow *window) {
     for (int i = (sizeof(settingsFlagButtons) / sizeof(*settingsFlagButtons)) - 1; i >= 0; --i) {
         delete this->settingsFlagButtons[i];
     }
-    for (int i = (sizeof(settingsTextures) / sizeof(*settingsTextures)) - 1; i >= 0; --i) {
+    for (int i = (sizeof(settingsTextures) / sizeof(*settingsTextures)) - 2; i >= 0; --i) {
         delete this->settingsButtons[i];
     }
     for (int i = (sizeof(mouseOverText) / sizeof(*mouseOverText)) - 1; i >= 0; --i) {
@@ -171,7 +177,7 @@ void StateSettings::destroy(sf::RenderWindow *window) {
 
 void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
     if (event.type == sf::Event::KeyPressed) {
-//Back on escapekey
+        //Back on escapekey
 
         if (event.key.code == machine.keybindMap.find("back")->second.second) {
             machine.setState(new StateMainMenu);
@@ -179,14 +185,21 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
         }
     }
     if (event.type == sf::Event::MouseButtonReleased) {
-        util.checkMuteMouseClick(window, event);
+        util.checkMuteMouseClick(window, event, machine.mutedPointer);
 
-        for (unsigned int i = 0; i < (sizeof(settingsTextures) / sizeof(*settingsTextures)); ++i){
+        for (unsigned int i = 0; i < (sizeof(settingsTextures) / sizeof(*settingsTextures)) - 1; ++i) {
             if (util.checkMouseclick(settingsButtons[i], event)) {
                 switch (i) {
                     //Musikknappen trykket
                     case 0:
-                        //HER MÅ VI SKRU AV MUSIKK
+                        *machine.mutedMusicPointer = !*machine.mutedMusicPointer;
+                        std::swap(settingsTextures[0], settingsTextures[sizeof(settingsTextures) / sizeof(*settingsTextures) - 1]);
+                       /* if(*machine.mutedMusicPointer){
+                            //HER MÅ VI SKRU AV MUSIKK
+                        }
+                        else{
+                            //HER MÅ VI SKRU PÅ MUSIKK
+                        }*/
                         return;
                         //controlsknappen trykket
                     case 1:
@@ -207,26 +220,26 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
                 }
             }
         }
-        for (unsigned int i = 0; i < 3; ++i){
-            if (util.checkMouseclick(fpsButtons[i], event)){
-                selectedfps = i;
-                switch (i){
+        for (unsigned int i = 0; i < 3; ++i) {
+            if (util.checkMouseclick(fpsButtons[i], event)) {
+                machine.settingPointer->selectedFps = i;
+                switch (i) {
                     case 0:
-                        util.setFramerate(30);
+                        window->setFramerateLimit(30);
                         break;
                     case 1:
-                        util.setFramerate(60);
+                        window->setFramerateLimit(60);
                         break;
                     case 2:
-                        util.setFramerate(120);
+                        window->setFramerateLimit(120);
                         break;
                 }
             }
         }
-        for (unsigned int i = 0; i < (sizeof(settingsFlagButtons) / sizeof(*settingsFlagButtons)); ++i){
-            if (util.checkMouseclick(settingsFlagButtons[i], event)){
-                selectedLanguage = i;
-                switch (i){
+        for (unsigned int i = 0; i < (sizeof(settingsFlagButtons) / sizeof(*settingsFlagButtons)); ++i) {
+            if (util.checkMouseclick(settingsFlagButtons[i], event)) {
+                machine.settingPointer->selectedLanguage = i;
+                switch (i) {
                     case 0:
                         //SET LANGUAGE TO ENGLISH
                         break;
