@@ -46,9 +46,11 @@ void App::run() {
             window.close();
         }
         deltaTime = timer.getElapsedTime();
-        if(deltaTime.asMilliseconds() != 0)
+       /*
+          if(deltaTime.asMilliseconds() != 0)
             std::cout<< "FPS: " << 1000/deltaTime.asMilliseconds() << "    MUTED: " << *machine.mutedPointer << "    Language: " << machine.settingPointer->selectedLanguage <<
                      "     Selected FPS: " << machine.settingPointer->selectedFps << "    MutedMusic: "  << *machine.mutedMusicPointer << std::endl;
+        */
         timer.restart();
     }
 }
