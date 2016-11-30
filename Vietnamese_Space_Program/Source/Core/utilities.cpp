@@ -51,11 +51,12 @@ void Utilities::checkMuteMouseClick(sf::RenderWindow *window, sf::Event event, b
 }
 
 //Texture, scale x, scale y, position x, position y, window
-sf::Sprite *Utilities::addButton(sf::Texture texture, float scaleX, float scaleY, float posX, float posY, sf::RenderWindow *window) {
+sf::Sprite* Utilities::addButton(sf::Texture* texture, float scaleX, float scaleY, float posX, float posY, sf::RenderWindow *window) {
+
     sf::Sprite *button = new sf::Sprite();
-    button->setTexture(texture);
+    button->setTexture(*texture);
     button->setOrigin(button->getGlobalBounds().width / 2, button->getGlobalBounds().height / 2);
-    // button->scale(window->getSize().x / button->getGlobalBounds().width / scaleX, window->getSize().x / button->getGlobalBounds().width / scaleY);
+    button->scale(window->getSize().x / scaleX, window->getSize().y / scaleY);
     button->setPosition(posX, posY);
 
     return button;

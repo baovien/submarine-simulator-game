@@ -32,7 +32,7 @@ public:
     void checkMuteMouseClick(sf::RenderWindow* window, sf::Event event, bool* mutedPointer);
 
     //Texture, scale x, scale y, position x, position y, window
-    sf::Sprite *addButton(sf::Texture texture, float scaleX, float scaleY, float posX, float posY, sf::RenderWindow *window);
+    sf::Sprite *addButton(sf::Texture* texture, float scaleX, float scaleY, float posX, float posY, sf::RenderWindow *window);
 
     //Text, textsize, origin x, origin y, position x, position y, window
     sf::Text *addText(std::string textContent, unsigned int textSize, int originX, int originY, float posX, float posY, sf::RenderWindow *window);

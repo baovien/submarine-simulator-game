@@ -19,7 +19,10 @@ void App::run() {
 
     sf::Clock timer;
     sf::Time deltaTime;
-    window.setFramerateLimit(60);
+
+    window.setFramerateLimit((unsigned int) ((15 * machine.settingPointer->selectedFps * machine.settingPointer->selectedFps) + 15 * machine.settingPointer->selectedFps + 30));
+    // 15x^2+15x+30 gir riktig fps utifra selectedFPS 0=30, 1=60, 2=120. Derfor bruker jeg den funksjonen til å sette initialfps
+
     while (window.isOpen()) {
         //Make event to prevent crash
         sf::Event event;
@@ -33,10 +36,6 @@ void App::run() {
             } else machine.eventHandler(event);
         }
 
-        /**
-         * Vi vil at den skal kjøre med nøyaktighet på 1/60 sekund. 1/60 sekunder = 16666 mikrosekunder.
-         * Dette tilsvarer ca. 60 fps..
-         */
         //window.clear(sf::Color::Black);
         machine.update();
         machine.render();
@@ -46,11 +45,11 @@ void App::run() {
             window.close();
         }
         deltaTime = timer.getElapsedTime();
-       /*
-          if(deltaTime.asMilliseconds() != 0)
-            std::cout<< "FPS: " << 1000/deltaTime.asMilliseconds() << "    MUTED: " << *machine.mutedPointer << "    Language: " << machine.settingPointer->selectedLanguage <<
+/*
+          if(deltaTime.asMicroseconds() != 0)
+            std::cout<< "FPS: " << 1000000/deltaTime.asMicroseconds() << "    MUTED: " << *machine.mutedPointer << "    Language: " << machine.settingPointer->selectedLanguage <<
                      "     Selected FPS: " << machine.settingPointer->selectedFps << "    MutedMusic: "  << *machine.mutedMusicPointer << std::endl;
-        */
+*/
         timer.restart();
     }
 }

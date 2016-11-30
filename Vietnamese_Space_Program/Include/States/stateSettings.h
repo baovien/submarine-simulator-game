@@ -27,8 +27,8 @@ private:
         sf::Texture* buttonMouseOver;
         sf::Texture* buttonClicked;
     };
-    settingsTextureStruct settingsTextures[6];
-    sf::Sprite* settingsButtons[5];
+    settingsTextureStruct settingsTextures[8];
+    sf::Sprite* settingsButtons[7];
 
     sf::Texture* settingsFlagTextures[4];
     sf::Sprite* settingsFlagButtons[4];
@@ -43,6 +43,12 @@ private:
     sf::Text* mouseOverText[4];
     sf::Texture* bgTexture;
     sf::Sprite* background;
+
+    sf::Text* overlayText;
+    sf::Texture* obTexture;
+    sf::Sprite* overlayBackground;
+    bool inOverlay = false;
+    bool bindsOrScore = false; //binds er true, score er false. Denne bruker vi til å sjekke om det er binds eller score som skal resettes
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_SETTINGSSTATE_H

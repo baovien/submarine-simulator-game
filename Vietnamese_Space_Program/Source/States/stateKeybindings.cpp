@@ -30,6 +30,7 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
     this->alreadyBoundText = new sf::Text("Key already bound", *this->font, 25);
     this->alreadyBoundText->setOrigin(this->alreadyBoundText->getGlobalBounds().width / 2, this->alreadyBoundText->getGlobalBounds().height / 2);
     this->alreadyBoundText->setPosition(window->getSize().x / 2, window->getSize().y / 1.4f);
+    this->alreadyBoundText->scale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
     this->alreadyBoundText->setFillColor(sf::Color(255, 0, 0, (sf::Uint8) transparencyValue));
 
     this->movementText = util.addText("Movement", 25, 2, 2, ((window->getSize().x / 2) - this->background->getGlobalBounds().width / 4), ((window->getSize().y / 2) - this->background->getGlobalBounds().height / 2.25f), window);
