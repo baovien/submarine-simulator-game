@@ -4,9 +4,7 @@
 
 void StateGameMode1::initialize(sf::RenderWindow *window) {
     //TODO:
-//    sl.LoadSounds();
-//    sl.PlaySound(sl.ARCADE);
-
+//    machine.soundLoaderPointer->playSound(machine.soundLoaderPointer->SHOOT);
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
 
@@ -34,7 +32,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->lives->setPosition(window->getSize().x - window->getSize().x/5, window->getSize().y/20);
 
     //Init player
-    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2, window, 1, 2);
+    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2, window, 1, 2, machine.soundLoaderPointer);
     this->manager->addEntity("ship", this->player);
 
     this->overBar.loadFromFile("Graphics/Sprites/overheat_border.png");
