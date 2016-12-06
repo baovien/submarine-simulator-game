@@ -56,8 +56,9 @@ private:
 
     Utilities util;
 
-    int selected, selected_Theme, selected_Fighter, selected_Gamemode;
-    unsigned int textSize = 20U;
+    int  selected_Theme = 0;
+    int selected_Fighter = 4;
+    int selected_Gamemode = 5;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_PLAYCONFIG_H

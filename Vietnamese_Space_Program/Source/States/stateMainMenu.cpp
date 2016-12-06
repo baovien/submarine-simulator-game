@@ -48,20 +48,10 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
     menuButtons[0]->scale(window->getSize().x/960.f,  window->getSize().y/540.f);
     menuButtons[0]->setPosition(window->getSize().x / 2, window->getSize().y / 2.5f);
 
-    util.makeMuteButton(window);
-/*
-    menuButtons[5]->scale(window->getSize().x/5120.f,  window->getSize().y/2880.f);
-    menuButtons[5]->setPosition(window->getSize().x - window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
+    util.makeMuteButton(window, machine.mutedPointer);
 
-    menuTextures[6].buttonMouseOver = new sf::Texture();
-    menuTextures[6].buttonMouseOver->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn18.png");
-    menuTextures[6].buttonNormal = new sf::Texture();
-    menuTextures[6].buttonNormal->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn19.png");
-    menuTextures[6].buttonClicked = new sf::Texture();
-    menuTextures[6].buttonClicked->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn20.png");
-*/
     //Text, textsize, origin x, origin y, position x, position y
-    Title = util.addText("Submarine simulator", 100, 2, 2, menuButtons[0]->getPosition().x, window->getSize().y/40.f, window);
+    Title = util.addText("Submarine Simulator", 100, 2, 2, menuButtons[0]->getPosition().x, window->getSize().y/15.f, window, machine.settingPointer->selectedLanguage);
 }
 
 void StateMainMenu::update(sf::RenderWindow *window) {
@@ -108,7 +98,7 @@ void StateMainMenu::destroy(sf::RenderWindow *window) {
 void StateMainMenu::handleEvent(sf::RenderWindow *window, sf::Event event) {
     if (event.type == sf::Event::MouseButtonReleased) {
 
-        util.checkMuteMouseClick(window, event);
+        util.checkMuteMouseClick(window, event, machine.mutedPointer);
 
         for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)); ++i)
             if (util.checkMouseclick(menuButtons[i], event)) {
@@ -139,6 +129,6 @@ void StateMainMenu::handleEvent(sf::RenderWindow *window, sf::Event event) {
 }
 
 void StateMainMenu::reinitialize(sf::RenderWindow *window) {
-
+    initialize(window);
 }
 

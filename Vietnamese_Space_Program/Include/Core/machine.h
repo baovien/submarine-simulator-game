@@ -34,8 +34,23 @@ public:
                                                            {"shoot",  std::make_pair("Space" , sf::Keyboard::Space)},
                                                            {"pause",  std::make_pair("P" , sf::Keyboard::P)}};
 
+private:
+    struct settingStruct{
+        int selectedFps;
+        int selectedLanguage;
+    };
+        bool muted = false;
+        bool mutedMusic = false;
 
+    settingStruct settingVariables {1,0};
 
+    std::map<const std::string, const std::tuple<std::string, std::string, std::string>> languageMap =
+            {{"Submarine Simulator", std::make_tuple("Ubåtsimulator" , "podmornica simulator", "Simulador submarino")}};
+public:
+    bool* mutedMusicPointer = &mutedMusic;
+    bool* mutedPointer = &muted;
+    settingStruct* settingPointer = &settingVariables;
+    //std::map<const std::string, const std::tuple<std::string, std::string, std::string>>* languageMapPointer = &languageMap;
 private:
     sf::RenderWindow* window;
     States* state;

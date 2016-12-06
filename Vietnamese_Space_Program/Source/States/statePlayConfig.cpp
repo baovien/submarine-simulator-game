@@ -15,12 +15,6 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
     this->background->setTexture(*this->bgTexture);
     this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
 
-    this->selected = 0;
-
-    this->selected_Theme = 0;
-    this->selected_Fighter = 4;
-    this->selected_Gamemode = 5;
-
     for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i) {
         menuTextures[i].buttonMouseOver = new sf::Texture();
         menuTextures[i].buttonMouseOver->loadFromFile("Graphics/Sprites/PlayConfig_buttons/Btn" + std::to_string(i * 3) + ".png");
@@ -49,50 +43,50 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
     }
 
     //THEME
-    this->theme = util.addText("SELECT THEME", 35, 2, 2, window->getSize().x / 6.0f, window->getSize().y / 24.0f, window);
+    this->theme = util.addText("SELECT THEME", 35, 2, 2, window->getSize().x / 6.0f, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
     //SpaceTheme
 
     PictureButtons[0]->scale(window->getSize().x / 3456.0f, window->getSize().y / 1944.f);
     PictureButtons[0]->setPosition(window->getSize().x / 6.0f, window->getSize().y / 4.5f);
-    this->SpaceTheme = util.addText("SPACE", 30, 2, 2, window->getSize().x / 6.0f, window->getSize().y / 4.5f + window->getSize().y/9.5f, window);
+    this->SpaceTheme = util.addText("SPACE", 30, 2, 2, window->getSize().x / 6.0f, window->getSize().y / 4.5f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
 
     //WaterTheme
     PictureButtons[1]->scale(window->getSize().x / 3456.0f, window->getSize().y / 1944.0f);
     PictureButtons[1]->setPosition(window->getSize().x / 6.0f, window->getSize().y / 2.1f);
-    this->WaterTheme = util.addText("WATER", 30, 2, 2, window->getSize().x / 6.0f, window->getSize().y / 2.1f + window->getSize().y/9.5f, window);
+    this->WaterTheme = util.addText("WATER", 30, 2, 2, window->getSize().x / 6.0f, window->getSize().y / 2.1f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
 
     //GAMEMODE
-    this->gamemode = util.addText("SELECT GAMEMODE", 35, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 24.0f, window);
+    this->gamemode = util.addText("SELECT GAMEMODE", 35, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
     //Arcade
     PictureButtons[5]->scale(window->getSize().x / 3456.0f, window->getSize().y / 1944.0f);
     PictureButtons[5]->setPosition(window->getSize().x / 2.0f, window->getSize().y / 4.5f);
-    this->Arcade = util.addText("ARCADE", 30, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 4.5f + window->getSize().y/9.5f, window);
+    this->Arcade = util.addText("ARCADE", 30, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 4.5f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
 
     //Classic
     PictureButtons[6]->scale(window->getSize().x / 3456.0f, window->getSize().y / 1944.0f);
     PictureButtons[6]->setPosition(window->getSize().x / 2.0f, window->getSize().y / 2.1f);
-    this->Classic = util.addText("CLASSIC", 30, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 2.1f + window->getSize().y/9.5f, window);
+    this->Classic = util.addText("CLASSIC", 30, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 2.1f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
 
     //FIGHTER
-    this->fighter = util.addText("SELECT FIGHTER", 35, 2, 2, window->getSize().x - window->getSize().x / 6, window->getSize().y / 24.0f, window);
+    this->fighter = util.addText("SELECT FIGHTER", 35, 2, 2, window->getSize().x - window->getSize().x / 6, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
 
     //Fighter 1
     PictureButtons[4]->scale(window->getSize().x / 1536.0f, window->getSize().y / 864.0f);
     PictureButtons[4]->rotate(90);
     PictureButtons[4]->setPosition(window->getSize().x - window->getSize().x / 6, window->getSize().y / 4.5f);
-    this->fighter_1 = util.addText("ALVAREZ", 30, 2, 2, window->getSize().x - window->getSize().x / 6, window->getSize().y / 4.5f + window->getSize().y/9.5f, window);
+    this->fighter_1 = util.addText("ALVAREZ", 30, 2, 2, window->getSize().x - window->getSize().x / 6, window->getSize().y / 4.5f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
 
     //Fighter 2
     PictureButtons[3]->scale(window->getSize().x / 1536.0f, window->getSize().y / 864.0f);
     PictureButtons[3]->rotate(90);
     PictureButtons[3]->setPosition(window->getSize().x - window->getSize().x / 6, window->getSize().y / 2.1f);
-    this->fighter_2 = util.addText("MCGREGOR", 30, 2, 2, window->getSize().x - window->getSize().x / 6, window->getSize().y / 2.1f + window->getSize().y/9.5f, window);
+    this->fighter_2 = util.addText("MCGREGOR", 30, 2, 2, window->getSize().x - window->getSize().x / 6, window->getSize().y / 2.1f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
 
     //Fighter 3
     PictureButtons[2]->scale(window->getSize().x / 1536.0f, window->getSize().y / 864.0f);
     PictureButtons[2]->rotate(90);
     PictureButtons[2]->setPosition(window->getSize().x - window->getSize().x / 6, window->getSize().y / 1.4f);
-    this->fighter_3 = util.addText("DIAZ", 30, 2, 2, window->getSize().x - window->getSize().x / 6, window->getSize().y / 1.4f + window->getSize().y/9.5f, window);
+    this->fighter_3 = util.addText("DIAZ", 30, 2, 2, window->getSize().x - window->getSize().x / 6, window->getSize().y / 1.4f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
 
     //Setter posisjonen og skalinga til PLAY-button
     menuButtons[0]->scale(window->getSize().x / 1536.0f, window->getSize().y / 864.0f);
@@ -102,7 +96,7 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
     menuButtons[1]->scale(window->getSize().x / 5120.f, window->getSize().y / 2880.f);
     menuButtons[1]->setPosition(window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
 
-    util.makeMuteButton(window);
+    util.makeMuteButton(window, machine.mutedPointer);
 }
 
 void StatePlayConfig::update(sf::RenderWindow *window) {
@@ -200,7 +194,7 @@ void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event) {
     }
 
     if (event.type == sf::Event::MouseButtonReleased) {
-        util.checkMuteMouseClick(window, event);
+        util.checkMuteMouseClick(window, event, machine.mutedPointer);
         for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i)
             if (util.checkMouseclick(menuButtons[i], event)) {
                 switch (i) {
@@ -250,5 +244,5 @@ void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event) {
 }
 
 void StatePlayConfig::reinitialize(sf::RenderWindow *window) {
-
+    initialize(window);
 }

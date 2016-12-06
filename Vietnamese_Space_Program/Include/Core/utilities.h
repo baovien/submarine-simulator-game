@@ -9,8 +9,6 @@ private:
     sf::Font *font;
     sf::Sprite *muteButton;
 
-    unsigned int framerate;
-
     struct muteTextureStruct{
         sf::Texture* buttonNormal;
         sf::Texture* buttonMouseOver;
@@ -18,35 +16,29 @@ private:
     };
     muteTextureStruct muteTextures[2];
 
+    std::map<const std::string, const std::tuple<std::string, std::string, std::string>> languageMap =
+            {{"Submarine Simulator", std::make_tuple("Ubåtsimulator" , "podmornica simulator", "симулятор подводной лодки")}};
+
+
 public:
-    Utilities();
     bool paused = false;
 
     sf::Sprite *getMuteButton() const;
-
-    unsigned int getFramerate() const {
-        return framerate;
-    }
-
-    void setFramerate(unsigned int Framerate) {
-        Utilities::framerate = Framerate;
-    }
-
 
     void pauseScreen() {
         //Funksjonen setter og fjerner pause
         paused = !paused;
     }
 
-    void makeMuteButton(sf::RenderWindow* window);
+    void makeMuteButton(sf::RenderWindow* window, bool* mutedPointer);
     void checkMuteMouseOver(sf::RenderWindow* window);
-    void checkMuteMouseClick(sf::RenderWindow* window, sf::Event event);
+    void checkMuteMouseClick(sf::RenderWindow* window, sf::Event event, bool* mutedPointer);
 
     //Texture, scale x, scale y, position x, position y, window
-    sf::Sprite *addButton(sf::Texture texture, float scaleX, float scaleY, float posX, float posY, sf::RenderWindow *window);
+    sf::Sprite *addButton(sf::Texture* texture, float scaleX, float scaleY, float posX, float posY, sf::RenderWindow *window);
 
     //Text, textsize, origin x, origin y, position x, position y, window
-    sf::Text *addText(std::string textContent, unsigned int textSize, int originX, int originY, float posX, float posY, sf::RenderWindow *window);
+    sf::Text *addText(std::string textContent, unsigned int textSize, int originX, int originY, float posX, float posY, sf::RenderWindow *window, int language);
 
     //Tar inn sprite og returnerer true om mouseover
     bool checkMouseover(sf::Sprite *buttonSprite, sf::RenderWindow *window);
