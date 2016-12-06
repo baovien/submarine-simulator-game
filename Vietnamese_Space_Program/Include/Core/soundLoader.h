@@ -9,13 +9,14 @@
 class SoundLoader
 {
 public:
-    enum SoundNames{MAIN_MENU, ARCADE};
+    enum SoundNames{MAIN_MENU, ARCADE, SHOOT};
     SoundLoader();
     ~SoundLoader();
 
-    void LoadSounds();
-    void PlaySound(SoundNames soundName);
-
+    void loadSounds();
+    void playSound(SoundNames soundName);
+    void playMusic(SoundNames soundNames);
+private:
     std::map<SoundNames, sf::SoundBuffer> Sounds;
     std::vector<sf::Sound> playingSounds;
 };

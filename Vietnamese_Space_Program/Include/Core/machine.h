@@ -2,6 +2,7 @@
 #define VIETNAMESE_SPACE_PROGRAM_MACHINE_H
 
 #include "state.h"
+#include "soundLoader.h"
 
 class Machine {
 public:
@@ -63,7 +64,11 @@ private:
 
     std::map<const std::string, const std::tuple<std::string, std::string, std::string>> languageMap =
             {{"Submarine Simulator", std::make_tuple("Ubåtsimulator" , "podmornica simulator", "Simulador submarino")}};
+    SoundLoader soundLoader;
+
+
 public:
+    SoundLoader* soundLoaderPointer = &soundLoader;
     bool* mutedMusicPointer = &mutedMusic;
     bool* mutedPointer = &muted;
     settingStruct* settingPointer = &settingVariables;

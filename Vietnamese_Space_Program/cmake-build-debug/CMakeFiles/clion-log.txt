@@ -1,0 +1,4 @@
+/opt/clion-2016.2.2/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS=-I/usr/include -DCMAKE_EXE_LINKER_FLAGS=-L/usr/lib -G "CodeBlocks - Unix Makefiles" /home/bao/development/aginc/Vietnamese_Space_Program
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug

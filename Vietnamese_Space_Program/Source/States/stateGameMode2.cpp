@@ -29,7 +29,7 @@ void StateGameMode2::initialize(sf::RenderWindow *window) {
     this->lives->setPosition(window->getSize().x - this->lives->getGlobalBounds().width - 20, 5);
 
     manager = new EntityManager();
-    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y, window, 2, 2);
+    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y, window, 2, 2, machine.soundLoaderPointer);
     this->manager->addEntity("ship", this->player);
 
 

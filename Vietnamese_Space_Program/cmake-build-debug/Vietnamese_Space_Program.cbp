@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Vietnamese_Space_Program"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Vietnamese_Space_Program">
+				<Option output="/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Vietnamese_Space_Program" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 Vietnamese_Space_Program"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Vietnamese_Space_Program/fast">
+				<Option output="/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Vietnamese_Space_Program" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 Vietnamese_Space_Program/fast"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Audio">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Graphics">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/app.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/entity.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/entityManager.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/machine.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/pauseableClock.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/playerLives.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/score.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/soundLoader.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/state.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/utilities.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/waveManager.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Entities/boss1.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Entities/bullet.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Entities/dynamicBar.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Entities/enemy.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Entities/enemy2.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Entities/healthPack.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Entities/indestructableObject.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/Entities/player.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateGameMode1.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateGameMode2.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateGameOver.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateHelp.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateHighscore.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateKeybindings.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateMainMenu.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/States/statePlayConfig.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateSettings.h">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Core/app.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Core/entity.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Core/entityManager.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Core/machine.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Core/pauseableClock.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Core/playerLives.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Core/score.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Core/soundLoader.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Core/utilities.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Core/waveManager.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Entities/boss1.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Entities/bullet.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Entities/dynamicBar.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Entities/enemy.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Entities/enemy2.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Entities/healthPack.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Entities/indestructableObject.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/Entities/player.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/States/stateGameMode1.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/States/stateGameMode2.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/States/stateGameOver.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/States/stateHelp.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/States/stateHighscore.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/States/stateKeybindings.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/States/stateMainMenu.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/States/statePlayConfig.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/States/stateSettings.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/Source/main.cpp">
+			<Option target="Vietnamese_Space_Program"/>
+		</Unit>
+		<Unit filename="/home/bao/development/aginc/Vietnamese_Space_Program/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
