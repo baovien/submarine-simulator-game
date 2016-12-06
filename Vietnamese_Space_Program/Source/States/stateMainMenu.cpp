@@ -51,7 +51,7 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
     util.makeMuteButton(window, machine.mutedPointer);
 
     //Text, textsize, origin x, origin y, position x, position y
-    Title = util.addText("Submarine simulator", 100, 2, 2, menuButtons[0]->getPosition().x, window->getSize().y/40.f, window);
+    Title = util.addText("Submarine Simulator", 100, 2, 2, menuButtons[0]->getPosition().x, window->getSize().y/15.f, window, machine.settingPointer->selectedLanguage);
 }
 
 void StateMainMenu::update(sf::RenderWindow *window) {

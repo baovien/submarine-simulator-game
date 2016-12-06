@@ -78,7 +78,7 @@ void StateSettings::initialize(sf::RenderWindow *window) {
             fpsButtons[i]->setTexture(*this->fpsTextures.buttonClicked);
         }
 
-        fpsNumbers[i] = util.addText(fpsWordList[i], 30, 2, 2, fpsButtons[i]->getPosition().x, fpsButtons[i]->getPosition().y - fpsButtons[i]->getGlobalBounds().height / 8, window);
+        fpsNumbers[i] = util.addText(fpsWordList[i], 30, 2, 2, fpsButtons[i]->getPosition().x, fpsButtons[i]->getPosition().y - fpsButtons[i]->getGlobalBounds().height / 8, window, machine.settingPointer->selectedLanguage);
     }
 
     //Siden posisjonene er så varierende setter jeg dem utenfor for-løkken.
@@ -98,14 +98,14 @@ void StateSettings::initialize(sf::RenderWindow *window) {
 
     //Lager tekstene som skal komme når man mouser over de 4 store knappene. Tekstene er lagret i wordListarrayet.
     for (unsigned int i = 0; i < sizeof(mouseOverText) / sizeof(*mouseOverText); ++i) {
-        mouseOverText[i] = util.addText(wordList[i], 30, 2, 2, settingsButtons[i]->getPosition().x, (settingsButtons[i]->getPosition().y - settingsButtons[i]->getGlobalBounds().height / 1.5f), window);
+        mouseOverText[i] = util.addText(wordList[i], 30, 2, 2, settingsButtons[i]->getPosition().x, (settingsButtons[i]->getPosition().y - settingsButtons[i]->getGlobalBounds().height / 1.5f), window, machine.settingPointer->selectedLanguage);
         mouseOverText[i]->setFillColor(sf::Color(255, 255, 255, 0));
         mouseOverText[i]->setOutlineColor((sf::Color::Transparent));
     }
     //Text, textsize, origin x, origin y, position x, position y, window
-    this->title = util.addText("Settings", 100, 2, 2, window->getSize().x / 2.f, window->getSize().y / 40.f, window);
-    this->fpsText = util.addText("FPS Cap", 50, 2, 2, (4.5f * window->getSize().x) / 6, (2.5f * window->getSize().y) / 4.f, window);
-    this->overlayText = util.addText("Are you sure?", 50, 2, 2, window->getSize().x / 2, ((window->getSize().y / 2) - this->overlayBackground->getGlobalBounds().height / 2.25f), window);
+    this->title = util.addText("Settings", 100, 2, 2, window->getSize().x / 2.f, window->getSize().y / 40.f, window, machine.settingPointer->selectedLanguage);
+    this->fpsText = util.addText("FPS Cap", 50, 2, 2, (4.5f * window->getSize().x) / 6, (2.5f * window->getSize().y) / 4.f, window, machine.settingPointer->selectedLanguage);
+    this->overlayText = util.addText("Are you sure?", 50, 2, 2, window->getSize().x / 2, ((window->getSize().y / 2) - this->overlayBackground->getGlobalBounds().height / 2.25f), window, machine.settingPointer->selectedLanguage);
 
     util.makeMuteButton(window, machine.mutedPointer);
 }
@@ -315,7 +315,7 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
                             window->setFramerateLimit(60);
                             break;
                         case 2:
-                            window->setFramerateLimit(120);
+                            window->setFramerateLimit(5000);
                             break;
                     }
                 }

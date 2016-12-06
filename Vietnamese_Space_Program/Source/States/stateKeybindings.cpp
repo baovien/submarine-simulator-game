@@ -33,9 +33,9 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
     this->alreadyBoundText->scale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
     this->alreadyBoundText->setFillColor(sf::Color(255, 0, 0, (sf::Uint8) transparencyValue));
 
-    this->movementText = util.addText("Movement", 25, 2, 2, ((window->getSize().x / 2) - this->background->getGlobalBounds().width / 4), ((window->getSize().y / 2) - this->background->getGlobalBounds().height / 2.25f), window);
-    this->gameplayText= util.addText("Gameplay", 25, 2, 2, ((window->getSize().x / 2) + this->background->getGlobalBounds().width / 4), (window->getSize().y / 2), window);
-    this->menuNavigationText = util.addText("Menu navigation", 25, 2, 2, ((window->getSize().x / 2) + this->background->getGlobalBounds().width / 4), movementText->getPosition().y, window);
+    this->movementText = util.addText("Movement", 25, 2, 2, ((window->getSize().x / 2) - this->background->getGlobalBounds().width / 4), ((window->getSize().y / 2) - this->background->getGlobalBounds().height / 2.25f), window, machine.settingPointer->selectedLanguage);
+    this->gameplayText= util.addText("Gameplay", 25, 2, 2, ((window->getSize().x / 2) + this->background->getGlobalBounds().width / 4), (window->getSize().y / 2), window, machine.settingPointer->selectedLanguage);
+    this->menuNavigationText = util.addText("Menu navigation", 25, 2, 2, ((window->getSize().x / 2) + this->background->getGlobalBounds().width / 4), movementText->getPosition().y, window, machine.settingPointer->selectedLanguage);
 
     positionList.clear();
     positionList.push_back(sf::Vector2f((window->getSize().x / 2) - this->background->getGlobalBounds().width / 4, (window->getSize().y / 2) - this->background->getGlobalBounds().height / 6));
@@ -57,7 +57,7 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
         keyVector[i].keySquare->setPosition(positionList[i].x, positionList[i].y);
 
         //Text, textsize, origin x, origin y, position x, position y, window
-        keyVector[i].titleText = util.addText(wordList[i], 15, 2, 2, keyVector[i].keySquare->getPosition().x, (keyVector[i].keySquare->getPosition().y - keyVector[i].keySquare->getGlobalBounds().height / 1.5f) , window);
+        keyVector[i].titleText = util.addText(wordList[i], 15, 2, 2, keyVector[i].keySquare->getPosition().x, (keyVector[i].keySquare->getPosition().y - keyVector[i].keySquare->getGlobalBounds().height / 1.5f) , window, machine.settingPointer->selectedLanguage);
 
         keyVector[i].keyText = new sf::Text("" + machine.keybindMap.find(wordList[i])->second.first, *this->keyFont, 20);
         keyVector[i].keyText->setPosition(keyVector[i].keySquare->getPosition().x, keyVector[i].keySquare->getPosition().y);

@@ -16,6 +16,9 @@ private:
     };
     muteTextureStruct muteTextures[2];
 
+    std::map<const std::string, const std::tuple<std::string, std::string, std::string>> languageMap =
+            {{"Submarine Simulator", std::make_tuple("Ubåtsimulator" , "podmornica simulator", "симулятор подводной лодки")}};
+
 
 public:
     bool paused = false;
@@ -35,7 +38,7 @@ public:
     sf::Sprite *addButton(sf::Texture* texture, float scaleX, float scaleY, float posX, float posY, sf::RenderWindow *window);
 
     //Text, textsize, origin x, origin y, position x, position y, window
-    sf::Text *addText(std::string textContent, unsigned int textSize, int originX, int originY, float posX, float posY, sf::RenderWindow *window);
+    sf::Text *addText(std::string textContent, unsigned int textSize, int originX, int originY, float posX, float posY, sf::RenderWindow *window, int language);
 
     //Tar inn sprite og returnerer true om mouseover
     bool checkMouseover(sf::Sprite *buttonSprite, sf::RenderWindow *window);
