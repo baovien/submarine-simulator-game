@@ -60,9 +60,34 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
 void StateGameMode1::update(sf::RenderWindow *window) {
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
+
+        //Når playerliv blir 0, kommer gameOver splashscreen
+        if (this->lives->getValue() <= 0) {
+            machine.setGameOverScore(this->score->getValue());
+            machine.setState(new StateGameOver);
+            return;
+        }
         this->manager->updateEntity(window);
         this->score->updateScore();
         this->lives->updateLife();
+
+        //Legger til healthpacks + indestructableObjects utenfor wavessystemet
+        this->pauseableClockIndestructableObject.start();
+        this->pauseableClockHealthPack.start();
+
+        if (this->pauseableClockIndestructableObject.getElapsedTime().asMicroseconds() > 5000000)   //Sjekker om verdien til clock er mer enn 5 sekunder
+        {
+            this->manager->addEntity("indestructableObject", new IndestructableObject());   //er clock mer enn 5 sekunder lager jeg en ny astroide
+            this->pauseableClockIndestructableObject.restart();                             //restarter clock(nullstiller)
+        }
+
+        if (pauseableClockHealthPack.getElapsedTime().asMicroseconds() > 5000000) {         //Sjekker om verdien til clock er mer enn 5 sekunder
+            if (rand() % 10 < 3) {                                          //Sjekker om rand() % 10 er mindre enn 3, hvis ikke - så spawnes det ikke healthpack
+                healthPack = new HealthPack(this->lives);
+                this->manager->addEntity("healthPack", healthPack);
+            }
+            pauseableClockHealthPack.restart();     //restarter clock(nullstiller)
+        }
 
         //////////////////////////WAVES
         name = "Enemy";
@@ -72,8 +97,13 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         {
             for (int i = 0; i < 2*waveNum; ++i)
             {
+                this->manager->addEntity("Enemy", new EnemyObject(window, this->player, this->manager, this->mode));
 
-                this->manager->addEntity("Enemy", new EnemyObject(window, player,this->manager, 2));
+                /*
+                //Init boss
+                this->bossObject = new BossObject(this->manager, this->player, this->mode);
+                this->manager->addEntity("Enemy", this->bossObject);
+                 */
                 enemyCount++;
             }
             std::cout << "InWave enemies: " << enemyCount << std::endl;
@@ -108,51 +138,12 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         if(transparencyValue > 1) transparencyValue -= 1;
         //////////////////////////END_WAVES
 
-        //Når playerliv blir 0, kommer gameOver splashscreen
-        if (this->lives->getValue() <= 0)
-        {
-            machine.setGameOverScore(this->score->getValue());
-            machine.setState(new StateGameOver);
-            return;
-        }
+    }else{ //Handle paused game
+        this->pauseableClockIndestructableObject.pause();
+        this->pauseableClockHealthPack.pause();
+        //this->bossObject->pauseableClock.pause();
     }
 
-    /*
-
-    //Spawn enemies and asteroids randomly
-    sf::Time elapsedAsteroid = clockAsteroid.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
-    sf::Time elapsedBoss = clockBoss.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
-    sf::Time elapsedHealthPack = clockHealthPack.getElapsedTime();
-    sf::Time elapsedEnemy = clockEnemy.getElapsedTime();
-
-    if (elapsedEnemy.asMicroseconds() > 5000000) {
-        this->manager->addEntity("Enemy", new EnemyObject(player));
-        clockEnemy.restart();
-    }
-
-    if (elapsedAsteroid.asMicroseconds() > 3000000) //Sjekker om verdien til clock er mer enn 3 sekunder
-    {
-        this->manager->addEntity("asteroid",
-                                 new AsteroidObject()); //er clock mer enn 3 sekunder lager jeg en ny astroide
-        clockAsteroid.restart(); //restarter clock(nullstiller)
-    }
-
-    if (elapsedBoss.asMicroseconds() > 15000000) //Sjekker om verdien til clock er mer enn 15 sekunder (15000000)
-    {
-        bossObject = new BossObject(this->manager, this->player);
-        this->manager->addEntity("Boss", bossObject);
-        clockBoss.restart(); //restarter clock(nullstiller)
-    }
-
-    if (elapsedHealthPack.asMicroseconds() > 5000000) {
-        if (rand() % 10 < 3) {
-            healthPack = new HealthPack(this->lives);
-            this->manager->addEntity("healthPack", healthPack);
-        }
-        clockHealthPack.restart();
-    }
-
-    */
 }
 
 void StateGameMode1::render(sf::RenderWindow *window) {

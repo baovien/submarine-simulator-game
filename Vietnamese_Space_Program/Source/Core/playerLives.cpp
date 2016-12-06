@@ -18,4 +18,7 @@ void Lives::updateLife() {
 int Lives::getValue() const {
     return value;
 }
+int Lives::setValue(int life){
+    this->value = life;
+}
 

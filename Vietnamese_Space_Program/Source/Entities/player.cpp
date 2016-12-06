@@ -181,7 +181,7 @@ void Player::updateEntity(sf::RenderWindow *window) {
 //Her sjekker vi om vårt fly kræsjer med noe annet
 void Player::collision(Entity *entity) {
     switch (entity->groupID()) {
-        case 3: // Asteroid
+        case 3: // Indestructable Object nr 1
             entity->destroyEntity();
             this->lives->decreaseLife();
             break;
@@ -189,9 +189,16 @@ void Player::collision(Entity *entity) {
             entity->destroyEntity();
             this->lives->decreaseLife();
             break;
+        case 5: // Boss
+            this->lives->decreaseLife();
+            this->lives->decreaseLife();
+            break;
         case 6: //Boss bullet
             entity->destroyEntity();
             this->lives->decreaseLife();
             break;
+        case 9: // Indestructable Object nr 2
+            entity->destroyEntity();
+            this->lives->decreaseLife();
     }
 }

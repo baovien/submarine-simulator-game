@@ -13,6 +13,9 @@ EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager
     this->groupId = 4;
     this->randomNumber = rand() % 4;
     this->setRotation(2);
+    this->easingAmount = 0.00015f;
+    this->maxSpeed = 1.5f;
+
     this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
     this->setScale(window->getSize().x/1280.0f, window->getSize().y / 720.0f);
         switch(mode)

@@ -20,8 +20,7 @@ private:
     // avstanden x og y fra enemy til skipet.
     float xDistance, yDistance, distance;
     double angle;
-    float easingAmount = 0.00015f;
-    float maxSpeed = 1.5f;
+    float easingAmount, maxSpeed;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_ENEMY_H

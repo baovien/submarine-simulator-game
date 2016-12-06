@@ -1,19 +1,39 @@
-#include "../../Include/Entities/asteroid.h"
+#include "../../Include/Entities/indestructableObject.h"
 
-//Initiater asteroid, koden vår er satt opp for flere spillere så case 0 er spiller 1.
-AsteroidObject::AsteroidObject()
+//Initiater objektet, koden vår er satt opp for flere spillere så case 0 er spiller 1.
+IndestructableObject::IndestructableObject(float x, float y, float directionX, float directionY, float angle)
 {
     this->load("asteroid.png");
     //Scaler opp bildet for å slippe å lage nytt
 
-    this->scale(1.5,1.5);
     this->active = 1;
     this->groupId = 3;
     this->health = 1;
-    //Setter origin til midten av astroiden. Deler på 4 pga scalinga.
-    this->setOrigin(this->getGlobalBounds().height/4, this->getGlobalBounds().height/4);
+    this->maxSpeed = 1.5f;
+    //Setter origin til midten av astroiden.
+    this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
 
     //setter en absolutt rotasjon
+    this->setRotation(2);
+
+    this->setPosition(x,y);
+    this->velocity.x = directionX;
+    this->velocity.y = directionY;
+    this->setRotation(angle);
+}
+
+IndestructableObject::IndestructableObject() {
+    this->load("asteroid.png");
+    this->active = 1;
+    this->groupId = 9;
+    this->health = 1;
+    this->randomNumber = rand()%4;
+    this->maxSpeed = 1.5f;
+
+    //Setter origin til midten av asteroiden.
+    this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
+
+    //Setter en absolutt rotasjon
     this->setRotation(2);
 
     //Spawner astroides utenfor skjermen slik at det skal se ut som om de kommer fra intet.
@@ -24,17 +44,17 @@ AsteroidObject::AsteroidObject()
         this->setPosition(-50, rand() % 600+60);
         if(this->getPosition().y>500)
         {
-            this->velocity.x = 3;
+            this->velocity.x = maxSpeed;
             this->velocity.y = rand()%3-4;
         }
         else if(this->getPosition().y<160)
         {
-            this->velocity.x = 3;
+            this->velocity.x = maxSpeed;
             this->velocity.y = rand()%3;
         }
         else
         {
-            this->velocity.x = 3;
+            this->velocity.x = maxSpeed;
             this->velocity.y = rand() % 4-2;
         }
     }
@@ -44,17 +64,17 @@ AsteroidObject::AsteroidObject()
         this->setPosition(1330, rand() % 600+60);
         if(this->getPosition().y > 500)
         {
-            this->velocity.x = -3;
+            this->velocity.x = -maxSpeed;
             this->velocity.y = rand()%3-4;
         }
         else if(this->getPosition().y < 160)
         {
-            this->velocity.x = -3;
+            this->velocity.x = -maxSpeed;
             this->velocity.y = rand()%3;
         }
         else
         {
-            this->velocity.x = -3;
+            this->velocity.x = -maxSpeed;
             this->velocity.y = rand()%4-2;
         }
     }
@@ -64,17 +84,17 @@ AsteroidObject::AsteroidObject()
         this->setPosition(rand() % 1160+60, -50);
         if(this->getPosition().x>800)
         {
-            this->velocity.y = 3;
+            this->velocity.y = maxSpeed;
             this->velocity.x = rand()% 3-4;
         }
         else if(this->getPosition().x<420)
         {
-            this->velocity.y = 3;
+            this->velocity.y = maxSpeed;
             this->velocity.x = rand()%3;
         }
         else
         {
-            this->velocity.y = 3;
+            this->velocity.y = maxSpeed;
             this->velocity.x = rand()%4-2;
         }
     }
@@ -84,24 +104,24 @@ AsteroidObject::AsteroidObject()
         this->setPosition(rand() % 1160+60, 770);
         if(this->getPosition().x>800)
         {
-            this->velocity.y = -3;
+            this->velocity.y = -maxSpeed;
             this->velocity.x = rand()%3-4;
         }
         if(this->getPosition().x<420)
         {
-            this->velocity.y = -3;
+            this->velocity.y = -maxSpeed;
             this->velocity.x = rand()%3;
         }
         else
         {
-            this->velocity.y = -3;
+            this->velocity.y = -maxSpeed;
             this->velocity.x = rand()%4-2;
         }
     }
 }
 
 //update funksjonen har kontroll på bevegelsen til player.
-void AsteroidObject::updateEntity(sf::RenderWindow *window)
+void IndestructableObject::updateEntity(sf::RenderWindow *window)
 {
     //roterer objektet relativ til dens nåværende posisjon rundt sentrum
     this->rotate(2);
@@ -114,6 +134,13 @@ void AsteroidObject::updateEntity(sf::RenderWindow *window)
     Entity::updateEntity(window);
 }
 
-void AsteroidObject::collision(Entity* entity)
-{
+void IndestructableObject::collision(Entity* entity) {
+    switch (entity->groupID()) {
+        case 4: // Enemy
+            entity->destroyEntity();
+            break;
+        case 3:
+        case 9:
+            break;
+    }
 }

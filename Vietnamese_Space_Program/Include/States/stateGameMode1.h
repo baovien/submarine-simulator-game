@@ -6,14 +6,15 @@
 #include "../Core/machine.h"
 #include "../Entities/player.h"
 #include "../Entities/enemy.h"
-#include "../Entities/asteroid.h"
+#include "../Entities/indestructableObject.h"
 #include "../Entities/boss1.h"
 #include "../Core/playerLives.h"
 #include "../Core/entityManager.h"
 #include "../Core/score.h"
 #include "../Entities/healthPack.h"
 #include "../Core/soundLoader.h"
-#include "../Entities/asteroid.h"
+#include "../Entities/indestructableObject.h"
+#include "../Core/pauseableClock.h"
 
 class StateGameMode1 : public States
 {
@@ -26,17 +27,9 @@ public:
     void handleEvent(sf::RenderWindow *window, sf::Event event);
     void reinitialize(sf::RenderWindow *window);
 
-    sf::Clock clockAsteroid;    // starter clocken for asteroid
-    sf::Clock clockBoss;        // starter clocken for boss
-    sf::Clock clockEnemy;       // starter clocken for enemy
-    sf::Clock clockHealthPack;  // starter clocken for healthpack
-
 protected:
     sf::Texture overBar;
     sf::Sprite overBarS;
-    SoundLoader sl;
-    BossObject* boss;
-    EnemyObject* enemyObject;
     Lives* lives;
     Score* score;
     sf::Font* font;
@@ -50,6 +43,8 @@ protected:
     HealthPack* healthPack;
     sf::Texture* pausedTexture;
     sf::Sprite* pausedBackground;
+    sfuser::PauseableClock pauseableClockIndestructableObject;
+    sfuser::PauseableClock pauseableClockHealthPack;
 
     //Branch: Waves
     int mode = 1;
@@ -57,7 +52,7 @@ protected:
     int transparencyValue = 0;
     int waveNum = 0;
     bool inWave = false;
-    std::string name = "Enemy";
+    std::string name = "Enemies";
 };
 
 
