@@ -48,6 +48,7 @@ Machine::~Machine()
     if(this->state != NULL)
     {
         this->state->destroy(this->window);
+        this->soundLoaderPointer->~SoundLoader();
     }
 }
 void Machine::eventHandler(sf::Event event)
