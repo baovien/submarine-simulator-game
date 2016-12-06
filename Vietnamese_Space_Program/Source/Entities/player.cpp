@@ -12,8 +12,8 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
     this->groupId = 1;
     switch (gamemode) {
         case 1:
-            this->load("fighter.png");
-            this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/1.5);
+            this->load("PLAYERSHIP.png");
+            this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
             this->space = false;
             this->setPosition(x, y);
             this->scale(window->getSize().x/3200.0f, window->getSize().y / 1800.0f);

@@ -20,13 +20,13 @@ Bullet::Bullet(float x, float y, float direction, float direction2, float angle)
 {
     this->active = 1;
     this->groupId = 6;
-    this->load("laserEnemy.png");
+    this->load("bubble4.png");
     this->velocity.y = direction;
     this->velocity.x = direction2;
     this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
     this->setPosition(x, y);
     this->setRotation(angle);
-    this->setScale(3,3);
+    this->setScale(0.77,0.77);
 }
 void Bullet::updateEntity(sf::RenderWindow *window)
 {
@@ -57,13 +57,10 @@ void Bullet::collision(Entity *entity)
             case 5: // Boss
                 this->destroyEntity();
                 this->score->incrementScore();
-
             case 6:
-                this->destroyEntity();
-
-
-
+                entity->destroyEntity();
         }
     }
+
 }
 

@@ -3,23 +3,25 @@
 #include "../../Include/Entities/enemy.h"
 
 //Initiater enemy, koden vår er satt opp for flere spillere så case 0 er spiller 1.
-EnemyObject::EnemyObject(Player* player, int mode)
-            : player(player)
+EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager* manager, int mode)
+            : player(player),
+              manager(manager),
+              mode(mode)
 {
-    this->load("gold.png");
+    this->load("fishCool.png");
     this->active = 1;
     this->groupId = 4;
     this->randomNumber = rand() % 4;
     this->setRotation(2);
     this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
-
-        switch(mode) {
+    this->setScale(window->getSize().x/1280.0f, window->getSize().y / 720.0f);
+        switch(mode)
+        {
             case 1:
-            this->health = 2;
-            break;
-
+                this->health = 2;
+                break;
             case 2:
-                this->health = 4;
+                this->health = 3;
                 break;
         }
     //Spawner enemy utenfor vinduet
@@ -37,8 +39,6 @@ EnemyObject::EnemyObject(Player* player, int mode)
 
 void EnemyObject::updateEntity(sf::RenderWindow *window) {
     //roterer objektet slik at den facer mot direction
-
-
     // Gjør at enemien følger spilleren vha. pythagoras. Smoothere bevegelse
     this->xDistance = this->player->getPosition().x - this->getPosition().x;
     this->yDistance = this->player->getPosition().y - this->getPosition().y;
@@ -48,29 +48,44 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
         this->velocity.x += this->xDistance * this->easingAmount;
         this->velocity.y += this->yDistance * this->easingAmount;
 
-        if (this->velocity.x > maxSpeed){
+        if (this->velocity.x > maxSpeed) {
             this->velocity.x = maxSpeed;
         }
-        if (this->velocity.y > maxSpeed){
+        if (this->velocity.y > maxSpeed) {
             this->velocity.y = maxSpeed;
         }
-        if (this->velocity.x < -maxSpeed){
+        if (this->velocity.x < -maxSpeed) {
             this->velocity.x = -maxSpeed;
         }
-        if (this->velocity.y < -maxSpeed){
+        if (this->velocity.y < -maxSpeed) {
             this->velocity.y = -maxSpeed;
         }
-
-        //Endre sprites i forhold til health
-
-
         // Destroy enemy hvis den er utenfor skjermen
         if (this->getPosition().x <= -400 || this->getPosition().x >= 1600) {
             this->destroyEntity();
         }
-
-        Entity::updateEntity(window);
     }
+    int randomNumber2;
+    randomNumber2 = rand() % 1000;
+    if(this->mode == 2 && randomNumber2 < 10)
+    {
+        this->manager->addEntity("bullet", new Bullet(this->getPosition().x, this->getPosition().y, yDistance/100, xDistance/100, 0));
+    }
+    if(player->getPosition().x < this->getPosition().x){
+        int hehe = window->getSize().x/1280;
+        hehe *= -1;
+        this->setScale(hehe, window->getSize().y / 720);
+    }
+    else {
+        this->setScale(window->getSize().x/1280, window->getSize().y / 720);
+    }
+    if(this->health == 1){
+        this->load("fishFeelsHurt.png");
+    }
+    else if(this->health <= 0){
+        this->destroyEntity();
+    }
+    Entity::updateEntity(window);
 }
 
 //Her sjekker vi om fienden blir skutt av kuler.
@@ -78,15 +93,13 @@ void EnemyObject::collision(Entity *entity) {
     switch (entity->groupID()) {
         case 2: // Bullets
             this->health--;
-            if (this->health == 0) {       //Destroy
-                this->load("explosion.png");
-                this->scale(1.5, 1.5);
-                this->destroyEntity();
-            } else if (this->health == 1) { //Damaged
-
-                this->load("goldDamaged.png");
-            }
             break;
+
+        case 4:
+            this->velocity.x *= -5;
+            this->velocity.y *= -5;
+            entity->velocity.x = this->velocity.x * -5;
+            entity->velocity.y = this->velocity.y * -5;
 
     }
 }

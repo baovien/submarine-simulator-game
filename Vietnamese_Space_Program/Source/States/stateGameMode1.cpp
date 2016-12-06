@@ -14,7 +14,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->util = new Utilities;
 
     this->bgTexture = new sf::Texture();
-    this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
+    this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
     this->background = new sf::Sprite();
 
     this->background->setTexture(*this->bgTexture);
@@ -73,7 +73,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
             for (int i = 0; i < 2*waveNum; ++i)
             {
 
-                this->manager->addEntity("Enemy", new EnemyObject(player, mode));
+                this->manager->addEntity("Enemy", new EnemyObject(window, player,this->manager, 2));
                 enemyCount++;
             }
             std::cout << "InWave enemies: " << enemyCount << std::endl;
