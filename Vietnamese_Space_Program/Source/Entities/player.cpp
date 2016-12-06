@@ -116,6 +116,7 @@ void Player::updateEntity(sf::RenderWindow *window) {
             {
                 if(this->overheatValue < 10) {
                     this->overheatValue += 1;
+                    this->soundLoader->playSound(this->soundLoader->SHOOT);
                     this->soundLoader->playSound(this->soundLoader->PLAYER_SHOOT);
                     this->manager->addEntity("bullet", new Bullet((this->score),
                                                                   (this->getPosition().x +
