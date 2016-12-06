@@ -49,17 +49,7 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
     menuButtons[0]->setPosition(window->getSize().x / 2, window->getSize().y / 2.5f);
 
     util.makeMuteButton(window, machine.mutedPointer);
-/*
-    menuButtons[5]->scale(window->getSize().x/5120.f,  window->getSize().y/2880.f);
-    menuButtons[5]->setPosition(window->getSize().x - window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
 
-    menuTextures[6].buttonMouseOver = new sf::Texture();
-    menuTextures[6].buttonMouseOver->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn18.png");
-    menuTextures[6].buttonNormal = new sf::Texture();
-    menuTextures[6].buttonNormal->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn19.png");
-    menuTextures[6].buttonClicked = new sf::Texture();
-    menuTextures[6].buttonClicked->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn20.png");
-*/
     //Text, textsize, origin x, origin y, position x, position y
     Title = util.addText("Submarine simulator", 100, 2, 2, menuButtons[0]->getPosition().x, window->getSize().y/40.f, window);
 }

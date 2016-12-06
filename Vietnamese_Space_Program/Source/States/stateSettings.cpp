@@ -32,10 +32,9 @@ void StateSettings::initialize(sf::RenderWindow *window) {
         settingsFlagButtons[i]->setTexture(*this->settingsFlagTextures[i]);
         settingsFlagButtons[i]->setOrigin(settingsFlagButtons[i]->getGlobalBounds().width / 2, settingsFlagButtons[i]->getGlobalBounds().height / 2);
         settingsFlagButtons[i]->scale(window->getSize().x / 4800.f, window->getSize().y / 2700.f);
-        if(i == machine.settingPointer->selectedLanguage){
+        if (i == machine.settingPointer->selectedLanguage) {
             settingsFlagButtons[i]->setColor(sf::Color(255, 255, 255, 255));
-        }
-        else
+        } else
             settingsFlagButtons[i]->setColor(sf::Color(255, 255, 255, 125));
     }
     //Lager alle knapper og laster inn alle textures til knappene
@@ -58,7 +57,7 @@ void StateSettings::initialize(sf::RenderWindow *window) {
         }
     }
 
-    if ( *machine.mutedMusicPointer) {
+    if (*machine.mutedMusicPointer) {
         std::swap(settingsTextures[0], settingsTextures[sizeof(settingsTextures) / sizeof(*settingsTextures) - 1]);
         settingsButtons[0]->setTexture(*this->settingsTextures[0].buttonNormal);
     }
@@ -75,7 +74,7 @@ void StateSettings::initialize(sf::RenderWindow *window) {
         fpsButtons[i]->setOrigin(fpsButtons[i]->getGlobalBounds().width / 2, fpsButtons[i]->getGlobalBounds().height / 2);
         fpsButtons[i]->scale(window->getSize().x / 2560.f, window->getSize().y / 1440.f);
         fpsButtons[i]->setPosition(((4 + i * 0.5f) * window->getSize().x) / 6, (3 * window->getSize().y) / 4.f);
-        if(i == machine.settingPointer->selectedFps){
+        if (i == machine.settingPointer->selectedFps) {
             fpsButtons[i]->setTexture(*this->fpsTextures.buttonClicked);
         }
 
@@ -231,78 +230,76 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
         if (!inOverlay)
             util.checkMuteMouseClick(window, event, machine.mutedPointer);
 
-        for (unsigned int i = 0; i < (sizeof(settingsTextures) / sizeof(*settingsTextures)) - 1; ++i) {
-            if (util.checkMouseclick(settingsButtons[i], event)) {
-                switch (i) {
+        if (!inOverlay) {
+            for (unsigned int i = 0; i < (sizeof(settingsTextures) / sizeof(*settingsTextures)) - 1; ++i) { //Sjekker knappene i settings uten overlay
+                if (util.checkMouseclick(settingsButtons[i], event)) {
+                    switch (i) {
 
-                    //Musikknappen trykket
-                    case 0:
-                        if (!inOverlay) {
-                            *machine.mutedMusicPointer = !*machine.mutedMusicPointer;
-                            std::swap(settingsTextures[0], settingsTextures[sizeof(settingsTextures) / sizeof(*settingsTextures) - 1]);
-                            /* if(*machine.mutedMusicPointer){
-                                 //HER MÅ VI SKRU AV MUSIKK
-                             }
-                             else{
-                                 //HER MÅ VI SKRU PÅ MUSIKK
-                             }*/
-                        }
-                        return;
+                        //Musikknappen trykket
+                        case 0:
+                                *machine.mutedMusicPointer = !*machine.mutedMusicPointer;
+                                std::swap(settingsTextures[0], settingsTextures[sizeof(settingsTextures) / sizeof(*settingsTextures) - 1]);
+                                /* if(*machine.mutedMusicPointer){
+                                     //HER MÅ VI SKRU AV MUSIKK
+                                 }
+                                 else{
+                                     //HER MÅ VI SKRU PÅ MUSIKK
+                                 }*/
+                            return;
 
-                        //controlsknappen trykket
-                    case 1:
-                        if (!inOverlay) {
-                            machine.setState(new StateKeybindings());
-                        }
-                        return;
+                            //controlsknappen trykket
+                        case 1:
+                                machine.setState(new StateKeybindings());
+                            return;
 
-                        //reset highscore trykket
-                    case 2:
-                        if (!inOverlay) {
-                            bindsOrScore = false;
-                            inOverlay = true;
-                        }
-                        return;
+                            //reset highscore trykket
+                        case 2:
+                                bindsOrScore = false;
+                                inOverlay = true;
+                            return;
 
-                        //reset keybinds trykket
-                    case 3:
-                        if (!inOverlay) {
-                            bindsOrScore = true;
-                            inOverlay = true;
-                        }
-                        return;
+                            //reset keybinds trykket
+                        case 3:
+                                bindsOrScore = true;
+                                inOverlay = true;
+                            return;
 
-                        //backknappen trykket
-                    case 4:
-                        if (!inOverlay) {
-                            machine.setState(new StateMainMenu());
-                        }
-                        return;
-                    case 5:
-                        if (inOverlay){
-                            if(bindsOrScore){
+                            //backknappen trykket
+                        case 4:
+                                machine.setState(new StateMainMenu());
+                            return;
+                    }
+                }
+            }
+        }
+
+        //Sjekker overlayknappene (Are you sure? Yes/no). Må sjekke de separat siden den ene knappen overlapper 2 i settings.
+        if (inOverlay) {
+            for (unsigned int i = (sizeof(settingsTextures) / sizeof(*settingsTextures)) - 3; i < (sizeof(settingsTextures) / sizeof(*settingsTextures)) - 1; ++i) {
+                if (util.checkMouseclick(settingsButtons[i], event)) {
+                    switch (i) {
+                        case 5:
+                            if (bindsOrScore) {
                                 //RESET BINDS
-                                machine.keybindMap.find("up")->second = std::make_pair("W" , sf::Keyboard::W);
-                                machine.keybindMap.find("down")->second = std::make_pair("S" , sf::Keyboard::S);
-                                machine.keybindMap.find("left")->second = std::make_pair("A" , sf::Keyboard::A);
-                                machine.keybindMap.find("right")->second = std::make_pair("D" , sf::Keyboard::D);
-                                machine.keybindMap.find("select")->second = std::make_pair("Return" , sf::Keyboard::Return);
-                                machine.keybindMap.find("back")->second = std::make_pair("Escape" , sf::Keyboard::Escape);
-                                machine.keybindMap.find("shoot")->second = std::make_pair("Space" , sf::Keyboard::Space);
-                                machine.keybindMap.find("pause")->second = std::make_pair("P" , sf::Keyboard::P);
+                                machine.keybindMap.find("up")->second = std::make_pair("W", sf::Keyboard::W);
+                                machine.keybindMap.find("down")->second = std::make_pair("S", sf::Keyboard::S);
+                                machine.keybindMap.find("left")->second = std::make_pair("A", sf::Keyboard::A);
+                                machine.keybindMap.find("right")->second = std::make_pair("D", sf::Keyboard::D);
+                                machine.keybindMap.find("select")->second = std::make_pair("Return", sf::Keyboard::Return);
+                                machine.keybindMap.find("back")->second = std::make_pair("Escape", sf::Keyboard::Escape);
+                                machine.keybindMap.find("shoot")->second = std::make_pair("Space", sf::Keyboard::Space);
+                                machine.keybindMap.find("pause")->second = std::make_pair("P", sf::Keyboard::P);
 
-                            }
-                            else{
+                            } else {
                                 std::cout << "reset" << std::endl;
                                 //RESET HIGHSCORE
                             }
                             inOverlay = false;
-                        }
                             return;
-                    case 6:
-                        if (inOverlay)
+                        case 6:
                             inOverlay = false;
-                        return;
+                            return;
+                    }
                 }
             }
         }
