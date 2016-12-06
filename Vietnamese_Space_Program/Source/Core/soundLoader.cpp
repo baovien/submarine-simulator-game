@@ -1,20 +1,22 @@
 #include "../../Include/Core/soundLoader.h"
 
 SoundLoader::SoundLoader() {
-
+    Sounds[SoundNames::MAIN_MENU].loadFromFile("Audio/Music/menu.ogg");
+    Sounds[SoundNames::ARCADE].loadFromFile("Audio/Music/arcade.ogg");
+    Sounds[SoundNames::SHOOT].loadFromFile("Audio/SFX/shoot5.ogg");
 }
 
 SoundLoader::~SoundLoader() {
+    Sounds.clear();
+    playingSounds.clear();
+}
+
+void SoundLoader::loadSounds() {
+
 
 }
 
-void SoundLoader::LoadSounds() {
-    Sounds[SoundNames::MAIN_MENU].loadFromFile("Audio/Music/menu.ogg");
-    Sounds[SoundNames::ARCADE].loadFromFile("Audio/Music/arcade.ogg");
-
-}
-
-void SoundLoader::PlaySound(SoundNames soundName)
+void SoundLoader::playSound(SoundNames soundName)
 {
     if (playingSounds.size() == 0)
     {
