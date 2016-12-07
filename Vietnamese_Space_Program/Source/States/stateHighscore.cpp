@@ -68,7 +68,7 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
 //Legger til backbuttton og mutebutton
 
     back = new sf::Sprite();
-    backTexture = new sf::Texture();
+//    backTexture = new sf::Texture();
 
     util.makeMuteButton(window);
 
@@ -107,11 +107,13 @@ void StateHighscore::render(sf::RenderWindow *window) {
     window->draw(*this->titleArcade);
     window->draw(*this->titleClassic);
     window->draw(*this->Texturetext[0].Score);
+
     for(int i = 0; i < sizeof(Texturetext)/ sizeof(*Texturetext);i++)
     {
         window->draw(*this->Texturetext[i].Number);
     }
     window->draw(*this->PictureButtons[0]);
+
     window->draw(*this->Texturetext[0].Player);
     window->draw(*util.getMuteButton());
 }
@@ -165,7 +167,7 @@ void StateHighscore::handleEvent(sf::RenderWindow *window, sf::Event event)
             }
         }
     }
-    if()
+
 }
 
 void StateHighscore::reinitialize(sf::RenderWindow *window) {
