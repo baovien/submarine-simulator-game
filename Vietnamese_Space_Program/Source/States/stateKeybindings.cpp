@@ -27,7 +27,7 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
     this->keyFont = new sf::Font();
     this->keyFont->loadFromFile("Graphics/font1.otf");
 
-    this->alreadyBoundText = new sf::Text("Key already bound", *this->font, 25);
+    this->alreadyBoundText = new sf::Text(util.translate("Key already bound", machine.settingPointer->selectedLanguage), *this->font, 25);
     this->alreadyBoundText->setOrigin(this->alreadyBoundText->getGlobalBounds().width / 2, this->alreadyBoundText->getGlobalBounds().height / 2);
     this->alreadyBoundText->setPosition(window->getSize().x / 2, window->getSize().y / 1.4f);
     this->alreadyBoundText->scale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
