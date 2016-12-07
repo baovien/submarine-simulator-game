@@ -37,7 +37,7 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
     }
 
     //Plassering og konfigurasjon av Arcade-tabell
-    this->titleArcade = util.addText("ARCADE MODE", 40, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 6.0f, window);
+    this->titleArcade = util.addText("ARCADE MODE", 40, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 6.0f, window, machine.settingPointer->selectedLanguage);
     TableArcade = new sf::Sprite();
     TableArcade->setTexture(*this->TableTexture);
     TableArcade->setOrigin(TableArcade->getGlobalBounds().width/2, TableArcade->getGlobalBounds().height/2);
@@ -45,7 +45,7 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
     TableArcade->setPosition(window->getSize().x/2, window->getSize().y / 2.5f);
 
     //Plassering og konfigurasjon av Classic-tabell
-    this->titleClassic = util.addText("CLASSIC MODE", 40, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 1.67f, window);
+    this->titleClassic = util.addText("CLASSIC MODE", 40, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 1.67f, window, machine.settingPointer->selectedLanguage);
     TableClassic = new sf::Sprite();
     TableClassic->setTexture(*this->TableTexture);
     TableClassic->setOrigin(TableClassic->getGlobalBounds().width/2, TableClassic->getGlobalBounds().height/2);
@@ -53,25 +53,22 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
     TableClassic->setPosition(window->getSize().x/2, window->getSize().y / 1.2f);
 
     //Legge tekst i tabellen
+    Texturetext[0].Number = util.addText("#", 30,2,2,window->getSize().x/3.97f,window->getSize().y/3.7f,window, machine.settingPointer->selectedLanguage);
+    Texturetext[0].Player = util.addText("PLAYER", 30,2,2,window->getSize().x/3.1f,window->getSize().y/3.7f,window, machine.settingPointer->selectedLanguage);
+    Texturetext[0].Score =  util.addText("SCORE", 30,2,2,window->getSize().x/1.62f,window->getSize().y/3.7f,window, machine.settingPointer->selectedLanguage);
 
-    Texturetext[0].Number = util.addText("#", 30,2,2,window->getSize().x/3.97f,window->getSize().y/3.7f,window);
-    Texturetext[0].Player = util.addText("PLAYER", 30,2,2,window->getSize().x/3.1f,window->getSize().y/3.7f,window);
-    Texturetext[0].Score =  util.addText("SCORE", 30,2,2,window->getSize().x/1.62f,window->getSize().y/3.7f,window);
-
-    Texturetext[1].Number = util.addText("1", 30,2,2,window->getSize().x/3.97f,window->getSize().y/3.02f,window);
-    Texturetext[2].Number = util.addText("2", 30,2,2,window->getSize().x/3.97f,window->getSize().y/(3.02f - 0.44f),window);
-    Texturetext[3].Number = util.addText("3", 30,2,2,window->getSize().x/3.97f,window->getSize().y/(3.02f - 0.78f),window);
+    Texturetext[1].Number = util.addText("1", 30,2,2,window->getSize().x/3.97f,window->getSize().y/3.02f,window, machine.settingPointer->selectedLanguage);
+    Texturetext[2].Number = util.addText("2", 30,2,2,window->getSize().x/3.97f,window->getSize().y/(3.02f - 0.44f),window, machine.settingPointer->selectedLanguage);
+    Texturetext[3].Number = util.addText("3", 30,2,2,window->getSize().x/3.97f,window->getSize().y/(3.02f - 0.78f),window, machine.settingPointer->selectedLanguage);
 
     this->selected = 0;
 
-    this->title = util.addText("HIGHSCORE", 75, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 24.0f, window);
-//Legger til backbuttton og mutebutton
+    this->title = util.addText("HIGHSCORE", 75, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
+    //Legger til backbuttton og mutebutton
 
     back = new sf::Sprite();
-//    backTexture = new sf::Texture();
 
-    util.makeMuteButton(window);
-
+    util.makeMuteButton(window, machine.mutedPointer);
 
     //Forsøk på filskriving
     std::ofstream myfile;
@@ -79,22 +76,29 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
     myfile << "Writing this to a file.\n";
     myfile.close();
 
-
 }
 void StateHighscore::update(sf::RenderWindow *window) {
-    util.checkMuteMouseOver(window);
 
-    for (unsigned int i = 0; i < sizeof(PictureTexture) / sizeof(*PictureTexture); ++i) {
-        if (util.checkMouseover(PictureButtons[i], window)) {
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonClicked);
-            } else {
-                PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonMouseOver);
+        util.checkMuteMouseOver(window);
+
+        for (unsigned int i = 0; i < sizeof(PictureTexture) / sizeof(*PictureTexture); ++i)
+        {
+            if (util.checkMouseover(PictureButtons[i], window))
+            {
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                {
+                    PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonClicked);
+                }
+                else
+                {
+                    PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonMouseOver);
+                }
+            } else
+            {
+                PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonNormal);
             }
-        } else {
-            PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonNormal);
         }
-    }
+
 
 }
 
@@ -108,13 +112,15 @@ void StateHighscore::render(sf::RenderWindow *window) {
     window->draw(*this->titleClassic);
     window->draw(*this->Texturetext[0].Score);
 
+    //Tegner knappene
     for(int i = 0; i < sizeof(Texturetext)/ sizeof(*Texturetext);i++)
     {
         window->draw(*this->Texturetext[i].Number);
     }
-    window->draw(*this->PictureButtons[0]);
 
+    window->draw(*this->PictureButtons[0]);
     window->draw(*this->Texturetext[0].Player);
+    //Tegner mutebutton fra funkjson i Utilities
     window->draw(*util.getMuteButton());
 }
 
@@ -151,7 +157,7 @@ void StateHighscore::handleEvent(sf::RenderWindow *window, sf::Event event)
 
     if (event.type == sf::Event::MouseButtonReleased)
     {
-        util.checkMuteMouseClick(window, event);
+        util.checkMuteMouseClick(window, event,machine.mutedPointer);
         if (util.checkMouseclick(PictureButtons[0], event))
         {
             switch (0)
