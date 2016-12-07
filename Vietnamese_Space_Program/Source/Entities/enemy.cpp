@@ -12,7 +12,6 @@ EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager
     this->active = 1;
     this->groupId = 4;
     this->randomNumber = rand() % 4;
-    this->setRotation(2);
     this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
     this->setScale(window->getSize().x/1280.0f, window->getSize().y / 720.0f);
         switch(mode)
@@ -43,6 +42,9 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
     this->xDistance = this->player->getPosition().x - this->getPosition().x;
     this->yDistance = this->player->getPosition().y - this->getPosition().y;
     this->distance = sqrtf((this->xDistance * this->xDistance) + (this->yDistance * this->yDistance));
+    double alpha = sin(yDistance/distance);
+    alpha = alpha * 180/player->pi;
+
 
     if (this->distance > 1) {
         this->velocity.x += this->xDistance * this->easingAmount;
@@ -67,23 +69,44 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
     }
     int randomNumber2;
     randomNumber2 = rand() % 1000;
-    if(this->mode == 2 && randomNumber2 < 10)
+    if(this->mode == 2 && randomNumber2 < 5)
     {
         this->manager->addEntity("bullet", new Bullet(this->getPosition().x, this->getPosition().y, yDistance/100, xDistance/100, 0));
     }
+    //Sjekker om spilleren er til venstre for fienden.
     if(player->getPosition().x < this->getPosition().x){
         int hehe = window->getSize().x/1280;
         hehe *= -1;
         this->setScale(hehe, window->getSize().y / 720);
+        //Sjekker om spilleren er over fienden
+        if(player->getPosition().y < this->getPosition().y){
+            this->setRotation(-alpha);
+        }
+        //Sjekker om spilleren er under fisken
+        else if(player->getPosition().y > this->getPosition().y){
+            this->setRotation(-alpha);
+        }
     }
+    //Hvis spilleren ikke er til venstre for fienden, da er den til høyre.
     else {
         this->setScale(window->getSize().x/1280, window->getSize().y / 720);
+        //Sjekker om spilleren er over fienden.
+        if(player->getPosition().y < this->getPosition().y){
+           this->setRotation(360 + alpha);
+        }
+        //Sjekker om spilleren er under fienden.
+        else if(player->getPosition().y > this->getPosition().y) {
+            this->setRotation(alpha);
+        }
     }
     if(this->health == 1){
         this->load("fishFeelsHurt.png");
     }
     else if(this->health <= 0){
         this->destroyEntity();
+    }
+    if(player->getPosition().y < this->getPosition().y){
+
     }
     Entity::updateEntity(window);
 }

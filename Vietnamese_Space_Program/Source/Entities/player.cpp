@@ -16,7 +16,7 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
             this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
             this->space = false;
             this->setPosition(x, y);
-            this->scale(window->getSize().x/3200.0f, window->getSize().y / 1800.0f);
+            this->setScale(window->getSize().x/3200.0f, window->getSize().y / 1800.0f);
             this->bar = new Bar(window);
             this->manager->addEntity("bar", this->bar);
             this->overheatValue = 1.0f;
@@ -98,7 +98,14 @@ void Player::updateEntity(sf::RenderWindow *window) {
                 default:
                     break;
             }
-
+            if(this->getRotation() < 360 && this->getRotation() > 180) {
+                float turn = window->getSize().x/3200.0f;
+                turn *= -1;
+                this->setScale(turn, this->getScale().y);
+            }
+            else{
+                this->setScale(window->getSize().x/3200.0f, window->getSize().y / 1800.0f);
+            }
             if (!this->space && sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second))
             {
                 if(this->overheatValue < 10) {

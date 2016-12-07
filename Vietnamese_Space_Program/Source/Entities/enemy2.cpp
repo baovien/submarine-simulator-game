@@ -32,8 +32,6 @@ void Enemy2Object::updateEntity(sf::RenderWindow *window) {
     }
 
     Entity::updateEntity(window);
-
-
 }
 
 void Enemy2Object::collision(Entity *entity) {
@@ -42,8 +40,6 @@ void Enemy2Object::collision(Entity *entity) {
         case 2: // Bullets
             this->health--;
             break;
-
-
     }
 }
 
