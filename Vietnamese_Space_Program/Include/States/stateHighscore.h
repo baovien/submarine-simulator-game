@@ -27,8 +27,8 @@ private:
     sf::Text *title;
     sf::Text *titleArcade;
     sf::Text *titleClassic;
-
-    sf::Texture *backTexture;
+    //std::vector<int, std::string> er;
+   // sf::Texture *backTexture;
     sf::Sprite *back;
 
 /*    std::vector<std::tuple<sf::Text, std::string, std::string>> Scoretable1 =
