@@ -44,7 +44,8 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
 
     //Init pauseobjekter
     //Text, textsize, origin x, origin y, position x, position y, window, language int
-    this->pausedText = util->addText("Paused\nPress " + machine.keybindMap.find("back")->second.first + " to Quit", 32, 2, 2, window->getSize().x / 2, window->getSize().y / 2, window, machine.settingPointer->selectedLanguage);
+
+    this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap.find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2, window->getSize().x / 2, window->getSize().y / 2, window, machine.settingPointer->selectedLanguage);
 
     this->pausedTexture = new sf::Texture();
     this->pausedTexture->loadFromFile("Graphics/Sprites/overlayPause.png");
@@ -66,8 +67,9 @@ void StateGameMode1::update(sf::RenderWindow *window) {
             return;
         }
         this->manager->updateEntity(window);
-        this->score->updateScore();
-        this->lives->updateLife();
+
+        this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
+        this->lives->updateLife(util->translate("Lives", machine.settingPointer->selectedLanguage));
 
         //Legger til healthpacks + indestructableObjects utenfor wavessystemet
         this->pauseableClockIndestructableObject.start();

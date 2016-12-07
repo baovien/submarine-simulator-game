@@ -11,8 +11,8 @@ void Lives::increaseLife() {
     this->value += 1;
 }
 
-void Lives::updateLife() {
-    this->setString("Lives: " + std::to_string(this->value));
+void Lives::updateLife(std::string livesText) {
+    this->setString(livesText + ": " + std::to_string(this->value));
 }
 
 int Lives::getValue() const {
