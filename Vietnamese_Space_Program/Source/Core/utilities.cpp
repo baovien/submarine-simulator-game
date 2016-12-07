@@ -110,7 +110,6 @@ sf::Text *Utilities::addText(std::string textContent, unsigned int textSize, int
     text->scale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
     text->setOutlineThickness(text->getCharacterSize() / 15);
     text->setOutlineColor(sf::Color::Black);
-    //std::cout << std::get<0>(languageMap.find(textContent)->second) << " " << language;
     return text;
 }
 
