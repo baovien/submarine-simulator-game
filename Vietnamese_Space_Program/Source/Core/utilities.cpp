@@ -67,7 +67,7 @@ sf::Text *Utilities::addText(std::string textContent, unsigned int textSize, int
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/Turtles.otf");
     sf::Text *text = new sf::Text(textContent, *this->font, textSize);
-
+    std::transform(textContent.begin(), textContent.end(), textContent.begin(), ::tolower);
     if(textContent.find(": ") != std::string::npos){
         size_t pos = textContent.find(": ");
         std::string tempNumber = textContent.substr(pos + 2, textContent.size()-1);
@@ -133,4 +133,21 @@ bool Utilities::checkMouseclick(sf::Sprite *buttonSprite, sf::Event event) {
 
 sf::Sprite *Utilities::getMuteButton() const {
     return muteButton;
+}
+
+std::string Utilities::translate(std::string wordToTranslate, int language) {
+    std::transform(wordToTranslate.begin(), wordToTranslate.end(), wordToTranslate.begin(), ::tolower);
+    if (languageMap.find(wordToTranslate) != languageMap.end()) {
+        switch (language) {
+            case 1:
+                return std::get<0>(languageMap.find(wordToTranslate)->second);
+            case 2:
+                return std::get<1>(languageMap.find(wordToTranslate)->second);
+            case 3:
+                return std::get<2>(languageMap.find(wordToTranslate)->second);
+            default:
+                return wordToTranslate;
+        }
+    }
+    else return wordToTranslate;
 }

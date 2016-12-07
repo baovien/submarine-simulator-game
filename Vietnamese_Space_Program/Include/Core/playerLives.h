@@ -9,7 +9,7 @@ public:
     Lives(sf::Font &font, unsigned int size);
     void increaseLife();
     void decreaseLife();
-    void updateLife();
+    void updateLife(std::string livesText);
     int getValue() const;
 
 private:
