@@ -1,4 +1,4 @@
-#include "../../Include/Core/PauseableClock.h"
+#include "../../Include/Core/pauseableClock.h"
 
 namespace sfuser {
 

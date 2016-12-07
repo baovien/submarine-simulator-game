@@ -1,7 +1,8 @@
 #include "../../Include/Entities/bullet.h"
 #include <iostream>
 
-Bullet::Bullet(Score* score, float x, float y, float direction, float direction2, float angle)
+Bullet::Bullet(Score* score, float x, float y, float direction, float direction2, float angle, SoundLoader* soundLoader)
+        : soundLoader(soundLoader)
 {
     this->active = 1;
     this->groupId = 2;
@@ -45,25 +46,26 @@ void Bullet::collision(Entity *entity)
         switch (entity->groupID())
         {
             case 3: // IndestructableObject nr 1
+                this->soundLoader->playSound(soundLoader->BULLET_POP);
                 this->destroyEntity();
                 break;
 
             case 4: // Enemy
+                this->soundLoader->playSound(soundLoader->BULLET_POP);
                 this->destroyEntity();
                 this->score->incrementScore();
                 break;
 
             case 5: // Boss
+                this->soundLoader->playSound(soundLoader->BULLET_POP);
                 this->destroyEntity();
                 this->score->incrementScore();
                 break;
 
             case 9: // IndestructableObject nr 2
+                this->soundLoader->playSound(soundLoader->BULLET_POP);
                 this->destroyEntity();
                 break;
-
-
-
         }
     }
 }
