@@ -74,9 +74,7 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
     randomNumber2 = rand() % 1000;
     if(this->mode == 2 && randomNumber2 < 5)
     {
-        int randomNumber3 = rand() % 2;
-        if(randomNumber3 == 0)this->soundLoader->playSound(soundLoader->ENEMY_SHOOT1);
-        if(randomNumber3 == 1)this->soundLoader->playSound(soundLoader->ENEMY_SHOOT2);
+        this->soundLoader->playSound(soundLoader->ENEMY_SHOOT);
         this->manager->addEntity("bullet", new Bullet(this->getPosition().x, this->getPosition().y, yDistance/100, xDistance/100, 0));
     }
     //Sjekker om spilleren er til venstre for fienden.
