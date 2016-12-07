@@ -81,7 +81,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
 
         if (pauseableClockHealthPack.getElapsedTime().asMicroseconds() > 5000000) {         //Sjekker om verdien til clock er mer enn 5 sekunder
             if (rand() % 10 < 3) {                                          //Sjekker om rand() % 10 er mindre enn 3, hvis ikke - så spawnes det ikke healthpack
-                healthPack = new HealthPack(this->lives);
+                healthPack = new HealthPack(this->lives, machine.soundLoaderPointer);
                 this->manager->addEntity("healthPack", healthPack);
             }
             pauseableClockHealthPack.restart();     //restarter clock(nullstiller)

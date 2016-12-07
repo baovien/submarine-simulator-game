@@ -1,8 +1,9 @@
 #include "../../Include/Entities/healthPack.h"
 
-HealthPack::HealthPack(Lives* lives)
+HealthPack::HealthPack(Lives* lives, SoundLoader* soundLoader)
+        : soundLoader(soundLoader)
 {
-    this->load("healthpack.png");
+    this->load("wrench.png");
     this->active = 1;
     this->groupId = 7;
     this->lives = lives;
@@ -24,6 +25,7 @@ void HealthPack::collision(Entity* entity)
     switch(entity->groupID())
     {
         case 1:
+            this->soundLoader->playSound(soundLoader->REPAIR);
             this->destroyEntity();
             this->lives->increaseLife();
             break;

@@ -13,10 +13,10 @@ void SoundLoader::loadSounds() {
     Sounds[SoundNames::ARCADE].loadFromFile("Audio/Music/arcade.ogg");
 
     //SFX
-    Sounds[SoundNames::PLAYER_SHOOT].loadFromFile("Audio/SFX/shoot5.ogg");
-    Sounds[SoundNames::ENEMY_SHOOT1].loadFromFile("Audio/SFX/bubble.wav");
-    Sounds[SoundNames::ENEMY_SHOOT2].loadFromFile("Audio/SFX/bubble2.wav");
-    Sounds[SoundNames::BULLET_POP].loadFromFile("Audio/SFX/pop.ogg");
+    Sounds[SoundNames::PLAYER_SHOOT].loadFromFile("Audio/SFX/missileLaunch.ogg");
+    Sounds[SoundNames::ENEMY_SHOOT].loadFromFile("Audio/SFX/pop.ogg");
+    Sounds[SoundNames::BULLET_POP].loadFromFile("Audio/SFX/explosion.ogg");
+    Sounds[SoundNames::REPAIR].loadFromFile("Audio/SFX/repair.ogg");
 
 }
 
