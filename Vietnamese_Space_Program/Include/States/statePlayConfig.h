@@ -21,8 +21,6 @@ public:
 
 private:
 
-    sf::Font* font;
-
     sf::Text* theme;
     sf::Text* fighter;
     sf::Text* gamemode;
