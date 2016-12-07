@@ -10,6 +10,7 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
 {
     this->active = 1;
     this->groupId = 1;
+
     switch (gamemode) {
         case 1:
             this->load("PLAYERSHIP.png");
@@ -44,6 +45,10 @@ void Player::updateEntity(sf::RenderWindow *window) {
     //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))right = 1;
     //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))up = 1;
     //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))down = 1;
+
+    if(this->lives->getValue() <= 5 ){
+        this->load("fighterDamaged1.png");
+    }
 
     switch (this->gamemode) {
         case 1:
@@ -183,7 +188,7 @@ void Player::updateEntity(sf::RenderWindow *window) {
 //Her sjekker vi om vårt fly kræsjer med noe annet
 void Player::collision(Entity *entity) {
     switch (entity->groupID()) {
-        case 3: // Asteroid
+        case 3: // Indestructable Object nr 1
             entity->destroyEntity();
             this->lives->decreaseLife();
             break;
@@ -191,9 +196,16 @@ void Player::collision(Entity *entity) {
             entity->destroyEntity();
             this->lives->decreaseLife();
             break;
+        case 5: // Boss
+            this->lives->decreaseLife();
+            this->lives->decreaseLife();
+            break;
         case 6: //Boss bullet
             entity->destroyEntity();
             this->lives->decreaseLife();
             break;
+        case 9: // Indestructable Object nr 2
+            entity->destroyEntity();
+            this->lives->decreaseLife();
     }
 }

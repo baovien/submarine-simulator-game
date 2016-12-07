@@ -2,22 +2,27 @@
 #define VIETNAMESE_SPACE_PROGRAM_BOSS1_H
 
 #include "../Core/entityManager.h"
-#include "bullet.h"
+#include "../Core/pauseableClock.h"
+#include "player.h"
+#include "../Core/utilities.h"
 
-class Boss : public Entity
+class BossObject : public Entity
 {
 public:
-    Boss(EntityManager* manager);
+    BossObject(EntityManager* manager, Player* player, int mode);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
-    ~Boss();
-    sf::Clock clock;
+
+    sfuser::PauseableClock pauseableClock;
 private:
+    Player* player;
     Score* score;
-    int health;
-    int x,y,height,width,angle;
-    bool lok;
-    int bulletSpeed = 7;
+    Utilities* util;
+    int health, randomNumber;
+    double angle;
+
+    float xDistance, yDistance, distance, easingAmount, maxSpeed, pi, objectSpeed;
+    int bulletSpeed;
 
     EntityManager* manager;
 };

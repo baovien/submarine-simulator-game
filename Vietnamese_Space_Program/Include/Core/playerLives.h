@@ -11,6 +11,7 @@ public:
     void decreaseLife();
     void updateLife();
     int getValue() const;
+    int setValue(int life);
 
 private:
     int value;

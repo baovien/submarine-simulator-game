@@ -14,6 +14,8 @@ void App::run() {
 
     window.setKeyRepeatEnabled(false);
 
+    srand(time(0)); //gir random tall utifra hvor mange sekunder har gått siden 1. jan 1970
+
     machine.setWindow(&window);
     machine.setState(new StateMainMenu);
 

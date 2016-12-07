@@ -6,7 +6,7 @@
 #include "dynamicBar.h"
 #include "bullet.h"
 #include "dynamicBar.h"
-#include "asteroid.h"
+#include "indestructableObject.h"
 #include "dynamicBar.h"
 
 class Player : public Entity

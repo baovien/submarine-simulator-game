@@ -21,7 +21,7 @@ set(SOURCE_FILES
         "Include/Core/waveManager.h"           "Source/Core/waveManager.cpp"
 
         #Entities Headers
-        "Include/Entities/asteroid.h"          "Source/Entities/asteroid.cpp"
+        "Include/Entities/indestructableObject.h"          "Source/Entities/indestructableObject.cpp"
         "Include/Entities/boss1.h"             "Source/Entities/boss1.cpp"
         "Include/Entities/bullet.h"            "Source/Entities/bullet.cpp"
         "Include/Entities/player.h"            "Source/Entities/player.cpp"
@@ -39,7 +39,7 @@ set(SOURCE_FILES
         "Include/States/stateKeybindings.h"    "Source/States/stateKeybindings.cpp"
         "Include/States/statePlayConfig.h"     "Source/States/statePlayConfig.cpp"
         "Include/States/stateMainMenu.h"       "Source/States/stateMainMenu.cpp"
-        "Include/States/stateSettings.h"       "Source/States/stateSettings.cpp" Source/Core/utilities.cpp)
+        "Include/States/stateSettings.h"       "Source/States/stateSettings.cpp" Source/Core/utilities.cpp Include/Core/pauseableClock.h Source/Core/pauseableClock.cpp)
 
 
 

@@ -30,7 +30,8 @@ Bullet::Bullet(float x, float y, float direction, float direction2, float angle)
 }
 void Bullet::updateEntity(sf::RenderWindow *window)
 {
-    if(this->getPosition().x < 0 || this->getPosition().x > window->getSize().x || this->getPosition().y < 0 || this->getPosition().y > window->getSize().y)
+    if(this->getPosition().x < 0 || this->getPosition().x > window->getSize().x||
+       this->getPosition().y < 0 || this->getPosition().y > window->getSize().y)
     {
         this->destroyEntity();
     }
@@ -43,10 +44,8 @@ void Bullet::collision(Entity *entity)
     {
         switch (entity->groupID())
         {
-            case 3: // Asteroids
-                entity->destroyEntity();
+            case 3: // IndestructableObject nr 1
                 this->destroyEntity();
-                this->score->incrementScore();
                 break;
 
             case 4: // Enemy
@@ -57,10 +56,15 @@ void Bullet::collision(Entity *entity)
             case 5: // Boss
                 this->destroyEntity();
                 this->score->incrementScore();
-            case 6:
-                entity->destroyEntity();
+                break;
+
+            case 9: // IndestructableObject nr 2
+                this->destroyEntity();
+                break;
+
+
+
         }
     }
-
 }
 

@@ -12,6 +12,8 @@ EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager
     this->active = 1;
     this->groupId = 4;
     this->randomNumber = rand() % 4;
+    this->easingAmount = 0.00015f;
+    this->maxSpeed = 1.5f;
     this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
     this->setScale(window->getSize().x/1280.0f, window->getSize().y / 720.0f);
         switch(mode)
@@ -37,7 +39,7 @@ EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager
 }
 
 void EnemyObject::updateEntity(sf::RenderWindow *window) {
-    //roterer objektet slik at den facer mot direction
+
     // Gjør at enemien følger spilleren vha. pythagoras. Smoothere bevegelse
     this->xDistance = this->player->getPosition().x - this->getPosition().x;
     this->yDistance = this->player->getPosition().y - this->getPosition().y;
