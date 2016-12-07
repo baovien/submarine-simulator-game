@@ -6,19 +6,23 @@
 #include <vector>
 #include <iostream>
 
-class SoundLoader
+class SoundLoader : private sf::NonCopyable
 {
 public:
-    enum SoundNames{MAIN_MENU, ARCADE, SHOOT};
+    enum SoundNames{MAIN_MENU, ARCADE, PLAYER_SHOOT, ENEMY_SHOOT1,ENEMY_SHOOT2, BULLET_POP};
     SoundLoader();
     ~SoundLoader();
 
     void loadSounds();
     void playSound(SoundNames soundName);
-    void playMusic(SoundNames soundNames);
+    void playMusic(SoundNames soundName);
+
+    void muteMusic(bool mute);
+    void muteAudio(bool mute);
 private:
     std::map<SoundNames, sf::SoundBuffer> Sounds;
     std::vector<sf::Sound> playingSounds;
+    int volume;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_SOUNDLOADER_H

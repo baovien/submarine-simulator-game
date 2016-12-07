@@ -95,7 +95,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         {
             for (int i = 0; i < 2*waveNum; ++i)
             {
-                this->manager->addEntity("Enemy", new EnemyObject(window, this->player, this->manager, this->mode));
+                this->manager->addEntity("Enemy", new EnemyObject(window, this->player, this->manager, this->mode, machine.soundLoaderPointer));
 
                 /*
                 //Init boss
