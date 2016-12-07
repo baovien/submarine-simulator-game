@@ -4,6 +4,8 @@
 #include "../Core/state.h"
 #include "../Core/machine.h"
 #include "../Core/score.h"
+#include "../Core/utilities.h"
+#include <map>
 
 class StateGameOver : public States{
 public:
@@ -18,18 +20,29 @@ public:
     void handleEvent(sf::RenderWindow *window, sf::Event event);
 
     void reinitialize(sf::RenderWindow *window);
+    sf::Clock clock;
 
 private:
-    sf::Font* font;
+
+    Utilities util;
     sf::Text* gameOverText;
     sf::Text* menuText;
     sf::Text* restartText;
     sf::Text* score;
+    sf::Text* congratulationsText;
 
     sf::Texture* bgTexture;
     sf::Sprite* background;
 
-    int selected;
+    sf::RectangleShape* textBox;
+
+    int selected, gameOverScore;
+
+    std::string playerName;
+    sf::Text* text;
+    bool showCursor, highscoreOrNAH;
+
+
 
 };
 

@@ -46,6 +46,7 @@ void App::run() {
         if (quitGame) {
             window.close();
         }
+
         deltaTime = timer.getElapsedTime();
 /*
           if(deltaTime.asMicroseconds() != 0)

@@ -14,7 +14,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->util = new Utilities;
 
     this->bgTexture = new sf::Texture();
-    this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
+    this->bgTexture->loadFromFile("Graphics/Sprites/background12.png");
     this->background = new sf::Sprite();
 
     this->background->setTexture(*this->bgTexture);
