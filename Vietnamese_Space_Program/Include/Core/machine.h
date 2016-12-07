@@ -22,6 +22,7 @@ public:
     void eventHandler(sf::Event event);
 
     void setGameOverScore(int playerScore);
+
     int getGameOverScore() const;
 
     //Brukes i forbindelse med keybinds
@@ -35,12 +36,12 @@ public:
                                                            {"pause",  std::make_pair("P" , sf::Keyboard::P)}};
 
 private:
-    struct settingStruct{
+    struct settingStruct {
         int selectedFps;
         int selectedLanguage;
     };
-        bool muted = false;
-        bool mutedMusic = false;
+    bool muted = false;
+    bool mutedMusic = false;
 
     settingStruct settingVariables {1,0};
 
@@ -69,6 +70,7 @@ private:
     int gameOverScore;
 
 };
+
 extern Machine machine;
 extern bool quitGame;
 

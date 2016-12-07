@@ -22,10 +22,9 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font.ttf");
 
-    this->waveText = new sf::Text("Wave ", *this->font, 75);
-    this->waveText->setOrigin(this->waveText->getGlobalBounds().width / 2, this->waveText->getGlobalBounds().height / 2);
-    this->waveText->setPosition(window->getSize().x / 2, window->getSize().y / 4);
+    this->waveText = util->addText("Wave: ", 75, 2, 2, window->getSize().x / 2, window->getSize().y / 4, window, machine.settingPointer->selectedLanguage);
     this->waveText->setFillColor(sf::Color(255, 255, 255, (sf::Uint8) transparencyValue));
+    this->waveText->setOutlineColor(sf::Color(0, 0, 0, (sf::Uint8) transparencyValue));
 
     this->score = new Score(*font, 32U);
     this->score->setPosition(window->getSize().x/10,window->getSize().y/20);
@@ -44,9 +43,8 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->overBarS.setScale(2,2);
 
     //Init pauseobjekter
-    this->pausedText = new sf::Text("Paused\nPress " + machine.keybindMap.find("back")->second.first + " to Quit", *font, 32U);
-    this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2, this->pausedText->getGlobalBounds().height / 2);
-    this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
+    //Text, textsize, origin x, origin y, position x, position y, window, language int
+    this->pausedText = util->addText("Paused\nPress " + machine.keybindMap.find("back")->second.first + " to Quit", 32, 2, 2, window->getSize().x / 2, window->getSize().y / 2, window, machine.settingPointer->selectedLanguage);
 
     this->pausedTexture = new sf::Texture();
     this->pausedTexture->loadFromFile("Graphics/Sprites/overlayPause.png");
@@ -127,14 +125,16 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         {
             waveNum++;
             this->transparencyValue = 255;
-            this->waveText->setString("Wave " + std::to_string(this->waveNum));
-            this->waveText->setOrigin(this->waveText->getGlobalBounds().width / 2, this->waveText->getGlobalBounds().height / 2);
+
+            size_t pos = this->waveText->getString().find(": "); //Vi skal endre "wave: " uten det gamle wavenummeret, så jeg fjerner f.eks 2 i "wave: 2" før jeg sender det
+            this->waveText = util->addText(this->waveText->getString().substring(0 , pos+2) + std::to_string(waveNum), 75, 2, 2, window->getSize().x / 2, window->getSize().y / 4, window, machine.settingPointer->selectedLanguage);
+
             inWave = false;
-            std::cout << "WAVE DONE" << std::endl;
         }
 
         //Fader waveText
         this->waveText->setFillColor(sf::Color(255, 255, 255, (sf::Uint8) transparencyValue));
+        this->waveText->setOutlineColor(sf::Color(0, 0, 0, (sf::Uint8) transparencyValue));
         if(transparencyValue > 1) transparencyValue -= 1;
         //////////////////////////END_WAVES
 

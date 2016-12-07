@@ -315,7 +315,7 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
                             window->setFramerateLimit(60);
                             break;
                         case 2:
-                            window->setFramerateLimit(5000);
+                            window->setFramerateLimit(120);
                             break;
                     }
                 }
@@ -325,21 +325,11 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
         if (!inOverlay) {
             for (unsigned int i = 0; i < (sizeof(settingsFlagButtons) / sizeof(*settingsFlagButtons)); ++i) {
                 if (util.checkMouseclick(settingsFlagButtons[i], event)) {
-                    machine.settingPointer->selectedLanguage = i;
-                    switch (i) {
-                        case 0:
-                            //SET LANGUAGE TO ENGLISH
-                            break;
-                        case 1:
-                            //SET LANGUAGE TO NORWEGIAN
-                            break;
-                        case 2:
-                            //SET LANGUAGE TO SERBIAN
-                            break;
-                        case 3:
-                            //SET LANGUAGE TO RUSSIAN
-                            break;
+                    if(i != machine.settingPointer->selectedLanguage) {
+                        machine.settingPointer->selectedLanguage = i;
+                        initialize(window);
                     }
+
                 }
             }
         }
