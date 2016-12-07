@@ -34,6 +34,7 @@ void App::run() {
             }
             if(event.type == sf::Event::GainedFocus){
                 wait = false;
+                timer.restart();
             }
             if(!wait) {
                 //Close down window
