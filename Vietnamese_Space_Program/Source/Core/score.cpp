@@ -14,7 +14,8 @@ void Score::updateScore(std::string scoreText)
     this->setString(scoreText + ": " + std::to_string(this->value));
 }
 
-int Score::getValue() const {
+int Score::getValue() const
+{
 
     return value;
 }

@@ -71,6 +71,7 @@ void StateGameOver::update(sf::RenderWindow *window) {
     }
 }
 
+
 /**
  *
  * @param window

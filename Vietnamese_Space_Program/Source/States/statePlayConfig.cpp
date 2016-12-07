@@ -13,7 +13,7 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
     this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
-    this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
+    this->background->scale(window->getSize().x/background->getGlobalBounds().width,window->getSize().y/background->getGlobalBounds().height);
 
     for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i) {
         menuTextures[i].buttonMouseOver = new sf::Texture();
@@ -90,7 +90,7 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
 
     //Setter posisjonen og skalinga til PLAY-button
     menuButtons[0]->scale(window->getSize().x / 1536.0f, window->getSize().y / 864.0f);
-    menuButtons[0]->setPosition(window->getSize().x / 2, window->getSize().y / 1.2f);
+    menuButtons[0]->setPosition(window->getSize().x / 2, window->getSize().y - window->getSize().y /6.0f);
 
     //Setter posisjonen og skalinga til BACK-button
     menuButtons[1]->scale(window->getSize().x / 5120.f, window->getSize().y / 2880.f);
@@ -160,7 +160,6 @@ void StatePlayConfig::render(sf::RenderWindow *window) {
 
 void StatePlayConfig::destroy(sf::RenderWindow *window) {
     delete this->theme;
-    delete this->font;
     delete this->fighter;
     delete this->gamemode;
 
