@@ -3,10 +3,11 @@
 #include "../../Include/Entities/enemy.h"
 
 //Initiater enemy, koden vår er satt opp for flere spillere så case 0 er spiller 1.
-EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager* manager, int mode)
+EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager* manager, int mode, SoundLoader* soundLoader)
             : player(player),
               manager(manager),
-              mode(mode)
+              mode(mode),
+              soundLoader(soundLoader)
 {
     this->load("fishCool.png");
     this->active = 1;
@@ -70,8 +71,11 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
     }
     int randomNumber2;
     randomNumber2 = rand() % 1000;
-    if(this->mode == 2 && randomNumber2 < 10)
+    if(this->mode == 2 && randomNumber2 < 5)
     {
+        int randomNumber3 = rand() % 2;
+        if(randomNumber3 == 0)this->soundLoader->playSound(soundLoader->ENEMY_SHOOT1);
+        if(randomNumber3 == 1)this->soundLoader->playSound(soundLoader->ENEMY_SHOOT2);
         this->manager->addEntity("bullet", new Bullet(this->getPosition().x, this->getPosition().y, yDistance/100, xDistance/100, 0));
     }
     if(player->getPosition().x < this->getPosition().x){
