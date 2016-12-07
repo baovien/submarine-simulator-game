@@ -1,10 +1,16 @@
 #include "../../Include/Core/soundLoader.h"
 
 SoundLoader::SoundLoader() {
+    volume = 100;
+}
+
+SoundLoader::~SoundLoader() {
+}
+
+void SoundLoader::loadSounds() {
+    //Music
     Sounds[SoundNames::MAIN_MENU].loadFromFile("Audio/Music/menu.ogg");
     Sounds[SoundNames::ARCADE].loadFromFile("Audio/Music/arcade.ogg");
-    Sounds[SoundNames::SHOOT].loadFromFile("Audio/SFX/shoot5.ogg");
-}
 
     //SFX
     Sounds[SoundNames::PLAYER_SHOOT].loadFromFile("Audio/SFX/shoot5.ogg");
