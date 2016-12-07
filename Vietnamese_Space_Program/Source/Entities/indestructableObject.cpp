@@ -23,12 +23,16 @@ IndestructableObject::IndestructableObject(float x, float y, float directionX, f
 }
 
 IndestructableObject::IndestructableObject() {
-    this->load("asteroid.png");
+    int randomNumber = rand() % 2;
+    if(randomNumber == 0)this->load("tincan.png");
+    else this->load("tincan2.png");
+
     this->active = 1;
     this->groupId = 9;
     this->health = 1;
     this->randomNumber = rand()%4;
     this->maxSpeed = 1.5f;
+    this->setScale(0.5,0.5);
 
     //Setter origin til midten av asteroiden.
     this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);

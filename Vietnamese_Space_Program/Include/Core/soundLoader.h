@@ -9,12 +9,13 @@
 class SoundLoader : private sf::NonCopyable
 {
 public:
-    enum SoundNames{MAIN_MENU, ARCADE, PLAYER_SHOOT, ENEMY_SHOOT1,ENEMY_SHOOT2, BULLET_POP};
+    enum SoundNames{MAIN_MENU, ARCADE, PLAYER_SHOOT, ENEMY_SHOOT, BULLET_POP, REPAIR};
     SoundLoader();
     ~SoundLoader();
 
     void loadSounds();
     void playSound(SoundNames soundName);
+    void stopSound();
     void playMusic(SoundNames soundName);
 
     void muteMusic(bool mute);
