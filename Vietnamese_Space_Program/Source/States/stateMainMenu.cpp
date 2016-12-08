@@ -4,7 +4,9 @@
 #include "../../Include/States/stateHighscore.h"
 #include "../../Include/States/statePlayConfig.h"
 #include "../../Include/States/stateSettings.h"
+#include "../../Include/States/stateHelp.h"
 #include "../../Include/States/stateGameOver.h"
+
 
 void StateMainMenu::initialize(sf::RenderWindow *window) {
     //TODO:
@@ -127,7 +129,7 @@ void StateMainMenu::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         return;
                         //helpknappen trykket
                     case 3:
-                        //Her må vi mekke tutorial
+                        machine.setState(new stateHelp());
                         return;
                         //exitknappen trykket
                     case 4:

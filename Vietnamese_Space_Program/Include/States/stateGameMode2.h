@@ -42,6 +42,7 @@ protected:
     Enemy2Object* enemy2Object;
 
 
+
     bool spawna = true;
     bool rightCollision = false;
     bool leftCollision = true;
