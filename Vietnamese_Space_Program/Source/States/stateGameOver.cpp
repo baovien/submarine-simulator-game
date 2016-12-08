@@ -197,6 +197,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                       machine.arcadeScorePointer->end(),
                       SortDescending);
 
+            std::cout << "Highscore:" << std::endl;
             for(int i = 0; i < machine.arcadeScorePointer->size(); i++){
                 std::cout << i+1 << ". place: " << machine.arcadeScorePointer->at(i).second
                           << ", " << machine.arcadeScorePointer->at(i).first << std::endl;
@@ -252,7 +253,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
     if (event.type == sf::Event::MouseButtonReleased) {
         util.checkMuteMouseClick(window, event, machine.mutedPointer);
 
-        for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)); ++i)
+        for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)); ++i) {
             if (util.checkMouseclick(menuButtons[i], event)) {
                 switch (i) {
                     case 0: //restart knappen er trykket
@@ -270,6 +271,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                                   machine.arcadeScorePointer->end(),
                                   SortDescending);
 
+                        std::cout << "Highscore:" << std::endl;
                         for(int i = 0; i < machine.arcadeScorePointer->size(); i++){
                             std::cout << i+1 << ". place: " << machine.arcadeScorePointer->at(i).second
                                       << ", " << machine.arcadeScorePointer->at(i).first << std::endl;
@@ -292,6 +294,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                                   machine.arcadeScorePointer->end(),
                                   SortDescending);
 
+                        std::cout << "Highscore:" << std::endl;
                         for(int i = 0; i < machine.arcadeScorePointer->size(); i++){
                             std::cout << i+1 << ". place: " << machine.arcadeScorePointer->at(i).second
                                       << ", " << machine.arcadeScorePointer->at(i).first << std::endl;
@@ -301,6 +304,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         return;
                 }
             }
+        }
     }
 }
 
