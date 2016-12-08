@@ -20,16 +20,17 @@ public:
     void handleEvent(sf::RenderWindow *window, sf::Event event);
 
     void reinitialize(sf::RenderWindow *window);
+
     sf::Clock clock;
 
 private:
 
     Utilities util;
     sf::Text* gameOverText;
-    sf::Text* menuText;
-    sf::Text* restartText;
     sf::Text* score;
     sf::Text* congratulationsText;
+    sf::Text* congratulationsText2;
+    sf::Text* whatAShameText;
 
     sf::Texture* bgTexture;
     sf::Sprite* background;
@@ -40,9 +41,18 @@ private:
 
     std::string playerName;
     sf::Text* text;
-    bool showCursor, highscoreOrNAH;
+    sf::Text* clickToActivate;
 
+    bool showCursor, highscoreOrNAH, boxIsClicked;
 
+    struct menuTextureStruct{
+        sf::Texture* buttonNormal;
+        sf::Texture* buttonMouseOver;
+        sf::Texture* buttonClicked;
+    };
+
+    menuTextureStruct menuTextures[2];
+    sf::Sprite* menuButtons[2];
 
 };
 
