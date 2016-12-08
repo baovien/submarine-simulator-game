@@ -2,7 +2,6 @@
 #include "../../Include/States/stateGameMode1.h"
 #include "../../Include/States/stateMainMenu.h"
 #include "../../Include/States/stateGameMode2.h"
-#include "../../Include/States/stateSettings.h"
 
 
 void StatePlayConfig::initialize(sf::RenderWindow *window) {
