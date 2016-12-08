@@ -198,7 +198,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
 
             std::cout << "Highscore:" << std::endl;
             for(int i = 0; i < machine.arcadeScorePointer->size(); i++){
-                std::cout << i++ << ". place: " << machine.arcadeScorePointer->at(i).second
+                std::cout << i+1 << ". place: " << machine.arcadeScorePointer->at(i).second
                           << ", " << machine.arcadeScorePointer->at(i).first << std::endl;
             }
 
@@ -273,7 +273,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
 
                         std::cout << "Highscore:" << std::endl;
                         for(int i = 0; i < machine.arcadeScorePointer->size(); i++){
-                            std::cout << i++ << ". place: " << machine.arcadeScorePointer->at(i).second
+                            std::cout << i+1 << ". place: " << machine.arcadeScorePointer->at(i).second
                                       << ", " << machine.arcadeScorePointer->at(i).first << std::endl;
                         }
 
@@ -296,7 +296,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
 
                         std::cout << "Highscore:" << std::endl;
                         for(int i = 0; i < machine.arcadeScorePointer->size(); i++){
-                            std::cout << i++ << ". place: " << machine.arcadeScorePointer->at(i).second
+                            std::cout << i+1 << ". place: " << machine.arcadeScorePointer->at(i).second
                                       << ", " << machine.arcadeScorePointer->at(i).first << std::endl;
                         }
 
