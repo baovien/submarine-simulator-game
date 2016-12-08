@@ -116,10 +116,6 @@ void Player::updateEntity(sf::RenderWindow *window) {
             {
                 if(this->overheatValue < 10) {
                     this->overheatValue += 1;
-<<<<<<< 7189163b137c64fb3c3da8877b283ff854448d1e
-                    this->soundLoader->playSound(this->soundLoader->SHOOT);
-=======
->>>>>>> La til lyd for: Enemyshooting, bullet og collide  AGINC-72
                     this->soundLoader->playSound(this->soundLoader->PLAYER_SHOOT);
                     this->manager->addEntity("bullet", new Bullet((this->score),
                                                                   (this->getPosition().x +
