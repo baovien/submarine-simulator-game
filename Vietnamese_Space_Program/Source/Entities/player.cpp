@@ -46,10 +46,6 @@ void Player::updateEntity(sf::RenderWindow *window) {
     //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))up = 1;
     //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))down = 1;
 
-    if(this->lives->getValue() <= 5 ){
-        this->load("fighterDamaged1.png");
-    }
-
     switch (this->gamemode) {
         case 1:
             this->setRotation(angle * 180 / pi);
