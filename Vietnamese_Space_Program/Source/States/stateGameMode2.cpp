@@ -5,6 +5,7 @@
 
 void StateGameMode2::initialize(sf::RenderWindow *window) {
 
+    this->manager = new EntityManager();
 
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
@@ -52,14 +53,14 @@ void StateGameMode2::update(sf::RenderWindow *window) {
             machine.setGameOverScore(this->score->getValue());
             machine.setState(new StateGameOver);
             return;
-        }
+    }
 
         if (spawna) {
-            for (int i = 0; i < 5; ++i) {
+            for (int i = 0; i < 15; ++i) {
 
-                for (int j = 0; j < 4; ++j) {
+                for (int j = 0; j < 5; ++j) {
                     //enemies[i,j];
-                    enemy2Object = new Enemy2Object(i, j, window);
+                    enemy2Object = new Enemy2Object(manager,i, j, window);
                     this->manager->addEntity("Enemy", enemy2Object);
                 }
 
@@ -69,7 +70,7 @@ void StateGameMode2::update(sf::RenderWindow *window) {
         }
         if (!rightCollision) {
             std::string name = "Enemy";
-            for (int j = 0; j < 5 * 4; ++j) {
+            for (int j = 0; j < 15 * 5; ++j) {
                 if (j != 0) {
                     name += "0";
                 }
@@ -78,16 +79,16 @@ void StateGameMode2::update(sf::RenderWindow *window) {
                         rightCollision = true;
                         leftCollision = false;
                         std::string name = "Enemy";
-                        for (int j = 0; j < 5 * 4; ++j) {
+                        for (int j = 0; j < 15 * 5; ++j) {
                             if (j != 0) {
                                 name += "0";
                             }
-                            this->manager->getEntity(name)->velocity.x = -10;
-                            this->manager->getEntity(name)->setPosition(this->manager->getEntity(name)->getPosition().x,
-                                                                        this->manager->getEntity(
-                                                                                name)->getPosition().y +
-                                                                        this->manager->getEntity(
-                                                                                name)->getGlobalBounds().height);
+                            Entity* entity = this->manager->getEntity(name);
+                            if (entity != nullptr)
+                            {
+                                entity->velocity.x = -5;
+                                entity->setPosition(entity->getPosition().x, entity->getPosition().y + entity->getGlobalBounds().height);
+                            }
                         }
                         break;
                     }
@@ -96,28 +97,31 @@ void StateGameMode2::update(sf::RenderWindow *window) {
         }
         if (!leftCollision) {
             std::string name = "Enemy";
-            for (int j = 0; j < 5 * 4; ++j) {
+            for (int j = 0; j < 15 * 5; ++j) {
                 if (j != 0) {
                     name += "0";
                 }
+
                 if (this->manager->getEntity(name) != NULL) {
                     if (this->manager->getEntity(name)->getPosition().x < 0) {
                         rightCollision = false;
                         leftCollision = true;
                         std::string name = "Enemy";
-                        for (int j = 0; j < 5 * 4; ++j) {
+                        for (int j = 0; j < 15 * 5; ++j) {
                             if (j != 0) {
                                 name += "0";
                             }
-                            this->manager->getEntity(name)->velocity.x = 10;
-                            this->manager->getEntity(name)->setPosition(this->manager->getEntity(name)->getPosition().x,
-                                                                        this->manager->getEntity(
-                                                                                name)->getPosition().y +
-                                                                        this->manager->getEntity(
-                                                                                name)->getGlobalBounds().height);
+                            Entity* entity = this->manager->getEntity(name);
+                            if (entity != nullptr)
+                            {
+                                entity->velocity.x = 5;
+                                entity->setPosition(entity->getPosition().x, entity->getPosition().y + entity->getGlobalBounds().height);
+                            }
                         }
                         break;
                     }
+
+
                 }
             }
         }
@@ -132,6 +136,8 @@ void StateGameMode2::render(sf::RenderWindow *window) {
     this->manager->renderEntity(window);
     if (util->paused) {
         window->draw(*this->pausedText);
+
+
     }
 }
 
