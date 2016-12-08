@@ -197,6 +197,10 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                       machine.arcadeScorePointer->end(),
                       SortDescending);
 
+            for(int i = 0; i < machine.arcadeScorePointer->size(); i++){
+                std::cout << i+1 << ". place: " << machine.arcadeScorePointer->at(i).second
+                          << ", " << machine.arcadeScorePointer->at(i).first << std::endl;
+            }
             machine.setState(new StateMainMenu);
         }
     }
@@ -266,6 +270,11 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                                   machine.arcadeScorePointer->end(),
                                   SortDescending);
 
+                        for(int i = 0; i < machine.arcadeScorePointer->size(); i++){
+                            std::cout << i+1 << ". place: " << machine.arcadeScorePointer->at(i).second
+                                      << ", " << machine.arcadeScorePointer->at(i).first << std::endl;
+                        }
+
                         machine.setState(new StateGameMode1());
                         return;
                     case 1: //return knappen er trykket
@@ -282,6 +291,11 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         std::sort(machine.arcadeScorePointer->begin(),
                                   machine.arcadeScorePointer->end(),
                                   SortDescending);
+
+                        for(int i = 0; i < machine.arcadeScorePointer->size(); i++){
+                            std::cout << i+1 << ". place: " << machine.arcadeScorePointer->at(i).second
+                                      << ", " << machine.arcadeScorePointer->at(i).first << std::endl;
+                        }
 
                         machine.setState(new StateMainMenu());
                         return;
