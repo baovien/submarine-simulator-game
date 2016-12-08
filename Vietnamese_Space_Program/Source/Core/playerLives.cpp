@@ -1,7 +1,7 @@
 #include "../../Include/Core/playerLives.h"
 
 Lives::Lives(sf::Font &font, unsigned int size) : sf::Text("Lives : 3", font, size) {
-    this->value = 10;
+    this->value = 5;
 }
 void Lives::decreaseLife() {
     this->value -= 1;
