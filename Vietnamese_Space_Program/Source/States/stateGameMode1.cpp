@@ -73,7 +73,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
             machine.setState(new StateGameOver);
             return;
         }
-        this->manager->updateEntity(window);
+        this->manager->updateEntity(window, machine.deltaTimePointer);
 
         this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
         this->lives->updateLife(util->translate("Lives", machine.settingPointer->selectedLanguage));

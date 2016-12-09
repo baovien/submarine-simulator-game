@@ -46,7 +46,6 @@ void Player::updateEntity(sf::RenderWindow *window) {
      /*if(this->lives->getValue() <= 5 ){
         this->load("fighterDamaged1.png");
     } */
-
     switch (this->gamemode) {
         case 1:
             this->setRotation(angle * 180 / pi);

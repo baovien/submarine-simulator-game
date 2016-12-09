@@ -65,8 +65,10 @@ private:
 
     SoundLoader soundLoader;
 
-
+private:
+    float deltaTime;
 public:
+    float* deltaTimePointer = &deltaTime;
     SoundLoader* soundLoaderPointer = &soundLoader;
     bool* mutedMusicPointer = &mutedMusic;
     bool* mutedPointer = &muted;

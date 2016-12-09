@@ -46,7 +46,10 @@ Entity *EntityManager::getEntity(std::string name) {
     }
 }
 
-void EntityManager::updateEntity(sf::RenderWindow *window) {
+void EntityManager::updateEntity(sf::RenderWindow *window, float* deltaTime) {
+    if(deltaTime != nullptr){
+        this->deltaTime = deltaTime;
+    }
     std::vector<std::string> toRemove;
     //Denne går gjennom våre enteties og får typen vår entity er, og oppdaterer våre entities.
     for (auto iterator = this->entities.begin(); iterator != this->entities.end(); iterator++) {
