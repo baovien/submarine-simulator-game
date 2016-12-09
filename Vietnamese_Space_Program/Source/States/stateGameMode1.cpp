@@ -177,7 +177,8 @@ void StateGameMode1::destroy(sf::RenderWindow *window) {
     delete this->pausedBackground;
     delete this->background;
     delete this->manager;
-
+    delete this->bgTexture;
+    delete this->pausedTexture;
 }
 
 void StateGameMode1::handleEvent(sf::RenderWindow *window, sf::Event event) {

@@ -128,6 +128,7 @@ void StateKeybindings::destroy(sf::RenderWindow *window) {
     }
 
     delete this->font;
+    delete this->keyFont;
     delete this->gameplayText;
     delete this->menuNavigationText;
     delete this->movementText;

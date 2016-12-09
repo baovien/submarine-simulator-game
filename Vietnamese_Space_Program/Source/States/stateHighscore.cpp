@@ -118,14 +118,20 @@ void StateHighscore::render(sf::RenderWindow *window) {
 
 void StateHighscore::destroy(sf::RenderWindow *window) {
 
-    delete this->title;
+    delete this->bgTexture;
     delete this->TableArcade;
     delete this->TableClassic;
     delete this->background;
+
+    delete this->title;
     delete this->titleArcade;
     delete this->titleClassic;
+
     delete this->tableTexture;
-    delete this->bgTexture;
+    delete this->backTexture.buttonClicked;
+    delete this->backTexture.buttonNormal;
+    delete this->backTexture.buttonMouseOver;
+    delete this->backButton;
 }
 
 void StateHighscore::handleEvent(sf::RenderWindow *window, sf::Event event) {

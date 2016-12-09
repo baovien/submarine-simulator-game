@@ -175,8 +175,12 @@ void StateGameOver::render(sf::RenderWindow *window) {
 
 void StateGameOver::destroy(sf::RenderWindow *window) {
     //Destroyer i motsatt rekkefølge av draws
+
     for (int i = (sizeof(menuTextures) / sizeof(*menuTextures)) - 1; i >= 0; --i) {
         delete this->menuButtons[i];
+        delete this->menuTextures[i].buttonClicked;
+        delete this->menuTextures[i].buttonMouseOver;
+        delete this->menuTextures[i].buttonNormal;
     }
     delete this->gameOverText;
     delete this->score;
@@ -185,7 +189,10 @@ void StateGameOver::destroy(sf::RenderWindow *window) {
     delete this->congratulationsText2;
     delete this->whatAShameText;
     delete this->clickToActivate;
+    delete this->textBox;
     delete this->background;
+    delete this->bgTexture;
+
 }
 
 void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
