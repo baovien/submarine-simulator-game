@@ -113,11 +113,11 @@ void StatePlayConfig::update(sf::RenderWindow *window) {
         else {
             PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonNormal);
         }
-        if (i == selected_Fighter)
+        if (i == (unsigned)selected_Fighter)
             PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonMouseOver);
-        if (i == selected_Theme)
+        if (i == (unsigned)selected_Theme)
             PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonMouseOver);
-        if (i == selected_Gamemode)
+        if (i == (unsigned)selected_Gamemode)
             PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonMouseOver);
 
     }

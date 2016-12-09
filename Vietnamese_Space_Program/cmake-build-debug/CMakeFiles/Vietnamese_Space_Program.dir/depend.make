@@ -177,6 +177,14 @@ CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateGameOver.cpp.o: ../In
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateGameOver.cpp.o: ../Include/States/stateMainMenu.h
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateGameOver.cpp.o: ../Source/States/stateGameOver.cpp
 
+CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateHelp.cpp.o: ../Include/Core/machine.h
+CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateHelp.cpp.o: ../Include/Core/soundLoader.h
+CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateHelp.cpp.o: ../Include/Core/state.h
+CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateHelp.cpp.o: ../Include/Core/utilities.h
+CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateHelp.cpp.o: ../Include/States/stateHelp.h
+CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateHelp.cpp.o: ../Include/States/stateMainMenu.h
+CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateHelp.cpp.o: ../Source/States/stateHelp.cpp
+
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateHighscore.cpp.o: ../Include/Core/entity.h
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateHighscore.cpp.o: ../Include/Core/entityManager.h
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateHighscore.cpp.o: ../Include/Core/machine.h
@@ -212,6 +220,7 @@ CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateMainMenu.cpp.o: ../In
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateMainMenu.cpp.o: ../Include/Core/state.h
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateMainMenu.cpp.o: ../Include/Core/utilities.h
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateMainMenu.cpp.o: ../Include/States/stateGameOver.h
+CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateMainMenu.cpp.o: ../Include/States/stateHelp.h
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateMainMenu.cpp.o: ../Include/States/stateHighscore.h
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateMainMenu.cpp.o: ../Include/States/stateMainMenu.h
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateMainMenu.cpp.o: ../Include/States/statePlayConfig.h
@@ -239,7 +248,6 @@ CMakeFiles/Vietnamese_Space_Program.dir/Source/States/statePlayConfig.cpp.o: ../
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/statePlayConfig.cpp.o: ../Include/States/stateGameMode2.h
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/statePlayConfig.cpp.o: ../Include/States/stateMainMenu.h
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/statePlayConfig.cpp.o: ../Include/States/statePlayConfig.h
-CMakeFiles/Vietnamese_Space_Program.dir/Source/States/statePlayConfig.cpp.o: ../Include/States/stateSettings.h
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/statePlayConfig.cpp.o: ../Source/States/statePlayConfig.cpp
 
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateSettings.cpp.o: ../Include/Core/machine.h

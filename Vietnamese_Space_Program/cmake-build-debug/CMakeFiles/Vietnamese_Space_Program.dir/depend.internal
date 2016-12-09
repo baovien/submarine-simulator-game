@@ -177,6 +177,14 @@ CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateGameOver.cpp.o
  /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateGameOver.h
  /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateMainMenu.h
  /home/bao/development/aginc/Vietnamese_Space_Program/Source/States/stateGameOver.cpp
+CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateHelp.cpp.o
+ /home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/machine.h
+ /home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/soundLoader.h
+ /home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/state.h
+ /home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/utilities.h
+ /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateHelp.h
+ /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateMainMenu.h
+ /home/bao/development/aginc/Vietnamese_Space_Program/Source/States/stateHelp.cpp
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateHighscore.cpp.o
  /home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/entity.h
  /home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/entityManager.h
@@ -213,6 +221,7 @@ CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateMainMenu.cpp.o
  /home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/state.h
  /home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/utilities.h
  /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateGameOver.h
+ /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateHelp.h
  /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateHighscore.h
  /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateMainMenu.h
  /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/statePlayConfig.h
@@ -240,7 +249,6 @@ CMakeFiles/Vietnamese_Space_Program.dir/Source/States/statePlayConfig.cpp.o
  /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateGameMode2.h
  /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateMainMenu.h
  /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/statePlayConfig.h
- /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateSettings.h
  /home/bao/development/aginc/Vietnamese_Space_Program/Source/States/statePlayConfig.cpp
 CMakeFiles/Vietnamese_Space_Program.dir/Source/States/stateSettings.cpp.o
  /home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/machine.h

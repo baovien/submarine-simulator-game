@@ -25,7 +25,7 @@ void HealthPack::collision(Entity* entity)
     switch(entity->groupID())
     {
         case 1:
-            this->soundLoader->playSound(soundLoader->REPAIR);
+            this->soundLoader->playEffect(Audio::REPAIR);
             this->destroyEntity();
             this->lives->increaseLife();
             break;

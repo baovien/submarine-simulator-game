@@ -4,9 +4,12 @@
 
 void StateGameMode1::initialize(sf::RenderWindow *window) {
     //TODO:
-//    machine.soundLoaderPointer->playSound(machine.soundLoaderPointer->SHOOT);
+
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
+
+    machine.soundLoaderPointer->stopMusic();
+    machine.soundLoaderPointer->playMusic(Audio::Music::ARCADE);
 
     this->manager = new EntityManager();
     this->util = new Utilities;
@@ -52,15 +55,21 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->pausedBackground->setTexture(*this->pausedTexture);
     this->pausedBackground->setOrigin(this->pausedBackground->getGlobalBounds().width / 2, this->pausedBackground->getGlobalBounds().height / 2);
     this->pausedBackground->setPosition(window->getSize().x / 2, window->getSize().y / 2);
+    machine.soundLoaderPointer->playMusic(Audio::Music::ARCADE);
+
+
 }
 
 void StateGameMode1::update(sf::RenderWindow *window) {
+    machine.soundLoaderPointer->checkMuteMusic();
+
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
 
         //Når playerliv blir 0, kommer gameOver splashscreen
         if (this->lives->getValue() <= 0) {
             machine.setGameOverScore(this->score->getValue());
+            machine.soundLoaderPointer->stopMusic();
             machine.setState(new StateGameOver);
             return;
         }
@@ -125,6 +134,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         {
             waveNum++;
             this->transparencyValue = 255;
+            machine.soundLoaderPointer->playEffect(Audio::Effect::WAVEDONE);
 
             size_t pos = this->waveText->getString().find(": "); //Vi skal endre "wave: " uten det gamle wavenummeret, så jeg fjerner f.eks 2 i "wave: 2" før jeg sender det
             this->waveText = util->addText(this->waveText->getString().substring(0 , pos+2) + std::to_string(waveNum), 75, 2, 2, window->getSize().x / 2, window->getSize().y / 4, window, machine.settingPointer->selectedLanguage);
@@ -177,12 +187,14 @@ void StateGameMode1::destroy(sf::RenderWindow *window) {
 void StateGameMode1::handleEvent(sf::RenderWindow *window, sf::Event event) {
     if (event.type == event.KeyPressed) {
         if (event.key.code == machine.keybindMap.find("back")->second.second && util->paused) {
+            machine.soundLoaderPointer->stopMusic();
             machine.setState(new StateMainMenu());
             return;
         }
         if (event.key.code == machine.keybindMap.find("pause")->second.second) {
             util->pauseScreen();                        //Kaller pausefunksjonen
         }
+
     }
 }
 

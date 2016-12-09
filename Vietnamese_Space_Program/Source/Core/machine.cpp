@@ -3,7 +3,7 @@
 Machine::Machine()
 {
     this->state = NULL;
-    this->soundLoaderPointer->loadSounds();
+    soundLoaderPointer->initSoundPointers(mutedPointer, mutedMusicPointer);
 }
 void Machine::setWindow(sf::RenderWindow *window)
 {

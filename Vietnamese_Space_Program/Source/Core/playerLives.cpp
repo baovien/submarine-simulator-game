@@ -18,7 +18,7 @@ void Lives::updateLife(std::string livesText) {
 int Lives::getValue() const {
     return value;
 }
-int Lives::setValue(int life){
+void Lives::setValue(int life){
     this->value = life;
 }
 

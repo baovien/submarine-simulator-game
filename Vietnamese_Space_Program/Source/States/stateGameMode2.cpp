@@ -10,6 +10,9 @@ void StateGameMode2::initialize(sf::RenderWindow *window) {
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
 
+    machine.soundLoaderPointer->stopMusic();
+    machine.soundLoaderPointer->playMusic(Audio::Music::CLASSIC);
+
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
 
@@ -42,6 +45,7 @@ void StateGameMode2::initialize(sf::RenderWindow *window) {
 }
 
 void StateGameMode2::update(sf::RenderWindow *window) {
+    machine.soundLoaderPointer->checkMuteMusic();
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
@@ -156,6 +160,7 @@ void StateGameMode2::destroy(sf::RenderWindow *window) {
 void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event){
     if (event.type == event.KeyPressed) {
         if (event.key.code == machine.keybindMap.find("back")->second.second && util->paused) {
+            machine.soundLoaderPointer->stopMusic();
             machine.setState(new StateMainMenu());
             return;
         }

@@ -208,6 +208,14 @@ dynamicBar.h
 map
 -
 
+/home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateHelp.h
+../Core/state.h
+/home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/state.h
+../Core/machine.h
+/home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/machine.h
+../Core/utilities.h
+/home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/utilities.h
+
 /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateHighscore.h
 ../Core/state.h
 /home/bao/development/aginc/Vietnamese_Space_Program/Include/Core/state.h
@@ -374,6 +382,14 @@ cstring
 cstring
 -
 
+/home/bao/development/aginc/Vietnamese_Space_Program/Source/States/stateHelp.cpp
+iostream
+-
+../../Include/States/stateMainMenu.h
+/home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateMainMenu.h
+../../Include/States/stateHelp.h
+/home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateHelp.h
+
 /home/bao/development/aginc/Vietnamese_Space_Program/Source/States/stateHighscore.cpp
 iostream
 -
@@ -403,6 +419,8 @@ cstring
 /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/statePlayConfig.h
 ../../Include/States/stateSettings.h
 /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateSettings.h
+../../Include/States/stateHelp.h
+/home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateHelp.h
 ../../Include/States/stateGameOver.h
 /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateGameOver.h
 
@@ -415,8 +433,6 @@ cstring
 /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateMainMenu.h
 ../../Include/States/stateGameMode2.h
 /home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateGameMode2.h
-../../Include/States/stateSettings.h
-/home/bao/development/aginc/Vietnamese_Space_Program/Include/States/stateSettings.h
 
 /home/bao/development/aginc/Vietnamese_Space_Program/Source/States/stateSettings.cpp
 ../../Include/States/stateSettings.h

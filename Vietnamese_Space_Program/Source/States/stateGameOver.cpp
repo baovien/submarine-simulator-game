@@ -18,6 +18,9 @@ void StateGameOver::initialize(sf::RenderWindow *window) {
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
 
+    machine.soundLoaderPointer->stopMusic();
+    machine.soundLoaderPointer->playMusic(Audio::Music::GAMEOVER);
+
     this->selected = 1;
     this->showCursor = false;
     this->highscoreOrNAH = false;
@@ -110,6 +113,7 @@ void StateGameOver::initialize(sf::RenderWindow *window) {
  * @param window
  */
 void StateGameOver::update(sf::RenderWindow *window) {
+    machine.soundLoaderPointer->checkMuteMusic();
     //Sjekker mouseover for hver knapp og endrer texture om den er mouseovera eller trykket
     util.checkMuteMouseOver(window);
     for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)); ++i) {
@@ -202,6 +206,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                 std::cout << i+1 << ". place: " << machine.arcadeScorePointer->at(i).second
                           << ", " << machine.arcadeScorePointer->at(i).first << std::endl;
             }
+            machine.soundLoaderPointer->stopMusic();
             machine.setState(new StateMainMenu);
         }
     }
@@ -276,7 +281,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                             std::cout << i+1 << ". place: " << machine.arcadeScorePointer->at(i).second
                                       << ", " << machine.arcadeScorePointer->at(i).first << std::endl;
                         }
-
+                        machine.soundLoaderPointer->stopMusic();
                         machine.setState(new StateGameMode1());
                         return;
                     case 1: //return knappen er trykket
@@ -299,7 +304,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                             std::cout << i+1 << ". place: " << machine.arcadeScorePointer->at(i).second
                                       << ", " << machine.arcadeScorePointer->at(i).first << std::endl;
                         }
-
+                        machine.soundLoaderPointer->stopMusic();
                         machine.setState(new StateMainMenu());
                         return;
                 }

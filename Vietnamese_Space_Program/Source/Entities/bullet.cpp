@@ -43,27 +43,25 @@ void Bullet::collision(Entity *entity)
 {
     if(this->groupId == 2)
     {
+        this->soundLoader->playEffect(Audio::BULLET_POP);
+
         switch (entity->groupID())
         {
             case 3: // IndestructableObject nr 1
-                this->soundLoader->playSound(soundLoader->BULLET_POP);
                 this->destroyEntity();
                 break;
 
             case 4: // Enemy
-                this->soundLoader->playSound(soundLoader->BULLET_POP);
                 this->destroyEntity();
                 this->score->incrementScore();
                 break;
 
             case 5: // Boss
-                this->soundLoader->playSound(soundLoader->BULLET_POP);
                 this->destroyEntity();
                 this->score->incrementScore();
                 break;
 
             case 9: // IndestructableObject nr 2
-                this->soundLoader->playSound(soundLoader->BULLET_POP);
                 this->destroyEntity();
                 break;
         }

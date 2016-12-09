@@ -62,8 +62,6 @@ private:
              {std::make_pair(0, "No one")},
              {std::make_pair(0, "No one")}};
 
-    std::map<const std::string, const std::tuple<std::string, std::string, std::string>> languageMap =
-            {{"Submarine Simulator", std::make_tuple("Ubåtsimulator" , "podmornica simulator", "Simulador submarino")}};
     SoundLoader soundLoader;
 
 
@@ -74,8 +72,6 @@ public:
     settingStruct* settingPointer = &settingVariables;
     std::vector<std::pair<int, std::string>>* arcadeScorePointer = &arcadeScore;
     std::vector<std::pair<int, std::string>>* classicScorePointer = &classicScore;
-
-    //std::map<const std::string, const std::tuple<std::string, std::string, std::string>>* languageMapPointer = &languageMap;
 
 private:
     sf::RenderWindow *window;

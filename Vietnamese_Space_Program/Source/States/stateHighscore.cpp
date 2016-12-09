@@ -136,7 +136,7 @@ void StateHighscore::destroy(sf::RenderWindow *window) {
     delete this->Texturetext[0].Player;
     delete this->PictureButtons[0];
 
-    for(int i = 0; i < sizeof(Texturetext) / sizeof(*Texturetext);i++)
+    for(int i = 0; (unsigned)i < sizeof(Texturetext) / sizeof(*Texturetext);i++)
     {
         delete this->Texturetext[i].Number;
     }

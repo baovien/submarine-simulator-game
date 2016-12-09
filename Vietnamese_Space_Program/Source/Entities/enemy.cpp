@@ -6,8 +6,9 @@
 EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager* manager, int mode, SoundLoader* soundLoader)
             : player(player),
               manager(manager),
-              mode(mode),
-              soundLoader(soundLoader)
+              soundLoader(soundLoader),
+              mode(mode)
+
 {
     this->load("fishCool.png");
     this->active = 1;
@@ -74,7 +75,7 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
     randomNumber2 = rand() % 1000;
     if(this->mode == 2 && randomNumber2 < 5)
     {
-        this->soundLoader->playSound(soundLoader->ENEMY_SHOOT);
+        this->soundLoader->playEffect(Audio::ENEMY_SHOOT);
         this->manager->addEntity("bullet", new Bullet(this->getPosition().x, this->getPosition().y, yDistance/100, xDistance/100, 0));
     }
     //Sjekker om spilleren er til venstre for fienden.

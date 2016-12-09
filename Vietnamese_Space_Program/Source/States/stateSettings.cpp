@@ -32,7 +32,7 @@ void StateSettings::initialize(sf::RenderWindow *window) {
         settingsFlagButtons[i]->setTexture(*this->settingsFlagTextures[i]);
         settingsFlagButtons[i]->setOrigin(settingsFlagButtons[i]->getGlobalBounds().width / 2, settingsFlagButtons[i]->getGlobalBounds().height / 2);
         settingsFlagButtons[i]->scale(window->getSize().x / 4800.f, window->getSize().y / 2700.f);
-        if (i == machine.settingPointer->selectedLanguage) {
+        if (i == (unsigned)machine.settingPointer->selectedLanguage) {
             settingsFlagButtons[i]->setColor(sf::Color(255, 255, 255, 255));
         } else
             settingsFlagButtons[i]->setColor(sf::Color(255, 255, 255, 125));
@@ -111,6 +111,9 @@ void StateSettings::initialize(sf::RenderWindow *window) {
 }
 
 void StateSettings::update(sf::RenderWindow *window) {
+    //Sjekker mutedMusicpointer er satt
+    machine.soundLoaderPointer->checkMuteMusic();
+
     if (!inOverlay) {
         util.checkMuteMouseOver(window);
     }
@@ -122,7 +125,7 @@ void StateSettings::update(sf::RenderWindow *window) {
             } else {
                 settingsFlagButtons[i]->setColor(sf::Color(255, 255, 255, 125));
             }
-            if (i == machine.settingPointer->selectedLanguage) {
+            if (i == (unsigned)machine.settingPointer->selectedLanguage) {
                 settingsFlagButtons[i]->setColor(sf::Color(255, 255, 255, 255));
             }
         }
@@ -325,7 +328,7 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
         if (!inOverlay) {
             for (unsigned int i = 0; i < (sizeof(settingsFlagButtons) / sizeof(*settingsFlagButtons)); ++i) {
                 if (util.checkMouseclick(settingsFlagButtons[i], event)) {
-                    if(i != machine.settingPointer->selectedLanguage) {
+                    if(i != (unsigned)machine.settingPointer->selectedLanguage) {
                         machine.settingPointer->selectedLanguage = i;
                         initialize(window);
                     }
