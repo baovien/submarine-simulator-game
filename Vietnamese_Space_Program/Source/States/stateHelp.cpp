@@ -33,53 +33,51 @@ void stateHelp::initialize(sf::RenderWindow *window) {
     this->spTexture->loadFromFile("Graphics/Sprites/Picture_buttons/PngBtn0.png");
 
 
-
-
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
-    this->background->scale(window->getSize().x/background->getGlobalBounds().width,window->getSize().y/background->getGlobalBounds().height);
+    this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
 
     this->asteroid = new sf::Sprite();
     this->asteroid->setTexture(*this->asTexture);
-    this->asteroid->setOrigin(this->asteroid->getGlobalBounds().width/2, this->asteroid->getGlobalBounds().height/2);
-    this->asteroid->scale(1,1);
-    this->asteroid->setPosition(window->getSize().x/40,window->getSize().y/4.5);
+    this->asteroid->setOrigin(this->asteroid->getGlobalBounds().width / 2, this->asteroid->getGlobalBounds().height / 2);
+    this->asteroid->scale(1, 1);
+    this->asteroid->setPosition(window->getSize().x / 40, window->getSize().y / 4.5);
 
     this->boss = new sf::Sprite();
     this->boss->setTexture(*this->boTexture);
-    this->boss->setOrigin(this->boss->getGlobalBounds().width/2, this->boss->getGlobalBounds().height/2);
-    this->boss->scale(1.3,1.3);
-    this->boss->setPosition(window->getSize().x/35,window->getSize().y/3);
+    this->boss->setOrigin(this->boss->getGlobalBounds().width / 2, this->boss->getGlobalBounds().height / 2);
+    this->boss->scale(1.3, 1.3);
+    this->boss->setPosition(window->getSize().x / 35, window->getSize().y / 3);
 
     this->classic = new sf::Sprite();
     this->classic->setTexture(*this->clTexture);
-    this->classic->setOrigin(this->classic->getGlobalBounds().width/2, this->classic->getGlobalBounds().height/2);
-    this->classic->scale(0.1,0.1);
-    this->classic->setPosition(window->getSize().x/35,window->getSize().y/2.2);
+    this->classic->setOrigin(this->classic->getGlobalBounds().width / 2, this->classic->getGlobalBounds().height / 2);
+    this->classic->scale(0.1, 0.1);
+    this->classic->setPosition(window->getSize().x / 35, window->getSize().y / 2.2);
 
     this->arcade = new sf::Sprite();
     this->arcade->setTexture(*this->arTexture);
-    this->arcade->setOrigin(this->arcade->getGlobalBounds().width/2, this->arcade->getGlobalBounds().height/2);
-    this->arcade->scale(0.1,0.1);
-    this->arcade->setPosition(window->getSize().x/35,window->getSize().y/1.95);
+    this->arcade->setOrigin(this->arcade->getGlobalBounds().width / 2, this->arcade->getGlobalBounds().height / 2);
+    this->arcade->scale(0.1, 0.1);
+    this->arcade->setPosition(window->getSize().x / 35, window->getSize().y / 1.95);
 
     this->overheat = new sf::Sprite();
     this->overheat->setTexture(*this->ohTexture);
-    this->overheat->setOrigin(this->overheat->getGlobalBounds().width/2, this->overheat->getGlobalBounds().height/2);
-    this->overheat->scale(0.5,0.5);
-    this->overheat->setPosition(window->getSize().x/35,window->getSize().y/1.655);
+    this->overheat->setOrigin(this->overheat->getGlobalBounds().width / 2, this->overheat->getGlobalBounds().height / 2);
+    this->overheat->scale(0.5, 0.5);
+    this->overheat->setPosition(window->getSize().x / 35, window->getSize().y / 1.655);
 
     this->underwater = new sf::Sprite();
     this->underwater->setTexture(*this->uwTexture);
-    this->underwater->setOrigin(this->underwater->getGlobalBounds().width/2, this->underwater->getGlobalBounds().height/2);
-    this->underwater->scale(0.1,0.1);
-    this->underwater->setPosition(window->getSize().x/35,window->getSize().y/1.45);
+    this->underwater->setOrigin(this->underwater->getGlobalBounds().width / 2, this->underwater->getGlobalBounds().height / 2);
+    this->underwater->scale(0.1, 0.1);
+    this->underwater->setPosition(window->getSize().x / 35, window->getSize().y / 1.45);
 
     this->space = new sf::Sprite();
     this->space->setTexture(*this->spTexture);
-    this->space->setOrigin(this->space->getGlobalBounds().width/2, this->space->getGlobalBounds().height/2);
-    this->space->scale(0.1,0.1);
-    this->space->setPosition(window->getSize().x/35,window->getSize().y/1.345);
+    this->space->setOrigin(this->space->getGlobalBounds().width / 2, this->space->getGlobalBounds().height / 2);
+    this->space->scale(0.1, 0.1);
+    this->space->setPosition(window->getSize().x / 35, window->getSize().y / 1.345);
 
     util.makeMuteButton(window, machine.mutedPointer);
 
@@ -91,21 +89,21 @@ void stateHelp::initialize(sf::RenderWindow *window) {
 
     boss1 = util.addText("  This enemy is called boss and appers in gamemode 1. The player can kill it,\n  and it can kill the player. "
                                  "The boss has the ability to shoot.",
-                        18, 2, 2, window->getSize().x / 2.9f, window->getSize().y / 3.0f, window, machine.settingPointer->selectedLanguage);
+                         18, 2, 2, window->getSize().x / 2.9f, window->getSize().y / 3.0f, window, machine.settingPointer->selectedLanguage);
 
 
     gamemode = util.addText("   You can choose between two gameodes. Classic and arcade. In classic mode the player \n   is at the bottom of the window"
                                     " and can only move right and left, while enemies are falling \n   down while they move to left and right."
                                     "The point is to shoot the enemies. \n"
                                     "   In arcade the player moves around freely, while enemies come in waves. The player get points by killing the enemies.",
-                         18, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 2.1f, window, machine.settingPointer->selectedLanguage);
+                            18, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 2.1f, window, machine.settingPointer->selectedLanguage);
 
     overheat1 = util.addText("  Overheat keeps the player from shooting uncotrolled much.",
-                            18, 2, 2, window->getSize().x / 3.5f, window->getSize().y / 1.67f, window, machine.settingPointer->selectedLanguage);
+                             18, 2, 2, window->getSize().x / 3.5f, window->getSize().y / 1.67f, window, machine.settingPointer->selectedLanguage);
 
     theme = util.addText("You can choose between two themes. Underwater and space.\nIn the underwater-theme the player is a submarine,"
                                  " \nand in the space-theme the player is a spaceship",
-                             18, 2, 2, window->getSize().x / 3.4f, window->getSize().y / 1.41f, window, machine.settingPointer->selectedLanguage);
+                         18, 2, 2, window->getSize().x / 3.4f, window->getSize().y / 1.41f, window, machine.settingPointer->selectedLanguage);
 
 
     PictureTexture[0].buttonMouseOver = new sf::Texture();
@@ -128,19 +126,14 @@ void stateHelp::update(sf::RenderWindow *window) {
 
     util.checkMuteMouseOver(window);
 
-    for (unsigned int i = 0; i < sizeof(PictureTexture) / sizeof(*PictureTexture); ++i)
-    {
-        if (util.checkMouseover(PictureButtons[i], window))
-        {
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-            {
+    for (unsigned int i = 0; i < sizeof(PictureTexture) / sizeof(*PictureTexture); ++i) {
+        if (util.checkMouseover(PictureButtons[i], window)) {
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                 PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonClicked);
-            } else
-            {
+            } else {
                 PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonMouseOver);
             }
-        } else
-        {
+        } else {
             PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonNormal);
         }
     }
@@ -172,6 +165,7 @@ void stateHelp::render(sf::RenderWindow *window) {
 
 
 }
+
 void stateHelp::destroy(sf::RenderWindow *window) {
 
     delete this->background;
@@ -221,8 +215,6 @@ void stateHelp::handleEvent(sf::RenderWindow *window, sf::Event event) {
 
 }
 
-    void stateHelp::reinitialize(sf::RenderWindow *window) {
-                           //Returnknappen trykket
-
-
-                       }
+void stateHelp::reinitialize(sf::RenderWindow *window) {
+    initialize(window);
+}
