@@ -21,7 +21,6 @@ public:
     void reinitialize(sf::RenderWindow *window);
 
 private:
-    sf::Font* font;
     sf::Texture* bgTexture;
     sf::Sprite* background;
     Utilities util;
@@ -34,10 +33,6 @@ private:
 
     menuTextureStruct menuTextures[5];
     sf::Sprite* menuButtons[5];
-    sf::Text* Title;
-
-
-//    int selected;
-//    unsigned int textSize = 32U;
+    sf::Text* title;
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_MENU_H

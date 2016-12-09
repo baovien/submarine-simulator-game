@@ -19,14 +19,11 @@ void App::run() {
     machine.setWindow(&window);
     machine.setState(new StateMainMenu);
 
-    sf::Clock timer;
-    sf::Time deltaTime;
-
     window.setFramerateLimit((unsigned int) ((15 * machine.settingPointer->selectedFps * machine.settingPointer->selectedFps) + 15 * machine.settingPointer->selectedFps + 30));
     // 15x^2+15x+30 gir riktig fps utifra selectedFPS 0=30, 1=60, 2=120. Derfor bruker jeg den funksjonen til å sette initialfps
     bool wait = false;
     while (window.isOpen()) {
-        //Make event to prevent crash
+
         sf::Event event;
         while (window.pollEvent(event)) {
             if(event.type == sf::Event::LostFocus){
@@ -34,7 +31,6 @@ void App::run() {
             }
             if(event.type == sf::Event::GainedFocus){
                 wait = false;
-                timer.restart();
             }
             if(!wait) {
                 //Close down window
@@ -56,13 +52,5 @@ void App::run() {
         if (quitGame) {
             window.close();
         }
-
-        deltaTime = timer.getElapsedTime();
-/*
-          if(deltaTime.asMicroseconds() != 0)
-            std::cout<< "FPS: " << 1000000/deltaTime.asMicroseconds() << "    MUTED: " << *machine.mutedPointer << "    Language: " << machine.settingPointer->selectedLanguage <<
-                     "     Selected FPS: " << machine.settingPointer->selectedFps << "    MutedMusic: "  << *machine.mutedMusicPointer << std::endl;
-*/
-        timer.restart();
     }
 }

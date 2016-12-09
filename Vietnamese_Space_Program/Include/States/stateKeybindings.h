@@ -20,8 +20,6 @@ public:
     void reinitialize(sf::RenderWindow *window);
 
 private:
-    sf::RenderWindow* window;
-
     Utilities util;
 
     sf::Font* font;

@@ -22,9 +22,6 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
     this->background->setTexture(*this->bgTexture);
     this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
 
-    this->font = new sf::Font();
-    this->font->loadFromFile("Graphics/font1.otf");
-
     //loader alle knapper og versjoner av knapper. Finnes 3 versjoner av hver (vanlig, mouseover og clicked).
     //Ganger med 3 fordi jeg kun vil få hver 3. knapp
     for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)); ++i)
@@ -53,7 +50,7 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
     util.makeMuteButton(window, machine.mutedPointer);
 
     //Text, textsize, origin x, origin y, position x, position y
-    Title = util.addText("Submarine Simulator", 100, 2, 2, menuButtons[0]->getPosition().x, window->getSize().y/15.f, window, machine.settingPointer->selectedLanguage);
+    title = util.addText("Submarine Simulator", 100, 2, 2, menuButtons[0]->getPosition().x, window->getSize().y/15.f, window, machine.settingPointer->selectedLanguage);
 }
 
 void StateMainMenu::update(sf::RenderWindow *window) {
@@ -78,7 +75,7 @@ void StateMainMenu::update(sf::RenderWindow *window) {
 
 void StateMainMenu::render(sf::RenderWindow *window) {
     window->draw(*this->background);
-    window->draw(*this->Title);
+    window->draw(*this->title);
 
     for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)); ++i) {
         window->draw(*this->menuButtons[i]);
@@ -92,9 +89,13 @@ void StateMainMenu::destroy(sf::RenderWindow *window) {
     //Destroyer i motsatt rekkefølge av draws
     for (int i = (sizeof(menuTextures) / sizeof(*menuTextures)) - 1; i >= 0; --i) {
         delete this->menuButtons[i];
+        delete this->menuTextures[i].buttonMouseOver;
+        delete this->menuTextures[i].buttonClicked;
+        delete this->menuTextures[i].buttonNormal;
     }
-    delete this->Title;
+    delete this->title;
     delete this->background;
+    delete this->bgTexture;
 
     //TODO
     //sl.~SoundLoader();

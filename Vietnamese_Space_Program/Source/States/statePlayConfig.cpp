@@ -164,14 +164,20 @@ void StatePlayConfig::destroy(sf::RenderWindow *window) {
     delete this->Arcade;
     delete this->Classic;
 
-    for (int i = sizeof(PictureTexture) / sizeof(*PictureTexture) - 1; i > 0; --i) {
+    for (int i = sizeof(PictureTexture) / sizeof(*PictureTexture) - 1; i >= 0; --i) {
         delete this->PictureButtons[i];
+        delete this->PictureTexture[i].buttonMouseOver;
+        delete this->PictureTexture[i].buttonNormal;
     }
-    for (int i = sizeof(menuTextures) / sizeof(*menuTextures) - 1; i > 0; --i) {
+    for (int i = sizeof(menuTextures) / sizeof(*menuTextures) - 1; i >= 0; --i) {
         delete this->menuButtons[i];
+        delete this->menuTextures[i].buttonClicked;
+        delete this->menuTextures[i].buttonMouseOver;
+        delete this->menuTextures[i].buttonNormal;
     }
 
     delete this->background;
+    delete this->bgTexture;
 }
 
 void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event) {

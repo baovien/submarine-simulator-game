@@ -154,6 +154,7 @@ void StateGameMode2::destroy(sf::RenderWindow *window) {
     delete this->pausedText;
     delete this->background;
     delete this->manager;
+    delete this->bgTexture;
 
 }
 

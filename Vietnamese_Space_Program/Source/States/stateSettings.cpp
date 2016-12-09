@@ -32,7 +32,7 @@ void StateSettings::initialize(sf::RenderWindow *window) {
         settingsFlagButtons[i]->setTexture(*this->settingsFlagTextures[i]);
         settingsFlagButtons[i]->setOrigin(settingsFlagButtons[i]->getGlobalBounds().width / 2, settingsFlagButtons[i]->getGlobalBounds().height / 2);
         settingsFlagButtons[i]->scale(window->getSize().x / 4800.f, window->getSize().y / 2700.f);
-        if (i == (unsigned)machine.settingPointer->selectedLanguage) {
+        if (i == (unsigned) machine.settingPointer->selectedLanguage) {
             settingsFlagButtons[i]->setColor(sf::Color(255, 255, 255, 255));
         } else
             settingsFlagButtons[i]->setColor(sf::Color(255, 255, 255, 125));
@@ -125,7 +125,7 @@ void StateSettings::update(sf::RenderWindow *window) {
             } else {
                 settingsFlagButtons[i]->setColor(sf::Color(255, 255, 255, 125));
             }
-            if (i == (unsigned)machine.settingPointer->selectedLanguage) {
+            if (i == (unsigned) machine.settingPointer->selectedLanguage) {
                 settingsFlagButtons[i]->setColor(sf::Color(255, 255, 255, 255));
             }
         }
@@ -201,19 +201,35 @@ void StateSettings::destroy(sf::RenderWindow *window) {
     //Destroyer i motsatt rekkefølge av draws
     for (int i = (sizeof(settingsFlagButtons) / sizeof(*settingsFlagButtons)) - 1; i >= 0; --i) {
         delete this->settingsFlagButtons[i];
+        delete this->settingsFlagTextures[i];
     }
-    for (int i = (sizeof(settingsTextures) / sizeof(*settingsTextures)) - 2; i >= 0; --i) {
-        delete this->settingsButtons[i];
+    for (int i = (sizeof(settingsTextures) / sizeof(*settingsTextures)) - 1; i >= 0; --i) {
+        //Ligger en ekstra slot for textures der, så fjerner en mindre knapp
+        if (i != (sizeof(settingsTextures) / sizeof(*settingsTextures)) - 1) {
+            delete this->settingsButtons[i];
+        }
+        delete this->settingsTextures[i].buttonClicked;
+        delete this->settingsTextures[i].buttonMouseOver;
+        delete this->settingsTextures[i].buttonNormal;
     }
     for (int i = (sizeof(mouseOverText) / sizeof(*mouseOverText)) - 1; i >= 0; --i) {
         delete this->mouseOverText[i];
     }
+    for (int i = 0; i < 3; ++i) {
+        delete this->fpsButtons[i];
+        delete this->fpsNumbers[i];
+    }
+    delete this->fpsTextures.buttonClicked;
+    delete this->fpsTextures.buttonNormal;
+    delete this->fpsTextures.buttonMouseOver;
+
     delete this->background;
     delete this->overlayBackground;
     delete this->obTexture;
     delete this->title;
     delete this->fpsText;
     delete this->overlayText;
+    delete this->bgTexture;
 }
 
 void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
@@ -240,36 +256,36 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
 
                         //Musikknappen trykket
                         case 0:
-                                *machine.mutedMusicPointer = !*machine.mutedMusicPointer;
-                                std::swap(settingsTextures[0], settingsTextures[sizeof(settingsTextures) / sizeof(*settingsTextures) - 1]);
-                                /* if(*machine.mutedMusicPointer){
-                                     //HER MÅ VI SKRU AV MUSIKK
-                                 }
-                                 else{
-                                     //HER MÅ VI SKRU PÅ MUSIKK
-                                 }*/
+                            *machine.mutedMusicPointer = !*machine.mutedMusicPointer;
+                            std::swap(settingsTextures[0], settingsTextures[sizeof(settingsTextures) / sizeof(*settingsTextures) - 1]);
+                            /* if(*machine.mutedMusicPointer){
+                                 //HER MÅ VI SKRU AV MUSIKK
+                             }
+                             else{
+                                 //HER MÅ VI SKRU PÅ MUSIKK
+                             }*/
                             return;
 
                             //controlsknappen trykket
                         case 1:
-                                machine.setState(new StateKeybindings());
+                            machine.setState(new StateKeybindings());
                             return;
 
                             //reset highscore trykket
                         case 2:
-                                bindsOrScore = false;
-                                inOverlay = true;
+                            bindsOrScore = false;
+                            inOverlay = true;
                             return;
 
                             //reset keybinds trykket
                         case 3:
-                                bindsOrScore = true;
-                                inOverlay = true;
+                            bindsOrScore = true;
+                            inOverlay = true;
                             return;
 
                             //backknappen trykket
                         case 4:
-                                machine.setState(new StateMainMenu());
+                            machine.setState(new StateMainMenu());
                             return;
                     }
                 }
@@ -338,7 +354,7 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
         if (!inOverlay) {
             for (unsigned int i = 0; i < (sizeof(settingsFlagButtons) / sizeof(*settingsFlagButtons)); ++i) {
                 if (util.checkMouseclick(settingsFlagButtons[i], event)) {
-                    if(i != (unsigned)machine.settingPointer->selectedLanguage) {
+                    if (i != (unsigned) machine.settingPointer->selectedLanguage) {
                         machine.settingPointer->selectedLanguage = i;
                         initialize(window);
                     }

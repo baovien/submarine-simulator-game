@@ -57,8 +57,8 @@ private:
         sf::Texture* buttonMouseOver;
         sf::Texture* buttonClicked;
     };
-    menuTextureStruct PictureTexture[1];
-    sf::Sprite* PictureButtons[1];
+    menuTextureStruct buttonTexture;
+    sf::Sprite* button;
 
 };
 
