@@ -8,7 +8,7 @@
 class Enemy2Object : public Entity
 {
 public:
-    Enemy2Object(EntityManager* manager, int i, int j, sf::RenderWindow* window);
+    Enemy2Object(EntityManager* manager, int i, int j, std::string k, sf::RenderWindow* window);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
     sf::Clock clock;
