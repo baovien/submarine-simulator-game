@@ -4,7 +4,7 @@
 BossObject::BossObject(EntityManager* manager, Player* player, int mode)
     : player(player)
 {
-    this->load("fishCool.png");
+    this->load("blowfish.png");
     this->active = 1;
     this->groupId = 5;
     this->health = 10;
@@ -63,8 +63,8 @@ void BossObject::updateEntity(sf::RenderWindow *window) {
         this->rotate(1);
         //Endre sprites i forhold til health
         if (this->health <= 0) {   //Destroy
-            this->load("explosion.png");
-            this->scale(3, 3);
+            //this->load("explosion.png");
+            //this->scale(3, 3);
             this->destroyEntity();
 
             this->manager->addEntity("IndestructableObject", new IndestructableObject(
