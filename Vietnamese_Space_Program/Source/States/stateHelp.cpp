@@ -8,105 +8,112 @@ void stateHelp::initialize(sf::RenderWindow *window) {
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
 
-    this->bgTexture = new sf::Texture();
-    this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
+    this->backgroundTexture = new sf::Texture();
+    this->backgroundTexture->loadFromFile("Graphics/Sprites/background12.png");
 
-    this->asTexture = new sf::Texture();
-    this->asTexture->loadFromFile("Graphics/Sprites/asteroid.png");
+    this->asteroidTexture = new sf::Texture();
+    this->asteroidTexture->loadFromFile("Graphics/Sprites/asteroid.png");
 
-    this->boTexture = new sf::Texture();
-    this->boTexture->loadFromFile("Graphics/Sprites/gold.png");
+    this->bossTexture = new sf::Texture();
+    this->bossTexture->loadFromFile("Graphics/Sprites/gold.png");
 
-    this->arTexture = new sf::Texture();
-    this->arTexture->loadFromFile("Graphics/Sprites/Picture_buttons/PngBtn10.png");
+    this->arcadeTexture = new sf::Texture();
+    this->arcadeTexture->loadFromFile("Graphics/Sprites/Picture_buttons/PngBtn8.png");
 
-    this->clTexture = new sf::Texture();
-    this->clTexture->loadFromFile("Graphics/Sprites/Picture_buttons/PngBtn12.png");
+    this->classicTexture = new sf::Texture();
+    this->classicTexture->loadFromFile("Graphics/Sprites/Picture_buttons/PngBtn10.png");
 
-    this->ohTexture = new sf::Texture();
-    this->ohTexture->loadFromFile("Graphics/Sprites/overheat.png");
+    this->overheatTexture = new sf::Texture();
+    this->overheatTexture->loadFromFile("Graphics/Sprites/overheat.png");
 
-    this->uwTexture = new sf::Texture();
-    this->uwTexture->loadFromFile("Graphics/Sprites/Picture_buttons/PngBtn2.png");
+    this->underwaterTexture = new sf::Texture();
+    this->underwaterTexture->loadFromFile("Graphics/Sprites/Picture_buttons/PngBtn2.png");
 
-    this->spTexture = new sf::Texture();
-    this->spTexture->loadFromFile("Graphics/Sprites/Picture_buttons/PngBtn0.png");
-
-
+    this->spaceTexture = new sf::Texture();
+    this->spaceTexture->loadFromFile("Graphics/Sprites/Picture_buttons/PngBtn0.png");
 
 
     this->background = new sf::Sprite();
-    this->background->setTexture(*this->bgTexture);
+    this->background->setTexture(*this->backgroundTexture);
     this->background->scale(window->getSize().x/background->getGlobalBounds().width,window->getSize().y/background->getGlobalBounds().height);
 
     this->asteroid = new sf::Sprite();
-    this->asteroid->setTexture(*this->asTexture);
+    this->asteroid->setTexture(*this->asteroidTexture);
     this->asteroid->setOrigin(this->asteroid->getGlobalBounds().width/2, this->asteroid->getGlobalBounds().height/2);
-    this->asteroid->scale(1,1);
-    this->asteroid->setPosition(window->getSize().x/40,window->getSize().y/4.5);
+    this->asteroid->scale(window->getSize().x / 1280.0f, window->getSize().y / 720.f);
+    this->asteroid->setPosition(window->getSize().x/35,window->getSize().y/4.5f);
 
     this->boss = new sf::Sprite();
-    this->boss->setTexture(*this->boTexture);
+    this->boss->setTexture(*this->bossTexture);
     this->boss->setOrigin(this->boss->getGlobalBounds().width/2, this->boss->getGlobalBounds().height/2);
-    this->boss->scale(1.3,1.3);
+    this->boss->scale(window->getSize().x / 984.6f, window->getSize().y / 553.8f);
     this->boss->setPosition(window->getSize().x/35,window->getSize().y/3);
 
     this->classic = new sf::Sprite();
-    this->classic->setTexture(*this->clTexture);
+    this->classic->setTexture(*this->classicTexture);
     this->classic->setOrigin(this->classic->getGlobalBounds().width/2, this->classic->getGlobalBounds().height/2);
-    this->classic->scale(0.1,0.1);
-    this->classic->setPosition(window->getSize().x/35,window->getSize().y/2.2);
+    this->classic->scale(window->getSize().x / 12800.0f, window->getSize().y / 7200.0f);
+    this->classic->setPosition(window->getSize().x/35,window->getSize().y/2.15f);
 
     this->arcade = new sf::Sprite();
-    this->arcade->setTexture(*this->arTexture);
+    this->arcade->setTexture(*this->arcadeTexture);
     this->arcade->setOrigin(this->arcade->getGlobalBounds().width/2, this->arcade->getGlobalBounds().height/2);
-    this->arcade->scale(0.1,0.1);
-    this->arcade->setPosition(window->getSize().x/35,window->getSize().y/1.95);
+    this->arcade->scale(window->getSize().x / 12800.0f, window->getSize().y / 7200.0f);
+    this->arcade->setPosition(window->getSize().x/35,window->getSize().y/1.77f);
 
     this->overheat = new sf::Sprite();
-    this->overheat->setTexture(*this->ohTexture);
+    this->overheat->setTexture(*this->overheatTexture);
     this->overheat->setOrigin(this->overheat->getGlobalBounds().width/2, this->overheat->getGlobalBounds().height/2);
-    this->overheat->scale(0.5,0.5);
-    this->overheat->setPosition(window->getSize().x/35,window->getSize().y/1.655);
+    this->overheat->scale(window->getSize().x / 2560.0f ,window->getSize().y / 1440.0f);
+    this->overheat->setPosition(window->getSize().x/35,window->getSize().y/1.56f);
 
     this->underwater = new sf::Sprite();
-    this->underwater->setTexture(*this->uwTexture);
+    this->underwater->setTexture(*this->underwaterTexture);
     this->underwater->setOrigin(this->underwater->getGlobalBounds().width/2, this->underwater->getGlobalBounds().height/2);
-    this->underwater->scale(0.1,0.1);
-    this->underwater->setPosition(window->getSize().x/35,window->getSize().y/1.45);
+    this->underwater->scale(window->getSize().x / 12800.0f, window->getSize().y / 7200.0f);
+    this->underwater->setPosition(window->getSize().x/35,window->getSize().y/1.35f);
 
     this->space = new sf::Sprite();
-    this->space->setTexture(*this->spTexture);
+    this->space->setTexture(*this->spaceTexture);
     this->space->setOrigin(this->space->getGlobalBounds().width/2, this->space->getGlobalBounds().height/2);
-    this->space->scale(0.1,0.1);
-    this->space->setPosition(window->getSize().x/35,window->getSize().y/1.345);
+    this->space->scale(window->getSize().x / 12800.0f, window->getSize().y / 7200.0f);
+    this->space->setPosition(window->getSize().x/35,window->getSize().y/1.25f);
 
     util.makeMuteButton(window, machine.mutedPointer);
 
-    title = util.addText("Tutorial", 80, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
+    title = util.addText("Help", 80, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
 
-    asteroid1 = util.addText(" You will find this enemy in gamemode 1. It flies around randomly,\n and can not be destroyd by the player."
-                                     " But it can damage the player.",
-                             18, 2, 2, window->getSize().x / 3.05f, window->getSize().y / 4.4f, window, machine.settingPointer->selectedLanguage);
+    asteroid1 = util.addText("This object is exclusive to gamemode 1. It will move around randomly on the map, \n"
+                                     "and it can not be destroyed by the player, it will however damage the player if the player touches it.",
+                             18, 2, 2, window->getSize().x / 14.5f,
+                             window->getSize().y / 5.0f, window, machine.settingPointer->selectedLanguage);
+    this->asteroid1->setOrigin(0,0);
 
-    boss1 = util.addText("  This enemy is called boss and appers in gamemode 1. The player can kill it,\n  and it can kill the player. "
-                                 "The boss has the ability to shoot.",
-                        18, 2, 2, window->getSize().x / 2.9f, window->getSize().y / 3.0f, window, machine.settingPointer->selectedLanguage);
+    boss1 = util.addText("This object is also exclusive to gamemode 1. This object is what we call the Boss. The player can kill it, and it can"
+                                 "\nkill the player. The Boss also has the ability to shoot. You will encounter this enemy as you progress.",
+                         18, 2, 2, window->getSize().x / 14.5f,
+                         window->getSize().y / 3.35f, window, machine.settingPointer->selectedLanguage);
+    this->boss1->setOrigin(0,0);
 
+    gamemode = util.addText("You can choose between two gameodes. Classic and Arcade. In Classic, the player is at the bottom of the window\n"
+                                    "and can only move right or left. The enemies are moving from side to side, and as they are about to go out of the screen,\n"
+                                    "they will drop down towards the player. The goal of this gamemode is to destroy the enemies before they reach you.\n\n"
+                                    "In Arcade, the player moves around freely, while enemies come in waves. The player get points by killing the enemies.",
+                            18, 2, 2, window->getSize().x / 14.5f,
+                            window->getSize().y / 2.4f, window, machine.settingPointer->selectedLanguage);
+    this->gamemode->setOrigin(0,0);
 
-    gamemode = util.addText("   You can choose between two gameodes. Classic and arcade. In classic mode the player \n   is at the bottom of the window"
-                                    " and can only move right and left, while enemies are falling \n   down while they move to left and right."
-                                    "The point is to shoot the enemies. \n"
-                                    "   In arcade the player moves around freely, while enemies come in waves. The player get points by killing the enemies.",
-                         18, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 2.1f, window, machine.settingPointer->selectedLanguage);
+    overheat1 = util.addText("The overheatbar is a function in gamemode 1 that keeps the player from shooting too much within a short period of time.\n"
+                                     "If the player overheats the player has to wait till it cools down before the player can start shooting again",
+                             18, 2, 2, window->getSize().x / 14.5f,
+                             window->getSize().y / 1.63f, window, machine.settingPointer->selectedLanguage);
+    this->overheat1->setOrigin(0,0);
 
-    overheat1 = util.addText("  Overheat keeps the player from shooting uncotrolled much.",
-                            18, 2, 2, window->getSize().x / 3.5f, window->getSize().y / 1.67f, window, machine.settingPointer->selectedLanguage);
-
-    theme = util.addText("You can choose between two themes. Underwater and space.\nIn the underwater-theme the player is a submarine,"
-                                 " \nand in the space-theme the player is a spaceship",
-                             18, 2, 2, window->getSize().x / 3.4f, window->getSize().y / 1.41f, window, machine.settingPointer->selectedLanguage);
-
+    theme = util.addText("You have the freedom to choose between two different themes. Underwater or space.\n"
+                                 "The only difference between the two is the change of background",
+                         18, 2, 2, window->getSize().x / 14.5f,
+                         window->getSize().y / 1.34f, window, machine.settingPointer->selectedLanguage);
+    this->theme->setOrigin(0,0);
 
     PictureTexture[0].buttonMouseOver = new sf::Texture();
     PictureTexture[0].buttonMouseOver->loadFromFile("Graphics/Sprites/PlayConfig_buttons/Btn3.png");
@@ -175,7 +182,14 @@ void stateHelp::render(sf::RenderWindow *window) {
 void stateHelp::destroy(sf::RenderWindow *window) {
 
     delete this->background;
-    delete this->bgTexture;
+    delete this->backgroundTexture;
+    delete this->arcadeTexture;
+    delete this->overheatTexture;
+    delete this->asteroidTexture;
+    delete this->bossTexture;
+    delete this->classicTexture;
+    delete this->underwaterTexture;
+    delete this->spaceTexture;
     delete this->title;
     delete this->asteroid;
     delete this->asteroid1;
@@ -212,17 +226,12 @@ void stateHelp::handleEvent(sf::RenderWindow *window, sf::Event event) {
                 case 0:
                     machine.setState(new StateMainMenu);
                     return;
-                default:
-                    return;
-
             }
         }
     }
 
 }
 
-    void stateHelp::reinitialize(sf::RenderWindow *window) {
-                           //Returnknappen trykket
-
-
-                       }
+void stateHelp::reinitialize(sf::RenderWindow *window) {
+    initialize(window);
+}

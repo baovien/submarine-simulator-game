@@ -25,15 +25,14 @@ public:
 private:
     Utilities util;
     sf::Text* title;
-    sf::Texture* bgTexture;
-    sf::Texture* asTexture;
-    sf::Texture* boTexture;
-    sf::Texture* clTexture;
-    sf::Texture* arTexture;
-    sf::Texture* Texture;
-    sf::Texture* ohTexture;
-    sf::Texture* uwTexture;
-    sf::Texture* spTexture;
+    sf::Texture* backgroundTexture;
+    sf::Texture* asteroidTexture;
+    sf::Texture* bossTexture;
+    sf::Texture* classicTexture;
+    sf::Texture* arcadeTexture;
+    sf::Texture* overheatTexture;
+    sf::Texture* underwaterTexture;
+    sf::Texture* spaceTexture;
 
     sf::Sprite* background;
     sf::Sprite* asteroid;

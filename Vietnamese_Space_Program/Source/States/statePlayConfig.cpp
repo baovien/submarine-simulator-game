@@ -189,11 +189,13 @@ void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event) {
             if (util.checkMouseclick(menuButtons[i], event)) {
                 switch (i) {
                     //playknappen trykket
-                    case 0:
+                    case 0: //ARCADE
                         if (selected_Gamemode == 4) {
+                            machine.selectedObjectsPointer->selectedGamemode = 1;
                             machine.setState(new StateGameMode1);
                             return;
-                        } else {
+                        } else { //CLASSIC
+                            machine.selectedObjectsPointer->selectedGamemode = 2;
                             machine.setState(new StateGameMode2);
                             return;
                         }

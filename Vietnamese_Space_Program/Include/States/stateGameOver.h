@@ -21,9 +21,11 @@ public:
 
     void reinitialize(sf::RenderWindow *window);
 
+private:
     sf::Clock clock;
 
-private:
+    void saveScoreArcade();
+    void saveScoreClassic();
 
     Utilities util;
     sf::Text* gameOverText;
@@ -53,7 +55,6 @@ private:
 
     menuTextureStruct menuTextures[2];
     sf::Sprite* menuButtons[2];
-
 };
 
 
