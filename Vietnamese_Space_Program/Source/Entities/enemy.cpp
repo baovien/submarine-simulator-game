@@ -14,8 +14,8 @@ EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager
     this->randomNumber = rand() % 4;
     this->easingAmount = 0.00015f;
     this->maxSpeed = 1.5f;
-    this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
-    this->setScale(window->getSize().x/1280.0f, window->getSize().y / 720.0f);
+    this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
+    this->setScale(window->getSize().x/1280.0f, window->getSize().y/720.0f);
         switch(mode)
         {
             case 1:
@@ -39,8 +39,6 @@ EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager
 }
 
 void EnemyObject::updateEntity(sf::RenderWindow *window) {
-
-    // Gjør at enemien følger spilleren vha. pythagoras. Smoothere bevegelse
     this->xDistance = this->player->getPosition().x - this->getPosition().x;
     this->yDistance = this->player->getPosition().y - this->getPosition().y;
     this->distance = sqrtf((this->xDistance * this->xDistance) + (this->yDistance * this->yDistance));
@@ -71,9 +69,14 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
     }
     int randomNumber2;
     randomNumber2 = rand() % 1000;
-    if(this->mode == 2 && randomNumber2 < 5)
+    if(this->mode == 2 && randomNumber2 < 100)
     {
-        this->manager->addEntity("bullet", new Bullet(this->getPosition().x, this->getPosition().y, yDistance/100, xDistance/100, 0));
+        float angle = this->getRotation() * player->pi/180;
+        this->manager->addEntity("bullet", new Bullet(this->getPosition().x + (this->getGlobalBounds().width/2) * sin(angle),
+                                                      this->getPosition().y - (this->getGlobalBounds().height/2) * cos(angle),
+                                                      yDistance/100,
+                                                      xDistance/100,
+                                                      0));
     }
     //Sjekker om spilleren er til venstre for fienden.
     if(player->getPosition().x < this->getPosition().x){
@@ -113,14 +116,14 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
     Entity::updateEntity(window);
 }
 
-//Her sjekker vi om fienden blir skutt av kuler.
+//Kollisjon med andre entities.
 void EnemyObject::collision(Entity *entity) {
     switch (entity->groupID()) {
-        case 2: // Bullets
+        case 2: // Player sine kuler.
             this->health--;
             break;
 
-        case 4:
+        case 4: //Andre fiender, vil ikke at de skal overlappes.
             this->velocity.x *= -5;
             this->velocity.y *= -5;
             entity->velocity.x = this->velocity.x * -5;

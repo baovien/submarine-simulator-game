@@ -41,14 +41,10 @@ void Player::updateEntity(sf::RenderWindow *window) {
     if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("up")->second.second))up = 1;
     if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("down")->second.second))down = 1;
 
-    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))left = 1;
-    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))right = 1;
-    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))up = 1;
-    //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))down = 1;
-
-    if(this->lives->getValue() <= 5 ){
+    //Spritebytte for skadet player.
+     /*if(this->lives->getValue() <= 5 ){
         this->load("fighterDamaged1.png");
-    }
+    } */
 
     switch (this->gamemode) {
         case 1:
@@ -116,14 +112,11 @@ void Player::updateEntity(sf::RenderWindow *window) {
                 if(this->overheatValue < 10) {
                     this->overheatValue += 1;
                     this->manager->addEntity("bullet", new Bullet((this->score),
-                                                                  (this->getPosition().x +
-                                                                   (this->getGlobalBounds().width / 2) *
-                                                                   sin(angle)),
-                                                                  (this->getPosition().y -
-                                                                   (this->getGlobalBounds().height / 2) *
-                                                                   cos(angle)),
+                                                                  (this->getPosition().x + (this->getGlobalBounds().width / 2) * sin(angle)),
+                                                                  (this->getPosition().y - (this->getGlobalBounds().height / 2) * cos(angle)),
                                                                   (-cos(angle) * 15),
-                                                                  (sin(angle) * 15), (angle * 180 / pi)));
+                                                                  (sin(angle) * 15),
+                                                                  (angle * 180 / pi)));
                 }
                 else if(this->overheatValue > 10)this->overheatValue = 15;
             }
@@ -154,26 +147,26 @@ void Player::updateEntity(sf::RenderWindow *window) {
     Entity::updateEntity(window);
     switch (this->gamemode) {
         case 1:
-            if (this->getPosition().y - this->getGlobalBounds().height / 2 < 0) {
-                //this->setPosition(this->getPosition().x, 720 + this->getGlobalBounds().height);
+            //Sjekker for kollisjon med vindukantene.
+            if (this->getPosition().y + this->getGlobalBounds().height/2 < 0) {
+                this->setPosition(this->getPosition().x, window->getSize().y + this->getGlobalBounds().height/2.1);
                 //this->speed = 0;
-                this->move(-sin(angle) * speed, cos(angle) * speed);
+                //this->move(-sin(angle) * speed, cos(angle) * speed);
             }
-
-            if (this->getPosition().y + this->getGlobalBounds().height / 2 > window->getSize().y) {
-                //this->setPosition(this->getPosition().x, 0);
+            if (this->getPosition().y - this->getGlobalBounds().height/2 > window->getSize().y) {
+                this->setPosition(this->getPosition().x, 0 - this->getGlobalBounds().height/2.1);
                 //this->speed = 0;
-                this->move(-sin(angle) * speed, cos(angle) * speed);
+                //this->move(-sin(angle) * speed, cos(angle) * speed);
             }
-            if (this->getPosition().x - this->getGlobalBounds().width / 2 < 0) {
-                //this->setPosition(1279 + this->getGlobalBounds().width, this->getPosition().y);
+            if (this->getPosition().x + this->getGlobalBounds().width/2 < 0) {
+                this->setPosition(window->getSize().x + this->getGlobalBounds().width/2.1, this->getPosition().y);
                 //this->speed = 0;
-                this->move(-sin(angle) * speed, cos(angle) * speed);
+                //this->move(-sin(angle) * speed, cos(angle) * speed);
             }
-            if (this->getPosition().x + this->getGlobalBounds().width / 2 > window->getSize().x) {
-                //this->setPosition(0, this->getPosition().y);
+            if (this->getPosition().x - this->getGlobalBounds().width/2 > window->getSize().x) {
+                this->setPosition(0 - this->getGlobalBounds().width/2.1, this->getPosition().y);
                 //this->speed = 0;
-                this->move(-sin(angle) * speed, cos(angle) * speed);
+                //this->move(-sin(angle) * speed, cos(angle) * speed);
             }
             break;
         case 2:

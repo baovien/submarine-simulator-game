@@ -19,7 +19,6 @@ private:
 
     // avstanden x og y fra enemy til skipet.
     float xDistance, yDistance, distance;
-    double angle;
     float easingAmount, maxSpeed;
 };
 
