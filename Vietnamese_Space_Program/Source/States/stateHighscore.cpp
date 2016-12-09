@@ -35,8 +35,8 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
 
     //Legger til tekster
     this->title = util.addText("HIGHSCORE", 75, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
-    this->titleArcade = util.addText("ARCADE MODE", 40, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 6.0f, window, machine.settingPointer->selectedLanguage);
-    this->titleClassic = util.addText("CLASSIC MODE", 40, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 1.67f, window, machine.settingPointer->selectedLanguage);
+    this->titleArcade = util.addText("ARCADE", 40, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 6.0f, window, machine.settingPointer->selectedLanguage);
+    this->titleClassic = util.addText("CLASSIC", 40, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 1.67f, window, machine.settingPointer->selectedLanguage);
 
     //Loader de tre versjonene av backknapper
     backTexture.buttonMouseOver = new sf::Texture();

@@ -318,7 +318,7 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
                             window->setFramerateLimit(60);
                             break;
                         case 2:
-                            window->setFramerateLimit(2000);
+                            window->setFramerateLimit(120);
                             break;
                     }
                 }
