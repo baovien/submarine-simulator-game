@@ -1,3 +1,0 @@
-/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/bao/development/aginc/Vietnamese_Space_Program/cmake-build-debug/CMakeFiles/Vietnamese_Space_Program.dir
