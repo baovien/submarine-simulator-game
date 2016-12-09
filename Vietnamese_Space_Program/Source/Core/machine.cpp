@@ -4,6 +4,7 @@ Machine::Machine()
 {
     this->state = NULL;
     soundLoaderPointer->initSoundPointers(mutedPointer, mutedMusicPointer);
+
 }
 void Machine::setWindow(sf::RenderWindow *window)
 {
