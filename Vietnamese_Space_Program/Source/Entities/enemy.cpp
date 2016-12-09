@@ -10,14 +10,14 @@ EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager
               mode(mode)
 
 {
-    this->load("fishCool.png");
+    this->load("happyfish.png");
     this->active = 1;
     this->groupId = 4;
     this->randomNumber = rand() % 4;
     this->easingAmount = 0.00015f;
     this->maxSpeed = 1.5f;
     this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
-    this->setScale(window->getSize().x/1280.0f, window->getSize().y/720.0f);
+    this->setScale(window->getSize().x/2560.0f, window->getSize().y/1440.0f);
         switch(mode)
         {
             case 1:
@@ -78,12 +78,13 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
                                                       this->getPosition().y /*- (this->getGlobalBounds().height/2) * cos(angle)*/,
                                                       yDistance/100,
                                                       xDistance/100,
-                                                      0));
+                                                      0,
+                                                      window));
         this->soundLoader->playEffect(Audio::ENEMY_SHOOT);
     }
     //Sjekker om spilleren er til venstre for fienden.
     if(player->getPosition().x < this->getPosition().x){
-        int hehe = window->getSize().x/1280;
+        float hehe = window->getSize().x/2560.f;
         hehe *= -1;
         this->setScale(hehe, this->getScale().y);
         //Sjekker om spilleren er over fienden
@@ -97,7 +98,7 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
     }
     //Hvis spilleren ikke er til venstre for fienden, da er den til høyre.
     else {
-        this->setScale(window->getSize().x/1280, this->getScale().y);
+        this->setScale(window->getSize().x/2560.f, this->getScale().y);
         //Sjekker om spilleren er over fienden.
         if(player->getPosition().y < this->getPosition().y){
            this->setRotation(alpha);
@@ -108,9 +109,10 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
         }
     }
     if(this->health == 1){
-        this->load("fishFeelsHurt.png");
+        this->load("dizzyfish.png");
     }
     else if(this->health <= 0){
+        this->load("deadfish.png");
         this->destroyEntity();
     }
     if(player->getPosition().y < this->getPosition().y){

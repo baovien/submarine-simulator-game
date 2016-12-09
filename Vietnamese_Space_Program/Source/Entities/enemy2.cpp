@@ -39,7 +39,7 @@ void Enemy2Object::updateEntity(sf::RenderWindow *window) {
 
     if(elapsed1.asMicroseconds() > 2000000) {
 
-        this->manager->addEntity("Bullet", new Bullet(this->getPosition().x, this->getPosition().y + this->getGlobalBounds().height, 5, 0, 0));
+        this->manager->addEntity("Bullet", new Bullet(this->getPosition().x, this->getPosition().y + this->getGlobalBounds().height, 5, 0, 0, window));
         clock.restart();
     }
 

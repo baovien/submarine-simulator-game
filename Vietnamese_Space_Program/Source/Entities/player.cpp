@@ -14,17 +14,17 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
 
     switch (gamemode) {
         case 1:
-            this->load("PLAYERSHIP.png");
+            this->load("ubat1.png");
             this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
             this->space = false;
             this->setPosition(x, y);
-            this->setScale(window->getSize().x/3200.0f, window->getSize().y / 1800.0f); //Scales til 0.4 av vinduet.
+            this->setScale(window->getSize().x/1280.0f, window->getSize().y/720.0f);
             this->bar = new Bar(window);
             this->manager->addEntity("bar", this->bar);
             this->overheatValue = 1.0f;
             break;
         case 2:
-            this->load("fighter2_blue_big.png");
+            this->load("ubat1.png");
             this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
             this->space = false;
             this->setPosition(x - this->getGlobalBounds().width, y - this->getGlobalBounds().height / 2);
@@ -101,12 +101,12 @@ void Player::updateEntity(sf::RenderWindow *window) {
                     break;
             }
             if(this->getRotation() < 360 && this->getRotation() > 180) {
-                float turn = window->getSize().x/3200.0f;
+                float turn = window->getSize().x/2560.0f;
                 turn *= -1;
                 this->setScale(turn, this->getScale().y);
             }
             else{
-                this->setScale(window->getSize().x/3200.0f, window->getSize().y / 1800.0f);
+                this->setScale(window->getSize().x/2560.0f, window->getSize().y/1440.0f);
             }
             if (!this->space && sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second))
             {
@@ -119,7 +119,8 @@ void Player::updateEntity(sf::RenderWindow *window) {
                                                                   (-cos(angle) * 15),
                                                                   (sin(angle) * 15),
                                                                   (angle * 180 / pi),
-                                                                  this->soundLoader));
+                                                                  this->soundLoader,
+                                                                  window));
                 }
                 else if(this->overheatValue > 10) {
                     this->overheatValue = 15;
@@ -140,9 +141,12 @@ void Player::updateEntity(sf::RenderWindow *window) {
                 this->manager->addEntity("bullet", new Bullet((this->score),
                                                               (this->getPosition().x),
                                                               (this->getPosition().y -
-                                                               (this->getGlobalBounds().height / 2)),
+                                                              (this->getGlobalBounds().height / 2)),
                                                               (-10),
-                                                              (0), 0, this->soundLoader));
+                                                              (0),
+                                                              0,
+                                                              this->soundLoader,
+                                                              window));
             }
             this->space = sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second);
             break;

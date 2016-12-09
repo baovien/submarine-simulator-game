@@ -8,8 +8,8 @@
 class Bullet : public Entity
 {
 public:
-    Bullet(Score* score, float x, float y, float direction, float direction2, float angle, SoundLoader* soundLoader);
-    Bullet(float x, float y, float direction, float direction2, float angle);
+    Bullet(Score* score, float x, float y, float direction, float direction2, float angle, SoundLoader* soundLoader, sf::RenderWindow* window);
+    Bullet(float x, float y, float direction, float direction2, float angle, sf::RenderWindow* window);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
 private:

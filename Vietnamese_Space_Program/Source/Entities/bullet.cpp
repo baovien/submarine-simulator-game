@@ -1,7 +1,7 @@
 #include "../../Include/Entities/bullet.h"
 #include <iostream>
 
-Bullet::Bullet(Score* score, float x, float y, float direction, float direction2, float angle, SoundLoader* soundLoader)
+Bullet::Bullet(Score* score, float x, float y, float direction, float direction2, float angle, SoundLoader* soundLoader, sf::RenderWindow* window)
         : soundLoader(soundLoader)
 {
     this->active = 1;
@@ -13,11 +13,11 @@ Bullet::Bullet(Score* score, float x, float y, float direction, float direction2
     this->setPosition(x, y);
     this->setRotation(angle);
     this->score = score;
-    this->setScale(0.6,0.6);
+    this->setScale(window->getSize().x/2560.0f, window->getSize().y/1440.0f);
 
 
 }
-Bullet::Bullet(float x, float y, float direction, float direction2, float angle)
+Bullet::Bullet(float x, float y, float direction, float direction2, float angle , sf::RenderWindow* window)
 {
     this->active = 1;
     this->groupId = 6;
@@ -27,7 +27,7 @@ Bullet::Bullet(float x, float y, float direction, float direction2, float angle)
     this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
     this->setPosition(x, y);
     this->setRotation(angle);
-    this->setScale(0.77,0.77);
+    this->setScale(window->getSize().x/2560.0f, window->getSize().y/1440.0f);
 }
 void Bullet::updateEntity(sf::RenderWindow *window)
 {
