@@ -14,7 +14,7 @@ void StateGameMode2::initialize(sf::RenderWindow *window) {
     machine.soundLoaderPointer->playMusic(Audio::Music::CLASSIC);
 
     this->bgTexture = new sf::Texture();
-    this->bgTexture->loadFromFile("Graphics/Sprites/bg_purple.png");
+    this->bgTexture->loadFromFile("Graphics/Sprites/background12.png");
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
@@ -63,14 +63,38 @@ void StateGameMode2::update(sf::RenderWindow *window) {
 
                 for (int j = 0; j < 5; ++j) {
                     //enemies[i,j];
-                        enemy2Object = new Enemy2Object(manager,i, j, window);
-                        this->manager->addEntity("Enemy", enemy2Object);
+                    switch(j)
+                    {
+                        case 0:
+                            enemy2Object = new Enemy2Object(manager,i, j, "fishis_01.png", window);
+                            this->manager->addEntity("Enemy", enemy2Object);
+                            break;
+                        case 1:
+                            enemy2Object = new Enemy2Object(manager,i, j, "fishis_02.png", window);
+                            this->manager->addEntity("Enemy", enemy2Object);
+                            break;
+                        case 2:
+                            enemy2Object = new Enemy2Object(manager,i, j, "fishis_03.png", window);
+                            this->manager->addEntity("Enemy", enemy2Object);
+                            break;
+                        case 3:
+                            enemy2Object = new Enemy2Object(manager,i, j, "fishis_04.png", window);
+                            this->manager->addEntity("Enemy", enemy2Object);
+                            break;
+                        case 4:
+                            enemy2Object = new Enemy2Object(manager,i, j, "fishis_05.png", window);
+                            this->manager->addEntity("Enemy", enemy2Object);
+                            break;
+
+                    }
+
                 }
 
             }
             spawna = false;
 
         }
+
         if (!rightCollision) {
             std::string name = "Enemy";
             for (int j = 0; j < 15 * 5; ++j) {

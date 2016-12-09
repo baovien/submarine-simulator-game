@@ -27,6 +27,7 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
             break;
         case 2:
             this->load("ubat1.png");
+            this->setScale(window->getSize().x/1280.0f, window->getSize().y/720.0f);
             this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
             this->space = false;
             this->setPosition(x - this->getGlobalBounds().width, y - this->getGlobalBounds().height / 2);
