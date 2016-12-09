@@ -22,8 +22,10 @@ void App::run() {
     window.setFramerateLimit((unsigned int) ((15 * machine.settingPointer->selectedFps * machine.settingPointer->selectedFps) + 15 * machine.settingPointer->selectedFps + 30));
     // 15x^2+15x+30 gir riktig fps utifra selectedFPS 0=30, 1=60, 2=120. Derfor bruker jeg den funksjonen til å sette initialfps
     bool wait = false;
+    sf::Clock clock;
     while (window.isOpen()) {
-
+        std::cout << 1 / *machine.deltaTimePointer << std::endl;
+        *machine.deltaTimePointer = clock.restart().asSeconds();
         sf::Event event;
         while (window.pollEvent(event)) {
             if(event.type == sf::Event::LostFocus){
