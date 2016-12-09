@@ -68,10 +68,10 @@ sf::Text *Utilities::addText(std::string textContent, unsigned int textSize, int
     this->font->loadFromFile("Graphics/Turtles.otf");
     sf::Text *text = new sf::Text(textContent, *this->font, textSize);
     std::transform(textContent.begin(), textContent.end(), textContent.begin(), ::tolower);
-    if(textContent.find(": ") != std::string::npos){
+    if (textContent.find(": ") != std::string::npos) {
         size_t pos = textContent.find(": ");
-        std::string tempNumber = textContent.substr(pos + 2, textContent.size()-1);
-        textContent.erase(pos +2, textContent.size()-1);
+        std::string tempNumber = textContent.substr(pos + 2, textContent.size() - 1);
+        textContent.erase(pos + 2, textContent.size() - 1);
 
         if (languageMap.find(textContent) != languageMap.end()) {
             switch (language) {
@@ -101,11 +101,12 @@ sf::Text *Utilities::addText(std::string textContent, unsigned int textSize, int
             case 3:
                 text->setString(std::get<2>(languageMap.find(textContent)->second));
                 break;
-            default:break;
+            default:
+                break;
         }
     }
-
-    text->setOrigin(text->getGlobalBounds().width / originX, text->getGlobalBounds().height / originY);
+    if (originX != 0 && originY != 0)
+        text->setOrigin(text->getGlobalBounds().width / originX, text->getGlobalBounds().height / originY);
     text->setPosition(posX, posY);
     text->scale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
     text->setOutlineThickness(text->getCharacterSize() / 15);
@@ -147,6 +148,5 @@ std::string Utilities::translate(std::string wordToTranslate, int language) {
             default:
                 return wordToTranslate;
         }
-    }
-    else return wordToTranslate;
+    } else return wordToTranslate;
 }

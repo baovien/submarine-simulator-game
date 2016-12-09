@@ -24,46 +24,30 @@ public:
 
 private:
 
+    sf::Texture *bgTexture;
+    sf::Sprite *TableArcade;
+    sf::Sprite *TableClassic;
+    sf::Sprite *background;
+
     sf::Text *title;
     sf::Text *titleArcade;
     sf::Text *titleClassic;
-    //std::vector<int, std::string> er;
-   // sf::Texture *backTexture;
-    sf::Sprite *back;
 
-/*    std::vector<std::tuple<sf::Text, std::string, std::string>> Scoretable1 =
-            {{std::make_tuple("#", "Player", "Score")},
-             {std::make_tuple("1", BestArcade[0].first, std::to_string(BestArcade[0].second))},
-             {std::make_tuple("2", BestArcade[1].first, std::to_string(BestArcade[1].second))},
-             {std::make_tuple("3", BestArcade[2].first, std::to_string(BestArcade[2].second))}};
-*/
-    struct textstruct
-    {
-        sf::Text *Number;
-        sf::Text *Player;
-        sf::Text *Score;
-    };
-    textstruct Texturetext[4];
-
-    struct menuTextureStruct
+    struct buttonTextures
     {
         sf::Texture* buttonNormal;
         sf::Texture* buttonMouseOver;
         sf::Texture* buttonClicked;
     };
-    menuTextureStruct PictureTexture[1];
-    sf::Sprite* PictureButtons[1];
 
+    buttonTextures backTexture;
+    sf::Sprite* backButton;
+    sf::Texture *tableTexture;
 
-    sf::Texture *bgTexture;
-    sf::Texture *TableTexture;
-
-    sf::Sprite *TableArcade;
-    sf::Sprite *TableClassic;
-    sf::Sprite *background;
+    std::vector<std::tuple<std::string, std::string, std::string>> highscoreValues;
+    std::vector<sf::Text> tableText;
 
     Utilities util;
-    int selected;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_HIGHSCORESTATE_H
