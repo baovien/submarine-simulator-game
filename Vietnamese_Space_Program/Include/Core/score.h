@@ -3,16 +3,17 @@
 
 #include <string>
 #include <SFML/Graphics.hpp>
-
+#include "utilities.h"
 
 class Score : public sf::Text
 {
 public:
     Score(sf::Font &font, unsigned int size);
     void incrementScore();
-    void updateScore();
+    void updateScore(std::string scoreText);
     int getValue() const;
 private:
+    Utilities util;
     int value;
 };
 

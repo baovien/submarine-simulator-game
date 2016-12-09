@@ -1,18 +1,19 @@
 #include "../../Include/Entities/bullet.h"
 #include <iostream>
 
-Bullet::Bullet(Score* score, float x, float y, float direction, float direction2, float angle)
+Bullet::Bullet(Score* score, float x, float y, float direction, float direction2, float angle, SoundLoader* soundLoader)
+        : soundLoader(soundLoader)
 {
     this->active = 1;
     this->groupId = 2;
-    this->load("laser.png");
+    this->load("missile.png");
     this->velocity.y = direction;
     this->velocity.x = direction2;
     this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
     this->setPosition(x, y);
     this->setRotation(angle);
     this->score = score;
-    this->setScale(1.5,1.5);
+    this->setScale(0.6,0.6);
 
 
 }
@@ -42,6 +43,8 @@ void Bullet::collision(Entity *entity)
 {
     if(this->groupId == 2)
     {
+        this->soundLoader->playEffect(Audio::BULLET_POP);
+
         switch (entity->groupID())
         {
             case 3: // IndestructableObject nr 1
@@ -61,9 +64,6 @@ void Bullet::collision(Entity *entity)
             case 9: // IndestructableObject nr 2
                 this->destroyEntity();
                 break;
-
-
-
         }
     }
 }

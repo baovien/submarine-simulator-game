@@ -4,17 +4,18 @@
 
 void StateGameMode1::initialize(sf::RenderWindow *window) {
     //TODO:
-//    sl.LoadSounds();
-//    sl.PlaySound(sl.ARCADE);
 
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
+
+    machine.soundLoaderPointer->stopMusic();
+    machine.soundLoaderPointer->playMusic(Audio::Music::ARCADE);
 
     this->manager = new EntityManager();
     this->util = new Utilities;
 
     this->bgTexture = new sf::Texture();
-    this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
+    this->bgTexture->loadFromFile("Graphics/Sprites/background12.png");
     this->background = new sf::Sprite();
 
     this->background->setTexture(*this->bgTexture);
@@ -22,10 +23,9 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font.ttf");
 
-    this->waveText = new sf::Text("Wave ", *this->font, 75);
-    this->waveText->setOrigin(this->waveText->getGlobalBounds().width / 2, this->waveText->getGlobalBounds().height / 2);
-    this->waveText->setPosition(window->getSize().x / 2, window->getSize().y / 4);
+    this->waveText = util->addText("Wave: ", 75, 2, 2, window->getSize().x / 2, window->getSize().y / 4, window, machine.settingPointer->selectedLanguage);
     this->waveText->setFillColor(sf::Color(255, 255, 255, (sf::Uint8) transparencyValue));
+    this->waveText->setOutlineColor(sf::Color(0, 0, 0, (sf::Uint8) transparencyValue));
 
     this->score = new Score(*font, 32U);
     this->score->setPosition(window->getSize().x/10,window->getSize().y/20);
@@ -34,7 +34,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->lives->setPosition(window->getSize().x - window->getSize().x/5, window->getSize().y/20);
 
     //Init player
-    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2, window, 1, 2);
+    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2, window, 1, 2, machine.soundLoaderPointer);
     this->manager->addEntity("ship", this->player);
 
     this->overBar.loadFromFile("Graphics/Sprites/overheat_border.png");
@@ -44,9 +44,9 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->overBarS.setScale(2,2);
 
     //Init pauseobjekter
-    this->pausedText = new sf::Text("Paused\nPress " + machine.keybindMap.find("back")->second.first + " to Quit", *font, 32U);
-    this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2, this->pausedText->getGlobalBounds().height / 2);
-    this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
+    //Text, textsize, origin x, origin y, position x, position y, window, language int
+
+    this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap.find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2, window->getSize().x / 2, window->getSize().y / 2, window, machine.settingPointer->selectedLanguage);
 
     this->pausedTexture = new sf::Texture();
     this->pausedTexture->loadFromFile("Graphics/Sprites/overlayPause.png");
@@ -55,21 +55,28 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->pausedBackground->setTexture(*this->pausedTexture);
     this->pausedBackground->setOrigin(this->pausedBackground->getGlobalBounds().width / 2, this->pausedBackground->getGlobalBounds().height / 2);
     this->pausedBackground->setPosition(window->getSize().x / 2, window->getSize().y / 2);
+    machine.soundLoaderPointer->playMusic(Audio::Music::ARCADE);
+
+
 }
 
 void StateGameMode1::update(sf::RenderWindow *window) {
+    machine.soundLoaderPointer->checkMuteMusic();
+
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
 
         //Når playerliv blir 0, kommer gameOver splashscreen
         if (this->lives->getValue() <= 0) {
             machine.setGameOverScore(this->score->getValue());
+            machine.soundLoaderPointer->stopMusic();
             machine.setState(new StateGameOver);
             return;
         }
         this->manager->updateEntity(window);
-        this->score->updateScore();
-        this->lives->updateLife();
+
+        this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
+        this->lives->updateLife(util->translate("Lives", machine.settingPointer->selectedLanguage));
 
         //Legger til healthpacks + indestructableObjects utenfor wavessystemet
         this->pauseableClockIndestructableObject.start();
@@ -83,7 +90,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
 
         if (pauseableClockHealthPack.getElapsedTime().asMicroseconds() > 5000000) {         //Sjekker om verdien til clock er mer enn 5 sekunder
             if (rand() % 10 < 3) {                                          //Sjekker om rand() % 10 er mindre enn 3, hvis ikke - så spawnes det ikke healthpack
-                healthPack = new HealthPack(this->lives);
+                healthPack = new HealthPack(this->lives, machine.soundLoaderPointer);
                 this->manager->addEntity("healthPack", healthPack);
             }
             pauseableClockHealthPack.restart();     //restarter clock(nullstiller)
@@ -97,7 +104,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         {
             for (int i = 0; i < 2*waveNum; ++i)
             {
-                this->manager->addEntity("Enemy", new EnemyObject(window, this->player, this->manager, this->mode));
+                this->manager->addEntity("Enemy", new EnemyObject(window, this->player, this->manager, this->mode, machine.soundLoaderPointer));
 
                 /*
                 //Init boss
@@ -127,14 +134,17 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         {
             waveNum++;
             this->transparencyValue = 255;
-            this->waveText->setString("Wave " + std::to_string(this->waveNum));
-            this->waveText->setOrigin(this->waveText->getGlobalBounds().width / 2, this->waveText->getGlobalBounds().height / 2);
+            machine.soundLoaderPointer->playEffect(Audio::Effect::WAVEDONE);
+
+            size_t pos = this->waveText->getString().find(": "); //Vi skal endre "wave: " uten det gamle wavenummeret, så jeg fjerner f.eks 2 i "wave: 2" før jeg sender det
+            this->waveText = util->addText(this->waveText->getString().substring(0 , pos+2) + std::to_string(waveNum), 75, 2, 2, window->getSize().x / 2, window->getSize().y / 4, window, machine.settingPointer->selectedLanguage);
+
             inWave = false;
-            std::cout << "WAVE DONE" << std::endl;
         }
 
         //Fader waveText
         this->waveText->setFillColor(sf::Color(255, 255, 255, (sf::Uint8) transparencyValue));
+        this->waveText->setOutlineColor(sf::Color(0, 0, 0, (sf::Uint8) transparencyValue));
         if(transparencyValue > 1) transparencyValue -= 1;
         //////////////////////////END_WAVES
 
@@ -177,12 +187,14 @@ void StateGameMode1::destroy(sf::RenderWindow *window) {
 void StateGameMode1::handleEvent(sf::RenderWindow *window, sf::Event event) {
     if (event.type == event.KeyPressed) {
         if (event.key.code == machine.keybindMap.find("back")->second.second && util->paused) {
+            machine.soundLoaderPointer->stopMusic();
             machine.setState(new StateMainMenu());
             return;
         }
         if (event.key.code == machine.keybindMap.find("pause")->second.second) {
             util->pauseScreen();                        //Kaller pausefunksjonen
         }
+
     }
 }
 

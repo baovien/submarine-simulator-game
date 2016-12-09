@@ -2,15 +2,17 @@
 #define VIETNAMESE_SPACE_PROGRAM_ENEMY_H
 
 #include "player.h"
+#include "../Core/soundLoader.h"
 
 class EnemyObject : public Entity
 {
 public:
-    EnemyObject(sf::RenderWindow* window, Player* player, EntityManager* manager, int mode);
+    EnemyObject(sf::RenderWindow* window, Player* player, EntityManager* manager, int mode, SoundLoader* soundLoader);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
 
 private:
+    SoundLoader* soundLoader;
     Player* player;
     int health;
     int randomNumber;

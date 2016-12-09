@@ -24,28 +24,39 @@ void App::run() {
 
     window.setFramerateLimit((unsigned int) ((15 * machine.settingPointer->selectedFps * machine.settingPointer->selectedFps) + 15 * machine.settingPointer->selectedFps + 30));
     // 15x^2+15x+30 gir riktig fps utifra selectedFPS 0=30, 1=60, 2=120. Derfor bruker jeg den funksjonen til å sette initialfps
-
+    bool wait = false;
     while (window.isOpen()) {
         //Make event to prevent crash
         sf::Event event;
         while (window.pollEvent(event)) {
-            //Close down window
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            } else if (event.type == sf::Event::Resized) {
-                machine.reinitialize();
+            if(event.type == sf::Event::LostFocus){
+                wait = true;
+            }
+            if(event.type == sf::Event::GainedFocus){
+                wait = false;
+                timer.restart();
+            }
+            if(!wait) {
+                //Close down window
+                if (event.type == sf::Event::Closed) {
+                    window.close();
+                } else if (event.type == sf::Event::Resized) {
+                    machine.reinitialize();
 //                window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
-            } else machine.eventHandler(event);
+                } else machine.eventHandler(event);
+            }
         }
 
         //window.clear(sf::Color::Black);
-        machine.update();
-        machine.render();
-        window.display();
-
+        if(!wait) {
+            machine.update();
+            machine.render();
+            window.display();
+        }
         if (quitGame) {
             window.close();
         }
+
         deltaTime = timer.getElapsedTime();
 /*
           if(deltaTime.asMicroseconds() != 0)

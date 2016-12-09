@@ -21,8 +21,6 @@ public:
 
 private:
 
-    sf::Font* font;
-
     sf::Text* theme;
     sf::Text* fighter;
     sf::Text* gamemode;
@@ -30,7 +28,6 @@ private:
     sf::Text* SpaceTheme;
     sf::Text* fighter_1;
     sf::Text* fighter_2;
-    sf::Text* fighter_3;
     sf::Text* Arcade;
     sf::Text* Classic;
 
@@ -51,14 +48,14 @@ private:
         sf::Texture *buttonNormal;
         sf::Texture *buttonMouseOver;
     };
-    PictureTextureStruct PictureTexture[7];
-    sf::Sprite* PictureButtons[7];
+    PictureTextureStruct PictureTexture[6];
+    sf::Sprite* PictureButtons[6];
 
     Utilities util;
 
-    int  selected_Theme = 0;
-    int selected_Fighter = 4;
-    int selected_Gamemode = 5;
+    int selected_Theme = 0;
+    int selected_Fighter = 3;
+    int selected_Gamemode = 4;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_PLAYCONFIG_H

@@ -4,12 +4,13 @@
 #include "../../Include/States/stateHighscore.h"
 #include "../../Include/States/statePlayConfig.h"
 #include "../../Include/States/stateSettings.h"
+#include "../../Include/States/stateHelp.h"
 #include "../../Include/States/stateGameOver.h"
+
 
 void StateMainMenu::initialize(sf::RenderWindow *window) {
     //TODO:
-    //sl.LoadSounds();
-    //sl.PlaySound(sl.MAIN_MENU);
+    machine.soundLoaderPointer->playMusic(Audio::MAIN_MENU);
 
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
@@ -40,8 +41,9 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
         menuButtons[i] = new sf::Sprite();
         menuButtons[i]->setTexture(*this->menuTextures[i].buttonNormal);
         menuButtons[i]->setOrigin(menuButtons[i]->getGlobalBounds().width / 2, menuButtons[i]->getGlobalBounds().height / 2);
-        if(i<5 && i>0)
-        menuButtons[i]->scale(window->getSize().x/1920.f,  window->getSize().y/1080.f);
+        if(i<5 && i>0) {
+            menuButtons[i]->scale(window->getSize().x/1920.f,  window->getSize().y/1080.f);
+        }
         menuButtons[i]->setPosition(i * window->getSize().x / 5, window->getSize().y - window->getSize().y / 4);
     }
     //Scaler og posisjoner de som varierer mye ift. de andre utenfor for-løkken
@@ -55,6 +57,9 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
 }
 
 void StateMainMenu::update(sf::RenderWindow *window) {
+    //Sjekker mutemusic er satt
+    machine.soundLoaderPointer->checkMuteMusic();
+
     //Sjekker mouseover for hver knapp og endrer texture om den er mouseovera eller trykket
     util.checkMuteMouseOver(window);
     for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)); ++i) {
@@ -117,7 +122,7 @@ void StateMainMenu::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         return;
                         //helpknappen trykket
                     case 3:
-                        //Her må vi mekke tutorial
+                        machine.setState(new stateHelp());
                         return;
                         //exitknappen trykket
                     case 4:

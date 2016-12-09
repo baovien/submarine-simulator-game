@@ -21,7 +21,6 @@ public:
     void reinitialize(sf::RenderWindow *window);
 
 private:
-    SoundLoader sl;
     sf::Font* font;
     sf::Texture* bgTexture;
     sf::Sprite* background;

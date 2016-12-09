@@ -1,12 +1,13 @@
 #include <iostream>
 #include "../../Include/Entities/player.h"
-Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode, int mode)
+Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode, int mode, SoundLoader* soundLoader)
         : keybindMap(keybindMap),
           mode(mode),
           manager(manager),
           gamemode(gamemode),
           score(score),
-          lives(lives)
+          lives(lives),
+          soundLoader(soundLoader)
 {
     this->active = 1;
     this->groupId = 1;
@@ -45,7 +46,6 @@ void Player::updateEntity(sf::RenderWindow *window) {
      /*if(this->lives->getValue() <= 5 ){
         this->load("fighterDamaged1.png");
     } */
-
     switch (this->gamemode) {
         case 1:
             this->setRotation(angle * 180 / pi);
@@ -111,14 +111,17 @@ void Player::updateEntity(sf::RenderWindow *window) {
             {
                 if(this->overheatValue < 10) {
                     this->overheatValue += 1;
+                    this->soundLoader->playEffect(Audio::Effect::PLAYER_SHOOT);
                     this->manager->addEntity("bullet", new Bullet((this->score),
                                                                   (this->getPosition().x + (this->getGlobalBounds().width / 2) * sin(angle)),
                                                                   (this->getPosition().y - (this->getGlobalBounds().height / 2) * cos(angle)),
                                                                   (-cos(angle) * 15),
                                                                   (sin(angle) * 15),
-                                                                  (angle * 180 / pi)));
+                                                                  (angle * 180 / pi),
+                                                                  this->soundLoader));
                 }
                 else if(this->overheatValue > 10)this->overheatValue = 15;
+                soundLoader->playEffect(Audio::OVERHEAT);
             }
             this->bar->updateEntity(window, this->overheatValue);
             this->overheatValue = this->overheatValue - 0.05f;
@@ -136,7 +139,7 @@ void Player::updateEntity(sf::RenderWindow *window) {
                                                               (this->getPosition().y -
                                                                (this->getGlobalBounds().height / 2)),
                                                               (-10),
-                                                              (0), 0));
+                                                              (0), 0, this->soundLoader));
             }
             this->space = sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second);
             break;

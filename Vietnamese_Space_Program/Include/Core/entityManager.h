@@ -15,6 +15,7 @@ public:
     void addEntity(std::string name, Entity* entity);
     void updateEntity(sf::RenderWindow *window);
     void renderEntity(sf::RenderWindow *window);
+    std::vector<Entity*> getEntities(int groupID);
 
 
 protected:

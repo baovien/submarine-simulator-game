@@ -9,12 +9,13 @@ void Score::incrementScore()
 {
     this->value += 1;
 }
-void Score::updateScore()
+void Score::updateScore(std::string scoreText)
 {
-    this->setString("Score: " + std::to_string(this->value));
+    this->setString(scoreText + ": " + std::to_string(this->value));
 }
 
-int Score::getValue() const {
+int Score::getValue() const
+{
 
     return value;
 }

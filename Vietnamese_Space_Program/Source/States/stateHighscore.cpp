@@ -1,151 +1,182 @@
 #include <iostream>
-#include <cstring>
 #include "../../Include/States/stateHighscore.h"
 #include "../../Include/States/stateGameMode1.h"
 #include "../../Include/States/stateMainMenu.h"
 
 
 void StateHighscore::initialize(sf::RenderWindow *window) {
+
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
 
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
-
-    this->tbTexture = new sf::Texture();
-    this->tbTexture->loadFromFile("Graphics/Sprites/table.png");
-
-
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
     this->background->scale(window->getSize().x/background->getGlobalBounds().width,window->getSize().y/background->getGlobalBounds().height);
 
-    this->table = new sf::Sprite();
-    this->table->setTexture(*this->tbTexture);
-    this->table->setOrigin(this->table->getGlobalBounds().width / 2, this->table->getGlobalBounds().height / 2);
-    this->table->scale(1,0.7);
-    this->table->setPosition(window->getSize().x/2,window->getSize().y/2);
+    this->TableTexture = new sf::Texture();
+    this->TableTexture->loadFromFile("Graphics/Sprites/gautesTable.png");
+
+    //Legger til knappen for back
+     {
+         PictureTexture[0].buttonMouseOver = new sf::Texture();
+         PictureTexture[0].buttonMouseOver->loadFromFile("Graphics/Sprites/PlayConfig_buttons/Btn3.png");
+
+         PictureTexture[0].buttonNormal = new sf::Texture();
+         PictureTexture[0].buttonNormal->loadFromFile("Graphics/Sprites/PlayConfig_buttons/Btn4.png");
+
+         PictureTexture[0].buttonClicked = new sf::Texture();
+         PictureTexture[0].buttonClicked->loadFromFile("Graphics/Sprites/PlayConfig_buttons/Btn5.png");
+
+         PictureButtons[0] = new sf::Sprite();
+         PictureButtons[0]->setTexture(*this->PictureTexture[0].buttonNormal);
+         PictureButtons[0]->setOrigin(PictureButtons[0]->getGlobalBounds().width / 2, PictureButtons[0]->getGlobalBounds().height / 2);
+         PictureButtons[0]->scale(window->getSize().x / 5120.f, window->getSize().y / 2880.f);
+         PictureButtons[0]->setPosition(window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
+    }
+
+    //Plassering og konfigurasjon av Arcade-tabell
+    this->titleArcade = util.addText("ARCADE MODE", 40, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 6.0f, window, machine.settingPointer->selectedLanguage);
+    TableArcade = new sf::Sprite();
+    TableArcade->setTexture(*this->TableTexture);
+    TableArcade->setOrigin(TableArcade->getGlobalBounds().width/2, TableArcade->getGlobalBounds().height/2);
+    TableArcade->setScale(window->getSize().x /1408.0f, window->getSize().y / 792.0f);
+    TableArcade->setPosition(window->getSize().x/2, window->getSize().y / 2.5f);
+
+    //Plassering og konfigurasjon av Classic-tabell
+    this->titleClassic = util.addText("CLASSIC MODE", 40, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 1.67f, window, machine.settingPointer->selectedLanguage);
+    TableClassic = new sf::Sprite();
+    TableClassic->setTexture(*this->TableTexture);
+    TableClassic->setOrigin(TableClassic->getGlobalBounds().width/2, TableClassic->getGlobalBounds().height/2);
+    TableClassic->setScale(window->getSize().x /1408.0f, window->getSize().y / 792.0f);
+    TableClassic->setPosition(window->getSize().x/2, window->getSize().y / 1.2f);
+
+    //Legge tekst i tabellen
+    Texturetext[0].Number = util.addText("#", 30,2,2,window->getSize().x/3.97f,window->getSize().y/3.7f,window, machine.settingPointer->selectedLanguage);
+    Texturetext[0].Player = util.addText("PLAYER", 30,2,2,window->getSize().x/3.1f,window->getSize().y/3.7f,window, machine.settingPointer->selectedLanguage);
+    Texturetext[0].Score =  util.addText("SCORE", 30,2,2,window->getSize().x/1.62f,window->getSize().y/3.7f,window, machine.settingPointer->selectedLanguage);
+
+    Texturetext[1].Number = util.addText("1", 30,2,2,window->getSize().x/3.97f,window->getSize().y/3.02f,window, machine.settingPointer->selectedLanguage);
+    Texturetext[2].Number = util.addText("2", 30,2,2,window->getSize().x/3.97f,window->getSize().y/(3.02f - 0.44f),window, machine.settingPointer->selectedLanguage);
+    Texturetext[3].Number = util.addText("3", 30,2,2,window->getSize().x/3.97f,window->getSize().y/(3.02f - 0.78f),window, machine.settingPointer->selectedLanguage);
 
     this->selected = 0;
 
-    this->font = new sf::Font();
-    this->font->loadFromFile("Graphics/font1.otf");
+    this->title = util.addText("HIGHSCORE", 75, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
+    //Legger til backbuttton og mutebutton
 
-    this->title = new sf::Text("Highscore", *this->font, 70U);
-    this->title->setOrigin(this->title->getGlobalBounds().width / 2, this->title->getGlobalBounds().height / 2);
-    this->title->setPosition(window->getSize().x / 2, window->getSize().y / 20);
+    back = new sf::Sprite();
 
-    this->playerText = new sf::Text("Player", *this->font, 35U);
-    this->playerText->setOrigin(this->playerText->getGlobalBounds().width / 2, this->playerText->getGlobalBounds().height / 2);
-    this->playerText->setPosition(window->getSize().x / 2, window->getSize().y / 4.9);
+    util.makeMuteButton(window, machine.mutedPointer);
 
-    this->backText = new sf::Text("Press " + machine.keybindMap.find("back")->second.first + " to go back", *this->font, 16U);
-    this->backText->setOrigin(this->backText->getGlobalBounds().width / 2, this->backText->getGlobalBounds().height / 2);
-    this->backText->setPosition(window->getSize().x / 2, window->getSize().y / 1.1);
-
-    this->scoreText = new sf::Text("Score", *this->font, 35U);
-    this->scoreText->setOrigin(this->scoreText->getGlobalBounds().width / 2, this->scoreText->getGlobalBounds().height / 2);
-    this->scoreText->setPosition(window->getSize().x / 1.24, window->getSize().y / 4.9);
-
-    this->place = new sf::Text("#", *this->font, 35U);
-    this->place->setOrigin(this->place->getGlobalBounds().width / 2, this->place->getGlobalBounds().height / 2);
-    this->place->setPosition(window->getSize().x / 5.3, window->getSize().y / 4.9);
-    
-
-    //For-løkke for plasseringstallene i tabellen
-    for (int i = 0; i <10 ; ++i) {
-        sf::Text* pt;
-        placeVector.push_back(pt);
-        placeVector[i] = new sf::Text(numbers[i], *this->font, 30);
-        placeVector[i]->setOrigin(placeVector[i]->getGlobalBounds().width / 2,placeVector[i]->getGlobalBounds().height / 2);
-        placeVector[i]->setPosition(window->getSize().x / 5.2,window->getSize().y / 3.77 - (window->getSize().y / 3.77-window->getSize().y / 3.115)*i);
-
-
-    }
+    //Forsøk på filskriving
+    std::ofstream myfile;
+    myfile.open ("example.txt");
+    myfile << "Writing this to a file.\n";
+    myfile.close();
 
 }
-
 void StateHighscore::update(sf::RenderWindow *window) {
 
-    if (sf::Mouse::getPosition(*window).x + backText->getGlobalBounds().width / 2 > backText->getPosition().x &&
-        sf::Mouse::getPosition(*window).x - backText->getGlobalBounds().width / 2 < backText->getPosition().x &&
-        sf::Mouse::getPosition(*window).y + backText->getGlobalBounds().height / 2 > backText->getPosition().y &&
-        sf::Mouse::getPosition(*window).y - backText->getGlobalBounds().height / 2 < backText->getPosition().y) {
-        this->selected = 0;
-    } else {
-        this->selected = 1;
-    }
-   /* if (machine.mouseClick.x + backText->getGlobalBounds().width / 2 > backText->getPosition().x &&
-        machine.mouseClick.x - backText->getGlobalBounds().width / 2 < backText->getPosition().x &&
-        machine.mouseClick.y + backText->getGlobalBounds().height / 2 > backText->getPosition().y &&
-        machine.mouseClick.y - backText->getGlobalBounds().height / 2 < backText->getPosition().y) {
-        //Menu
-        machine.mouseClick = {-1, -1};
-        machine.setState(new StateMainMenu);
-        return;
-    }*/
+        util.checkMuteMouseOver(window);
+
+        for (unsigned int i = 0; i < sizeof(PictureTexture) / sizeof(*PictureTexture); ++i)
+        {
+            if (util.checkMouseover(PictureButtons[i], window))
+            {
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                {
+                    PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonClicked);
+                }
+                else
+                {
+                    PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonMouseOver);
+                }
+            } else
+            {
+                PictureButtons[i]->setTexture(*this->PictureTexture[i].buttonNormal);
+            }
+        }
+
+
 }
 
 void StateHighscore::render(sf::RenderWindow *window) {
 
-    this->title->setFillColor(sf::Color::Cyan);
-    this->backText->setFillColor(sf::Color::Cyan);
-    this->playerText->setFillColor(sf::Color::Magenta);
-    this->scoreText->setFillColor(sf::Color::Magenta);
-    this->place->setFillColor(sf::Color::Magenta);
-    this->backText->setStyle(0);
-
-    switch(this->selected){
-        case 0:
-            this->backText->setStyle(1<<3);
-            break;
-    }
-    //Farge for plasseringstallene i tabellen
-    for (int i = 0; i <10 ; ++i) {
-        this->placeVector[i]->setFillColor(sf::Color::White);
-
-    }
-    
     window->draw(*this->background);
-    window->draw(*this->table);
-    window->draw(*this->playerText);
-    window->draw(*this->place);
-    window->draw(*this->scoreText);
     window->draw(*this->title);
-    window->draw(*this->backText);
+    window->draw(*this->TableArcade);
+    window->draw(*this->TableClassic);
+    window->draw(*this->titleArcade);
+    window->draw(*this->titleClassic);
+    window->draw(*this->Texturetext[0].Score);
 
-    for (int i = 0; i <10 ; ++i) {
-
-        window->draw(*this->placeVector[i]);
+    //Tegner knappene
+    for(int i = 0; i < sizeof(Texturetext)/ sizeof(*Texturetext);i++)
+    {
+        window->draw(*this->Texturetext[i].Number);
     }
-   
+
+    window->draw(*this->PictureButtons[0]);
+    window->draw(*this->Texturetext[0].Player);
+    //Tegner mutebutton fra funkjson i Utilities
+    window->draw(*util.getMuteButton());
 }
 
 void StateHighscore::destroy(sf::RenderWindow *window) {
-    delete this->background;
-    delete this->table;
-    delete this->font;
+
     delete this->title;
-    delete this->backText;
-    delete this->playerText;
-    delete this->scoreText;
-    delete this->place;
+    delete this->TableArcade;
+    delete this->TableClassic;
+    delete this->background;
+    delete this->titleArcade;
+    delete this->titleClassic;
+    delete this->Texturetext[0].Score;
+    delete this->Texturetext[0].Player;
+    delete this->PictureButtons[0];
 
-    for (int i = 0; i <10 ; ++i) {
-
-        delete this->placeVector[i];
-
+    for(int i = 0; (unsigned)i < sizeof(Texturetext) / sizeof(*Texturetext);i++)
+    {
+        delete this->Texturetext[i].Number;
     }
-    
+
 }
 
-void StateHighscore::handleEvent(sf::RenderWindow *window, sf::Event event){
-    if(event.key.code == machine.keybindMap.find("back")->second.second) {
-        machine.setState(new StateMainMenu);
-        return;
+void StateHighscore::handleEvent(sf::RenderWindow *window, sf::Event event)
+{
+    if (event.type == sf::Event::KeyPressed)
+    {
+        //Back on escapekey
+        if (event.key.code == machine.keybindMap.find("back")->second.second)
+        {
+            machine.setState(new StateMainMenu);
+            return;
+        }
     }
+
+    if (event.type == sf::Event::MouseButtonReleased)
+    {
+        util.checkMuteMouseClick(window, event,machine.mutedPointer);
+        if (util.checkMouseclick(PictureButtons[0], event))
+        {
+            switch (0)
+            {
+                //playknappen trykket
+                case 0:
+                    machine.setState(new StateMainMenu);
+                    return;
+                default:
+                    return;
+                    //Returnknappen trykket
+
+            }
+        }
+    }
+
 }
 
 void StateHighscore::reinitialize(sf::RenderWindow *window) {
 
 }
+

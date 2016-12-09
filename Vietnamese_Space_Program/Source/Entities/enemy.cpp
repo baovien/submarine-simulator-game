@@ -3,10 +3,12 @@
 #include "../../Include/Entities/enemy.h"
 
 //Initiater enemy, koden vår er satt opp for flere spillere så case 0 er spiller 1.
-EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager* manager, int mode)
+EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager* manager, int mode, SoundLoader* soundLoader)
             : player(player),
               manager(manager),
+              soundLoader(soundLoader),
               mode(mode)
+
 {
     this->load("fishCool.png");
     this->active = 1;
@@ -77,6 +79,7 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
                                                       yDistance/100,
                                                       xDistance/100,
                                                       0));
+        this->soundLoader->playEffect(Audio::ENEMY_SHOOT);
     }
     //Sjekker om spilleren er til venstre for fienden.
     if(player->getPosition().x < this->getPosition().x){

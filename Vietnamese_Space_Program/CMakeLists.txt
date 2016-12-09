@@ -19,6 +19,7 @@ set(SOURCE_FILES
         "Include/Core/utilities.h"
         "Include/Core/soundLoader.h"           "Source/Core/soundLoader.cpp"
         "Include/Core/waveManager.h"           "Source/Core/waveManager.cpp"
+        "Include/Core/pauseableClock.h"           "Source/Core/pauseableClock.cpp"
 
         #Entities Headers
         "Include/Entities/indestructableObject.h"          "Source/Entities/indestructableObject.cpp"
@@ -39,7 +40,7 @@ set(SOURCE_FILES
         "Include/States/stateKeybindings.h"    "Source/States/stateKeybindings.cpp"
         "Include/States/statePlayConfig.h"     "Source/States/statePlayConfig.cpp"
         "Include/States/stateMainMenu.h"       "Source/States/stateMainMenu.cpp"
-        "Include/States/stateSettings.h"       "Source/States/stateSettings.cpp" Source/Core/utilities.cpp Include/Core/pauseableClock.h Source/Core/pauseableClock.cpp)
+        "Include/States/stateSettings.h"       "Source/States/stateSettings.cpp" Source/Core/utilities.cpp Source/States/stateHelp.cpp Include/States/stateHelp.h)
 
 
 
