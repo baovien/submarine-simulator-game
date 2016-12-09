@@ -18,7 +18,7 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
             this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
             this->space = false;
             this->setPosition(x, y);
-            this->setScale(window->getSize().x/3200.0f, window->getSize().y / 1800.0f);
+            this->setScale(window->getSize().x/3200.0f, window->getSize().y / 1800.0f); //Scales til 0.4 av vinduet.
             this->bar = new Bar(window);
             this->manager->addEntity("bar", this->bar);
             this->overheatValue = 1.0f;
@@ -46,6 +46,7 @@ void Player::updateEntity(sf::RenderWindow *window) {
      /*if(this->lives->getValue() <= 5 ){
         this->load("fighterDamaged1.png");
     } */
+
     switch (this->gamemode) {
         case 1:
             this->setRotation(angle * 180 / pi);
@@ -120,8 +121,10 @@ void Player::updateEntity(sf::RenderWindow *window) {
                                                                   (angle * 180 / pi),
                                                                   this->soundLoader));
                 }
-                else if(this->overheatValue > 10)this->overheatValue = 15;
-                soundLoader->playEffect(Audio::OVERHEAT);
+                else if(this->overheatValue > 10) {
+                    this->overheatValue = 15;
+                    soundLoader->playEffect(Audio::OVERHEAT);
+                }
             }
             this->bar->updateEntity(window, this->overheatValue);
             this->overheatValue = this->overheatValue - 0.05f;

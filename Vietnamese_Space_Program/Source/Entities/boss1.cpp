@@ -4,7 +4,7 @@
 BossObject::BossObject(EntityManager* manager, Player* player, int mode)
     : player(player)
 {
-    this->load("gold.png");
+    this->load("fishCool.png");
     this->active = 1;
     this->groupId = 5;
     this->health = 10;

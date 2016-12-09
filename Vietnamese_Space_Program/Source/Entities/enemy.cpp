@@ -71,7 +71,7 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
     }
     int randomNumber2;
     randomNumber2 = rand() % 1000;
-    if(this->mode == 2 && randomNumber2 < 100)
+    if(this->mode == 2 && randomNumber2 < 5)
     {
         float angle = this->getRotation() * player->pi/180;
         this->manager->addEntity("bullet", new Bullet(this->getPosition().x /*+ (this->getGlobalBounds().width/2) * sin(angle)*/,
@@ -85,7 +85,7 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
     if(player->getPosition().x < this->getPosition().x){
         int hehe = window->getSize().x/1280;
         hehe *= -1;
-        this->setScale(hehe, window->getSize().y / 720);
+        this->setScale(hehe, this->getScale().y);
         //Sjekker om spilleren er over fienden
         if(player->getPosition().y < this->getPosition().y){
             this->setRotation(-alpha);
@@ -97,10 +97,10 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
     }
     //Hvis spilleren ikke er til venstre for fienden, da er den til høyre.
     else {
-        this->setScale(window->getSize().x/1280, window->getSize().y / 720);
+        this->setScale(window->getSize().x/1280, this->getScale().y);
         //Sjekker om spilleren er over fienden.
         if(player->getPosition().y < this->getPosition().y){
-           this->setRotation(360 + alpha);
+           this->setRotation(alpha);
         }
         //Sjekker om spilleren er under fienden.
         else if(player->getPosition().y > this->getPosition().y) {
