@@ -8,8 +8,10 @@
  *
  * Player       GroupID = 1
  * Bullet       GroupID = 2
- * Asteroids    GroupID = 3
+ * I-Object     GroupID = 3
  * Enemies      GroupID = 4
+ * Boss         GroupID = 5
+ *
  *
  * @return
  */

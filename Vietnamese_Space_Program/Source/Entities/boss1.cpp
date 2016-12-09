@@ -37,6 +37,7 @@ BossObject::BossObject(EntityManager* manager, Player* player, int mode)
 }
 
 void BossObject::updateEntity(sf::RenderWindow *window) {
+
     // Gjør at bossen følger spilleren vha. pythagoras. Smoothere bevegelse
     this->xDistance = this->player->getPosition().x - this->getPosition().x;
     this->yDistance = this->player->getPosition().y - this->getPosition().y;
