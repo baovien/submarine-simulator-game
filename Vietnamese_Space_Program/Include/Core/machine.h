@@ -52,6 +52,7 @@ private:
         int selectedTheme;
     };
 
+    selectedObjects selectedObjectsVariable {2,0};
 
     std::vector<std::pair<int, std::string>> arcadeScore =
             {{std::make_pair(0, "No one")},
@@ -72,6 +73,7 @@ public:
     settingStruct* settingPointer = &settingVariables;
     std::vector<std::pair<int, std::string>>* arcadeScorePointer = &arcadeScore;
     std::vector<std::pair<int, std::string>>* classicScorePointer = &classicScore;
+    selectedObjects* selectedObjectsPointer = &selectedObjectsVariable;
 
 private:
     sf::RenderWindow *window;
