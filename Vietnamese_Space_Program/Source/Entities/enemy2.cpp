@@ -14,10 +14,10 @@ Enemy2Object::Enemy2Object(EntityManager* manager, int i, int j, sf::RenderWindo
     this->setPosition(window->getSize().x / 15 + i * this->getGlobalBounds().width,
                       window->getSize().y / 2 - this->getGlobalBounds().height * 5 +
                       j * this->getGlobalBounds().height);
-
     this->velocity.x = 5;
-
 }
+
+
 
 void Enemy2Object::updateEntity(sf::RenderWindow *window) {
 
@@ -35,16 +35,13 @@ void Enemy2Object::updateEntity(sf::RenderWindow *window) {
     }
 
 
-   sf::Time elapsed1 = clock.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
+     sf::Time elapsed1 = clock.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
 
     if(elapsed1.asMicroseconds() > 2000000) {
 
         this->manager->addEntity("Bullet", new Bullet(this->getPosition().x, this->getPosition().y + this->getGlobalBounds().height, 5, 0, 0, window));
         clock.restart();
     }
-
-
-
 }
 
 void Enemy2Object::collision(Entity *entity) {
@@ -54,10 +51,6 @@ void Enemy2Object::collision(Entity *entity) {
             this->health--;
             break;
 
-       /* case 6: //Enemybullet
-            entity->destroyEntity();
-            break;
-*/
     }
 }
 

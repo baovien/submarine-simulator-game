@@ -50,7 +50,7 @@ void StateGameMode2::update(sf::RenderWindow *window) {
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
         this->manager->updateEntity(window, machine.deltaTimePointer);
-        this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
+git         this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
         this->lives->updateLife(util->translate("Lives", machine.settingPointer->selectedLanguage));
         if (this->lives->getValue() <= 0) {
             machine.setGameOverScore(this->score->getValue());
@@ -63,8 +63,8 @@ void StateGameMode2::update(sf::RenderWindow *window) {
 
                 for (int j = 0; j < 5; ++j) {
                     //enemies[i,j];
-                    enemy2Object = new Enemy2Object(manager,i, j, window);
-                    this->manager->addEntity("Enemy", enemy2Object);
+                        enemy2Object = new Enemy2Object(manager,i, j, window);
+                        this->manager->addEntity("Enemy", enemy2Object);
                 }
 
             }
