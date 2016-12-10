@@ -50,7 +50,7 @@ void StateGameMode2::update(sf::RenderWindow *window) {
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
         this->manager->updateEntity(window, machine.deltaTimePointer);
-git         this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
+        this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
         this->lives->updateLife(util->translate("Lives", machine.settingPointer->selectedLanguage));
         if (this->lives->getValue() <= 0) {
             machine.setGameOverScore(this->score->getValue());
