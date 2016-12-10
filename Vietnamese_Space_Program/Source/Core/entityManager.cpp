@@ -100,7 +100,4 @@ EntityManager::~EntityManager() {
 
 std::vector<Entity*> EntityManager::getEntities(int groupID) {
 
-
-
-
 }

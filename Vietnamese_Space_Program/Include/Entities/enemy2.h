@@ -1,6 +1,8 @@
 #include "../Core/entityManager.h"
 #include "../Core/score.h"
 #include "bullet.h"
+
+
 #ifndef VIETNAMESE_SPACE_PROGRAM_ENEMY2_H
 #define VIETNAMESE_SPACE_PROGRAM_ENEMY2_H
 
@@ -13,9 +15,13 @@ public:
     virtual void collision(Entity* entity);
     sf::Clock clock;
 private:
+
     int health;
     EntityManager* manager;
-   int bulletSpeed = 2;
+    int bulletSpeed = 2;
+    //std::string Enemylist[75];
+    //bool kolonne = false;
+   //std::string TheEnemies[15];
 
 };
 

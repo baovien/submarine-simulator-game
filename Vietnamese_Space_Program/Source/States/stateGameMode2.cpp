@@ -3,7 +3,9 @@
 #include "../../Include/States/stateMainMenu.h"
 #include "../../Include/States/stateGameOver.h"
 
-void StateGameMode2::initialize(sf::RenderWindow *window) {
+
+void StateGameMode2::initialize(sf::RenderWindow *window)
+{
 
     this->manager = new EntityManager();
 
@@ -32,143 +34,62 @@ void StateGameMode2::initialize(sf::RenderWindow *window) {
     this->lives->setPosition(window->getSize().x - this->lives->getGlobalBounds().width - 20, 5);
 
     manager = new EntityManager();
-    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y, window, 2, 2, machine.soundLoaderPointer);
+    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2,
+                              window->getSize().y, window, 2, 2, machine.soundLoaderPointer);
     this->manager->addEntity("ship", this->player);
 
 
-    this->pausedText = new sf::Text("Paused\nPress " + machine.keybindMap.find("back")->second.first + " to Quit", *font, 32U);
+    this->pausedText = new sf::Text("Paused\nPress " + machine.keybindMap.find("back")->second.first + " to Quit",
+                                    *font, 32U);
     this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2,
                                 this->pausedText->getGlobalBounds().height / 2);
     this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
 
-
 }
 
-void StateGameMode2::update(sf::RenderWindow *window) {
+void StateGameMode2::update(sf::RenderWindow *window)
+{
     machine.soundLoaderPointer->checkMuteMusic();
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
-        this->manager->updateEntity(window, machine.deltaTimePointer);
+        this->manager->updateEntity(window);
         this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
         this->lives->updateLife(util->translate("Lives", machine.settingPointer->selectedLanguage));
-        if (this->lives->getValue() <= 0) {
+
+        if (this->lives->getValue() <= 0)
+        {
             machine.setGameOverScore(this->score->getValue());
             machine.setState(new StateGameOver);
             return;
-    }
-
-        if (spawna) {
-            for (int i = 0; i < 15; ++i) {
-
-                for (int j = 0; j < 5; ++j) {
-                    //enemies[i,j];
-                    switch(j)
-                    {
-                        case 0:
-                            enemy2Object = new Enemy2Object(manager,i, j, "fishis_01.png", window);
-                            this->manager->addEntity("Enemy", enemy2Object);
-                            break;
-                        case 1:
-                            enemy2Object = new Enemy2Object(manager,i, j, "fishis_02.png", window);
-                            this->manager->addEntity("Enemy", enemy2Object);
-                            break;
-                        case 2:
-                            enemy2Object = new Enemy2Object(manager,i, j, "fishis_03.png", window);
-                            this->manager->addEntity("Enemy", enemy2Object);
-                            break;
-                        case 3:
-                            enemy2Object = new Enemy2Object(manager,i, j, "fishis_04.png", window);
-                            this->manager->addEntity("Enemy", enemy2Object);
-                            break;
-                        case 4:
-                            enemy2Object = new Enemy2Object(manager,i, j, "fishis_05.png", window);
-                            this->manager->addEntity("Enemy", enemy2Object);
-                            break;
-
-                    }
-
-                }
-
-            }
-            spawna = false;
-
         }
-
-        if (!rightCollision) {
-            std::string name = "Enemy";
-            for (int j = 0; j < 15 * 5; ++j) {
-                if (j != 0) {
-                    name += "0";
-                }
-                if (this->manager->getEntity(name) != NULL) {
-                    if (this->manager->getEntity(name)->getPosition().x > window->getSize().x) {
-                        rightCollision = true;
-                        leftCollision = false;
-                        std::string name = "Enemy";
-                        for (int j = 0; j < 15 * 5; ++j) {
-                            if (j != 0) {
-                                name += "0";
-                            }
-                            Entity* entity = this->manager->getEntity(name);
-                            if (entity != nullptr)
-                            {
-                                entity->velocity.x = -5;
-                                entity->setPosition(entity->getPosition().x, entity->getPosition().y + entity->getGlobalBounds().height);
-                            }
-                        }
-                        break;
-                    }
-                }
-            }
+        if(enemyList.size() == 0){
+            spawnEnemies(window);
         }
-        if (!leftCollision) {
-            std::string name = "Enemy";
-            for (int j = 0; j < 15 * 5; ++j) {
-                if (j != 0) {
-                    name += "0";
-                }
+        updateEnemyList();
+        turnEnemies(window);
+        enemyShoot(window);
 
-                if (this->manager->getEntity(name) != NULL) {
-                    if (this->manager->getEntity(name)->getPosition().x < 0) {
-                        rightCollision = false;
-                        leftCollision = true;
-                        std::string name = "Enemy";
-                        for (int j = 0; j < 15 * 5; ++j) {
-                            if (j != 0) {
-                                name += "0";
-                            }
-                            Entity* entity = this->manager->getEntity(name);
-                            if (entity != nullptr)
-                            {
-                                entity->velocity.x = 5;
-                                entity->setPosition(entity->getPosition().x, entity->getPosition().y + entity->getGlobalBounds().height);
-                            }
-                        }
-                        break;
-                    }
-
-
-                }
-            }
-        }
     }
 }
 
-void StateGameMode2::render(sf::RenderWindow *window) {
+void StateGameMode2::render(sf::RenderWindow *window)
+{
     window->draw(*this->background);
     window->draw(*this->score);
     window->draw(*this->lives);
 
     this->manager->renderEntity(window);
-    if (util->paused) {
+    if (util->paused)
+    {
         window->draw(*this->pausedText);
 
 
     }
 }
 
-void StateGameMode2::destroy(sf::RenderWindow *window) {
+void StateGameMode2::destroy(sf::RenderWindow *window)
+{
 
     delete this->lives;
     delete this->score;
@@ -177,23 +98,99 @@ void StateGameMode2::destroy(sf::RenderWindow *window) {
     delete this->pausedText;
     delete this->background;
     delete this->manager;
-    delete this->bgTexture;
 
 }
 
-void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event){
-    if (event.type == event.KeyPressed) {
-        if (event.key.code == machine.keybindMap.find("back")->second.second && util->paused) {
+void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event)
+{
+    if (event.type == event.KeyPressed)
+    {
+        if (event.key.code == machine.keybindMap.find("back")->second.second && util->paused)
+        {
             machine.soundLoaderPointer->stopMusic();
             machine.setState(new StateMainMenu());
             return;
         }
-        if (event.key.code == machine.keybindMap.find("pause")->second.second) {
+        if (event.key.code == machine.keybindMap.find("pause")->second.second)
+        {
             util->pauseScreen();                        //Kaller pausefunksjonen
+            for (int i = 0; i < enemyList.size(); ++i)
+            {
+                std::cout << " ROW" + std::to_string(i) + " :";
+                for (int j = 0; j < enemyList.at(i).size(); ++j)
+                {
+                    std::cout << enemyList.at(i).at(j)->activeEntity() << "     ";
+                }
+                std::cout << std::endl;
+            }
+            std::cout << "--------------------------------------" << std::endl;
         }
     }
 }
 
-void StateGameMode2::reinitialize(sf::RenderWindow *window){
+void StateGameMode2::reinitialize(sf::RenderWindow *window)
+{
 
+}
+
+void StateGameMode2::spawnEnemies(sf::RenderWindow *window) {
+    for (int i = 0; i < 5; ++i)
+    {
+        std::vector<Enemy2Object *> tempList;
+        enemyList.push_back(tempList);
+        for (int j = 0; j < 5; ++j)
+        {
+            enemy2Object = new Enemy2Object(manager, i, j, "fishis_0" + std::to_string(j + 1) + ".png", window);
+            this->manager->addEntity("Enemy", enemy2Object);
+            enemyList.at(i).push_back(enemy2Object);
+        }
+    }
+}
+
+void StateGameMode2::turnEnemies(sf::RenderWindow *window) {
+    for (int i = 0; i < enemyList.size(); ++i){
+        if(enemyList.at(i).front()->getPosition().x > window->getSize().x || enemyList.at(i).front()->getPosition().x < 0){
+            for (int j = 0; j < enemyList.size(); ++j)
+            {
+                for (int k = 0; k < enemyList.at(j).size(); ++k)
+                {
+                    enemyList.at(j).at(k)->velocity.x = enemyList.at(j).at(k)->velocity.x * -1;
+                    enemyList.at(j).at(k)->setPosition(enemyList.at(j).at(k)->getPosition().x,
+                                                       enemyList.at(j).at(k)->getPosition().y + enemyList.at(j).at(k)->getGlobalBounds().height);
+                }
+            }
+            break;
+        }
+    }
+}
+
+void StateGameMode2::updateEnemyList() {
+    for (int i = 0; i < enemyList.size(); ++i)
+    {
+        if (enemyList.at(i).size() == 0)
+        {
+            enemyList.erase(enemyList.begin() + i);
+            break;
+        }
+        for (int j = 0; j < enemyList.at(i).size(); ++j)
+        {
+            if (enemyList.at(i).at(j)->activeEntity() == 0)
+            {
+                enemyList.at(i).erase(enemyList.at(i).begin() + j);
+                break;
+            }
+        }
+    }
+}
+
+void StateGameMode2::enemyShoot(sf::RenderWindow *window){
+    for (int i = 0; i < enemyList.size(); ++i)
+    {
+        //Få denne til å skyte
+
+       // enemyList.at(i).back()
+
+
+
+    }
 }

@@ -40,10 +40,15 @@ protected:
     sf::Sprite* background;
     Player* player;
     Enemy2Object* enemy2Object;
+    std::vector<std::vector<Enemy2Object*>> enemyList;
 
-    bool spawna = true;
-    bool rightCollision = false;
-    bool leftCollision = true;
+    void spawnEnemies(sf::RenderWindow *window);
+
+    void turnEnemies(sf::RenderWindow *window);
+
+    void updateEnemyList();
+
+    void enemyShoot(sf::RenderWindow *window);
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE2_H
