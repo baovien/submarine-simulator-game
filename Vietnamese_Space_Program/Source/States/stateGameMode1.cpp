@@ -29,9 +29,11 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
 
     this->score = new Score(*font, 32U);
     this->score->setPosition(window->getSize().x/10,window->getSize().y/20);
+    this->score->setScale(window->getSize().x/1280, window->getSize().y/720);
 
     this->lives = new Lives(*font, 32U);
     this->lives->setPosition(window->getSize().x - window->getSize().x/5, window->getSize().y/20);
+    this->lives->setScale(window->getSize().x/1280, window->getSize().y/720);
 
     //Init player
     this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2, window, 1, 2, machine.soundLoaderPointer);
@@ -41,7 +43,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->overBarS.setTexture(this->overBar);
     this->overBarS.setOrigin(this->overBarS.getGlobalBounds().width/2, this->overBarS.getGlobalBounds().height/2);
     this->overBarS.setPosition(window->getSize().x/2, window->getSize().y - this->overBarS.getGlobalBounds().height);
-    this->overBarS.setScale(2,2);
+    this->overBarS.setScale(window->getSize().x/640,window->getSize().y/360);
 
     //Init pauseobjekter
     //Text, textsize, origin x, origin y, position x, position y, window, language int
@@ -84,13 +86,13 @@ void StateGameMode1::update(sf::RenderWindow *window) {
 
         if (this->pauseableClockIndestructableObject.getElapsedTime().asMicroseconds() > 5000000)   //Sjekker om verdien til clock er mer enn 5 sekunder
         {
-            this->manager->addEntity("indestructableObject", new IndestructableObject());   //er clock mer enn 5 sekunder lager jeg en ny astroide
+            this->manager->addEntity("indestructableObject", new IndestructableObject(window));   //er clock mer enn 5 sekunder lager jeg en ny astroide
             this->pauseableClockIndestructableObject.restart();                             //restarter clock(nullstiller)
         }
 
         if (pauseableClockHealthPack.getElapsedTime().asMicroseconds() > 5000000) {         //Sjekker om verdien til clock er mer enn 5 sekunder
             if (rand() % 10 < 3) {                                          //Sjekker om rand() % 10 er mindre enn 3, hvis ikke - så spawnes det ikke healthpack
-                healthPack = new HealthPack(this->lives, machine.soundLoaderPointer);
+                healthPack = new HealthPack(this->lives, machine.soundLoaderPointer, window);
                 this->manager->addEntity("healthPack", healthPack);
             }
             pauseableClockHealthPack.restart();     //restarter clock(nullstiller)
@@ -108,7 +110,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
                 enemyCount++;
             }
             //Boss
-            //this->manager->addEntity("Boss", new BossObject(this->manager, this->player, this->mode));
+            //this->manager->addEntity("Boss", new BossObject(this->manager, this->player, this->mode, window));
             std::cout << "InWave enemies: " << enemyCount << std::endl;
             inWave = true;
         }

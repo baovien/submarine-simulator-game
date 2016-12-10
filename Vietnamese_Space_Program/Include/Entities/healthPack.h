@@ -8,7 +8,7 @@
 class HealthPack : public Entity
 {
 public:
-    HealthPack(Lives* lives, SoundLoader* soundLoader);
+    HealthPack(Lives* lives, SoundLoader* soundLoader, sf::RenderWindow* window);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
     sf::Clock clock; // starter clocken

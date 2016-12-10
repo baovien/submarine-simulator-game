@@ -7,7 +7,7 @@ Enemy2Object::Enemy2Object(EntityManager* manager, int i, int j, sf::RenderWindo
     this->groupId = 4;
     this->health = 2;
     this->manager = manager;
-
+    this->setScale(window->getSize().x/1280, window->getSize().y/720); //Skaler til 1,1 av vindu.
 
     this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
 
@@ -24,8 +24,6 @@ void Enemy2Object::updateEntity(sf::RenderWindow *window) {
     Entity::updateEntity(window);
 
     if (this->health < 2) {       //Destroy
-        this->load("explosion.png");
-        this->scale(1.5, 1.5);
         this->destroyEntity();
     }
 

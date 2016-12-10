@@ -10,10 +10,7 @@ Bar::Bar(sf::RenderWindow *window) {
 void Bar::updateEntity(sf::RenderWindow *window, float overHeatValue)
 {
     this->overheatcheck = overHeatValue;
-    if(overheatcheck > 10)overheatcheck=10;
-    this->setTextureRect(sf::IntRect(0,0,(window->getSize().x*12/1280) * overheatcheck, window->getSize().y*20/720));
+    if(overheatcheck > 11)overheatcheck=10.5;
+    this->setTextureRect(sf::IntRect(0,0,12 * overheatcheck, window->getSize().y*20/720));
     Entity::updateEntity(window);
-}
-Bar::~Bar() {
-    this->destroyEntity();
 }

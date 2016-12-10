@@ -1,6 +1,6 @@
 #include "../../Include/Entities/healthPack.h"
 
-HealthPack::HealthPack(Lives* lives, SoundLoader* soundLoader)
+HealthPack::HealthPack(Lives* lives, SoundLoader* soundLoader, sf::RenderWindow* window)
         : soundLoader(soundLoader)
 {
     this->load("wrench.png");
@@ -8,7 +8,7 @@ HealthPack::HealthPack(Lives* lives, SoundLoader* soundLoader)
     this->groupId = 7;
     this->lives = lives;
     this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
-
+    this->setScale(window->getSize().x/1280, window->getSize().y/720);
     this->setPosition(rand() % 1280, rand() % 720);
 }
 void HealthPack::updateEntity(sf::RenderWindow *window)

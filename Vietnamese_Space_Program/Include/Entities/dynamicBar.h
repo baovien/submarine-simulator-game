@@ -5,7 +5,6 @@ class Bar : public Entity
 {
 public:
     Bar(sf::RenderWindow *window);
-    ~Bar();
     void updateEntity(sf::RenderWindow *window, float overHeatValue);
 
 protected:
