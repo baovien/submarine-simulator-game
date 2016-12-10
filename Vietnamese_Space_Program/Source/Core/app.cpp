@@ -24,7 +24,7 @@ void App::run() {
     bool wait = false;
     sf::Clock clock;
     while (window.isOpen()) {
-        std::cout << 1 / *machine.deltaTimePointer << std::endl;
+        //std::cout << 1 / *machine.deltaTimePointer << std::endl;
         *machine.deltaTimePointer = clock.restart().asSeconds();
         sf::Event event;
         while (window.pollEvent(event)) {
