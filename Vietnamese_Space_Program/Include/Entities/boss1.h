@@ -17,6 +17,7 @@ public:
 private:
     Player* player;
     Utilities* util;
+    Bar* bar;
     int health, randomNumber;
     double angle;
 

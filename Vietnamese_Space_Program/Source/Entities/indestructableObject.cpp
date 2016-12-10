@@ -118,9 +118,9 @@ void IndestructableObject::updateEntity(sf::RenderWindow *window) {
             this->getPosition().x >= window->getSize().x + this->getGlobalBounds().width * 2 ||
             this->getPosition().y <=-this->getGlobalBounds().height * 2 ||
             this->getPosition().y >=window->getSize().y + this->getGlobalBounds().height * 2){
-        this->destroyEntity();
-    }
 
+                 this->destroyEntity();
+    }
     Entity::updateEntity(window);
 }
 
