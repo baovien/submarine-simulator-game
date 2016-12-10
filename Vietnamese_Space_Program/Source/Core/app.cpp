@@ -10,7 +10,7 @@
 
 void App::run() {
 
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "Vietnamese Space Program"); //, sf::Style::Titlebar | sf::Style::Close)
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "Vietnamese Space Program"); //, sf::Style::Titlebar | sf::Style::Close) FULL HD OMG
 
     window.setKeyRepeatEnabled(false);
 
@@ -24,6 +24,7 @@ void App::run() {
     bool wait = false;
     sf::Clock clock;
     while (window.isOpen()) {
+        //std::cout << 1 / *machine.deltaTimePointer << std::endl;
         *machine.deltaTimePointer = clock.restart().asSeconds();
         sf::Event event;
         while (window.pollEvent(event)) {
