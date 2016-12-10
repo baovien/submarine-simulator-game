@@ -10,7 +10,7 @@
 
 void App::run() {
 
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "Vietnamese Space Program"); //, sf::Style::Titlebar | sf::Style::Close) FULL HD OMG
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "Vietnamese Space Program"); //, sf::Style::Titlebar | sf::Style::Close)
 
     window.setKeyRepeatEnabled(false);
 

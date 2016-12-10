@@ -16,6 +16,9 @@ BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::Ren
     this->player = player;
     this->velocity.x = 1.5;
 
+    this->bar = new Bar(window, this->getPosition().x, this->getPosition().y + this->getGlobalBounds().height);
+    this->manager->addEntity("HpBar", this->bar);
+
     this->easingAmount = 0.000015f;
     this->maxSpeed = 1.5f;
     this->pi = 3.141592653599;
@@ -57,8 +60,6 @@ void BossObject::updateEntity(sf::RenderWindow *window) {
         if (this->velocity.y < -maxSpeed) {
             this->velocity.y = -maxSpeed;
         }
-
-        this->rotate(0.1);
         //Endre sprites i forhold til health
         if (this->health <= 0) {   //Destroy
             //this->load("explosion.png");
@@ -129,6 +130,8 @@ void BossObject::updateEntity(sf::RenderWindow *window) {
 
             this->pauseableClock.restart(); //restarter clock(nullstiller)
         }
+
+        this->bar->updateEntity2(window, 12*this->health , this->getPosition().x, this->getPosition().y + this->getGlobalBounds().height/2.1);
         Entity::updateEntity(window);
     }
 }

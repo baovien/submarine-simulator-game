@@ -94,6 +94,7 @@ void Player::updateEntity(sf::RenderWindow *window) {
                         else if (speed + dec < 0) speed += dec;
                         else speed = 0;
                     }
+
                     this->move(sin(angle) * speed, -cos(angle) * speed);
                     break;
                 default:
@@ -199,8 +200,6 @@ void Player::collision(Entity *entity) {
             this->lives->decreaseLife();
             break;
         case 5: // Boss
-            this->lives->decreaseLife();
-            this->lives->decreaseLife();
             break;
         case 6: //Boss bullet
             entity->destroyEntity();

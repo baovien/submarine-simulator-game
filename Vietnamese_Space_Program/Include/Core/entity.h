@@ -2,7 +2,6 @@
 #define VIETNAMESE_SPACE_PROGRAM_ENTITY_H
 #include <SFML/Graphics.hpp>
 #include <cmath>
-
 class Entity : public sf::Sprite
 {
 public:
@@ -14,7 +13,6 @@ public:
     int activeEntity();
     int groupID();
     void destroyEntity();
-
     ~Entity();
 
     sf::Vector2f velocity;
@@ -22,7 +20,7 @@ protected:
     virtual sf::FloatRect getGlobalBoundsAdjusted();
     int active;
     int groupId;
-
+    float* delta;
 private:
     sf::Texture* texture;
 };

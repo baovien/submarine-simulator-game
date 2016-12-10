@@ -1,4 +1,5 @@
 #include "../../Include/Core/entity.h"
+#include <iostream>
 Entity::Entity()
 {
     this->texture = new sf::Texture();
@@ -13,7 +14,7 @@ void Entity::load(std::string filename)
 }
 void Entity::updateEntity(sf::RenderWindow *window)
 {
-    this->move(this->velocity);
+    this->move(this->velocity.x, this->velocity.y);
 }
 bool Entity::checkCollision(Entity* entity)
 {

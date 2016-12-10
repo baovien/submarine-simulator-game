@@ -17,7 +17,6 @@ public:
     void renderEntity(sf::RenderWindow *window);
     std::vector<Entity*> getEntities(int groupID);
     float* deltaTime;
-
 protected:
     std::unordered_map<std::string, Entity*> entities;
 };

@@ -23,13 +23,14 @@ private:
     int gamemode;
     int mode;
     float overheatValue;
+    bool space;
+
     SoundLoader* soundLoader;
     Lives* lives;
     Score* score;
+    Bar* bar;
     EntityManager* manager;
     std::map<const std::string, std::pair<std::string, int>> keybindMap;
-    Bar* bar;
-    bool space;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_PLAYER_H
