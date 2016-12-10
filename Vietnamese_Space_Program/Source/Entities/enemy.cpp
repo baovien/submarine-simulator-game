@@ -29,13 +29,13 @@ EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager
         }
     //Spawner enemy utenfor vinduet
     if (randomNumber == 1) {
-        this->setPosition(-200, rand() % 720);
+        this->setPosition(0 - this->getGlobalBounds().width * 2, rand() % window->getSize().y);
     } else if (randomNumber == 2) {
-        this->setPosition(1480, rand() % 720);
+        this->setPosition(window->getSize().x + this->getGlobalBounds().width * 2, rand() % window->getSize().y);
     } else if (randomNumber == 3) {
-        this->setPosition(rand() % 1480, -200);
+        this->setPosition(rand() % window->getSize().x + this->getGlobalBounds().width* 2, 0 - this->getGlobalBounds().height * 2);
     } else {
-        this->setPosition(rand() % 1480, 920);
+        this->setPosition(rand() % window->getSize().x + this->getGlobalBounds().width * 2, window->getSize().y + this->getGlobalBounds().height * 2);
     }
 
 }
@@ -63,10 +63,6 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
         }
         if (this->velocity.y < -maxSpeed) {
             this->velocity.y = -maxSpeed;
-        }
-        // Destroy enemy hvis den er utenfor skjermen
-        if (this->getPosition().x <= -400 || this->getPosition().x >= 1600) {
-            this->destroyEntity();
         }
     }
     int randomNumber2;

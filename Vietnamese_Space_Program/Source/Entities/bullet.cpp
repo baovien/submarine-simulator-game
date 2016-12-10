@@ -13,7 +13,7 @@ Bullet::Bullet(Score* score, float x, float y, float direction, float direction2
     this->setPosition(x, y);
     this->setRotation(angle);
     this->score = score;
-    this->setScale(window->getSize().x/2560.0f, window->getSize().y/1440.0f);
+    this->setScale(window->getSize().x/3840.0f, window->getSize().y/2160.0f);
 
 
 }
@@ -31,8 +31,8 @@ Bullet::Bullet(float x, float y, float direction, float direction2, float angle 
 }
 void Bullet::updateEntity(sf::RenderWindow *window)
 {
-    if(this->getPosition().x < 0 || this->getPosition().x > window->getSize().x||
-       this->getPosition().y < 0 || this->getPosition().y > window->getSize().y)
+    if(this->getPosition().x + this->getGlobalBounds().width/2 < 0 || this->getPosition().x - this->getGlobalBounds().width/2 > window->getSize().x||
+       this->getPosition().y + this->getGlobalBounds().height/2 < 0 || this->getPosition().y - this->getGlobalBounds().height/2 > window->getSize().y)
     {
         this->destroyEntity();
     }

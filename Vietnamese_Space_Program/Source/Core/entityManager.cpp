@@ -32,7 +32,7 @@ void EntityManager::addEntity(std::string name, Entity *entity) {
         found = this->entities.find(name);
 
     }
-    //Hvis navnet på entityen er unik så blir de pairet sammen vår entity.
+    //Hvis navnet på entitien er unik så blir de pairet sammen med vår entity.
     this->entities.insert(std::make_pair(name, entity));
 }
 

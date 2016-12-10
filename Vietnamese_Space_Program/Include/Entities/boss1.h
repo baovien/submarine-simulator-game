@@ -9,14 +9,13 @@
 class BossObject : public Entity
 {
 public:
-    BossObject(EntityManager* manager, Player* player, int mode);
+    BossObject(EntityManager* manager, Player* player, int mode, sf::RenderWindow* window);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
 
     sfuser::PauseableClock pauseableClock;
 private:
     Player* player;
-    Score* score;
     Utilities* util;
     int health, randomNumber;
     double angle;

@@ -1,7 +1,7 @@
 #include <iostream>
 #include "../../Include/Entities/boss1.h"
 
-BossObject::BossObject(EntityManager* manager, Player* player, int mode)
+BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::RenderWindow* window)
     : player(player)
 {
     this->load("blowfish.png");
@@ -9,30 +9,28 @@ BossObject::BossObject(EntityManager* manager, Player* player, int mode)
     this->groupId = 5;
     this->health = 10;
     //this->setRotation(1);
-    this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
-    this->setScale(3, 3);
+    this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
+    this->setScale(window->getSize().x/1280, window->getSize().y/720);
 
     this->manager = manager;
     this->player = player;
-    this->velocity.x = 0.5;
+    this->velocity.x = 1.5;
 
     this->easingAmount = 0.000015f;
-    this->maxSpeed = 0.5f;
+    this->maxSpeed = 1.5f;
     this->pi = 3.141592653599;
-    this->bulletSpeed = 7;
+    this->bulletSpeed = 5;
     this->objectSpeed = 1.5f;
+
     this->randomNumber = rand()%4;
-
-    this->score = score;
-
     if (randomNumber == 1) {
-        this->setPosition(-200, rand() % 720);
+        this->setPosition(0 - this->getGlobalBounds().width * 2, rand() % window->getSize().y);
     } else if (randomNumber == 2) {
-        this->setPosition(1480, rand() % 720);
+        this->setPosition(window->getSize().x + this->getGlobalBounds().width * 2, rand() % window->getSize().y);
     } else if (randomNumber == 3) {
-        this->setPosition(rand() % 1480, -200);
+        this->setPosition(rand() % window->getSize().x + this->getGlobalBounds().width* 2, 0 - this->getGlobalBounds().height * 2);
     } else {
-        this->setPosition(rand() % 1480, 920);
+        this->setPosition(rand() % window->getSize().x + this->getGlobalBounds().width * 2, window->getSize().y + this->getGlobalBounds().height * 2);
     }
 }
 
@@ -60,7 +58,7 @@ void BossObject::updateEntity(sf::RenderWindow *window) {
             this->velocity.y = -maxSpeed;
         }
 
-        this->rotate(1);
+        this->rotate(0.1);
         //Endre sprites i forhold til health
         if (this->health <= 0) {   //Destroy
             //this->load("explosion.png");
@@ -95,15 +93,11 @@ void BossObject::updateEntity(sf::RenderWindow *window) {
                     (sin(angle) * objectSpeed), //Setter fart i y
                     (((angle + (pi / 2)) * 180 / pi)))); //Setter vinkel på kula
 
-        } else if (this->health <= 4) { //Damaged
-            this->load("goldDamaged.png");
-            this->setScale(3, 3);
         }
-        // Destroy enemy hvis den er utenfor skjermen
-        this->pauseableClock.start();   //Tar her her opp verdien som ligger i clock
 
+        this->pauseableClock.start();   //starter klokka
         if (this->pauseableClock.getElapsedTime().asMicroseconds() > 3000000) {
-            angle = (rand()%720 - 360) * pi / 180;
+            angle = (rand()% window->getSize().y - this->getGlobalBounds().height) * pi / 180;
 
             this->manager->addEntity("Bullet", new Bullet(
                     (this->getPosition().x + (this->getGlobalBounds().width / 2) * sin(angle)),
