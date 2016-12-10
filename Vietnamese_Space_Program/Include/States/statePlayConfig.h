@@ -26,14 +26,17 @@ private:
     sf::Text* gamemode;
     sf::Text* WaterTheme;
     sf::Text* SpaceTheme;
-    sf::Text* fighter_1;
-    sf::Text* fighter_2;
+    sf::Text* Submarine;
+    sf::Text* Spaceship;
     sf::Text* Arcade;
     sf::Text* Classic;
 
     sf::Texture* bgTexture;
     sf::Sprite* background;
 
+
+
+    //Play- og backbutton
     struct menuTextureStruct
     {
         sf::Texture* buttonNormal;
@@ -43,6 +46,7 @@ private:
     menuTextureStruct menuTextures[2];
     sf::Sprite* menuButtons[2];
 
+    //Alle bildene i playconfig
     struct PictureTextureStruct
     {
         sf::Texture *buttonNormal;
@@ -51,10 +55,21 @@ private:
     PictureTextureStruct PictureTexture[6];
     sf::Sprite* PictureButtons[6];
 
+   /* Indexen til hvert bilde i playconfig:
+    *
+   *  0 = SPACETHEME
+   *  1 = WATERTHEME
+   *  2 = SPACEFIGHTER
+   *  3 = SUBMARINE
+   *  4 = ARCADE
+   *  5 = CLASSIC
+   */
+
     Utilities util;
 
+    //Velger hvem som skal være valgt som standard
     int selected_Theme = 0;
-    int selected_Fighter = 3;
+    int selected_Fighter = 2;
     int selected_Gamemode = 4;
 };
 
