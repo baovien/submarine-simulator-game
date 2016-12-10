@@ -14,16 +14,13 @@ BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::Ren
 
     this->manager = manager;
     this->player = player;
-    this->velocity.x = 1.5;
-
-    this->bar = new Bar(window, this->getPosition().x, this->getPosition().y + this->getGlobalBounds().height);
-    this->manager->addEntity("HpBar", this->bar);
+    this->velocity.x = window->getSize().x/853;
 
     this->easingAmount = 0.000015f;
-    this->maxSpeed = 1.5f;
+    this->maxSpeed = window->getSize().x/853;
     this->pi = 3.141592653599;
-    this->bulletSpeed = 5;
-    this->objectSpeed = 1.5f;
+    this->bulletSpeed = window->getSize().x/256;
+    this->objectSpeed = window->getSize().x/853;
 
     this->randomNumber = rand()%4;
     if (randomNumber == 1) {
@@ -35,6 +32,9 @@ BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::Ren
     } else {
         this->setPosition(rand() % window->getSize().x + this->getGlobalBounds().width * 2, window->getSize().y + this->getGlobalBounds().height * 2);
     }
+    
+    this->bar = new Bar(window, this->getPosition().x, this->getPosition().y + this->getGlobalBounds().height);
+    this->manager->addEntity("HpBar", this->bar);
 }
 
 void BossObject::updateEntity(sf::RenderWindow *window) {
