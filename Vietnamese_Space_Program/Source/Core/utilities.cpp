@@ -68,27 +68,6 @@ sf::Text *Utilities::addText(std::string textContent, unsigned int textSize, int
     this->font->loadFromFile("Graphics/Turtles.otf");
     sf::Text *text = new sf::Text(textContent, *this->font, textSize);
     std::transform(textContent.begin(), textContent.end(), textContent.begin(), ::tolower);
-    if (textContent.find(": ") != std::string::npos) {
-        size_t pos = textContent.find(": ");
-        std::string tempNumber = textContent.substr(pos + 2, textContent.size() - 1);
-        textContent.erase(pos + 2, textContent.size() - 1);
-
-        if (languageMap.find(textContent) != languageMap.end()) {
-            switch (language) {
-                case 1:
-                    text->setString(std::get<0>(languageMap.find(textContent)->second) + tempNumber);
-                    break;
-                case 2:
-                    text->setString(std::get<1>(languageMap.find(textContent)->second) + tempNumber);
-                    break;
-                case 3:
-                    text->setString(std::get<2>(languageMap.find(textContent)->second) + tempNumber);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
 
     if (languageMap.find(textContent) != languageMap.end()) {
         switch (language) {

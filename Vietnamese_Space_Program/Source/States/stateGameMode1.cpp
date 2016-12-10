@@ -68,7 +68,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
 }
 
 void StateGameMode1::update(sf::RenderWindow *window) {
-    machine.soundLoaderPointer->checkMuteMusic();
+    machine.soundLoaderPointer->updateSounds();
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
@@ -122,7 +122,6 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         }
 
         //////////////////////////WAVES
-        name = "Enemy";
         int enemiesLeft = 0;
         if(waveNum <= 5) this->mode = 2;
         if(!inWave)
@@ -136,18 +135,6 @@ void StateGameMode1::update(sf::RenderWindow *window) {
             }
             std::cout << "InWave enemies: " << enemyCount << std::endl;
             inWave = true;
-        }
-
-        //Teller enemies som er igjen
-        for (int j = 0; j < enemyCount; ++j)
-        {
-            if (j != 0){
-                name += "0";
-            }
-
-            if(this->manager->getEntity(name) != NULL){
-                enemiesLeft++;
-            }
         }
 
         //Wave done

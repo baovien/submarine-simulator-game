@@ -9,7 +9,6 @@
 
 
 void StateMainMenu::initialize(sf::RenderWindow *window) {
-    //TODO:
     machine.soundLoaderPointer->playMusic(Audio::MAIN_MENU);
 
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
@@ -55,7 +54,7 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
 
 void StateMainMenu::update(sf::RenderWindow *window) {
     //Sjekker mutemusic er satt
-    machine.soundLoaderPointer->checkMuteMusic();
+    machine.soundLoaderPointer->updateSounds();
 
     //Sjekker mouseover for hver knapp og endrer texture om den er mouseovera eller trykket
     util.checkMuteMouseOver(window);
