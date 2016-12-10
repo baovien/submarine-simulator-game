@@ -45,7 +45,7 @@ void StateGameMode2::initialize(sf::RenderWindow *window) {
 }
 
 void StateGameMode2::update(sf::RenderWindow *window) {
-    machine.soundLoaderPointer->checkMuteMusic();
+    machine.soundLoaderPointer->updateSounds();
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {

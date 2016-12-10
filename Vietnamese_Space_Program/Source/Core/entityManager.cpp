@@ -21,6 +21,13 @@ EntityManager::EntityManager() {
 
 }
 
+EntityManager::~EntityManager() {
+    for (auto &iterator : this->entities) {
+        delete iterator.second;
+    }
+    this->entities.clear();
+}
+
 void EntityManager::addEntity(std::string name, Entity *entity) {
     // uordnet map iterator, denne skal brukes for å lete gjennom alle våre entities.
     std::unordered_map<std::string, Entity *>::const_iterator found = this->entities.find(name);
@@ -87,16 +94,14 @@ void EntityManager::renderEntity(sf::RenderWindow *window) {
     }
 }
 
-EntityManager::~EntityManager() {
-    for (auto &iterator : this->entities) {
-        delete iterator.second;
+int EntityManager::countEntities(std::string entityName) {
+
+    int entityCount = 0;
+    for (auto iterator = this->entities.begin(); iterator != this->entities.end(); iterator++) {
+        if(iterator->first.find(entityName) != std::string::npos && this->entities.size() > 0 ){
+            entityCount++;
+            std::cout << iterator->first << std::endl;
+        }
     }
-    this->entities.clear();
-}
-
-std::vector<Entity*> EntityManager::getEntities(int groupID) {
-
-
-
-
+    return entityCount;
 }

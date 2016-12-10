@@ -3,8 +3,6 @@
 #include "../../Include/States/stateGameOver.h"
 
 void StateGameMode1::initialize(sf::RenderWindow *window) {
-    //TODO:
-
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
 
@@ -60,89 +58,85 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
 
 }
 
+void StateGameMode1::gameOverScreen(){
+    //Når playerliv blir 0, kommer gameOver splashscreen
+    if (this->lives->getValue() <= 0) {
+        machine.setGameOverScore(this->score->getValue());
+        machine.soundLoaderPointer->stopMusic();
+        machine.setState(new StateGameOver);
+        return;
+    }
+}
+
+void StateGameMode1::spawnObjects(){
+    //Legger til healthpacks + indestructableObjects utenfor wavessystemet
+    this->pauseableClockIndestructableObject.start();
+    this->pauseableClockHealthPack.start();
+
+    if (this->pauseableClockIndestructableObject.getElapsedTime().asMicroseconds() > 5000000)   //Sjekker om verdien til clock er mer enn 5 sekunder
+    {
+        this->manager->addEntity("indestructableObject", new IndestructableObject());   //er clock mer enn 5 sekunder lager jeg en ny astroide
+        this->pauseableClockIndestructableObject.restart();                             //restarter clock(nullstiller)
+    }
+
+    if (pauseableClockHealthPack.getElapsedTime().asMicroseconds() > 5000000) {         //Sjekker om verdien til clock er mer enn 5 sekunder
+        if (rand() % 10 < 3) {                                          //Sjekker om rand() % 10 er mindre enn 3, hvis ikke - så spawnes det ikke healthpack
+            healthPack = new HealthPack(this->lives, machine.soundLoaderPointer);
+            this->manager->addEntity("healthPack", healthPack);
+        }
+        pauseableClockHealthPack.restart();     //restarter clock(nullstiller)
+    }
+}
+
+void StateGameMode1::spawnWave(sf::RenderWindow* window){
+    //////////////////////////WAVES
+    //Setter vanskelighetsgrad på enemies
+    if(waveNum <= 5) this->mode = 2;
+
+    if(!inWave)
+    {
+        for (int i = 0; i < 2*waveNum; ++i)
+        {
+            this->manager->addEntity("Enemy", new EnemyObject(window, this->player, this->manager, this->mode, machine.soundLoaderPointer));
+        }
+        //Boss
+        //this->manager->addEntity("Boss", new BossObject(this->manager, this->player, this->mode));
+        inWave = true;
+
+    }
+
+    //Wave done
+    if(manager->countEntities("Enemy") == 0 || waveNum == 0)
+    {
+        waveNum++;
+        this->transparencyValue = 255;
+        machine.soundLoaderPointer->playEffect(Audio::Effect::WAVEDONE);
+
+        this->waveText = util->addText(util->translate("Wave: ", machine.settingPointer->selectedLanguage) + std::to_string(waveNum), 75, 2, 2, window->getSize().x / 2, window->getSize().y / 4, window, machine.settingPointer->selectedLanguage);
+
+        inWave = false;
+    }
+
+    //Fader waveText
+    this->waveText->setFillColor(sf::Color(255, 255, 255, (sf::Uint8) transparencyValue));
+    this->waveText->setOutlineColor(sf::Color(0, 0, 0, (sf::Uint8) transparencyValue));
+    if(transparencyValue > 1) transparencyValue -= 1;
+}
+
 void StateGameMode1::update(sf::RenderWindow *window) {
-    machine.soundLoaderPointer->checkMuteMusic();
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
-
-        //Når playerliv blir 0, kommer gameOver splashscreen
-        if (this->lives->getValue() <= 0) {
-            machine.setGameOverScore(this->score->getValue());
-            machine.soundLoaderPointer->stopMusic();
-            machine.setState(new StateGameOver);
-            return;
-        }
+        //Oppdatering
+        machine.soundLoaderPointer->updateSounds();
         this->manager->updateEntity(window);
-
         this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
         this->lives->updateLife(util->translate("Lives", machine.settingPointer->selectedLanguage));
 
-        //Legger til healthpacks + indestructableObjects utenfor wavessystemet
-        this->pauseableClockIndestructableObject.start();
-        this->pauseableClockHealthPack.start();
+        gameOverScreen();
+        spawnObjects();
+        spawnWave(window);
 
-        if (this->pauseableClockIndestructableObject.getElapsedTime().asMicroseconds() > 5000000)   //Sjekker om verdien til clock er mer enn 5 sekunder
-        {
-            this->manager->addEntity("indestructableObject", new IndestructableObject());   //er clock mer enn 5 sekunder lager jeg en ny astroide
-            this->pauseableClockIndestructableObject.restart();                             //restarter clock(nullstiller)
-        }
-
-        if (pauseableClockHealthPack.getElapsedTime().asMicroseconds() > 5000000) {         //Sjekker om verdien til clock er mer enn 5 sekunder
-            if (rand() % 10 < 3) {                                          //Sjekker om rand() % 10 er mindre enn 3, hvis ikke - så spawnes det ikke healthpack
-                healthPack = new HealthPack(this->lives, machine.soundLoaderPointer);
-                this->manager->addEntity("healthPack", healthPack);
-            }
-            pauseableClockHealthPack.restart();     //restarter clock(nullstiller)
-        }
-
-        //////////////////////////WAVES
-        name = "Enemy";
-        int enemiesLeft = 0;
-        if(waveNum <= 5) this->mode = 2;
-        if(!inWave)
-        {
-            for (int i = 0; i < 2*waveNum; ++i)
-            {
-                this->manager->addEntity("Enemy", new EnemyObject(window, this->player, this->manager, this->mode, machine.soundLoaderPointer));
-                enemyCount++;
-            }
-            //Boss
-            //this->manager->addEntity("Boss", new BossObject(this->manager, this->player, this->mode));
-            std::cout << "InWave enemies: " << enemyCount << std::endl;
-            inWave = true;
-        }
-
-        //Teller enemies som er igjen
-        for (int j = 0; j < enemyCount; ++j)
-        {
-            if (j != 0){
-                name += "0";
-            }
-
-            if(this->manager->getEntity(name) != NULL){
-                enemiesLeft++;
-            }
-        }
-
-        //Wave done
-        if(enemiesLeft == 0 || waveNum == 0)
-        {
-            waveNum++;
-            this->transparencyValue = 255;
-            machine.soundLoaderPointer->playEffect(Audio::Effect::WAVEDONE);
-
-            size_t pos = this->waveText->getString().find(": "); //Vi skal endre "wave: " uten det gamle wavenummeret, så jeg fjerner f.eks 2 i "wave: 2" før jeg sender det
-            this->waveText = util->addText(this->waveText->getString().substring(0 , pos+2) + std::to_string(waveNum), 75, 2, 2, window->getSize().x / 2, window->getSize().y / 4, window, machine.settingPointer->selectedLanguage);
-
-            inWave = false;
-        }
-
-        //Fader waveText
-        this->waveText->setFillColor(sf::Color(255, 255, 255, (sf::Uint8) transparencyValue));
-        this->waveText->setOutlineColor(sf::Color(0, 0, 0, (sf::Uint8) transparencyValue));
-        if(transparencyValue > 1) transparencyValue -= 1;
-        //////////////////////////END_WAVES
 
     }else{ //Handle paused game
         this->pauseableClockIndestructableObject.pause();
@@ -164,7 +158,6 @@ void StateGameMode1::render(sf::RenderWindow *window) {
         window->draw(*this->pausedText);
     }
     window->draw(*this->waveText);
-
 }
 
 void StateGameMode1::destroy(sf::RenderWindow *window) {

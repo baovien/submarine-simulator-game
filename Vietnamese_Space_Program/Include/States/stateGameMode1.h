@@ -52,7 +52,12 @@ protected:
     int transparencyValue = 0;
     int waveNum = 0;
     bool inWave = false;
-    std::string name = "Enemies";
+
+    void gameOverScreen();
+
+    void spawnObjects();
+
+    void spawnWave(sf::RenderWindow* window);
 };
 
 

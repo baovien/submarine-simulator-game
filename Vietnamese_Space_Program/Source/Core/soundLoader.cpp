@@ -13,7 +13,15 @@
  *
  * /////Spille av musikk
  *
- *      kall
+ *      I konstruktøren til en state, skriv
+ *      machine->soundLoaderPeker.stopMusic();          //Må stoppe musikken for å kunne starte ny musikk
+ *      machine->soundLoaderPeker.playMusic(Audio::Music::NAVN_PÅ_MUSIKK);
+ *
+ *      I updaten til en state skriv
+ *      machine->soundLoaderPeker.updateSounds();
+ *
+ *      Alle steder i staten der det byttes til en ny state, skriv
+ *      machine->soundLoaderPeker.stopMusic();
  *
  * /////Legge til lyd
  *
@@ -30,14 +38,14 @@
 #include "../../Include/Core/soundLoader.h"
 
 SoundLoader::SoundLoader() {
-    effectsVolume = 30;
-    musicVolume = 20;
+    effectsVolume = 50;
+    musicVolume = 50;
 
     //Music
     musicPath[Audio::Music::MAIN_MENU] = ("Audio/Music/menu.ogg");
     musicPath[Audio::Music::ARCADE] = ("Audio/Music/arcade.ogg");
     musicPath[Audio::Music::GAMEOVER] = ("Audio/Music/gameover.ogg");
-    musicPath[Audio::Music::CLASSIC] = ("Audio/Music/gameover.ogg");
+    musicPath[Audio::Music::CLASSIC] = ("Audio/Music/classic.ogg");
 
     //SFX
     buffers[Audio::Effect::PLAYER_SHOOT].loadFromFile("Audio/SFX/missileLaunch.ogg");
@@ -48,6 +56,10 @@ SoundLoader::SoundLoader() {
     buffers[Audio::Effect::OVERHEAT].loadFromFile("Audio/SFX/overheat.wav");
 }
 
+/**
+ *
+ * @param effect
+ */
 void SoundLoader::playEffect(Audio::Effect effect) {
     if (!*muted) {
         this->sounds.push_back(sf::Sound());
@@ -58,24 +70,42 @@ void SoundLoader::playEffect(Audio::Effect effect) {
         sound.play();
     }
 }
+/**
+ * Fjerner effects som har blitt spilt av og stoppet i listen sounds.
+ * Kalles i updateSounds()
+ */
+void SoundLoader::removeStoppedEffects(){
+    sounds.remove_if([](const sf::Sound& s){
+        return s.getStatus() == sf::Sound::Stopped;
+    });
+}
 
+/**
+ * Sjekker om det
+ * @param music
+ */
 void SoundLoader::playMusic(Audio::Music music) {
 
-    if(this->music.getStatus() != this->music.Playing){
+
+    if(this->music.getStatus() != this->music.Playing ){
         if (this->music.openFromFile(musicPath[music])) {
             this->music.setVolume(this->musicVolume);
             this->music.setLoop(true);
         }
     }
-
 }
 
-void SoundLoader::checkMuteMusic() {
+/**
+ * Sjekker om muteknappene for musikk eller hele lyden er blitt trykket.
+ * Fjerner lyedeffekter som er "ferdigspilt"
+ */
+void SoundLoader::updateSounds() {
     if (*muted || *mutedMusic) {
         this->music.pause();
     } else if (this->music.getStatus() == this->music.Paused || this->music.getStatus() == this->music.Stopped) {
         this->music.play();
     }
+    this->removeStoppedEffects();
 }
 
 /**
@@ -88,6 +118,10 @@ void SoundLoader::initSoundPointers(bool *muted, bool *mutedMusic) {
     this->mutedMusic = mutedMusic;
 }
 
+/**
+ * Kalles hvor det skjer et state-bytte som trengs ny musikk. For eksempel fra GameOverState til MainMenu.
+ *
+ */
 void SoundLoader::stopMusic() {
     this->music.stop();
 }
