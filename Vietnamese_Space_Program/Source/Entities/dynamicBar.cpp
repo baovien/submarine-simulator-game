@@ -23,6 +23,7 @@ void Bar::updateEntity(sf::RenderWindow *window, float overHeatValue)
 }
 void Bar::updateEntity2(sf::RenderWindow *window, float overHeatValue, float x, float y) {
     this->overheatcheck = overHeatValue;
+    if(overheatcheck == 0)this->destroyEntity();
     this->setPosition(x, y);
     this->setTextureRect(sf::IntRect(0,0,overheatcheck, 20));
     Entity::updateEntity(window);
