@@ -1,6 +1,5 @@
 #include <iostream>
 #include "../../Include/Entities/player.h"
-#include "../../Include/Entities/shieldEntity.h"
 
 Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode, int mode, SoundLoader* soundLoader)
         : keybindMap(keybindMap),
@@ -145,7 +144,7 @@ void Player::updateEntity(sf::RenderWindow *window){
                                                               (this->getPosition().x),
                                                               (this->getPosition().y -
                                                               (this->getGlobalBounds().height / 2)),
-                                                              (-10),
+                                                              (-1),
                                                               (0),
                                                               0,
                                                               this->soundLoader,

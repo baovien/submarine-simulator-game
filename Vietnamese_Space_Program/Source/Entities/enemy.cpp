@@ -67,7 +67,7 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
     }
     int randomNumber2;
     randomNumber2 = rand() % 1000;
-    if(this->mode == 2 && randomNumber2 < 5)
+    if(this->mode == 2 && randomNumber2 < 2)
     {
         //float angle = this->getRotation() * player->pi/180;
         this->manager->addEntity("bullet", new Bullet(this->getPosition().x /*+ (this->getGlobalBounds().width/2) * sin(angle)*/,
