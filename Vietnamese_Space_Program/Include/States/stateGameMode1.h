@@ -15,6 +15,7 @@
 #include "../Core/soundLoader.h"
 #include "../Entities/indestructableObject.h"
 #include "../Core/pauseableClock.h"
+#include "../Entities/shieldEntity.h"
 
 class StateGameMode1 : public States
 {
@@ -32,6 +33,8 @@ protected:
     sf::Sprite overBarS;
     Lives* lives;
     Score* score;
+    ShieldEntity* shieldEntity;
+    BossObject* bossObject;
     sf::Font* font;
     sf::Text* pausedText;
     sf::Text* waveText;
@@ -45,6 +48,7 @@ protected:
     sf::Sprite* pausedBackground;
     sfuser::PauseableClock pauseableClockIndestructableObject;
     sfuser::PauseableClock pauseableClockHealthPack;
+    sfuser::PauseableClock pauseableClockShieldEntity;
 
     //Branch: Waves
     int mode = 1;
@@ -53,6 +57,9 @@ protected:
     int waveNum = 0;
     bool inWave = false;
     std::string name = "Enemies";
+
+    //Spawned entities
+    int spawnedHealthPacks, spawnedShieldPacks;
 };
 
 

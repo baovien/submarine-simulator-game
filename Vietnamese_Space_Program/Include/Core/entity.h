@@ -7,6 +7,7 @@ class Entity : public sf::Sprite
 public:
     Entity();
     void load(std::string filename);
+    virtual void getDeltaTime(float deltatime);
     virtual void updateEntity(sf::RenderWindow *window);
     bool checkCollision(Entity* entity);
     virtual void collision(Entity* entity);
@@ -20,7 +21,7 @@ protected:
     virtual sf::FloatRect getGlobalBoundsAdjusted();
     int active;
     int groupId;
-    float* delta;
+    float deltatime;
 private:
     sf::Texture* texture;
 };

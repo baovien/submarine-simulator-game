@@ -39,6 +39,11 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2, window, 1, 2, machine.soundLoaderPointer);
     this->manager->addEntity("ship", this->player);
 
+    //Init entities
+    this->shieldEntity = new ShieldEntity(window, this->player, machine.soundLoaderPointer);
+    this->healthPack = new HealthPack(this->lives, machine.soundLoaderPointer, window);
+    //this->bossObject = new BossObject(this->manager, this->player, this->mode, window);
+
     this->overBar.loadFromFile("Graphics/Sprites/overheat_border.png");
     this->overBarS.setTexture(this->overBar);
     this->overBarS.setOrigin(this->overBarS.getGlobalBounds().width/2, this->overBarS.getGlobalBounds().height/2);
@@ -67,7 +72,6 @@ void StateGameMode1::update(sf::RenderWindow *window) {
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
-
         //Når playerliv blir 0, kommer gameOver splashscreen
         if (this->lives->getValue() <= 0) {
             machine.setGameOverScore(this->score->getValue());
@@ -83,6 +87,9 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         //Legger til healthpacks + indestructableObjects utenfor wavessystemet
         this->pauseableClockIndestructableObject.start();
         this->pauseableClockHealthPack.start();
+        this->healthPack->clock.start();
+        this->shieldEntity->clock.start();
+        //this->bossObject->pauseableClock.start();
 
         if (this->pauseableClockIndestructableObject.getElapsedTime().asMicroseconds() > 5000000)   //Sjekker om verdien til clock er mer enn 5 sekunder
         {
@@ -90,10 +97,26 @@ void StateGameMode1::update(sf::RenderWindow *window) {
             this->pauseableClockIndestructableObject.restart();                             //restarter clock(nullstiller)
         }
 
+        if (pauseableClockShieldEntity.getElapsedTime().asMicroseconds() > 1000000) {
+            if (rand() % 10 < 2) {
+                spawnedShieldPacks++;
+                if (spawnedShieldPacks <= waveNum){
+                    this->shieldEntity = new ShieldEntity(window, this->player, machine.soundLoaderPointer);
+                    this->manager->addEntity("shieldEntity", this->shieldEntity);
+                    this->shieldEntity->clock.restart();
+                }
+            }
+            pauseableClockShieldEntity.restart();
+        }
         if (pauseableClockHealthPack.getElapsedTime().asMicroseconds() > 5000000) {         //Sjekker om verdien til clock er mer enn 5 sekunder
-            if (rand() % 10 < 3) {                                          //Sjekker om rand() % 10 er mindre enn 3, hvis ikke - så spawnes det ikke healthpack
-                healthPack = new HealthPack(this->lives, machine.soundLoaderPointer, window);
-                this->manager->addEntity("healthPack", healthPack);
+            if (rand() % 10 < 3) {
+                spawnedHealthPacks++;
+                if (spawnedHealthPacks <= waveNum){
+                    //Init entities
+                    this->healthPack = new HealthPack(this->lives, machine.soundLoaderPointer, window);
+                    this->manager->addEntity("healthPack", this->healthPack);
+                    this->healthPack->clock.restart();
+                }
             }
             pauseableClockHealthPack.restart();     //restarter clock(nullstiller)
         }
@@ -108,9 +131,9 @@ void StateGameMode1::update(sf::RenderWindow *window) {
             {
                 this->manager->addEntity("Enemy", new EnemyObject(window, this->player, this->manager, this->mode, machine.soundLoaderPointer));
                 enemyCount++;
+                //Boss
+                //this->manager->addEntity("Boss", new BossObject(this->manager, this->player, this->mode, window));
             }
-            //Boss
-            //this->manager->addEntity("Boss", new BossObject(this->manager, this->player, this->mode, window));
             std::cout << "InWave enemies: " << enemyCount << std::endl;
             inWave = true;
         }
@@ -130,6 +153,8 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         //Wave done
         if(enemiesLeft == 0 || waveNum == 0)
         {
+            spawnedHealthPacks = 0;
+            spawnedShieldPacks = 0;
             waveNum++;
             this->transparencyValue = 255;
             machine.soundLoaderPointer->playEffect(Audio::Effect::WAVEDONE);
@@ -149,6 +174,8 @@ void StateGameMode1::update(sf::RenderWindow *window) {
     }else{ //Handle paused game
         this->pauseableClockIndestructableObject.pause();
         this->pauseableClockHealthPack.pause();
+        this->healthPack->clock.pause();
+        this->shieldEntity->clock.pause();
         //this->bossObject->pauseableClock.pause();
     }
 

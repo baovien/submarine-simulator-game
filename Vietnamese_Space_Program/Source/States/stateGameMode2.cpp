@@ -47,7 +47,8 @@ void StateGameMode2::initialize(sf::RenderWindow *window)
 
 }
 
-void StateGameMode2::update(sf::RenderWindow *window) {
+void StateGameMode2::update(sf::RenderWindow *window)
+{
     machine.soundLoaderPointer->checkMuteMusic();
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
@@ -57,7 +58,8 @@ void StateGameMode2::update(sf::RenderWindow *window) {
         this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
         this->lives->updateLife(util->translate("Lives", machine.settingPointer->selectedLanguage));
 
-        if (this->lives->getValue() <= 0) {
+        if (this->lives->getValue() <= 0)
+        {
             machine.setGameOverScore(this->score->getValue());
             machine.setState(new StateGameOver);
             return;
@@ -120,7 +122,7 @@ void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event) {
                 {
                     std::cout << enemyList.at(i).at(j)->activeEntity() << "     ";
                 }
-                std::cout << std::endl;
+                std::cout << "   -- " << enemyList.at(i).size() << std::endl;
             }
             std::cout << "--------------------------------------" << std::endl;
         }
@@ -132,19 +134,20 @@ void StateGameMode2::reinitialize(sf::RenderWindow *window)
 
 }
 
-void StateGameMode2::spawnEnemies(sf::RenderWindow *window) {
-     for (int i = 0; i < 20; ++i) {
-            std::vector<Enemy2Object *> tempList;
-            enemyList.push_back(tempList);
-            for (int j = 0; j < 5; ++j) {
-                enemy2Object = new Enemy2Object(manager, i, j, "fishis_0" + std::to_string(j + 1) + ".png", window);
-                this->manager->addEntity("Enemy", enemy2Object);
-                enemyList.at(i).push_back(enemy2Object);
-
-            }
+void StateGameMode2::spawnEnemies(sf::RenderWindow *window)
+{
+    for (int i = 0; i < 5; ++i)
+    {
+        std::vector<Enemy2Object *> tempList;
+        enemyList.push_back(tempList);
+        for (int j = 0; j < 5; ++j)
+        {
+            enemy2Object = new Enemy2Object(manager, i, j, "fishis_0" + std::to_string(j + 1) + ".png", window);
+            this->manager->addEntity("Enemy", enemy2Object);
+            enemyList.at(i).push_back(enemy2Object);
         }
     }
-
+}
 
 void StateGameMode2::turnEnemies(sf::RenderWindow *window) {
     for (int i = 0; i < enemyList.size(); ++i){
@@ -185,12 +188,24 @@ void StateGameMode2::updateEnemyList() {
     }
 }
 
-void StateGameMode2::enemyShoot(sf::RenderWindow *window){
-    for (int i = 0; i < enemyList.size(); ++i)
+void StateGameMode2::enemyShoot(sf::RenderWindow *window)
+{
+    //random int fra 0 til size of enemyList
+    //hvert halve sekund
+    //spawn kule med posisjon enemyList.at(randomInt).back().getposx og y - en halv enemyList.at(randomInt).back().getGlobalbounds.height
+    int random;
+    if (enemyList.size() > 1)
     {
-        //Få denne til å skyte
+        random = rand() % (enemyList.size() - 1);
+    } else random = 0;
+    sf::Time elapsed1 = clockenemy.getElapsedTime();
 
-       // enemyList.at(i).back()
-
+    if (elapsed1.asMicroseconds() > 10000000 && enemyList.size() > 0)
+    {
+        this->manager->addEntity("Bullet", new Bullet(enemyList.at(random).back()->getPosition().x,
+                                                      enemyList.at(random).back()->getPosition().y
+                                                      + enemyList.at(random).back()->getGlobalBounds().height,
+                                                      window->getSize().x / 320, 0, 0, window));
+        clockenemy.restart();
     }
 }

@@ -6,7 +6,7 @@
 class IndestructableObject : public Entity
 {
 public:
-    IndestructableObject(float x, float y, float directionX, float directionY, float angle);
+    IndestructableObject(float x, float y, float directionX, float directionY, float angle, sf::RenderWindow* window);
     IndestructableObject(sf::RenderWindow* window);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);

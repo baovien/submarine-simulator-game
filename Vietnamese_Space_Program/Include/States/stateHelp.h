@@ -26,7 +26,7 @@ private:
     Utilities util;
     sf::Text* title;
     sf::Texture* backgroundTexture;
-    sf::Texture* asteroidTexture;
+    sf::Texture* enemyFishTexture;
     sf::Texture* bossTexture;
     sf::Texture* classicTexture;
     sf::Texture* arcadeTexture;
@@ -35,7 +35,7 @@ private:
     sf::Texture* spaceTexture;
 
     sf::Sprite* background;
-    sf::Sprite* asteroid;
+    sf::Sprite* enemyFish;
     sf::Sprite* boss;
     sf::Sprite* classic;
     sf::Sprite* arcade;

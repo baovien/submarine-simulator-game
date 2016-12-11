@@ -1,7 +1,8 @@
+#include <iostream>
 #include "../../Include/Entities/indestructableObject.h"
 
 //Initiater objektet, koden vår er satt opp for flere spillere så case 0 er spiller 1.
-IndestructableObject::IndestructableObject(float x, float y, float directionX, float directionY, float angle)
+IndestructableObject::IndestructableObject(float x, float y, float directionX, float directionY, float angle, sf::RenderWindow* window)
 {
     this->load("asteroid.png");
     //Scaler opp bildet for å slippe å lage nytt
@@ -9,16 +10,15 @@ IndestructableObject::IndestructableObject(float x, float y, float directionX, f
     this->active = 1;
     this->groupId = 3;
     this->health = 1;
-    this->maxSpeed = 1.5f;
+    this->maxSpeed = 100.0f;
     //Setter origin til midten av astroiden.
     this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
 
-    //setter en absolutt rotasjon
-    this->setRotation(2);
+    this->setScale(window->getSize().x/1280, window->getSize().y/720);
 
     this->setPosition(x,y);
-    this->velocity.x = directionX;
-    this->velocity.y = directionY;
+    this->velocity.x = directionX * 100;
+    this->velocity.y = directionY * 100;
     this->setRotation(angle);
 }
 
@@ -26,7 +26,6 @@ IndestructableObject::IndestructableObject(sf::RenderWindow* window) {
     int randomNumber = rand() % 2;
     if(randomNumber == 0)this->load("tincan.png");
     else this->load("tincan2.png");
-
     this->active = 1;
     this->groupId = 9;
     this->health = 1;

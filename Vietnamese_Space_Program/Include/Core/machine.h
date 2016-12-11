@@ -55,13 +55,13 @@ private:
     selectedObjects selectedObjectsVariable {2,0};
 
     std::vector<std::pair<int, std::string>> arcadeScore =
-            {{std::make_pair(0, "No one")},
-             {std::make_pair(0, "No one")},
-             {std::make_pair(0, "No one")}};
+            {{std::make_pair(0, "Player")},
+             {std::make_pair(0, "Player")},
+             {std::make_pair(0, "Player")}};
     std::vector<std::pair<int, std::string>> classicScore =
-            {{std::make_pair(0, "No one")},
-             {std::make_pair(0, "No one")},
-             {std::make_pair(0, "No one")}};
+            {{std::make_pair(0, "Player")},
+             {std::make_pair(0, "Player")},
+             {std::make_pair(0, "Player")}};
 
     SoundLoader soundLoader;
 

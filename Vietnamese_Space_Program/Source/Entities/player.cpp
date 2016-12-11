@@ -1,16 +1,15 @@
 #include <iostream>
 #include "../../Include/Entities/player.h"
 
-Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindMap, Lives *lives, Score *score,
-               EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode, int mode,
-               SoundLoader *soundLoader)
+Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode, int mode, SoundLoader* soundLoader)
         : keybindMap(keybindMap),
           mode(mode),
           manager(manager),
           gamemode(gamemode),
           score(score),
           lives(lives),
-          soundLoader(soundLoader) {
+          soundLoader(soundLoader)
+{
     this->active = 1;
     this->groupId = 1;
 
@@ -27,7 +26,7 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
             break;
         case 2:
             this->load("ubat1.png");
-            this->setScale(window->getSize().x / 2000.0f, window->getSize().y / 1000.0f);
+            this->setScale(window->getSize().x / 1280.0f, window->getSize().y / 720.0f);
             this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
             this->space = false;
             this->setPosition(x - this->getGlobalBounds().width, y - this->getGlobalBounds().height / 1.5);
@@ -38,7 +37,8 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
 }
 
 //update funksjonen har kontroll på bevegelsen til player.
-void Player::updateEntity(sf::RenderWindow *window) {
+void Player::updateEntity(sf::RenderWindow *window){
+    Entity::updateEntity(window);
     up = 0, down = 0, left = 0, right = 0;
     if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("left")->second.second))left = 1;
     if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("right")->second.second))right = 1;
@@ -46,9 +46,9 @@ void Player::updateEntity(sf::RenderWindow *window) {
     if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("down")->second.second))down = 1;
 
     //Spritebytte for skadet player.
-    /*if(this->lives->getValue() <= 5 ){
-       this->load("fighterDamaged1.png");
-   } */
+    if(this->lives->getValue() <= 0 ){
+        this->load("explosion.png");
+    }
     switch (this->gamemode) {
         case 1:
             this->setRotation(angle * 180 / pi);
@@ -74,12 +74,12 @@ void Player::updateEntity(sf::RenderWindow *window) {
                         else if (speed + dec < 0) speed += dec;
                         else speed = 0;
                     }
-                    this->move(sin(angle) * speed, -cos(angle) * speed);
+                    this->move((sin(angle) * speed) * *machine.deltaTimePointer, (-cos(angle) * speed)* *machine.deltaTimePointer);
                     break;
 
                 case 2:
-                    if (right) angle += turnspeed;
-                    if (left) angle -= turnspeed;
+                    if (right) angle += turnspeed * (*machine.deltaTimePointer);
+                    if (left) angle -= turnspeed * (*machine.deltaTimePointer);
 
                     if (up && speed < maxSpeed) {
                         if (speed < 0) speed += dec;
@@ -97,8 +97,7 @@ void Player::updateEntity(sf::RenderWindow *window) {
                         else if (speed + dec < 0) speed += dec;
                         else speed = 0;
                     }
-
-                    this->move(sin(angle) * speed, -cos(angle) * speed);
+                    this->move((sin(angle) * speed) * (*machine.deltaTimePointer), (-cos(angle) * speed) * (*machine.deltaTimePointer));
                     break;
                 default:
                     break;
@@ -110,29 +109,28 @@ void Player::updateEntity(sf::RenderWindow *window) {
             } else {
                 this->setScale(window->getSize().x / 2560.0f, window->getSize().y / 1440.0f);
             }
-            if (!this->space &&
-                sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second)) {
-                if (this->overheatValue < 10) {
+            if (!this->space && sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second))
+            {
+                if(this->overheatValue < 10) {
                     this->overheatValue += 1;
                     this->soundLoader->playEffect(Audio::Effect::PLAYER_SHOOT);
                     this->manager->addEntity("bullet", new Bullet((this->score),
-                                                                  (this->getPosition().x +
-                                                                   (this->getGlobalBounds().width / 2) * sin(angle)),
-                                                                  (this->getPosition().y -
-                                                                   (this->getGlobalBounds().height / 2) * cos(angle)),
-                                                                  (-cos(angle) * 15),
-                                                                  (sin(angle) * 15),
+                                                                  (this->getPosition().x + (this->getGlobalBounds().width / 2) * sin(angle)),
+                                                                  (this->getPosition().y - (this->getGlobalBounds().height / 2) * cos(angle)),
+                                                                  (-cos(angle)),
+                                                                  (sin(angle)),
                                                                   (angle * 180 / pi),
                                                                   this->soundLoader,
                                                                   window));
-                } else if (this->overheatValue > 10) {
+                }
+                else if(this->overheatValue > 10) {
                     this->overheatValue = 15;
                     soundLoader->playEffect(Audio::OVERHEAT);
                 }
             }
             this->bar->updateEntity(window, this->overheatValue);
             this->overheatValue = this->overheatValue - 0.05f;
-            if (this->overheatValue < 1)this->overheatValue = 1;
+            if(this->overheatValue < 1)this->overheatValue = 1;
             this->space = sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second);
             break;
 
@@ -164,6 +162,7 @@ void Player::updateEntity(sf::RenderWindow *window) {
         default:
 
             break;
+
     }
 
     Entity::updateEntity(window);
@@ -200,7 +199,6 @@ void Player::updateEntity(sf::RenderWindow *window) {
         this->destroyEntity();
     }
 }
-
 //Her sjekker vi om vårt fly kræsjer med noe annet
 void Player::collision(Entity *entity) {
     switch (entity->groupID()) {

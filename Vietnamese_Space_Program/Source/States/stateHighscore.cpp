@@ -17,7 +17,7 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
     this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
 
     this->tableTexture = new sf::Texture();
-    this->tableTexture->loadFromFile("Graphics/Sprites/gautesTable.png");
+    this->tableTexture->loadFromFile("Graphics/Sprites/tablehighscore.png");
 
     //Plassering og konfigurasjon av Arcade-tabell
     TableArcade = new sf::Sprite();
@@ -62,7 +62,7 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
         } else if (i < 4) {
             highscoreValues.push_back(std::make_tuple(std::to_string(i), machine.arcadeScorePointer->at(i - 1).second, std::to_string(machine.arcadeScorePointer->at(i - 1).first)));
         } else {
-            highscoreValues.push_back(std::make_tuple(std::to_string(i),machine.classicScorePointer->at(i - 5).second, std::to_string(machine.classicScorePointer->at(i - 5).first)));
+            highscoreValues.push_back(std::make_tuple(std::to_string(i-4),machine.classicScorePointer->at(i - 5).second, std::to_string(machine.classicScorePointer->at(i - 5).first)));
         }
     }
     //Lager sf::Text til alle tekstene, plasserer de og alt

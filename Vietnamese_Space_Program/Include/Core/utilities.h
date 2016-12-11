@@ -48,7 +48,7 @@ private:
              {"submarine", std::make_tuple("Ubat" , "podmornica", "Sous-marin")},
              {"spaceship", std::make_tuple("Romskip" , "svemirski brod", "vaisseau spatial")},
              {"lives: ", std::make_tuple("Liv: " , "zivoti: ", "vies: ")},
-             {"score: ", std::make_tuple("Poeng" , "skor: ", "But: ")},
+             {"score: ", std::make_tuple("Poeng: " , "skor: ", "But: ")},
              {"game over", std::make_tuple("Spill over" , "kraj igre", "jeu termine")},
              {"lives", std::make_tuple("Liv" , "zivoti", "Vies")},
              {"score", std::make_tuple("Poeng" , "skor", "But")},
@@ -58,7 +58,20 @@ private:
              {"are you sure?", std::make_tuple("Er du sikker?" , "da li ste sigurni?", "etes-vous sur?")},
              {"score", std::make_tuple("1" , "2", "3")},
              {"score", std::make_tuple("1" , "2", "3")},
-             {"score", std::make_tuple("1" , "2", "3")}
+             {"score", std::make_tuple("1" , "2", "3")},
+             {"congratulations, after your striking performance",
+                     std::make_tuple("Gratulerer, etter dine fantastiske prestasjonerer",
+                                     "Cestitam, nakon upecatljive performanse",
+                                     "Felicitations, apres votre performance remarquable")},
+             {"you have been placed on the leaderboard",
+                     std::make_tuple("har du blitt satt pa pallen",
+                                     "ste stavljeni na leaderboard",
+                                     "vous aves ette place sur le classement")},
+             {"you did not manage to enter the leaderboard this time"
+              "\nmaybe you will next time. good luck!",
+                     std::make_tuple("Du klarte ikke a na pallen denne gangen\nkanskje du klarer det neste gang.\nLykke til!",
+                                     "Niste uspeli da udu leaderboard ovaj put\nMozda cete sledeci put.\nSrecno!",
+                                     "Vois n'avez pas reussi a entrer dans\nle classement cette fois, Peut-etre la prochaine fois.\nBonne chance!")}
             };
 
 
