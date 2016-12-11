@@ -7,8 +7,8 @@ Bullet::Bullet(Score* score, float x, float y, float direction, float direction2
     this->active = 1;
     this->groupId = 2;
     this->load("missile.png");
-    this->velocity.y = direction;
-    this->velocity.x = direction2;
+    this->velocity.y = direction * 640;
+    this->velocity.x = direction2 * 640;
     this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
     this->setPosition(x, y);
     this->setRotation(angle);
@@ -22,8 +22,8 @@ Bullet::Bullet(float x, float y, float direction, float direction2, float angle 
     this->active = 1;
     this->groupId = 6;
     this->load("bubble4.png");
-    this->velocity.y = direction;
-    this->velocity.x = direction2;
+    this->velocity.y = direction * 640;
+    this->velocity.x = direction2 * 640;
     this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
     this->setPosition(x, y);
     this->setRotation(angle);

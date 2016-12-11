@@ -12,9 +12,12 @@ void Entity::load(std::string filename)
     this->setTexture(*this->texture);
     this->texture->setSmooth(true);
 }
+void Entity::getDeltaTime(float deltatime){
+    this->deltatime = deltatime;
+}
 void Entity::updateEntity(sf::RenderWindow *window)
 {
-    this->move(this->velocity.x, this->velocity.y);
+    this->move(this->velocity.x * deltatime, this->velocity.y * deltatime);
 }
 bool Entity::checkCollision(Entity* entity)
 {

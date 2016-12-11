@@ -111,9 +111,9 @@ void StateGameMode1::update(sf::RenderWindow *window) {
             {
                 this->manager->addEntity("Enemy", new EnemyObject(window, this->player, this->manager, this->mode, machine.soundLoaderPointer));
                 enemyCount++;
+                //Boss
+                this->manager->addEntity("Boss", new BossObject(this->manager, this->player, this->mode, window));
             }
-            //Boss
-            //this->manager->addEntity("Boss", new BossObject(this->manager, this->player, this->mode, window));
             std::cout << "InWave enemies: " << enemyCount << std::endl;
             inWave = true;
         }

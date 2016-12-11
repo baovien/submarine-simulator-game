@@ -9,13 +9,13 @@ Enemy2Object::Enemy2Object(EntityManager *manager, int i, int j, std::string k, 
     this->health = 2;
     this->manager = manager;
 
-    this->scale(0.4, 0.4);
+    this->scale(window->getSize().x/3200, window->getSize().y/1800);
     this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
 
     this->setPosition(window->getSize().x / 15 + i * this->getGlobalBounds().width,
                       window->getSize().y / 3 - this->getGlobalBounds().height * 5 +
                       j * this->getGlobalBounds().height);
-    this->velocity.x = window->getSize().x/800;
+    this->velocity.x = (window->getSize().x/800)*100;
 
 }
 
@@ -25,7 +25,7 @@ void Enemy2Object::updateEntity(sf::RenderWindow *window) {
 
     if (this->health < 2) {       //Destroy
         this->load("explosion.png");
-        this->scale(5, 5);
+        this->scale(window->getSize().x/256, window->getSize().y/144);
         this->destroyEntity();
     }
 
@@ -115,7 +115,7 @@ void Enemy2Object::updateEntity(sf::RenderWindow *window) {
     sf::Time elapsed1 = clock.getElapsedTime();
     if(elapsed1.asMicroseconds() >3000000){
 
-    this->manager->addEntity("Bullet", new Bullet(this->getPosition().x, this->getPosition().y,7,0, 0,window));
+    this->manager->addEntity("Bullet", new Bullet(this->getPosition().x, this->getPosition().y, 1,0, 0, window));
         clock.restart();
     }
     }

@@ -14,8 +14,8 @@ EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager
     this->active = 1;
     this->groupId = 4;
     this->randomNumber = rand() % 4;
-    this->easingAmount = 0.00015f;
-    this->maxSpeed = 1.5f;
+    this->easingAmount = 0.05f;
+    this->maxSpeed = 100.0f;
     this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
     this->setScale(window->getSize().x/2560.0f, window->getSize().y/1440.0f);
         switch(mode)
@@ -69,11 +69,11 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
     randomNumber2 = rand() % 1000;
     if(this->mode == 2 && randomNumber2 < 5)
     {
-        float angle = this->getRotation() * player->pi/180;
+        //float angle = this->getRotation() * player->pi/180;
         this->manager->addEntity("bullet", new Bullet(this->getPosition().x /*+ (this->getGlobalBounds().width/2) * sin(angle)*/,
                                                       this->getPosition().y /*- (this->getGlobalBounds().height/2) * cos(angle)*/,
-                                                      yDistance/100,
-                                                      xDistance/100,
+                                                      yDistance/1000,
+                                                      xDistance/1000,
                                                       0,
                                                       window));
         this->soundLoader->playEffect(Audio::ENEMY_SHOOT);
@@ -125,10 +125,12 @@ void EnemyObject::collision(Entity *entity) {
             break;
 
         case 4: //Andre fiender, vil ikke at de skal overlappes.
-            this->velocity.x *= -5;
-            this->velocity.y *= -5;
-            entity->velocity.x = this->velocity.x * -5;
-            entity->velocity.y = this->velocity.y * -5;
-
+            this->velocity.x *= -1;
+            this->velocity.y *= -1;
+            entity->velocity.x = this->velocity.x * -1;
+            entity->velocity.y = this->velocity.y * -1;
+            break;
+        case 5:
+            break;
     }
 }

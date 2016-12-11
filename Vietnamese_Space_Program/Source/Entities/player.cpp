@@ -38,7 +38,8 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
 }
 
 //update funksjonen har kontroll på bevegelsen til player.
-void Player::updateEntity(sf::RenderWindow *window) {
+void Player::updateEntity(sf::RenderWindow *window){
+    Entity::updateEntity(window);
     up = 0, down = 0, left = 0, right = 0;
     if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("left")->second.second))left = 1;
     if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("right")->second.second))right = 1;
@@ -46,9 +47,9 @@ void Player::updateEntity(sf::RenderWindow *window) {
     if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("down")->second.second))down = 1;
 
     //Spritebytte for skadet player.
-     /*if(this->lives->getValue() <= 5 ){
-        this->load("fighterDamaged1.png");
-    } */
+    if(this->lives->getValue() <= 0 ){
+        this->load("explosion.png");
+    }
     switch (this->gamemode) {
         case 1:
             this->setRotation(angle * 180 / pi);
@@ -74,12 +75,12 @@ void Player::updateEntity(sf::RenderWindow *window) {
                         else if (speed + dec < 0) speed += dec;
                         else speed = 0;
                     }
-                    this->move(sin(angle) * speed, -cos(angle) * speed);
+                    this->move((sin(angle) * speed) * *machine.deltaTimePointer, (-cos(angle) * speed)* *machine.deltaTimePointer);
                     break;
 
                 case 2:
-                    if (right) angle += turnspeed;
-                    if (left) angle -= turnspeed;
+                    if (right) angle += turnspeed * (*machine.deltaTimePointer);
+                    if (left) angle -= turnspeed * (*machine.deltaTimePointer);
 
                     if (up && speed < maxSpeed) {
                         if (speed < 0) speed += dec;
@@ -97,8 +98,7 @@ void Player::updateEntity(sf::RenderWindow *window) {
                         else if (speed + dec < 0) speed += dec;
                         else speed = 0;
                     }
-
-                    this->move(sin(angle) * speed, -cos(angle) * speed);
+                    this->move((sin(angle) * speed) * (*machine.deltaTimePointer), (-cos(angle) * speed) * (*machine.deltaTimePointer));
                     break;
                 default:
                     break;
@@ -119,8 +119,8 @@ void Player::updateEntity(sf::RenderWindow *window) {
                     this->manager->addEntity("bullet", new Bullet((this->score),
                                                                   (this->getPosition().x + (this->getGlobalBounds().width / 2) * sin(angle)),
                                                                   (this->getPosition().y - (this->getGlobalBounds().height / 2) * cos(angle)),
-                                                                  (-cos(angle) * 15),
-                                                                  (sin(angle) * 15),
+                                                                  (-cos(angle)),
+                                                                  (sin(angle)),
                                                                   (angle * 180 / pi),
                                                                   this->soundLoader,
                                                                   window));
@@ -155,9 +155,7 @@ void Player::updateEntity(sf::RenderWindow *window) {
             break;
         default:
             break;
-
     }
-    Entity::updateEntity(window);
     switch (this->gamemode) {
         case 1:
             //Sjekker for kollisjon med vindukantene.
