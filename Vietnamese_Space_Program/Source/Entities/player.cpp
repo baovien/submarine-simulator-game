@@ -145,7 +145,7 @@ void Player::updateEntity(sf::RenderWindow *window){
                                                               (this->getPosition().x),
                                                               (this->getPosition().y -
                                                               (this->getGlobalBounds().height / 2)),
-                                                              (-10),
+                                                              (-1),
                                                               (0),
                                                               0,
                                                               this->soundLoader,
