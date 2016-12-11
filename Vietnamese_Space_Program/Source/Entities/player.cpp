@@ -138,8 +138,8 @@ void Player::updateEntity(sf::RenderWindow *window){
         case 2:
             if (right)this->move(window->getSize().x / 5 * *manager->deltaTime, 0);
             if (left)this->move(-(window->getSize().x / 5 * *manager->deltaTime), 0);
-            this->Enemypausable.start();
-            if (this->Enemypausable.getElapsedTime().asSeconds() > 0.5) {
+            this->enemypausable.start();
+            if (this->enemypausable.getElapsedTime().asSeconds() > 0.5) {
                 if (!this->space &&
                     sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second)) {
 
@@ -147,12 +147,12 @@ void Player::updateEntity(sf::RenderWindow *window){
                                                                   (this->getPosition().x),
                                                                   (this->getPosition().y -
                                                                    (this->getGlobalBounds().height / 2)),
-                                                                  -(window->getSize().x / 2 * *manager->deltaTime),
+                                                                  -(1),
                                                                   (0),
                                                                   0,
                                                                   this->soundLoader,
                                                                   window));
-                    Enemypausable.restart();
+                    enemypausable.restart();
                 }
             }
 

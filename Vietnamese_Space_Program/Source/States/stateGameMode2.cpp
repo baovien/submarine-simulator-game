@@ -65,7 +65,7 @@ void StateGameMode2::update(sf::RenderWindow *window)
             return;
         }
 
-        std::cout << "size:  " << enemyList.size() << "time: " << enemyClock.getElapsedTime().asSeconds() << std::endl;
+        //std::cout << "size:  " << enemyList.size() << "time: " << enemyClock.getElapsedTime().asSeconds() << std::endl;
         if (enemyList.size() == 0 && enemyClock.getElapsedTime().asSeconds() > 1.5) {
             spawnEnemies(window);
         }

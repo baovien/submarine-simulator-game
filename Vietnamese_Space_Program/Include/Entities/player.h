@@ -32,6 +32,7 @@ private:
     Bar* bar;
     EntityManager* manager;
     std::map<const std::string, std::pair<std::string, int>> keybindMap;
+    sfuser::PauseableClock enemypausable;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_PLAYER_H
