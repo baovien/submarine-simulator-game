@@ -10,6 +10,7 @@
 #include "../Core/score.h"
 #include "../Entities/bullet.h"
 #include "../Entities/enemy2.h"
+#include "../Core/pauseableClock.h"
 
 
 class StateGameMode2 : public States{
@@ -27,8 +28,6 @@ public:
 
     void reinitialize(sf::RenderWindow *window);
 
-    sf::Clock clock; // starter clocken
-    sf::Clock enemyclock;
 protected:
     Lives* lives;
     Score* score;
@@ -41,6 +40,8 @@ protected:
     Player* player;
     Enemy2Object* enemy2Object;
     std::vector<std::vector<Enemy2Object*>> enemyList;
+    sfuser::PauseableClock enemyClock;
+
 
     void spawnEnemies(sf::RenderWindow *window);
 
@@ -49,6 +50,9 @@ protected:
     void updateEnemyList();
 
     void enemyShoot(sf::RenderWindow *window);
+
+    sf::Clock pikk;
+    int antall = 0;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE2_H
