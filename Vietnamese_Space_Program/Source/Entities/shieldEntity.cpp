@@ -10,25 +10,27 @@ ShieldEntity::ShieldEntity(sf::RenderWindow* window, Player* player, SoundLoader
     this->groupId = 10;
     this->isShieldActive = false;
     this->manager = new EntityManager();
-    this->player = player;
+    this->shieldLife = 3;
 
-    this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().width / 2);
+    this->setOrigin(this->getGlobalBounds().width / 2, this->getGlobalBounds().height / 2);
     this->scale(window->getSize().x / 1280.0f, window->getSize().y / 720.0f);
     this->setPosition(rand() % window->getSize().x, rand() % window->getSize().y);
 }
 
 void ShieldEntity::updateEntity(sf::RenderWindow *window){
-
+    invincibleClock.pause();
     if (isShieldActive){
-        shieldPowerUp = new ShieldPowerUp(window, this->player);
-        this->manager->addEntity("shieldPowerUp", shieldPowerUp);
+        this->load("Shield.png");
+        this->setPosition(this->player->getPosition().x, this->player->getPosition().y);
+        this->setOrigin(this->getGlobalBounds().width / 4, this->getGlobalBounds().height / 4);
+        this->setScale(window->getSize().x / 640.0f, window->getSize().y / 360.0f);
+        clock.restart();
+        invincibleClock.start();
+    }
+    if(invincibleClock.getElapsedTime().asMicroseconds() > 5000000) { // 5 sekunder invincibility
         this->destroyEntity();
     }
-    /*if(*this->isShieldActivePointer){
-        this->manager->addEntity("shieldPowerUp", new ShieldPowerUp(window, this->player));
-    }*/
-    sf::Time elapsed1 = clock.getElapsedTime();
-    if(elapsed1.asMicroseconds() > 4000000) //Sjekker om verdien til clock er mer enn 4 sekunder
+    if(clock.getElapsedTime().asMicroseconds() > 4000000) //Sjekker om verdien til clock er mer enn 4 sekunder
     {
         this->destroyEntity();      //despawnes etter 4 sekunder
         clock.restart();            //restarter clock
@@ -42,5 +44,12 @@ void ShieldEntity::collision(Entity* entity){
             //this->soundLoader->playEffect(Audio::?????);
             this->isShieldActive = true;
             break;
+        case 3:
+        case 4:
+        case 6:
+        case 9:
+            if(this->isShieldActive){
+                entity->destroyEntity();
+            }
     }
 }

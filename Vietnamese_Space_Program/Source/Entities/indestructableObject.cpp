@@ -1,3 +1,4 @@
+#include <iostream>
 #include "../../Include/Entities/indestructableObject.h"
 
 //Initiater objektet, koden vår er satt opp for flere spillere så case 0 er spiller 1.
@@ -25,7 +26,6 @@ IndestructableObject::IndestructableObject(sf::RenderWindow* window) {
     int randomNumber = rand() % 2;
     if(randomNumber == 0)this->load("tincan.png");
     else this->load("tincan2.png");
-
     this->active = 1;
     this->groupId = 9;
     this->health = 1;
