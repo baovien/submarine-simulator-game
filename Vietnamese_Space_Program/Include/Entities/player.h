@@ -7,6 +7,7 @@
 #include "bullet.h"
 #include "indestructableObject.h"
 #include "../Core/soundLoader.h"
+#include "../Core/pauseableClock.h"
 #include "../Core/machine.h"
 
 
@@ -31,6 +32,7 @@ private:
     Bar* bar;
     EntityManager* manager;
     std::map<const std::string, std::pair<std::string, int>> keybindMap;
+    sfuser::PauseableClock enemypausable;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_PLAYER_H

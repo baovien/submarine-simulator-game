@@ -13,15 +13,10 @@ public:
     Enemy2Object(EntityManager* manager, int i, int j, std::string k, sf::RenderWindow* window);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
-    sf::Clock clock;
 private:
 
     int health;
     EntityManager* manager;
-    int bulletSpeed = 2;
-    //std::string Enemylist[75];
-    //bool kolonne = false;
-   //std::string TheEnemies[15];
 
 };
 

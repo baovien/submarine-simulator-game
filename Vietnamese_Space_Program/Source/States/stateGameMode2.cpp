@@ -65,15 +65,17 @@ void StateGameMode2::update(sf::RenderWindow *window)
             return;
         }
 
-        if (enemyList.size() == 0 && enemyClock.getElapsedTime().asSeconds() > 3)
-        {
+        //std::cout << "size:  " << enemyList.size() << "time: " << enemyClock.getElapsedTime().asSeconds() << std::endl;
+        if (enemyList.size() == 0 && enemyClock.getElapsedTime().asSeconds() > 1.5) {
             spawnEnemies(window);
         }
         updateEnemyList();
         turnEnemies(window);
         enemyShoot(window);
 
+
     } else enemyClock.pause();
+
 }
 
 void StateGameMode2::render(sf::RenderWindow *window)
@@ -86,6 +88,8 @@ void StateGameMode2::render(sf::RenderWindow *window)
     if (util->paused)
     {
         window->draw(*this->pausedText);
+
+
     }
 }
 
@@ -102,18 +106,14 @@ void StateGameMode2::destroy(sf::RenderWindow *window)
 
 }
 
-void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event)
-{
-    if (event.type == event.KeyPressed)
-    {
-        if (event.key.code == machine.keybindMap.find("back")->second.second && util->paused)
-        {
+void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event) {
+    if (event.type == event.KeyPressed) {
+        if (event.key.code == machine.keybindMap.find("back")->second.second && util->paused) {
             machine.soundLoaderPointer->stopMusic();
             machine.setState(new StateMainMenu());
             return;
         }
-        if (event.key.code == machine.keybindMap.find("pause")->second.second)
-        {
+        if (event.key.code == machine.keybindMap.find("pause")->second.second) {
             util->pauseScreen();                        //Kaller pausefunksjonen
             for (int i = 0; i < enemyList.size(); ++i)
             {
@@ -149,21 +149,18 @@ void StateGameMode2::spawnEnemies(sf::RenderWindow *window)
     }
 }
 
-void StateGameMode2::turnEnemies(sf::RenderWindow *window)
-{
-    for (int i = 0; i < enemyList.size(); ++i)
-    {
-        if (enemyList.at(i).front()->getPosition().x > window->getSize().x ||
-            enemyList.at(i).front()->getPosition().x < 0)
-        {
+void StateGameMode2::turnEnemies(sf::RenderWindow *window) {
+    for (int i = 0; i < enemyList.size(); ++i){
+        if(enemyList.at(i).front()->getPosition().x > window->getSize().x || enemyList.at(i).front()->getPosition().x < 0){
             for (int j = 0; j < enemyList.size(); ++j)
             {
                 for (int k = 0; k < enemyList.at(j).size(); ++k)
                 {
                     enemyList.at(j).at(k)->velocity.x = enemyList.at(j).at(k)->velocity.x * -1;
                     enemyList.at(j).at(k)->setPosition(enemyList.at(j).at(k)->getPosition().x,
-                                                       enemyList.at(j).at(k)->getPosition().y +
-                                                       enemyList.at(j).at(k)->getGlobalBounds().height);
+                                                       enemyList.at(j).at(k)->getPosition().y + enemyList.at(j).at(k)->getGlobalBounds().height);
+
+                    enemyList.at(j).at(k)->scale(-1.0f, 1.0f);
                 }
             }
             break;
@@ -171,12 +168,12 @@ void StateGameMode2::turnEnemies(sf::RenderWindow *window)
     }
 }
 
-void StateGameMode2::updateEnemyList()
-{
+void StateGameMode2::updateEnemyList() {
     for (int i = 0; i < enemyList.size(); ++i)
     {
         if (enemyList.at(i).size() == 0)
         {
+            enemyClock.restart();
             enemyList.erase(enemyList.begin() + i);
             break;
         }
