@@ -18,7 +18,6 @@ set(SOURCE_FILES
         "Include/Core/score.h"                 "Source/Core/score.cpp"
         "Include/Core/utilities.h"
         "Include/Core/soundLoader.h"           "Source/Core/soundLoader.cpp"
-        "Include/Core/waveManager.h"           "Source/Core/waveManager.cpp"
         "Include/Core/pauseableClock.h"           "Source/Core/pauseableClock.cpp"
 
         #Entities Headers
