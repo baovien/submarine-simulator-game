@@ -5,9 +5,7 @@
 #include "../Core/playerLives.h"
 #include "dynamicBar.h"
 #include "bullet.h"
-#include "dynamicBar.h"
 #include "indestructableObject.h"
-#include "dynamicBar.h"
 #include "../Core/soundLoader.h"
 
 
