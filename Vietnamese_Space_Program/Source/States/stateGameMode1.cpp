@@ -97,7 +97,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
             this->pauseableClockIndestructableObject.restart();                             //restarter clock(nullstiller)
         }
 
-        if (pauseableClockShieldEntity.getElapsedTime().asMicroseconds() > 1000000) {
+        if (pauseableClockShieldEntity.getElapsedTime().asMicroseconds() > 10000000) {
             if (rand() % 10 < 2) {
                 spawnedShieldPacks++;
                 if (spawnedShieldPacks <= waveNum){
