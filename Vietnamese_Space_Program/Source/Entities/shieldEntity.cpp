@@ -10,7 +10,6 @@ ShieldEntity::ShieldEntity(sf::RenderWindow* window, Player* player, SoundLoader
     this->groupId = 10;
     this->isShieldActive = false;
     this->manager = new EntityManager();
-    this->shieldPowerUp = new ShieldPowerUp();
     this->shieldLife = 3;
 
     this->setOrigin(this->getGlobalBounds().width / 2, this->getGlobalBounds().height / 2);

@@ -6,7 +6,6 @@
 #include "../Core/soundLoader.h"
 #include "../Core/pauseableClock.h"
 #include "../Core/machine.h"
-#include "shieldPowerUp.h"
 #include "player.h"
 
 class ShieldEntity : public Entity
@@ -19,7 +18,6 @@ public:
 private:
     bool isShieldActive;
     Player* player;
-    ShieldPowerUp* shieldPowerUp;
     int shieldLife;
     sfuser::PauseableClock invincibleClock;
 

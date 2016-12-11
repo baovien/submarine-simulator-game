@@ -97,8 +97,8 @@ void StateGameMode1::update(sf::RenderWindow *window) {
             this->pauseableClockIndestructableObject.restart();                             //restarter clock(nullstiller)
         }
 
-        if (pauseableClockShieldEntity.getElapsedTime().asMicroseconds() > 100000) {
-            if (rand() % 10 < 20) {
+        if (pauseableClockShieldEntity.getElapsedTime().asMicroseconds() > 1000000) {
+            if (rand() % 10 < 2) {
                 spawnedShieldPacks++;
                 if (spawnedShieldPacks <= waveNum){
                     this->shieldEntity = new ShieldEntity(window, this->player, machine.soundLoaderPointer);
