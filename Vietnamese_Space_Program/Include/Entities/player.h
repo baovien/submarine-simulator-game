@@ -7,6 +7,7 @@
 #include "bullet.h"
 #include "indestructableObject.h"
 #include "../Core/soundLoader.h"
+#include "../Core/machine.h"
 
 
 class Player : public Entity
