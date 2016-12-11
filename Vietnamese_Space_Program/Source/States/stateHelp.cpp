@@ -11,8 +11,8 @@ void stateHelp::initialize(sf::RenderWindow *window) {
     this->backgroundTexture = new sf::Texture();
     this->backgroundTexture->loadFromFile("Graphics/Sprites/background12.png");
 
-    this->asteroidTexture = new sf::Texture();
-    this->asteroidTexture->loadFromFile("Graphics/Sprites/asteroid.png");
+    this->enemyFishTexture = new sf::Texture();
+    this->enemyFishTexture->loadFromFile("Graphics/Sprites/happyfish.png");
 
     this->bossTexture = new sf::Texture();
     this->bossTexture->loadFromFile("Graphics/Sprites/gold.png");
@@ -36,11 +36,11 @@ void stateHelp::initialize(sf::RenderWindow *window) {
     this->background->setTexture(*this->backgroundTexture);
     this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
 
-    this->asteroid = new sf::Sprite();
-    this->asteroid->setTexture(*this->asteroidTexture);
-    this->asteroid->setOrigin(this->asteroid->getGlobalBounds().width / 2, this->asteroid->getGlobalBounds().height / 2);
-    this->asteroid->scale(window->getSize().x / 1280.0f, window->getSize().y / 720.f);
-    this->asteroid->setPosition(window->getSize().x / 35, window->getSize().y / 4.5f);
+    this->enemyFish = new sf::Sprite();
+    this->enemyFish->setTexture(*this->enemyFishTexture);
+    this->enemyFish->setOrigin(this->enemyFish->getGlobalBounds().width/2, this->enemyFish->getGlobalBounds().height/2);
+    this->enemyFish->scale(window->getSize().x / 3200.0f, window->getSize().y / 1800.0f);
+    this->enemyFish->setPosition(window->getSize().x/35,window->getSize().y/4.45f);
 
     this->boss = new sf::Sprite();
     this->boss->setTexture(*this->bossTexture);
@@ -150,7 +150,7 @@ void stateHelp::render(sf::RenderWindow *window) {
 
     window->draw(*this->background);
     window->draw(*this->title);
-    window->draw(*this->asteroid);
+    window->draw(*this->enemyFish);
     window->draw(*this->asteroid1);
     window->draw(*this->boss);
     window->draw(*this->boss1);
@@ -176,7 +176,7 @@ void stateHelp::destroy(sf::RenderWindow *window) {
 
     delete this->title;
     delete this->backgroundTexture;
-    delete this->asteroidTexture;
+    delete this->enemyFishTexture;
     delete this->bossTexture;
     delete this->classicTexture;
     delete this->arcadeTexture;
@@ -185,7 +185,7 @@ void stateHelp::destroy(sf::RenderWindow *window) {
     delete this->spaceTexture;
 
     delete this->background;
-    delete this->asteroid;
+    delete this->enemyFish;
     delete this->boss;
     delete this->classic;
     delete this->arcade;

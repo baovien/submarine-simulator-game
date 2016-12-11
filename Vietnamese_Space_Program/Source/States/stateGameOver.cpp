@@ -1,6 +1,7 @@
 #include "../../Include/States/stateGameOver.h"
 #include "../../Include/States/stateGameMode1.h"
 #include "../../Include/States/stateMainMenu.h"
+#include "../../Include/States/stateGameMode2.h"
 
 #include <cstring>
 
@@ -16,8 +17,6 @@ void StateGameOver::initialize(sf::RenderWindow *window) {
     machine.soundLoaderPointer->stopMusic();
     machine.soundLoaderPointer->playMusic(Audio::Music::GAMEOVER);
 
-    this->selected = 1;
-    this->showCursor = false;
     this->highscoreOrNAH = false;
     this->boxIsClicked = false;
 
@@ -57,16 +56,15 @@ void StateGameOver::initialize(sf::RenderWindow *window) {
 
     this->congratulationsText = util.addText((util.translate("Congratulations, after your striking performance",
                                                              machine.settingPointer->selectedLanguage)),
-                                             30, 2, 2, window->getSize().x / 2,
-                                             this->score->getPosition().y * 1.75f,
+                                             40, 2, 2, window->getSize().x / 2,
+                                             window->getSize().y / 3.25f,
                                              window, machine.settingPointer->selectedLanguage);
     this->congratulationsText->setOrigin(this->congratulationsText->getLocalBounds().width / 2, 0);
 
     this->congratulationsText2 = util.addText((util.translate("you have been placed on the leaderboard",
                                                               machine.settingPointer->selectedLanguage)),
-                                              30, 2, 2, window->getSize().x / 2,
-                                              this->congratulationsText->getPosition().y +
-                                              this->congratulationsText->getGlobalBounds().height,
+                                              40, 2, 2, window->getSize().x / 2,
+                                              window->getSize().y / 2.7f,
                                               window, machine.settingPointer->selectedLanguage);
     this->congratulationsText2->setOrigin(this->congratulationsText2->getLocalBounds().width / 2, 0);
 
@@ -74,7 +72,7 @@ void StateGameOver::initialize(sf::RenderWindow *window) {
                                                                "\nmaybe you will next time. Good luck!",
                                                        machine.settingPointer->selectedLanguage),
                                         40, 2, 2, window->getSize().x / 2,
-                                        this->score->getPosition().y * 2,
+                                        window->getSize().y / 2.7f,
                                         window, machine.settingPointer->selectedLanguage);
     this->whatAShameText->setOrigin(this->whatAShameText->getLocalBounds().width / 2, 0);
 
@@ -185,6 +183,7 @@ void StateGameOver::destroy(sf::RenderWindow *window) {
     delete this->gameOverText;
     delete this->score;
     delete this->text;
+    delete this->textBox;
     delete this->congratulationsText;
     delete this->congratulationsText2;
     delete this->whatAShameText;
@@ -223,17 +222,6 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
         }
     }
 
-    /*
-    if(elapsedTimeCursor.asMicroseconds() > 1000000) { //hvert sekunder
-        std::cout << elapsedTimeCursor.asMicroseconds() << std::endl;
-        clock.restart();
-        showCursor = !showCursor;
-        if(showCursor){
-            this->text->setString("hello world_");
-        } else
-            this->text->setString("hello world");
-    }
-     */
     if (this->highscoreOrNAH && this->boxIsClicked) {
         this->textBox->setFillColor(sf::Color::White);
         this->clickToActivate = util.addText("", 75, 2, 2, window->getSize().x / 2,
@@ -285,13 +273,14 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         //Arcade
                         if(machine.selectedObjectsPointer->selectedGamemode==1){
                             saveScoreArcade();
+                            machine.setState(new StateGameMode1());
                         }
                         //Classic
                         else if (machine.selectedObjectsPointer->selectedGamemode==2) {
                             saveScoreClassic();
+                            machine.setState(new StateGameMode2());
                         }
                         machine.soundLoaderPointer->stopMusic();
-                        machine.setState(new StateGameMode1());
                         return;
                     case 1: //return knappen er trykket
                         // Arcade
@@ -325,7 +314,6 @@ void StateGameOver::saveScoreArcade(){
     if(this->playerName == ""){
         this->playerName = "Player";
     }
-
     //Bytter ut det siste objektet i listen med det nye
     machine.arcadeScorePointer->pop_back();
     machine.arcadeScorePointer->push_back(make_pair(this->gameOverScore, this->playerName));
@@ -334,12 +322,6 @@ void StateGameOver::saveScoreArcade(){
     std::sort(machine.arcadeScorePointer->begin(),
               machine.arcadeScorePointer->end(),
               sortDescending);
-
-    std::cout << std::endl << "Highscore for Arcade:" << std::endl;
-    for(int i = 0; i < machine.arcadeScorePointer->size(); i++){
-        std::cout << i+1 << ". place: " << machine.arcadeScorePointer->at(i).second
-                  << ", " << machine.arcadeScorePointer->at(i).first << std::endl;
-    }
 }
 
 void StateGameOver::saveScoreClassic(){
@@ -347,7 +329,6 @@ void StateGameOver::saveScoreClassic(){
     if(this->playerName == ""){
         this->playerName = "Player";
     }
-
     //Bytter ut det siste objektet i listen med det nye
     machine.classicScorePointer->pop_back();
     machine.classicScorePointer->push_back(make_pair(this->gameOverScore, this->playerName));
@@ -356,10 +337,4 @@ void StateGameOver::saveScoreClassic(){
     std::sort(machine.classicScorePointer->begin(),
               machine.classicScorePointer->end(),
               sortDescending);
-
-    std::cout << std::endl << "Highscore for Classic:" << std::endl;
-    for(int i = 0; i < machine.classicScorePointer->size(); i++){
-        std::cout << i+1 << ". place: " << machine.classicScorePointer->at(i).second
-                  << ", " << machine.classicScorePointer->at(i).first << std::endl;
-    }
 }
