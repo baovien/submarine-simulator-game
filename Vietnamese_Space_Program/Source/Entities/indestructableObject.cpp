@@ -1,3 +1,4 @@
+#include <iostream>
 #include "../../Include/Entities/indestructableObject.h"
 
 //Initiater objektet, koden vår er satt opp for flere spillere så case 0 er spiller 1.
@@ -26,13 +27,12 @@ IndestructableObject::IndestructableObject(sf::RenderWindow* window) {
     int randomNumber = rand() % 2;
     if(randomNumber == 0)this->load("tincan.png");
     else this->load("tincan2.png");
-
     this->active = 1;
     this->groupId = 9;
     this->health = 1;
     this->randomNumber = rand()%4;
     this->maxSpeed = 1.5f;
-    this->setScale(window->getSize().x/2560,window->getSize().y/1440); //skaleres til 0.5, 0.5
+    this->scale(window->getSize().x/2560,window->getSize().y/1440); //skaleres til 0.5, 0.5
 
     //Setter origin til midten av asteroiden.
     this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
