@@ -53,6 +53,7 @@ void StateGameMode2::update(sf::RenderWindow *window)
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
+        enemyClock.start();
         this->manager->updateEntity(window, machine.deltaTimePointer);
         this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
         this->lives->updateLife(util->translate("Lives", machine.settingPointer->selectedLanguage));
@@ -63,8 +64,8 @@ void StateGameMode2::update(sf::RenderWindow *window)
             machine.setState(new StateGameOver);
             return;
         }
-        if (enemyList.size() == 0)
-        {
+
+        if (enemyList.size() == 0 && enemyClock.getElapsedTime().asSeconds() > 3) {
             spawnEnemies(window);
         }
         updateEnemyList();
@@ -91,6 +92,7 @@ void StateGameMode2::render(sf::RenderWindow *window)
 
 void StateGameMode2::destroy(sf::RenderWindow *window)
 {
+
     delete this->lives;
     delete this->score;
     delete this->util;
@@ -98,6 +100,7 @@ void StateGameMode2::destroy(sf::RenderWindow *window)
     delete this->pausedText;
     delete this->background;
     delete this->manager;
+
 }
 
 void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event)
@@ -110,7 +113,6 @@ void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event)
             machine.setState(new StateMainMenu());
             return;
         }
-
         if (event.key.code == machine.keybindMap.find("pause")->second.second)
         {
             util->pauseScreen();                        //Kaller pausefunksjonen
@@ -133,8 +135,7 @@ void StateGameMode2::reinitialize(sf::RenderWindow *window)
 
 }
 
-void StateGameMode2::spawnEnemies(sf::RenderWindow *window)
-{
+void StateGameMode2::spawnEnemies(sf::RenderWindow *window) {
     for (int i = 0; i < 5; ++i)
     {
         std::vector<Enemy2Object *> tempList;
@@ -148,22 +149,16 @@ void StateGameMode2::spawnEnemies(sf::RenderWindow *window)
     }
 }
 
-void StateGameMode2::turnEnemies(sf::RenderWindow *window)
-{
-    for (int i = 0; i < enemyList.size(); ++i)
-    {
-        if (enemyList.at(i).front()->getPosition().x > window->getSize().x ||
-            enemyList.at(i).front()->getPosition().x < 0)
-        {
+void StateGameMode2::turnEnemies(sf::RenderWindow *window) {
+    for (int i = 0; i < enemyList.size(); ++i){
+        if(enemyList.at(i).front()->getPosition().x > window->getSize().x || enemyList.at(i).front()->getPosition().x < 0){
             for (int j = 0; j < enemyList.size(); ++j)
             {
                 for (int k = 0; k < enemyList.at(j).size(); ++k)
                 {
                     enemyList.at(j).at(k)->velocity.x = enemyList.at(j).at(k)->velocity.x * -1;
                     enemyList.at(j).at(k)->setPosition(enemyList.at(j).at(k)->getPosition().x,
-                                                       enemyList.at(j).at(k)->getPosition().y +
-                                                       enemyList.at(j).at(k)->getGlobalBounds().height);
-                    enemyList.at(j).at(k)->scale(-1.f, 1.f);
+                                                       enemyList.at(j).at(k)->getPosition().y + enemyList.at(j).at(k)->getGlobalBounds().height);
                 }
             }
             break;
@@ -171,8 +166,7 @@ void StateGameMode2::turnEnemies(sf::RenderWindow *window)
     }
 }
 
-void StateGameMode2::updateEnemyList()
-{
+void StateGameMode2::updateEnemyList() {
     for (int i = 0; i < enemyList.size(); ++i)
     {
         if (enemyList.at(i).size() == 0)
@@ -191,13 +185,13 @@ void StateGameMode2::updateEnemyList()
     }
 }
 
-void StateGameMode2::enemyShoot(sf::RenderWindow *window)
-{
+void StateGameMode2::enemyShoot(sf::RenderWindow *window){
     //random int fra 0 til size of enemyList
     //hvert halve sekund
     //spawn kule med posisjon enemyList.at(randomInt).back().getposx og y - en halv enemyList.at(randomInt).back().getGlobalbounds.height
 
     sf::Time elapsed1 = clock.getElapsedTime();
+
     if (elapsed1.asMicroseconds() > 1000000)
     {
         int randint = rand() % enemyList.size();
@@ -207,5 +201,4 @@ void StateGameMode2::enemyShoot(sf::RenderWindow *window)
                                                       window->getSize().x / 320, 0, 0, window));
         clock.restart();
     }
-
 }
