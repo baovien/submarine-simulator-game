@@ -18,19 +18,19 @@ void stateHelp::initialize(sf::RenderWindow *window) {
     this->bossTexture->loadFromFile("Graphics/Sprites/gold.png");
 
     this->arcadeTexture = new sf::Texture();
-    this->arcadeTexture->loadFromFile("Graphics/Sprites/Picture_buttons/PngBtn8.png");
+    this->arcadeTexture->loadFromFile("Graphics/Sprites/PlayConfig_pictures/PngBtn8.png");
 
     this->classicTexture = new sf::Texture();
-    this->classicTexture->loadFromFile("Graphics/Sprites/Picture_buttons/PngBtn10.png");
+    this->classicTexture->loadFromFile("Graphics/Sprites/PlayConfig_pictures/PngBtn10.png");
 
     this->overheatTexture = new sf::Texture();
     this->overheatTexture->loadFromFile("Graphics/Sprites/overheat.png");
 
     this->underwaterTexture = new sf::Texture();
-    this->underwaterTexture->loadFromFile("Graphics/Sprites/Picture_buttons/PngBtn2.png");
+    this->underwaterTexture->loadFromFile("Graphics/Sprites/PlayConfig_pictures/PngBtn2.png");
 
     this->spaceTexture = new sf::Texture();
-    this->spaceTexture->loadFromFile("Graphics/Sprites/Picture_buttons/PngBtn0.png");
+    this->spaceTexture->loadFromFile("Graphics/Sprites/PlayConfig_pictures/PngBtn0.png");
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->backgroundTexture);
@@ -223,8 +223,6 @@ void stateHelp::handleEvent(sf::RenderWindow *window, sf::Event event) {
             return;
         }
     }
-}
-
 }
 
 void stateHelp::reinitialize(sf::RenderWindow *window) {

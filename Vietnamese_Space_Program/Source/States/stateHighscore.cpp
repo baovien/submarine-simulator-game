@@ -17,7 +17,7 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
     this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
 
     this->tableTexture = new sf::Texture();
-    this->tableTexture->loadFromFile("Graphics/Sprites/gautesTable.png");
+    this->tableTexture->loadFromFile("Graphics/Sprites/tablehighscore.png");
 
     //Plassering og konfigurasjon av Arcade-tabell
     TableArcade = new sf::Sprite();
