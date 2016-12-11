@@ -63,18 +63,13 @@ void StateGameMode2::update(sf::RenderWindow *window) {
             return;
         }
 
-        if (enemyList.size() == 0 && enemyClock.getElapsedTime().asSeconds() > 3) {
+        std::cout << "size:  " << enemyList.size() << "time: " << enemyClock.getElapsedTime().asSeconds() << std::endl;
+        if (enemyList.size() == 0 && enemyClock.getElapsedTime().asSeconds() > 1.5) {
             spawnEnemies(window);
         }
         updateEnemyList();
         turnEnemies(window);
         enemyShoot(window);
-
-
-        //////WAVES
-        int antallGrupper = 0;
-
-
 
 
     } else enemyClock.pause();
@@ -91,7 +86,6 @@ void StateGameMode2::render(sf::RenderWindow *window)
     if (util->paused)
     {
         window->draw(*this->pausedText);
-
 
     }
 }
@@ -120,10 +114,7 @@ void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event) {
             util->pauseScreen();                        //Kaller pausefunksjonen
 
         }
-        if (event.key.code == machine.keybindMap.find("shoot")->second.second) {
-            antall++;
-            std::cout << antall / pikk.getElapsedTime().asSeconds() << std::endl;
-        }
+
     }
 }
 
@@ -133,10 +124,10 @@ void StateGameMode2::reinitialize(sf::RenderWindow *window)
 }
 
 void StateGameMode2::spawnEnemies(sf::RenderWindow *window) {
-     for (int i = 0; i < 20; ++i) {
+     for (int i = 0; i < 5; ++i) {
             std::vector<Enemy2Object *> tempList;
             enemyList.push_back(tempList);
-            for (int j = 0; j < 5; ++j) {
+            for (int j = 0; j < 3; ++j) {
                 enemy2Object = new Enemy2Object(manager, i, j, "fishis_0" + std::to_string(j + 1) + ".png", window);
                 this->manager->addEntity("Enemy", enemy2Object);
                 enemyList.at(i).push_back(enemy2Object);
@@ -156,6 +147,8 @@ void StateGameMode2::turnEnemies(sf::RenderWindow *window) {
                     enemyList.at(j).at(k)->velocity.x = enemyList.at(j).at(k)->velocity.x * -1;
                     enemyList.at(j).at(k)->setPosition(enemyList.at(j).at(k)->getPosition().x,
                                                        enemyList.at(j).at(k)->getPosition().y + enemyList.at(j).at(k)->getGlobalBounds().height);
+
+                    enemyList.at(j).at(k)->scale(-1.0f, 1.0f);
                 }
             }
             break;
@@ -189,8 +182,6 @@ void StateGameMode2::enemyShoot(sf::RenderWindow *window){
         //Få denne til å skyte
 
        // enemyList.at(i).back()
-
-
 
     }
 }

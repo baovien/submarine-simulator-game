@@ -9,13 +9,15 @@ Enemy2Object::Enemy2Object(EntityManager *manager, int i, int j, std::string k, 
     this->health = 2;
     this->manager = manager;
 
+    this->scale(-1,1);
+
     this->scale(0.4, 0.4);
     this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
 
     this->setPosition(window->getSize().x / 15 + i * this->getGlobalBounds().width,
                       window->getSize().y / 3 - this->getGlobalBounds().height * 5 +
                       j * this->getGlobalBounds().height);
-    this->velocity.x = window->getSize().x/800;
+    this->velocity.x = window->getSize().x/20 * *manager->deltaTime;
 
 }
 

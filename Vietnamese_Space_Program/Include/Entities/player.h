@@ -9,6 +9,7 @@
 #include "indestructableObject.h"
 #include "dynamicBar.h"
 #include "../Core/soundLoader.h"
+#include "../Core/pauseableClock.h"
 
 class Player : public Entity
 {
@@ -30,6 +31,8 @@ private:
     std::map<const std::string, std::pair<std::string, int>> keybindMap;
     Bar* bar;
     bool space;
+
+    sfuser::PauseableClock Enemypausable;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_PLAYER_H
