@@ -51,8 +51,6 @@ protected:
 
     void enemyShoot(sf::RenderWindow *window);
 
-    sf::Clock pikk;
-    int antall = 0;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_STATEGAMEMODE2_H
