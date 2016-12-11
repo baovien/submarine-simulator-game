@@ -41,7 +41,7 @@ protected:
     Enemy2Object* enemy2Object;
     std::vector<std::vector<Enemy2Object*>> enemyList;
     sfuser::PauseableClock enemyClock;
-    sf::Clock clock;
+    sf::Clock clockenemy;
 
 
     void spawnEnemies(sf::RenderWindow *window);
