@@ -72,6 +72,11 @@ void StateGameMode1::update(sf::RenderWindow *window) {
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
+
+        this->manager->updateEntity(window, machine.deltaTimePointer);
+        this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
+        this->lives->updateLife(util->translate("Lives", machine.settingPointer->selectedLanguage));
+
         //Når playerliv blir 0, kommer gameOver splashscreen
         if (this->lives->getValue() <= 0) {
             machine.setGameOverScore(this->score->getValue());
@@ -79,93 +84,19 @@ void StateGameMode1::update(sf::RenderWindow *window) {
             machine.setState(new StateGameOver);
             return;
         }
-        this->manager->updateEntity(window, machine.deltaTimePointer);
 
-        this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
-        this->lives->updateLife(util->translate("Lives", machine.settingPointer->selectedLanguage));
-
-        //Legger til healthpacks + indestructableObjects utenfor wavessystemet
-        this->pauseableClockIndestructableObject.start();
-        this->pauseableClockHealthPack.start();
-        this->healthPack->clock.start();
-        this->shieldEntity->clock.start();
-        //this->bossObject->pauseableClock.start();
-
-        if (this->pauseableClockIndestructableObject.getElapsedTime().asMicroseconds() > 5000000)   //Sjekker om verdien til clock er mer enn 5 sekunder
-        {
-            this->manager->addEntity("indestructableObject", new IndestructableObject(window));   //er clock mer enn 5 sekunder lager jeg en ny astroide
-            this->pauseableClockIndestructableObject.restart();                             //restarter clock(nullstiller)
-        }
-
-        if (pauseableClockShieldEntity.getElapsedTime().asMicroseconds() > 1000000) {
-            if (rand() % 10 < 2) {
-                spawnedShieldPacks++;
-                if (spawnedShieldPacks <= waveNum){
-                    this->shieldEntity = new ShieldEntity(window, this->player, machine.soundLoaderPointer);
-                    this->manager->addEntity("shieldEntity", this->shieldEntity);
-                    this->shieldEntity->clock.restart();
-                }
-            }
-            pauseableClockShieldEntity.restart();
-        }
-        if (pauseableClockHealthPack.getElapsedTime().asMicroseconds() > 5000000) {         //Sjekker om verdien til clock er mer enn 5 sekunder
-            if (rand() % 10 < 3) {
-                spawnedHealthPacks++;
-                if (spawnedHealthPacks <= waveNum){
-                    //Init entities
-                    this->healthPack = new HealthPack(this->lives, machine.soundLoaderPointer, window);
-                    this->manager->addEntity("healthPack", this->healthPack);
-                    this->healthPack->clock.restart();
-                }
-            }
-            pauseableClockHealthPack.restart();     //restarter clock(nullstiller)
-        }
-
-        //////////////////////////WAVES
-        int enemiesLeft = 0;
-        if(waveNum <= 5) this->mode = 2;
-        if(!inWave)
-        {
-            for (int i = 0; i < 1*waveNum; ++i)
-            {
-                this->manager->addEntity("Enemy", new EnemyObject(window, this->player, this->manager, this->mode, machine.soundLoaderPointer));
-                enemyCount++;
-                //Boss
-                //this->manager->addEntity("Boss", new BossObject(this->manager, this->player, this->mode, window));
-            }
-            std::cout << "InWave enemies: " << enemyCount << std::endl;
-            inWave = true;
-        }
-
-        //Wave done
-        if(enemiesLeft == 0 || waveNum == 0)
-        {
-            spawnedHealthPacks = 0;
-            spawnedShieldPacks = 0;
-            waveNum++;
-            this->transparencyValue = 255;
+        if (enemyList.size() == 0 && bossList.size() == 0) {
             machine.soundLoaderPointer->playEffect(Audio::Effect::WAVEDONE);
-
-            size_t pos = this->waveText->getString().find(": "); //Vi skal endre "wave: " uten det gamle wavenummeret, så jeg fjerner f.eks 2 i "wave: 2" før jeg sender det
-            this->waveText = util->addText(this->waveText->getString().substring(0 , pos+2) + std::to_string(waveNum), 75, 2, 2, window->getSize().x / 2, window->getSize().y / 4, window, machine.settingPointer->selectedLanguage);
-
-            inWave = false;
+            waveNum++;
+            spawnWave(window);
+            updateWaveText(window, true);
         }
 
-        //Fader waveText
-        this->waveText->setFillColor(sf::Color(255, 255, 255, (sf::Uint8) transparencyValue));
-        this->waveText->setOutlineColor(sf::Color(0, 0, 0, (sf::Uint8) transparencyValue));
-        if(transparencyValue > 1) transparencyValue -= 1;
-        //////////////////////////END_WAVES
+        spawnObjects(window);
+        updateEnemyList(window);
+        updateWaveText(window, false);
 
-    }else{ //Handle paused game
-        this->pauseableClockIndestructableObject.pause();
-        this->pauseableClockHealthPack.pause();
-        this->healthPack->clock.pause();
-        this->shieldEntity->clock.pause();
-        //this->bossObject->pauseableClock.pause();
     }
-
 }
 
 void StateGameMode1::render(sf::RenderWindow *window) {
@@ -206,9 +137,116 @@ void StateGameMode1::handleEvent(sf::RenderWindow *window, sf::Event event) {
         }
         if (event.key.code == machine.keybindMap.find("pause")->second.second) {
             util->pauseScreen();                        //Kaller pausefunksjonen
+            this->pauseableClockIndestructableObject.pause();
+            this->pauseableClockHealthPack.pause();
+            this->healthPack->clock.pause();
+            this->shieldEntity->clock.pause();
         }
 
     }
 }
 
 void StateGameMode1::reinitialize(sf::RenderWindow *window) {}
+
+void StateGameMode1::spawnObjects(sf::RenderWindow *window) {
+
+    //Legger til healthpacks + indestructableObjects utenfor wavessystemet
+    this->pauseableClockIndestructableObject.start();
+    this->pauseableClockHealthPack.start();
+    this->healthPack->clock.start();
+    this->shieldEntity->clock.start();
+
+    if (this->pauseableClockIndestructableObject.getElapsedTime().asMicroseconds() > 5000000)   //Sjekker om verdien til clock er mer enn 5 sekunder
+    {
+        this->manager->addEntity("indestructableObject", new IndestructableObject(window));   //er clock mer enn 5 sekunder lager jeg en ny astroide
+        this->pauseableClockIndestructableObject.restart();                             //restarter clock(nullstiller)
+    }
+
+    if (pauseableClockShieldEntity.getElapsedTime().asMicroseconds() > 1000000) {
+        if (rand() % 10 < 2) {
+            spawnedShieldPacks++;
+            if (spawnedShieldPacks <= waveNum){
+                this->shieldEntity = new ShieldEntity(window, this->player, machine.soundLoaderPointer);
+                this->manager->addEntity("shieldEntity", this->shieldEntity);
+                this->shieldEntity->clock.restart();
+            }
+        }
+        pauseableClockShieldEntity.restart();
+    }
+    if (pauseableClockHealthPack.getElapsedTime().asMicroseconds() > 5000000) {         //Sjekker om verdien til clock er mer enn 5 sekunder
+        if (rand() % 10 < 3) {
+            spawnedHealthPacks++;
+            if (spawnedHealthPacks <= waveNum){
+                //Init entities
+                this->healthPack = new HealthPack(this->lives, machine.soundLoaderPointer, window);
+                this->manager->addEntity("healthPack", this->healthPack);
+                this->healthPack->clock.restart();
+            }
+        }
+        pauseableClockHealthPack.restart();     //restarter clock(nullstiller)
+    }
+
+}
+
+void StateGameMode1::spawnWave(sf::RenderWindow *window) {
+    if (waveNum > 5) this->mode = 2;
+
+    if (waveNum % 5 == 0) { //BOSS HVER 5. WAVE
+        bossObject = new BossObject(this->manager, this->player, this->mode, window);
+        this->manager->addEntity("Boss", bossObject);
+        bossList.push_back(bossObject);
+
+    } else {                  //ENEMYSPAWN
+        for (int i = 0; i < waveNum; ++i) {
+            enemyObject = new EnemyObject(window, this->player, this->manager, this->mode, machine.soundLoaderPointer);
+            this->manager->addEntity("Enemy", enemyObject);
+            enemyList.push_back(enemyObject);
+        }
+    }
+}
+
+void StateGameMode1::updateEnemyList(sf::RenderWindow *window) {
+
+    //Sjekker enemies
+    for (int i = 0; i < enemyList.size(); i++) {
+        if (enemyList.size() == 0) {
+            enemyList.erase(enemyList.begin() + i);
+            break;
+        }
+
+        if (enemyList.at((unsigned long) i)->activeEntity() == 0) {
+            enemyList.erase(enemyList.begin() + i);
+            break;
+
+        }
+    }
+
+    //Sjekker boss
+    for (int i = 0; i < bossList.size(); i++) {
+        if (bossList.size() == 0) {
+            bossList.erase(bossList.begin() + i);
+            break;
+        }
+
+        if (bossList.at((unsigned long) i)->activeEntity() == 0) {
+            bossList.erase(bossList.begin() + i);
+            break;
+
+        }
+    }
+
+}
+
+void StateGameMode1::updateWaveText(sf::RenderWindow *window, bool choice) {
+
+    if(choice){
+        this->transparencyValue = 255;
+        if(waveNum % 5 == 0) this->waveText = util->addText(util->translate("Boss", machine.settingPointer->selectedLanguage), 75, 2, 2, window->getSize().x / 2, window->getSize().y / 4, window, machine.settingPointer->selectedLanguage);
+        else this->waveText = util->addText(util->translate("Wave: ", machine.settingPointer->selectedLanguage) + std::to_string(waveNum), 75, 2, 2, window->getSize().x / 2, window->getSize().y / 4, window, machine.settingPointer->selectedLanguage);
+    }else{
+        //Fader waveText
+        this->waveText->setFillColor(sf::Color(255, 255, 255, (sf::Uint8) transparencyValue));
+        this->waveText->setOutlineColor(sf::Color(0, 0, 0, (sf::Uint8) transparencyValue));
+        if (transparencyValue > 1) transparencyValue -= 1;
+    }
+}
