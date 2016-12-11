@@ -67,7 +67,6 @@ void StateGameMode1::update(sf::RenderWindow *window) {
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
-
         //Når playerliv blir 0, kommer gameOver splashscreen
         if (this->lives->getValue() <= 0) {
             machine.setGameOverScore(this->score->getValue());
@@ -91,7 +90,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         }
 
         if (pauseableClockHealthPack.getElapsedTime().asMicroseconds() > 5000000) {         //Sjekker om verdien til clock er mer enn 5 sekunder
-            if (rand() % 10 < 3) {  //Sjekker om rand() % 10 er mindre enn 3, hvis ikke - så spawnes det ikke healthpack
+            if (rand() % 10 < 3) {
 
                 shieldEntity = new ShieldEntity(window, this->player, machine.soundLoaderPointer);
                 this->manager->addEntity("shieldEntity", shieldEntity);
