@@ -19,6 +19,7 @@ private:
     std::map<const std::string, std::tuple<std::string, std::string, std::string>> languageMap =
             {{"submarine simulator", std::make_tuple("Ubatsimulator" , "podmornica simulator", "Simulateur de sous-marin")},
              {"wave: ", std::make_tuple("Bolge: " , "talas: ", "vague: ")},
+             {"boss", std::make_tuple("Sjef" , "gazda", "patron")},
              {"settings", std::make_tuple("Innstillinger" , "podesavanja", "parametres")},
              {"music", std::make_tuple("Musikk" , "muzika", "la musique")},
              {"controls", std::make_tuple("Kontroller" , "kontrole", "controles")},

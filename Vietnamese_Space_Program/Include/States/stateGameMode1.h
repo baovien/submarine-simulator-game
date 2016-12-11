@@ -29,6 +29,7 @@ public:
     void handleEvent(sf::RenderWindow *window, sf::Event event);
     void reinitialize(sf::RenderWindow *window);
 
+
 protected:
     sf::Texture overBar;
     sf::Sprite overBarS;
@@ -44,6 +45,8 @@ protected:
     sf::Texture* bgTexture;
     sf::Sprite* background;
     Player* player;
+    EnemyObject* enemyObject;
+    BossObject* bossObject;
     HealthPack* healthPack;
     sf::Texture* pausedTexture;
     sf::Sprite* pausedBackground;
@@ -52,16 +55,20 @@ protected:
 
     //Branch: Waves
     int mode = 1;
-    int enemyCount = 0;
     int transparencyValue = 0;
     int waveNum = 0;
-    bool inWave = false;
 
-    void gameOverScreen();
+    std::vector<EnemyObject*> enemyList;
+    std::vector<BossObject*> bossList;
 
-    void spawnObjects();
+    void spawnObjects(sf::RenderWindow* window);
 
     void spawnWave(sf::RenderWindow* window);
+
+    void updateEnemyList(sf::RenderWindow* window);
+
+    void updateWaveText(sf::RenderWindow* window, bool choice);
+
 };
 
 
