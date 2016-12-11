@@ -67,6 +67,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
+
         //Når playerliv blir 0, kommer gameOver splashscreen
         if (this->lives->getValue() <= 0) {
             machine.setGameOverScore(this->score->getValue());
@@ -113,7 +114,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
                 enemyCount++;
             }
             //Boss
-            this->manager->addEntity("Boss", new BossObject(this->manager, this->player, this->mode, window));
+            //this->manager->addEntity("Boss", new BossObject(this->manager, this->player, this->mode, window));
             std::cout << "InWave enemies: " << enemyCount << std::endl;
             inWave = true;
         }

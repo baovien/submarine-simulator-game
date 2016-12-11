@@ -103,13 +103,13 @@ void stateHelp::initialize(sf::RenderWindow *window) {
     this->gamemode->setOrigin(0, 0);
 
     overheat1 = util.addText("The overheatbar is a function in gamemode 1 that keeps the player from shooting too much within a short period of time.\n"
-                                     "If the player overheats the player has to wait until it cools down before the player can start shooting again.",
+                                     "If the player overheats the player has to wait till it cools down before the player can start shooting again",
                              18, 2, 2, window->getSize().x / 14.5f,
                              window->getSize().y / 1.63f, window, machine.settingPointer->selectedLanguage);
     this->overheat1->setOrigin(0, 0);
 
     theme = util.addText("You have the freedom to choose between two different themes. Underwater or space.\n"
-                                 "The only difference between the two is the change of background.",
+                                 "The only difference between the two is the change of background",
                          18, 2, 2, window->getSize().x / 14.5f,
                          window->getSize().y / 1.34f, window, machine.settingPointer->selectedLanguage);
     this->theme->setOrigin(0, 0);
@@ -225,6 +225,7 @@ void stateHelp::handleEvent(sf::RenderWindow *window, sf::Event event) {
     }
 }
 
+}
 
 void stateHelp::reinitialize(sf::RenderWindow *window) {
     initialize(window);

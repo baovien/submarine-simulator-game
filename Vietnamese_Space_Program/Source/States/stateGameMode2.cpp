@@ -47,7 +47,8 @@ void StateGameMode2::initialize(sf::RenderWindow *window)
 
 }
 
-void StateGameMode2::update(sf::RenderWindow *window) {
+void StateGameMode2::update(sf::RenderWindow *window)
+{
     machine.soundLoaderPointer->checkMuteMusic();
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
@@ -57,7 +58,8 @@ void StateGameMode2::update(sf::RenderWindow *window) {
         this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
         this->lives->updateLife(util->translate("Lives", machine.settingPointer->selectedLanguage));
 
-        if (this->lives->getValue() <= 0) {
+        if (this->lives->getValue() <= 0)
+        {
             machine.setGameOverScore(this->score->getValue());
             machine.setState(new StateGameOver);
             return;
@@ -70,15 +72,7 @@ void StateGameMode2::update(sf::RenderWindow *window) {
         turnEnemies(window);
         enemyShoot(window);
 
-
-        //////WAVES
-        int antallGrupper = 0;
-
-
-
-
-    } else enemyClock.pause();
-
+    }
 }
 
 void StateGameMode2::render(sf::RenderWindow *window)
@@ -109,20 +103,29 @@ void StateGameMode2::destroy(sf::RenderWindow *window)
 
 }
 
-void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event) {
-    if (event.type == event.KeyPressed) {
-        if (event.key.code == machine.keybindMap.find("back")->second.second && util->paused) {
+void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event)
+{
+    if (event.type == event.KeyPressed)
+    {
+        if (event.key.code == machine.keybindMap.find("back")->second.second && util->paused)
+        {
             machine.soundLoaderPointer->stopMusic();
             machine.setState(new StateMainMenu());
             return;
         }
-        if (event.key.code == machine.keybindMap.find("pause")->second.second) {
+        if (event.key.code == machine.keybindMap.find("pause")->second.second)
+        {
             util->pauseScreen();                        //Kaller pausefunksjonen
-
-        }
-        if (event.key.code == machine.keybindMap.find("shoot")->second.second) {
-            antall++;
-            std::cout << antall / pikk.getElapsedTime().asSeconds() << std::endl;
+            for (int i = 0; i < enemyList.size(); ++i)
+            {
+                std::cout << " ROW" + std::to_string(i) + " :";
+                for (int j = 0; j < enemyList.at(i).size(); ++j)
+                {
+                    std::cout << enemyList.at(i).at(j)->activeEntity() << "     ";
+                }
+                std::cout << std::endl;
+            }
+            std::cout << "--------------------------------------" << std::endl;
         }
     }
 }
@@ -133,18 +136,18 @@ void StateGameMode2::reinitialize(sf::RenderWindow *window)
 }
 
 void StateGameMode2::spawnEnemies(sf::RenderWindow *window) {
-     for (int i = 0; i < 20; ++i) {
-            std::vector<Enemy2Object *> tempList;
-            enemyList.push_back(tempList);
-            for (int j = 0; j < 5; ++j) {
-                enemy2Object = new Enemy2Object(manager, i, j, "fishis_0" + std::to_string(j + 1) + ".png", window);
-                this->manager->addEntity("Enemy", enemy2Object);
-                enemyList.at(i).push_back(enemy2Object);
-
-            }
+    for (int i = 0; i < 5; ++i)
+    {
+        std::vector<Enemy2Object *> tempList;
+        enemyList.push_back(tempList);
+        for (int j = 0; j < 5; ++j)
+        {
+            enemy2Object = new Enemy2Object(manager, i, j, "fishis_0" + std::to_string(j + 1) + ".png", window);
+            this->manager->addEntity("Enemy", enemy2Object);
+            enemyList.at(i).push_back(enemy2Object);
         }
     }
-
+}
 
 void StateGameMode2::turnEnemies(sf::RenderWindow *window) {
     for (int i = 0; i < enemyList.size(); ++i){
@@ -168,7 +171,6 @@ void StateGameMode2::updateEnemyList() {
     {
         if (enemyList.at(i).size() == 0)
         {
-            enemyClock.restart();
             enemyList.erase(enemyList.begin() + i);
             break;
         }

@@ -188,6 +188,7 @@ void StateGameOver::destroy(sf::RenderWindow *window) {
     delete this->congratulationsText2;
     delete this->whatAShameText;
     delete this->clickToActivate;
+    delete this->textBox;
     delete this->background;
     delete this->bgTexture;
 
