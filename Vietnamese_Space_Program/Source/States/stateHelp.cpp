@@ -133,6 +133,7 @@ void stateHelp::initialize(sf::RenderWindow *window) {
 void stateHelp::update(sf::RenderWindow *window) {
 
     util.checkMuteMouseOver(window);
+    machine.soundLoaderPointer->updateSounds();
 
     if (util.checkMouseover(button, window)) {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {

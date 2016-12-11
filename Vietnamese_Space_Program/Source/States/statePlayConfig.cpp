@@ -90,6 +90,7 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
 
 void StatePlayConfig::update(sf::RenderWindow *window) {
     util.checkMuteMouseOver(window);
+    machine.soundLoaderPointer->updateSounds();
 
     for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i) {
         if (util.checkMouseover(menuButtons[i], window)) {
