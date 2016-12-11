@@ -11,8 +11,8 @@ void stateHelp::initialize(sf::RenderWindow *window) {
     this->backgroundTexture = new sf::Texture();
     this->backgroundTexture->loadFromFile("Graphics/Sprites/background12.png");
 
-    this->asteroidTexture = new sf::Texture();
-    this->asteroidTexture->loadFromFile("Graphics/Sprites/asteroid.png");
+    this->enemyFishTexture = new sf::Texture();
+    this->enemyFishTexture->loadFromFile("Graphics/Sprites/happyfish.png");
 
     this->bossTexture = new sf::Texture();
     this->bossTexture->loadFromFile("Graphics/Sprites/gold.png");
@@ -36,11 +36,11 @@ void stateHelp::initialize(sf::RenderWindow *window) {
     this->background->setTexture(*this->backgroundTexture);
     this->background->scale(window->getSize().x/background->getGlobalBounds().width,window->getSize().y/background->getGlobalBounds().height);
 
-    this->asteroid = new sf::Sprite();
-    this->asteroid->setTexture(*this->asteroidTexture);
-    this->asteroid->setOrigin(this->asteroid->getGlobalBounds().width/2, this->asteroid->getGlobalBounds().height/2);
-    this->asteroid->scale(window->getSize().x / 1280.0f, window->getSize().y / 720.f);
-    this->asteroid->setPosition(window->getSize().x/35,window->getSize().y/4.5f);
+    this->enemyFish = new sf::Sprite();
+    this->enemyFish->setTexture(*this->enemyFishTexture);
+    this->enemyFish->setOrigin(this->enemyFish->getGlobalBounds().width/2, this->enemyFish->getGlobalBounds().height/2);
+    this->enemyFish->scale(window->getSize().x / 3200.0f, window->getSize().y / 1800.0f);
+    this->enemyFish->setPosition(window->getSize().x/35,window->getSize().y/4.45f);
 
     this->boss = new sf::Sprite();
     this->boss->setTexture(*this->bossTexture);
@@ -103,13 +103,13 @@ void stateHelp::initialize(sf::RenderWindow *window) {
     this->gamemode->setOrigin(0,0);
 
     overheat1 = util.addText("The overheatbar is a function in gamemode 1 that keeps the player from shooting too much within a short period of time.\n"
-                                     "If the player overheats the player has to wait till it cools down before the player can start shooting again",
+                                     "If the player overheats the player has to wait until it cools down before the player can start shooting again.",
                              18, 2, 2, window->getSize().x / 14.5f,
                              window->getSize().y / 1.63f, window, machine.settingPointer->selectedLanguage);
     this->overheat1->setOrigin(0,0);
 
     theme = util.addText("You have the freedom to choose between two different themes. Underwater or space.\n"
-                                 "The only difference between the two is the change of background",
+                                 "The only difference between the two is the change of background.",
                          18, 2, 2, window->getSize().x / 14.5f,
                          window->getSize().y / 1.34f, window, machine.settingPointer->selectedLanguage);
     this->theme->setOrigin(0,0);
@@ -152,7 +152,7 @@ void stateHelp::render(sf::RenderWindow *window) {
 
     window->draw(*this->background);
     window->draw(*this->title);
-    window->draw(*this->asteroid);
+    window->draw(*this->enemyFish);
     window->draw(*this->asteroid1);
     window->draw(*this->boss);
     window->draw(*this->boss1);
@@ -180,13 +180,13 @@ void stateHelp::destroy(sf::RenderWindow *window) {
     delete this->backgroundTexture;
     delete this->arcadeTexture;
     delete this->overheatTexture;
-    delete this->asteroidTexture;
+    delete this->enemyFishTexture;
     delete this->bossTexture;
     delete this->classicTexture;
     delete this->underwaterTexture;
     delete this->spaceTexture;
     delete this->title;
-    delete this->asteroid;
+    delete this->enemyFish;
     delete this->asteroid1;
     delete this->boss;
     delete this->boss1;

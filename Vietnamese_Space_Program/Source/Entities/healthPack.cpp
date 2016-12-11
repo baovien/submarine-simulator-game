@@ -14,7 +14,7 @@ HealthPack::HealthPack(Lives* lives, SoundLoader* soundLoader)
 void HealthPack::updateEntity(sf::RenderWindow *window)
 {
     sf::Time elapsed1 = clock.getElapsedTime(); //Tar her her opp verdien som ligger i klokk
-    if(elapsed1.asMicroseconds() > 4000000) //Sjekker om verdien til clock er mer enn 3 sekunder
+    if(elapsed1.asMicroseconds() > 4000000) //Sjekker om verdien til clock er mer enn 4 sekunder
     {
         this->destroyEntity();
         clock.restart(); //restarter clock(nullstiller)

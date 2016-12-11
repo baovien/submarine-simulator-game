@@ -294,8 +294,18 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
                                 machine.keybindMap.find("pause")->second = std::make_pair("P", sf::Keyboard::P);
 
                             } else {
-                                std::cout << "reset" << std::endl;
-                                //RESET HIGHSCORE
+                                for (int i = 0; i < machine.classicScorePointer->size(); i++){
+                                    machine.arcadeScorePointer->clear();
+                                    machine.classicScorePointer->clear();
+
+                                    machine.arcadeScorePointer->push_back(std::make_pair(0, "player"));
+                                    machine.arcadeScorePointer->push_back(std::make_pair(0, "player"));
+                                    machine.arcadeScorePointer->push_back(std::make_pair(0, "player"));
+
+                                    machine.classicScorePointer->push_back(std::make_pair(0, "player"));
+                                    machine.classicScorePointer->push_back(std::make_pair(0, "player"));
+                                    machine.classicScorePointer->push_back(std::make_pair(0, "player"));
+                                }
                             }
                             inOverlay = false;
                             return;

@@ -15,6 +15,8 @@
 #include "../Core/soundLoader.h"
 #include "../Entities/indestructableObject.h"
 #include "../Core/pauseableClock.h"
+#include "../Entities/shieldEntity.h"
+#include "../Entities/shieldPowerUp.h"
 
 class StateGameMode1 : public States
 {
@@ -32,6 +34,8 @@ protected:
     sf::Sprite overBarS;
     Lives* lives;
     Score* score;
+    ShieldEntity* shieldEntity;
+    ShieldPowerUp* shieldPowerUp;
     sf::Font* font;
     sf::Text* pausedText;
     sf::Text* waveText;

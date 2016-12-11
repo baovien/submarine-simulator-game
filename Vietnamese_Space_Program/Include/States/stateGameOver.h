@@ -22,7 +22,6 @@ public:
     void reinitialize(sf::RenderWindow *window);
 
 private:
-    sf::Clock clock;
 
     void saveScoreArcade();
     void saveScoreClassic();
@@ -39,13 +38,13 @@ private:
 
     sf::RectangleShape* textBox;
 
-    int selected, gameOverScore;
+    int gameOverScore;
 
     std::string playerName;
     sf::Text* text;
     sf::Text* clickToActivate;
 
-    bool showCursor, highscoreOrNAH, boxIsClicked;
+    bool highscoreOrNAH, boxIsClicked;
 
     struct menuTextureStruct{
         sf::Texture* buttonNormal;
