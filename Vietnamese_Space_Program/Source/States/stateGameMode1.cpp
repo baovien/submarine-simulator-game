@@ -62,9 +62,6 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->pausedBackground->setTexture(*this->pausedTexture);
     this->pausedBackground->setOrigin(this->pausedBackground->getGlobalBounds().width / 2, this->pausedBackground->getGlobalBounds().height / 2);
     this->pausedBackground->setPosition(window->getSize().x / 2, window->getSize().y / 2);
-    machine.soundLoaderPointer->playMusic(Audio::Music::ARCADE);
-
-
 }
 
 void StateGameMode1::update(sf::RenderWindow *window) {
@@ -92,10 +89,15 @@ void StateGameMode1::update(sf::RenderWindow *window) {
             updateWaveText(window, true);
         }
 
-        spawnObjects(window);
+        //spawnObjects(window);
         updateEnemyList(window);
         updateWaveText(window, false);
 
+    }else{
+        this->pauseableClockIndestructableObject.pause();
+        this->pauseableClockHealthPack.pause();
+        this->healthPack->clock.pause();
+        this->shieldEntity->clock.pause();
     }
 }
 
@@ -137,10 +139,6 @@ void StateGameMode1::handleEvent(sf::RenderWindow *window, sf::Event event) {
         }
         if (event.key.code == machine.keybindMap.find("pause")->second.second) {
             util->pauseScreen();                        //Kaller pausefunksjonen
-            this->pauseableClockIndestructableObject.pause();
-            this->pauseableClockHealthPack.pause();
-            this->healthPack->clock.pause();
-            this->shieldEntity->clock.pause();
         }
 
     }
@@ -153,6 +151,7 @@ void StateGameMode1::spawnObjects(sf::RenderWindow *window) {
     //Legger til healthpacks + indestructableObjects utenfor wavessystemet
     this->pauseableClockIndestructableObject.start();
     this->pauseableClockHealthPack.start();
+
     this->healthPack->clock.start();
     this->shieldEntity->clock.start();
 
@@ -234,7 +233,6 @@ void StateGameMode1::updateEnemyList(sf::RenderWindow *window) {
 
         }
     }
-
 }
 
 void StateGameMode1::updateWaveText(sf::RenderWindow *window, bool choice) {

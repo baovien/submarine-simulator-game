@@ -97,7 +97,7 @@ void Player::updateEntity(sf::RenderWindow *window){
                         else if (speed + dec < 0) speed += dec;
                         else speed = 0;
                     }
-                    this->move((sin(angle) * speed) * (*machine.deltaTimePointer), (-cos(angle) * speed) * (*machine.deltaTimePointer));
+                    this->move((sin(angle) * speed) * (*machine.deltaTimePointer) * window->getSize().x / 1280, (-cos(angle) * speed) * (*machine.deltaTimePointer) * window->getSize().y / 720);
                     break;
                 default:
                     break;

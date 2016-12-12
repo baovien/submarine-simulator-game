@@ -17,7 +17,7 @@ void Entity::getDeltaTime(float deltatime){
 }
 void Entity::updateEntity(sf::RenderWindow *window)
 {
-    this->move(this->velocity.x * deltatime, this->velocity.y * deltatime);
+    this->move(this->velocity.x * deltatime * window->getSize().x / 1280, this->velocity.y * deltatime * window->getSize().y / 720);
 }
 bool Entity::checkCollision(Entity* entity)
 {
