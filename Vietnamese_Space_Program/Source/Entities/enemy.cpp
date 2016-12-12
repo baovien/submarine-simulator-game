@@ -26,6 +26,7 @@ EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager
             case 2:
                 this->health = 3;
                 break;
+            default:break;
         }
     //Spawner enemy utenfor vinduet
     if (randomNumber == 1) {

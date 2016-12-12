@@ -34,6 +34,7 @@ BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::Ren
     }
     
     this->bar = new Bar(window, this->getPosition().x, this->getPosition().y + this->getGlobalBounds().height);
+    this->bar->setColor(sf::Color::Red);
     this->manager->addEntity("HpBar", this->bar);
 }
 
