@@ -114,7 +114,7 @@ sf::Sprite *Utilities::getMuteButton() const {
     return muteButton;
 }
 
-std::string Utilities::translate(sf::String wordToTranslate, int language) {
+sf::String Utilities::translate(sf::String wordToTranslate, int language) {
     std::transform(wordToTranslate.begin(), wordToTranslate.end(), wordToTranslate.begin(), ::tolower);
     if (languageMap.find(wordToTranslate) != languageMap.end()) {
         switch (language) {

@@ -11,7 +11,7 @@ ShieldEntity::ShieldEntity(sf::RenderWindow* window, Player* player, SoundLoader
     this->isShieldActive = false;
     this->manager = new EntityManager();
 
-    this->setOrigin(this->getGlobalBounds().width / 2, this->getGlobalBounds().height / 2);
+    this->setOrigin(this->getGlobalBounds().width / 2.f, this->getGlobalBounds().height / 2.f);
     this->scale(window->getSize().x / 1280.0f, window->getSize().y / 720.0f);
     this->setPosition(rand() % window->getSize().x, rand() % window->getSize().y);
 }
@@ -21,7 +21,7 @@ void ShieldEntity::updateEntity(sf::RenderWindow *window){
     if (isShieldActive){
         this->load("Shield.png");
         this->setPosition(this->player->getPosition().x, this->player->getPosition().y);
-        this->setOrigin(this->getGlobalBounds().width / 4, this->getGlobalBounds().height / 4);
+        this->setOrigin(this->getGlobalBounds().width / 4.f, this->getGlobalBounds().height / 4.f);
         this->setScale(window->getSize().x / 640.0f, window->getSize().y / 360.0f);
         clock.restart();
         invincibleClock.start();

@@ -25,30 +25,34 @@ public:
 private:
     Utilities util;
     sf::Text* title;
+    sf::Text* mode;
+    sf::Text* mode2;
+    sf::Text* gamemode2;
     sf::Texture* backgroundTexture;
     sf::Texture* enemyFishTexture;
     sf::Texture* bossTexture;
-    sf::Texture* classicTexture;
-    sf::Texture* arcadeTexture;
+    sf::Texture* healthPackTexture;
+    sf::Texture* shieldTexture;
     sf::Texture* overheatTexture;
-    sf::Texture* underwaterTexture;
+    sf::Texture* junkTexture;
     sf::Texture* spaceTexture;
+    sf::Texture* classicTexture;
 
     sf::Sprite* background;
     sf::Sprite* enemyFish;
     sf::Sprite* boss;
-    sf::Sprite* classic;
-    sf::Sprite* arcade;
+    sf::Sprite* healthPack;
+    sf::Sprite* shield;
     sf::Sprite* overheat;
-    sf::Sprite* underwater;
+    sf::Sprite* junk;
     sf::Sprite* space;
-
+    sf::Sprite* classic;
 
     sf::Text* asteroid1;
     sf::Text* boss1;
-    sf::Text* gamemode;
+    sf::Text* powerUp;
     sf::Text* overheat1;
-    sf::Text* theme;
+    sf::Text* garbage;
 
 
     struct menuTextureStruct

@@ -11,14 +11,15 @@
     this->health = 2;
     this->manager = manager;
 
-    this->scale(-(window->getSize().x / 2560.f), window->getSize().y / 1440.f);
-    this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
+    this->scale(-(window->getSize().x / 3200.f), window->getSize().y / 1800.f);
+    this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2.f);
 
-    this->setPosition(window->getSize().x / 15 + i * this->getGlobalBounds().width,
-                      window->getSize().y / 3 - this->getGlobalBounds().height * 5 +
+    this->setPosition(window->getSize().x / 15.f + i * this->getGlobalBounds().width,
+                      window->getSize().y / 2.8f - this->getGlobalBounds().height * 5 +
                       j * this->getGlobalBounds().height);
     //this->velocity.x = window->getSize().x/20 * *manager->deltaTime;
-    this->velocity.x = 200;
+
+    this->velocity.x = 100.f;
 
 }
 
@@ -50,6 +51,7 @@ void Enemy2Object::collision(Entity *entity)
             this->health--;
             break;
 
+        default:break;
     }
 }
 

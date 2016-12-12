@@ -32,49 +32,49 @@ void StateGameOver::initialize(sf::RenderWindow *window) {
     this->textBox->setOutlineColor(sf::Color::Black);
     this->textBox->setOutlineThickness(2);
     this->textBox->setSize(sf::Vector2f(600, 125));
-    this->textBox->setPosition(window->getSize().x / 2, window->getSize().y / 1.7f);
-    this->textBox->setOrigin(this->textBox->getLocalBounds().width / 2, this->textBox->getLocalBounds().height / 2);
+    this->textBox->setPosition(window->getSize().x / 2.f, window->getSize().y / 1.7f);
+    this->textBox->setOrigin(this->textBox->getLocalBounds().width / 2.f, this->textBox->getLocalBounds().height / 2.f);
     this->textBox->scale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
 
     this->gameOverScore = machine.getGameOverScore();
     this->gameOverText = util.addText((util.translate("Game Over", machine.settingPointer->selectedLanguage)),
-                                      75, 2, 2, window->getSize().x / 2,
+                                      75, 2, 2, window->getSize().x / 2.f,
                                       (window->getSize().y / 24.0f),
                                       window, machine.settingPointer->selectedLanguage);
 
     this->score = util.addText((util.translate("Score: ", machine.settingPointer->selectedLanguage)) + std::to_string(this->gameOverScore),
-                               50, 2, 2, window->getSize().x / 2,
+                               50, 2, 2, window->getSize().x / 2.f,
                                this->gameOverText->getGlobalBounds().height * 2,
                                window, machine.settingPointer->selectedLanguage);
 
-    this->text = util.addText(playerName, 75, 2, 2, window->getSize().x / 2,
+    this->text = util.addText(playerName, 75, 2, 2, window->getSize().x / 2.f,
                               window->getSize().y / 1.95f, window, machine.settingPointer->selectedLanguage);
 
     this->clickToActivate = util.addText((util.translate("Player", machine.settingPointer->selectedLanguage)),
-                                         75, 2, 2, window->getSize().x / 2,
+                                         75, 2, 2, window->getSize().x / 2.f,
                                          window->getSize().y / 1.86f, window, machine.settingPointer->selectedLanguage);
 
     this->congratulationsText = util.addText((util.translate("Congratulations, after your striking performance",
                                                              machine.settingPointer->selectedLanguage)),
-                                             40, 2, 2, window->getSize().x / 2,
+                                             40, 2, 2, window->getSize().x / 2.f,
                                              window->getSize().y / 3.25f,
                                              window, machine.settingPointer->selectedLanguage);
-    this->congratulationsText->setOrigin(this->congratulationsText->getLocalBounds().width / 2, 0);
+    this->congratulationsText->setOrigin(this->congratulationsText->getLocalBounds().width / 2.f, 0);
 
     this->congratulationsText2 = util.addText((util.translate("you have been placed on the leaderboard",
                                                               machine.settingPointer->selectedLanguage)),
-                                              40, 2, 2, window->getSize().x / 2,
+                                              40, 2, 2, window->getSize().x / 2.f,
                                               window->getSize().y / 2.7f,
                                               window, machine.settingPointer->selectedLanguage);
-    this->congratulationsText2->setOrigin(this->congratulationsText2->getLocalBounds().width / 2, 0);
+    this->congratulationsText2->setOrigin(this->congratulationsText2->getLocalBounds().width / 2.f, 0);
 
     this->whatAShameText = util.addText(util.translate("You did not manage to enter the leaderboard this time"
                                                                "\nmaybe you will next time. Good luck!",
                                                        machine.settingPointer->selectedLanguage),
-                                        40, 2, 2, window->getSize().x / 2,
+                                        40, 2, 2, window->getSize().x / 2.f,
                                         window->getSize().y / 2.7f,
                                         window, machine.settingPointer->selectedLanguage);
-    this->whatAShameText->setOrigin(this->whatAShameText->getLocalBounds().width / 2, 0);
+    this->whatAShameText->setOrigin(this->whatAShameText->getLocalBounds().width / 2.f, 0);
 
 
     //loader alle knapper og versjoner av knapper. Finnes 3 versjoner av hver (vanlig, mouseover og clicked).
@@ -100,11 +100,11 @@ void StateGameOver::initialize(sf::RenderWindow *window) {
 
     //Setter posisjonen og skalinga til RESTART-button
     menuButtons[0]->scale(window->getSize().x / 1536.0f, window->getSize().y / 864.0f);
-    menuButtons[0]->setPosition(window->getSize().x / 2, window->getSize().y / 1.2f);
+    menuButtons[0]->setPosition(window->getSize().x / 2.f, window->getSize().y / 1.2f);
 
     //Setter posisjonen og skalinga til BACK-button
     menuButtons[1]->scale(window->getSize().x / 5120.f, window->getSize().y / 2880.f);
-    menuButtons[1]->setPosition(window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
+    menuButtons[1]->setPosition(window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10.f);
 
     util.makeMuteButton(window, machine.mutedPointer);
 }
@@ -293,6 +293,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         machine.soundLoaderPointer->stopMusic();
                         machine.setState(new StateMainMenu());
                         return;
+                    default:break;
                 }
             }
         }

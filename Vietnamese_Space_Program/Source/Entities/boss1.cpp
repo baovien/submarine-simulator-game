@@ -11,18 +11,18 @@ BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::Ren
     this->groupId = 5;
     this->health = 10;
     //this->setRotation(1);
-    this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
-    this->setScale((window->getSize().x/1280), (window->getSize().y/720));
+    this->setOrigin(this->getGlobalBounds().height/2.f, this->getGlobalBounds().height/2.f);
+    this->setScale((window->getSize().x/1280.f), (window->getSize().y/720.f));
 
     this->manager = manager;
     this->player = player;
-    this->velocity.x = (window->getSize().x/1280)*100;
+    this->velocity.x = (window->getSize().x/1280.f)*100;
 
     this->easingAmount = 0.05f;
-    this->maxSpeed = (window->getSize().x/1280)*100;
+    this->maxSpeed = (window->getSize().x/1280.f)*100;
     this->pi = 3.141592653599;
-    this->bulletSpeed = (window->getSize().x/1280);
-    this->objectSpeed = (window->getSize().x/1280);
+    this->bulletSpeed = (window->getSize().x/1280.f);
+    this->objectSpeed = (window->getSize().x/1280.f);
 
     this->randomNumber = rand()%4;
     if (randomNumber == 1) {
@@ -134,7 +134,7 @@ void BossObject::updateEntity(sf::RenderWindow *window) {
             this->pauseableClock.restart(); //restarter clock(nullstiller)
         }
 
-        this->bar->updateEntity2(window, 12*this->health , this->getPosition().x, this->getPosition().y + this->getGlobalBounds().height/2.1);
+        this->bar->updateEntity2(window, 12*this->health , this->getPosition().x, this->getPosition().y + this->getGlobalBounds().height/2.1f);
         Entity::updateEntity(window);
     }
 }

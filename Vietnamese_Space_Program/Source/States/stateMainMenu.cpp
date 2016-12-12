@@ -128,6 +128,7 @@ void StateMainMenu::handleEvent(sf::RenderWindow *window, sf::Event event) {
                     case 4:
                         quitGame = true;
                         return;
+                    default:break;
                 }
             }
     }

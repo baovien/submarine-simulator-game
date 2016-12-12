@@ -12,12 +12,12 @@ IndestructableObject::IndestructableObject(float x, float y, float directionX, f
     this->health = 1;
     this->maxSpeed = 100.0f;
     //Setter origin til midten av astroiden.
-    this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
-    this->setScale(window->getSize().x/1280, window->getSize().y/720);
+    this->setOrigin(this->getGlobalBounds().width/2.f, this->getGlobalBounds().height/2.f);
+    this->setScale(window->getSize().x/1280.f, window->getSize().y/720.f);
 
     this->setPosition(x,y);
-    this->velocity.x = directionX * 100;
-    this->velocity.y = directionY * 100;
+    this->velocity.x = directionX * 100.f;
+    this->velocity.y = directionY * 100.f;
     this->setRotation(angle);
 }
 
@@ -27,14 +27,14 @@ IndestructableObject::IndestructableObject(sf::RenderWindow* window, int theme) 
         this->random = rand() % 2;
         if (random == 0)this->load("tincan.png");
         else this->load("tincan2.png");
-        this->setOrigin(this->getGlobalBounds().width/1.5, this->getGlobalBounds().height/2);
+        this->setOrigin(this->getGlobalBounds().width/1.5f, this->getGlobalBounds().height/2.f);
         this->setScale(window->getSize().x/2560.f,window->getSize().y/1440.f); //skaleres til 0.5, 0.5
     }
     else{
         this->random = rand() % 2;
         if (random == 0)this->load("asteroid.png");
         else this->load("gold.png");
-        this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
+        this->setOrigin(this->getGlobalBounds().width/2.f, this->getGlobalBounds().height/2.f);
         this->setScale(window->getSize().x/1280.f,window->getSize().y/720.f); //skaleres til 0.5, 0.5
     }
     this->theme = theme;
@@ -43,8 +43,6 @@ IndestructableObject::IndestructableObject(sf::RenderWindow* window, int theme) 
     this->health = 1;
     this->randomNumber = rand()%4;
     this->maxSpeed = 125.f;
-
-    //Setter origin til midten av asteroiden.
 
     //Setter en absolutt rotasjon
     this->setRotation(2);
@@ -140,5 +138,6 @@ void IndestructableObject::collision(Entity* entity) {
             break;
         case 9:
             break;
+        default:break;
     }
 }

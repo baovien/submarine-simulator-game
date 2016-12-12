@@ -15,19 +15,23 @@ void stateHelp::initialize(sf::RenderWindow *window) {
     this->enemyFishTexture->loadFromFile("Graphics/Sprites/happyfish.png");
 
     this->bossTexture = new sf::Texture();
-    this->bossTexture->loadFromFile("Graphics/Sprites/gold.png");
+    this->bossTexture->loadFromFile("Graphics/Sprites/blowfish.png");
 
-    this->arcadeTexture = new sf::Texture();
-    this->arcadeTexture->loadFromFile("Graphics/Sprites/PlayConfig_pictures/PngBtn8.png");
+    this->healthPackTexture = new sf::Texture();
+    this->healthPackTexture->loadFromFile("Graphics/Sprites/wrench.png");
 
-    this->classicTexture = new sf::Texture();
-    this->classicTexture->loadFromFile("Graphics/Sprites/PlayConfig_pictures/PngBtn10.png");
+    this->shieldTexture = new sf::Texture();
+    this->shieldTexture->loadFromFile("Graphics/Sprites/shieldPowerUp.png");
 
     this->overheatTexture = new sf::Texture();
     this->overheatTexture->loadFromFile("Graphics/Sprites/overheat.png");
 
-    this->underwaterTexture = new sf::Texture();
-    this->underwaterTexture->loadFromFile("Graphics/Sprites/PlayConfig_pictures/PngBtn2.png");
+    this->junkTexture = new sf::Texture();
+    this->junkTexture->loadFromFile("Graphics/Sprites/tincan.png");
+
+    this->classicTexture = new sf::Texture();
+    this->classicTexture->loadFromFile("Graphics/Sprites/PlayConfig_pictures/PngBtn10.png");
+
 
     this->spaceTexture = new sf::Texture();
     this->spaceTexture->loadFromFile("Graphics/Sprites/PlayConfig_pictures/PngBtn0.png");
@@ -38,81 +42,95 @@ void stateHelp::initialize(sf::RenderWindow *window) {
 
     this->enemyFish = new sf::Sprite();
     this->enemyFish->setTexture(*this->enemyFishTexture);
-    this->enemyFish->setOrigin(this->enemyFish->getGlobalBounds().width/2, this->enemyFish->getGlobalBounds().height/2);
-    this->enemyFish->scale(window->getSize().x / 3200.0f, window->getSize().y / 1800.0f);
-    this->enemyFish->setPosition(window->getSize().x/35,window->getSize().y/4.45f);
+    this->enemyFish->setOrigin(this->enemyFish->getGlobalBounds().width/2.f, this->enemyFish->getGlobalBounds().height/2.f);
+    this->enemyFish->scale(window->getSize().x / 3840.0f, window->getSize().y / 2160.0f);
+    this->enemyFish->setPosition(window->getSize().x/35.f,window->getSize().y/4.45f);
 
     this->boss = new sf::Sprite();
     this->boss->setTexture(*this->bossTexture);
-    this->boss->setOrigin(this->boss->getGlobalBounds().width / 2, this->boss->getGlobalBounds().height / 2);
-    this->boss->scale(window->getSize().x / 984.6f, window->getSize().y / 553.8f);
-    this->boss->setPosition(window->getSize().x / 35, window->getSize().y / 3);
+    this->boss->setOrigin(this->boss->getGlobalBounds().width / 2.f, this->boss->getGlobalBounds().height / 2.f);
+    this->boss->scale(window->getSize().x / 5248.0f, window->getSize().y / 2952.0f);
+    this->boss->setPosition(window->getSize().x / 35.f, window->getSize().y / 3.f);
 
-    this->classic = new sf::Sprite();
-    this->classic->setTexture(*this->classicTexture);
-    this->classic->setOrigin(this->classic->getGlobalBounds().width / 2, this->classic->getGlobalBounds().height / 2);
-    this->classic->scale(window->getSize().x / 12800.0f, window->getSize().y / 7200.0f);
-    this->classic->setPosition(window->getSize().x / 35, window->getSize().y / 2.15f);
+    this->healthPack = new sf::Sprite();
+    this->healthPack->setTexture(*this->healthPackTexture);
+    this->healthPack->setOrigin(this->healthPack->getGlobalBounds().width / 2, this->healthPack->getGlobalBounds().height / 2.f);
+    this->healthPack->scale(window->getSize().x / 2560.0f, window->getSize().y / 1440.0f);
+    this->healthPack->setPosition(window->getSize().x / 35.f, window->getSize().y / 2.4f);
 
-    this->arcade = new sf::Sprite();
-    this->arcade->setTexture(*this->arcadeTexture);
-    this->arcade->setOrigin(this->arcade->getGlobalBounds().width / 2, this->arcade->getGlobalBounds().height / 2);
-    this->arcade->scale(window->getSize().x / 12800.0f, window->getSize().y / 7200.0f);
-    this->arcade->setPosition(window->getSize().x / 35, window->getSize().y / 1.77f);
+    this->shield = new sf::Sprite();
+    this->shield->setTexture(*this->shieldTexture);
+    this->shield->setOrigin(this->shield->getGlobalBounds().width / 2.f, this->shield->getGlobalBounds().height / 2.f);
+    this->shield->scale(window->getSize().x / 2560.0f, window->getSize().y / 1440.0f);
+    this->shield->setPosition(window->getSize().x / 35.f, window->getSize().y / 2.15f);
 
     this->overheat = new sf::Sprite();
     this->overheat->setTexture(*this->overheatTexture);
-    this->overheat->setOrigin(this->overheat->getGlobalBounds().width / 2, this->overheat->getGlobalBounds().height / 2);
-    this->overheat->scale(window->getSize().x / 2560.0f, window->getSize().y / 1440.0f);
-    this->overheat->setPosition(window->getSize().x / 35, window->getSize().y / 1.56f);
+    this->overheat->setOrigin(this->overheat->getGlobalBounds().width / 2.f, this->overheat->getGlobalBounds().height / 2.f);
+    this->overheat->scale(window->getSize().x / 2944.0f, window->getSize().y / 1656.0f);
+    this->overheat->setPosition(window->getSize().x / 35.f, window->getSize().y / 1.9f);
 
-    this->underwater = new sf::Sprite();
+    this->junk = new sf::Sprite();
+    this->junk->setTexture(*this->junkTexture);
+    this->junk->setOrigin(this->junk->getGlobalBounds().width / 2.f, this->junk->getGlobalBounds().height / 2.f);
+    this->junk->scale(window->getSize().x / 3072.0f, window->getSize().y / 1728.0f);
+    this->junk->setPosition(window->getSize().x / 35.f, window->getSize().y / 1.6f);
+
+    /*this->underwater = new sf::Sprite();
     this->underwater->setTexture(*this->underwaterTexture);
     this->underwater->setOrigin(this->underwater->getGlobalBounds().width / 2, this->underwater->getGlobalBounds().height / 2);
     this->underwater->scale(window->getSize().x / 12800.0f, window->getSize().y / 7200.0f);
-    this->underwater->setPosition(window->getSize().x / 35, window->getSize().y / 1.35f);
+    this->underwater->setPosition(window->getSize().x / 35, window->getSize().y / 1.35f);*/
 
-    this->space = new sf::Sprite();
-    this->space->setTexture(*this->spaceTexture);
-    this->space->setOrigin(this->space->getGlobalBounds().width / 2, this->space->getGlobalBounds().height / 2);
-    this->space->scale(window->getSize().x / 12800.0f, window->getSize().y / 7200.0f);
-    this->space->setPosition(window->getSize().x / 35, window->getSize().y / 1.25f);
+    this->classic = new sf::Sprite();
+    this->classic->setTexture(*this->classicTexture);
+    this->classic->setOrigin(this->classic->getGlobalBounds().width / 2.f, this->classic->getGlobalBounds().height / 2.f);
+    this->classic->scale(window->getSize().x / 10240.0f, window->getSize().y / 5760.0f);
+    this->classic->setPosition(window->getSize().x / 35.f, window->getSize().y / 1.3f);
 
     util.makeMuteButton(window, machine.mutedPointer);
 
-    title = util.addText("Help", 80, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
+    title = util.addText("Help", 65, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
 
-    asteroid1 = util.addText("This object is exclusive to gamemode 1. It will move around randomly on the map, \n"
-                                     "and it can not be destroyed by the player, it will however damage the player if the player touches it.",
-                             18, 2, 2, window->getSize().x / 14.5f,
-                             window->getSize().y / 5.0f, window, machine.settingPointer->selectedLanguage);
+    mode = util.addText("Gamemode 1", 30 , 2, 2,window->getSize().x / 2.0f, window->getSize().y / 7.0f, window, machine.settingPointer->selectedLanguage);
+    mode->setFillColor(sf::Color(140,255,75));
+
+    mode2 = util.addText("Gamemode 2", 30 , 2, 2,window->getSize().x / 2.0f, window->getSize().y / 1.5f, window, machine.settingPointer->selectedLanguage);
+    mode2->setFillColor(sf::Color(140,255,75));
+
+    gamemode2 = util.addText("This is the classic arcade space shooter game where the player only can move horizontally at the bottom of the screen.\n"
+                                     "The aim is to defeat the enemies by shooting them, while they move horizontally back and forth across the screen as\n"
+                                     "they advance towards the bottom of the screen."
+                                     " The enemies can kill the player by either shoot it \nor by colliding into it."
+                                     " The default keybind for shooting is space.", 18 , 0, 0,window->getSize().x / 16.5f, window->getSize().y / 1.4f, window, machine.settingPointer->selectedLanguage);
+
+    asteroid1 = util.addText("Enemy spawn in waves. They chase you and will shoot at you after the first boss. The number of enemies \ndepend on the wave. Running into"
+                                     " the enemy will destroy it and damage you unless you are shielded.",
+                             18, 2, 2, window->getSize().x / 16.5f,
+                             window->getSize().y / 5.1f, window, machine.settingPointer->selectedLanguage);
     this->asteroid1->setOrigin(0, 0);
 
-    boss1 = util.addText("This object is also exclusive to gamemode 1. This object is what we call the Boss. The player can kill it, and it can"
-                                 "\nkill the player. The Boss also has the ability to shoot. You will encounter this enemy as you progress.",
-                         18, 2, 2, window->getSize().x / 14.5f,
-                         window->getSize().y / 3.35f, window, machine.settingPointer->selectedLanguage);
+    boss1 = util.addText("Every fifth wave, the boss will spawn. Running into it will kill you.\nThe default key to kill the boss and the enemies is space.",
+                         18, 2, 2, window->getSize().x / 16.5f,
+                         window->getSize().y / 3.32f, window, machine.settingPointer->selectedLanguage);
     this->boss1->setOrigin(0, 0);
 
-    gamemode = util.addText("You can choose between two gameodes. Classic and Arcade. In Classic, the player is at the bottom of the window\n"
-                                    "and can only move right or left. The enemies are moving from side to side, and as they are about to go out of the screen,\n"
-                                    "they will drop down towards the player. The goal of this gamemode is to destroy the enemies before they reach you.\n\n"
-                                    "In Arcade, the player moves around freely, while enemies come in waves. The player get points by killing the enemies.",
-                            18, 2, 2, window->getSize().x / 14.5f,
-                            window->getSize().y / 2.4f, window, machine.settingPointer->selectedLanguage);
-    this->gamemode->setOrigin(0, 0);
+    powerUp = util.addText("There are two powerups. One will give you +1 lives, and the other one will grant you immunity for a short duration.",
+                            18, 2, 2, window->getSize().x / 16.5f,
+                            window->getSize().y / 2.38f, window, machine.settingPointer->selectedLanguage);
+    this->powerUp->setOrigin(0, 0);
 
-    overheat1 = util.addText("The overheatbar is a function in gamemode 1 that keeps the player from shooting too much within a short period of time.\n"
-                                     "If the player overheats the player has to wait till it cools down before the player can start shooting again",
-                             18, 2, 2, window->getSize().x / 14.5f,
-                             window->getSize().y / 1.63f, window, machine.settingPointer->selectedLanguage);
+    overheat1 = util.addText("The overheatbar is a function that keeps the player from shooting too much within a short period of time.\n"
+                                     "If the player overheats, the player has to wait till it cools down before the player can start shooting again",
+                             18, 2, 2, window->getSize().x / 16.5f,
+                             window->getSize().y / 2.0f, window, machine.settingPointer->selectedLanguage);
     this->overheat1->setOrigin(0, 0);
 
-    theme = util.addText("You have the freedom to choose between two different themes. Underwater or space.\n"
-                                 "The only difference between the two is the change of background",
-                         18, 2, 2, window->getSize().x / 14.5f,
-                         window->getSize().y / 1.34f, window, machine.settingPointer->selectedLanguage);
-    this->theme->setOrigin(0, 0);
+
+    garbage = util.addText("Indestructable junk will periodically fly through the screen, damaging everything everuthing in it`s path.",
+                         18, 2, 2, window->getSize().x / 16.5f,
+                         window->getSize().y / 1.63f, window, machine.settingPointer->selectedLanguage);
+    this->garbage->setOrigin(0, 0);
 
     buttonTexture.buttonMouseOver = new sf::Texture();
     buttonTexture.buttonMouseOver->loadFromFile("Graphics/Sprites/PlayConfig_buttons/Btn3.png");
@@ -125,9 +143,9 @@ void stateHelp::initialize(sf::RenderWindow *window) {
 
     button = new sf::Sprite();
     button->setTexture(*this->buttonTexture.buttonNormal);
-    button->setOrigin(button->getGlobalBounds().width / 2, button->getGlobalBounds().height / 2);
+    button->setOrigin(button->getGlobalBounds().width / 2.f, button->getGlobalBounds().height / 2.f);
     button->scale(window->getSize().x / 5120.f, window->getSize().y / 2880.f);
-    button->setPosition(window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
+    button->setPosition(window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10.f);
 }
 
 void stateHelp::update(sf::RenderWindow *window) {
@@ -151,20 +169,21 @@ void stateHelp::render(sf::RenderWindow *window) {
 
     window->draw(*this->background);
     window->draw(*this->title);
+    window->draw(*this->mode);
+    window->draw(*this->mode2);
+    window->draw(*this->gamemode2);
     window->draw(*this->enemyFish);
     window->draw(*this->asteroid1);
     window->draw(*this->boss);
     window->draw(*this->boss1);
-    window->draw(*this->classic);
-    window->draw(*this->arcade);
-    window->draw(*this->gamemode);
+    window->draw(*this->healthPack);
+    window->draw(*this->shield);
+    window->draw(*this->powerUp);
     window->draw(*this->overheat);
     window->draw(*this->overheat1);
-    window->draw(*this->underwater);
-    window->draw(*this->space);
-    window->draw(*this->theme);
-
-    window->draw(*this->theme);
+    window->draw(*this->junk);
+    window->draw(*this->garbage);
+    window->draw(*this->classic);
 
     window->draw(*this->button);
 
@@ -176,29 +195,32 @@ void stateHelp::render(sf::RenderWindow *window) {
 void stateHelp::destroy(sf::RenderWindow *window) {
 
     delete this->title;
+    delete this->mode;
+    delete this->mode2;
+    delete this->gamemode2;
     delete this->backgroundTexture;
     delete this->enemyFishTexture;
     delete this->bossTexture;
-    delete this->classicTexture;
-    delete this->arcadeTexture;
+    delete this->healthPack;
+    delete this->shield;
     delete this->overheatTexture;
-    delete this->underwaterTexture;
+    delete this->junkTexture;
     delete this->spaceTexture;
+    delete this->classicTexture;
 
     delete this->background;
     delete this->enemyFish;
     delete this->boss;
-    delete this->classic;
-    delete this->arcade;
     delete this->overheat;
-    delete this->underwater;
+    delete this->junk;
     delete this->space;
 
     delete this->asteroid1;
     delete this->boss1;
-    delete this->gamemode;
+    delete this->powerUp;
     delete this->overheat1;
-    delete this->theme;
+    delete this->garbage;
+    delete this->classic;
 
     delete this->button;
     delete this->buttonTexture.buttonClicked;

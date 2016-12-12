@@ -73,7 +73,7 @@ void StateSettings::initialize(sf::RenderWindow *window) {
         fpsButtons[i]->setTexture(*this->fpsTextures.buttonNormal);
         fpsButtons[i]->setOrigin(fpsButtons[i]->getGlobalBounds().width / 2, fpsButtons[i]->getGlobalBounds().height / 2);
         fpsButtons[i]->scale(window->getSize().x / 2560.f, window->getSize().y / 1440.f);
-        fpsButtons[i]->setPosition(((4 + i * 0.5f) * window->getSize().x) / 6, (3 * window->getSize().y) / 4.f);
+        fpsButtons[i]->setPosition(((4 + i * 0.5f) * window->getSize().x) / 6.f, (3 * window->getSize().y) / 4.f);
         if (i == machine.settingPointer->selectedFps) {
             fpsButtons[i]->setTexture(*this->fpsTextures.buttonClicked);
         }

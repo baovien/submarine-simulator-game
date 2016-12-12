@@ -17,9 +17,9 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
-    this->background->setOrigin(this->background->getGlobalBounds().width / 2, this->background->getGlobalBounds().height / 2);
-    this->background->scale(window->getSize().x / background->getGlobalBounds().width / 2, window->getSize().y / background->getGlobalBounds().height / 2);
-    this->background->setPosition(window->getSize().x / 2, window->getSize().y / 2);
+    this->background->setOrigin(this->background->getGlobalBounds().width / 2.f, this->background->getGlobalBounds().height / 2.f);
+    this->background->scale(window->getSize().x / background->getGlobalBounds().width / 2.f, window->getSize().y / background->getGlobalBounds().height / 2.f);
+    this->background->setPosition(window->getSize().x / 2.f, window->getSize().y / 2.f);
 
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/Turtles.otf");
@@ -28,14 +28,14 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
     this->keyFont->loadFromFile("Graphics/font1.otf");
 
     this->alreadyBoundText = new sf::Text(util.translate("Key already bound", machine.settingPointer->selectedLanguage), *this->font, 25);
-    this->alreadyBoundText->setOrigin(this->alreadyBoundText->getGlobalBounds().width / 2, this->alreadyBoundText->getGlobalBounds().height / 2);
-    this->alreadyBoundText->setPosition(window->getSize().x / 2, window->getSize().y / 1.4f);
+    this->alreadyBoundText->setOrigin(this->alreadyBoundText->getGlobalBounds().width / 2.f, this->alreadyBoundText->getGlobalBounds().height / 2.f);
+    this->alreadyBoundText->setPosition(window->getSize().x / 2.f, window->getSize().y / 1.4f);
     this->alreadyBoundText->scale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
     this->alreadyBoundText->setFillColor(sf::Color(255, 0, 0, (sf::Uint8) transparencyValue));
 
-    this->movementText = util.addText("Movement", 25, 2, 2, ((window->getSize().x / 2) - this->background->getGlobalBounds().width / 4), ((window->getSize().y / 2) - this->background->getGlobalBounds().height / 2.25f), window, machine.settingPointer->selectedLanguage);
-    this->gameplayText= util.addText("Gameplay", 25, 2, 2, ((window->getSize().x / 2) + this->background->getGlobalBounds().width / 4), (window->getSize().y / 2), window, machine.settingPointer->selectedLanguage);
-    this->menuNavigationText = util.addText("Menu navigation", 25, 2, 2, ((window->getSize().x / 2) + this->background->getGlobalBounds().width / 4), movementText->getPosition().y, window, machine.settingPointer->selectedLanguage);
+    this->movementText = util.addText("Movement", 25, 2, 2, ((window->getSize().x / 2.f) - this->background->getGlobalBounds().width / 4.f), ((window->getSize().y / 2.f) - this->background->getGlobalBounds().height / 2.25f), window, machine.settingPointer->selectedLanguage);
+    this->gameplayText= util.addText("Gameplay", 25, 2, 2, ((window->getSize().x / 2.f) + this->background->getGlobalBounds().width / 4.f), (window->getSize().y / 2.f), window, machine.settingPointer->selectedLanguage);
+    this->menuNavigationText = util.addText("Menu navigation", 25, 2, 2, ((window->getSize().x / 2.f) + this->background->getGlobalBounds().width / 4.f), movementText->getPosition().y, window, machine.settingPointer->selectedLanguage);
 
     positionList.clear();
     positionList.push_back(sf::Vector2f((window->getSize().x / 2) - this->background->getGlobalBounds().width / 4, (window->getSize().y / 2) - this->background->getGlobalBounds().height / 6));

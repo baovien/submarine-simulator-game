@@ -42,6 +42,11 @@ protected:
     std::vector<std::vector<Enemy2Object*>> enemyList;
     sfuser::PauseableClock enemyClock;
     sf::Clock clockenemy;
+    sf::Texture* pausedTexture;
+    sf::Sprite* pausedBackground;
+
+    int wave = 0;
+    bool nextCollissionRight = true;
 
 
     void spawnEnemies(sf::RenderWindow *window);
@@ -51,6 +56,8 @@ protected:
     void updateEnemyList();
 
     void enemyShoot(sf::RenderWindow *window);
+
+
 
 };
 
