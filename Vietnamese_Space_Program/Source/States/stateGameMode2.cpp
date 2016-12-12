@@ -35,7 +35,7 @@ void StateGameMode2::initialize(sf::RenderWindow *window)
 
     manager = new EntityManager();
     this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2,
-                              window->getSize().y, window, 2, 2, machine.soundLoaderPointer);
+                              window->getSize().y, window, 2, 0, machine.soundLoaderPointer);
     this->manager->addEntity("ship", this->player);
 
 
@@ -142,7 +142,7 @@ void StateGameMode2::spawnEnemies(sf::RenderWindow *window)
         enemyList.push_back(tempList);
         for (int j = 0; j < 5; ++j)
         {
-            enemy2Object = new Enemy2Object(manager, i, j, "fishis_0" + std::to_string(j + 1) + ".png", window);
+            enemy2Object = new Enemy2Object(manager, i, j, "fishis_0" + std::to_string(j + 1) + ".png", window,0);
             this->manager->addEntity("Enemy", enemy2Object);
             enemyList.at(i).push_back(enemy2Object);
         }
@@ -205,7 +205,7 @@ void StateGameMode2::enemyShoot(sf::RenderWindow *window)
         this->manager->addEntity("Bullet", new Bullet(enemyList.at(random).back()->getPosition().x,
                                                       enemyList.at(random).back()->getPosition().y
                                                       + enemyList.at(random).back()->getGlobalBounds().height,
-                                                      window->getSize().x / 320, 0, 0, window));
+                                                      window->getSize().x / 320, 0, 0, window, 0));
         clockenemy.restart();
     }
 }

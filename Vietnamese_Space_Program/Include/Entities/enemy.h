@@ -7,7 +7,7 @@
 class EnemyObject : public Entity
 {
 public:
-    EnemyObject(sf::RenderWindow* window, Player* player, EntityManager* manager, int mode, SoundLoader* soundLoader);
+    EnemyObject(sf::RenderWindow* window, Player* player, EntityManager* manager, int mode, SoundLoader* soundLoader, int theme);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
 
@@ -18,6 +18,7 @@ private:
     int randomNumber;
     EntityManager* manager;
     int mode;
+    int theme;
 
     // avstanden x og y fra enemy til skipet.
     float xDistance, yDistance, distance;

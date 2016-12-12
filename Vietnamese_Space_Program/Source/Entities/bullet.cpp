@@ -14,14 +14,15 @@ Bullet::Bullet(Score* score, float x, float y, float direction, float direction2
     this->setRotation(angle);
     this->score = score;
     this->setScale(window->getSize().x/3840.0f, window->getSize().y/2160.0f);
-
+    this->shoot = 0;
 
 }
-Bullet::Bullet(float x, float y, float direction, float direction2, float angle , sf::RenderWindow* window)
+Bullet::Bullet(float x, float y, float direction, float direction2, float angle , sf::RenderWindow* window, int theme)
 {
     this->active = 1;
     this->groupId = 6;
-    this->load("bubble4.png");
+    if(theme == 0)this->load("bubble4.png");
+    else this->load("bubble1");
     this->velocity.y = direction * 640;
     this->velocity.x = direction2 * 640;
     this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
@@ -38,7 +39,10 @@ void Bullet::updateEntity(sf::RenderWindow *window)
     }
     Entity::updateEntity(window);
 }
-
+bool Bullet::canShoot(){
+    if(shoot == 1) return true;
+    else return false;
+}
 void Bullet::collision(Entity *entity)
 {
     if(this->groupId == 2)
@@ -55,6 +59,7 @@ void Bullet::collision(Entity *entity)
                 this->destroyEntity();
                 this->score->incrementScore();
                 this->soundLoader->playEffect(Audio::BULLET_POP);
+                this->shoot = 1;
                 break;
 
             case 5: // Boss

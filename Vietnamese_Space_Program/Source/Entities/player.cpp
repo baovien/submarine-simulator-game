@@ -1,40 +1,43 @@
 #include <iostream>
 #include "../../Include/Entities/player.h"
 
-Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode, int mode, SoundLoader* soundLoader)
+Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode, int theme, SoundLoader* soundLoader)
         : keybindMap(keybindMap),
-          mode(mode),
+          theme(theme),
           manager(manager),
           gamemode(gamemode),
           score(score),
           lives(lives),
-          soundLoader(soundLoader)
-{
+          soundLoader(soundLoader) {
     this->active = 1;
     this->groupId = 1;
+        switch (gamemode) {
+            case 1:
+                if(theme == 0)this->load("ubat1.png");
+                else this->load("fighter.png");
 
-    switch (gamemode) {
-        case 1:
-            this->load("ubat1.png");
-            this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
-            this->space = false;
-            this->setPosition(x, y);
-            this->setScale(window->getSize().x/1280.0f, window->getSize().y/720.0f);
-            this->bar = new Bar(window);
-            this->manager->addEntity("bar", this->bar);
-            this->overheatValue = 1.0f;
-            break;
-        case 2:
-            this->load("ubat1.png");
-            this->setOrigin(this->getGlobalBounds().width / 2, this->getGlobalBounds().height / 2);
-            this->setScale(window->getSize().x/2560.0f, window->getSize().y/1440.0f);
-            this->space = false;
-            this->setPosition(x - this->getGlobalBounds().width, y - this->getGlobalBounds().height / 1.5);
-            break;
-        default:
-            break;
+                this->setOrigin(this->getGlobalBounds().width / 2, this->getGlobalBounds().height / 2);
+                this->space = false;
+                this->setPosition(x, y);
+                this->setScale(window->getSize().x / 1280.0f, window->getSize().y / 720.0f);
+                this->bar = new Bar(window);
+                this->manager->addEntity("bar", this->bar);
+                this->overheatValue = 1.0f;
+                break;
+            case 2:
+                if(theme == 0)this->load("ubat1.png");
+                else this->load("fighter.png");
+
+                this->setOrigin(this->getGlobalBounds().width / 2, this->getGlobalBounds().height / 2);
+                this->setScale(window->getSize().x / 2560.0f, window->getSize().y / 1440.0f);
+                this->space = false;
+                this->setPosition(x - this->getGlobalBounds().width, y - this->getGlobalBounds().height / 1.5);
+                break;
+            default:
+                break;
+        }
     }
-}
+
 
 //update funksjonen har kontroll på bevegelsen til player.
 void Player::updateEntity(sf::RenderWindow *window){
@@ -52,56 +55,26 @@ void Player::updateEntity(sf::RenderWindow *window){
     switch (this->gamemode) {
         case 1:
             this->setRotation(angle * 180 / pi);
-            switch (this->mode) {
-                case 1:
-                    //Bevegelse
-                    if (right && speed != 0) angle += turnspeed * speed / maxSpeed;
-                    if (left && speed != 0) angle -= turnspeed * speed / maxSpeed;
-
-                    if (up && speed < maxSpeed) {
-                        if (speed < 0) speed += dec;
-                        else speed += acc;
-                    }
-                    if (down) {
-                        if (speed > 0) {
-                            speed -= dec;
-                        } else {
-                            speed -= acc;
-                        }
-                    }
-                    if (!up && !down) {
-                        if (speed - dec > 0) speed -= dec;
-                        else if (speed + dec < 0) speed += dec;
-                        else speed = 0;
-                    }
-                    this->move((sin(angle) * speed) * *machine.deltaTimePointer, (-cos(angle) * speed)* *machine.deltaTimePointer);
-                    break;
-
-                case 2:
-                    if (right) angle += turnspeed * (*machine.deltaTimePointer);
-                    if (left) angle -= turnspeed * (*machine.deltaTimePointer);
-
-                    if (up && speed < maxSpeed) {
-                        if (speed < 0) speed += dec;
-                        else speed += acc;
-                    }
-                    if (down && speed > -maxSpeed) {
-                        if (speed > 0) {
-                            speed -= dec;
-                        } else {
-                            speed -= acc;
-                        }
-                    }
+            if (right) angle += turnspeed * (*machine.deltaTimePointer);
+            if (left) angle -= turnspeed * (*machine.deltaTimePointer);
+            if (up && speed < maxSpeed) {
+                if (speed < 0) speed += dec;
+                else speed += acc;
+            }
+            if (down && speed > -maxSpeed) {
+                if (speed > 0) {
+                    speed -= dec;
+                } else {
+                    speed -= acc;
+                }
+            }
                     if (!up && !down) {
                         if (speed - dec > 0) speed -= dec;
                         else if (speed + dec < 0) speed += dec;
                         else speed = 0;
                     }
                     this->move((sin(angle) * speed) * (*machine.deltaTimePointer) * window->getSize().x / 1280, (-cos(angle) * speed) * (*machine.deltaTimePointer) * window->getSize().y / 720);
-                    break;
-                default:
-                    break;
-            }
+
             if(this->getRotation() < 360 && this->getRotation() > 180) {
                 float turn = window->getSize().x/2560.0f;
                 turn *= -1;

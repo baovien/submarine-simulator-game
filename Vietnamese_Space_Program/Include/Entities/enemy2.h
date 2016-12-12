@@ -10,11 +10,11 @@
 class Enemy2Object : public Entity
 {
 public:
-    Enemy2Object(EntityManager* manager, int i, int j, std::string k, sf::RenderWindow* window);
+    Enemy2Object(EntityManager* manager, int i, int j, std::string k, sf::RenderWindow* window, int theme);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
 private:
-
+    int theme;
     int health;
     EntityManager* manager;
 

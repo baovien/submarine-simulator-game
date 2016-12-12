@@ -1,9 +1,11 @@
 #include <iostream>
 #include "../../Include/Entities/enemy2.h"
 
-Enemy2Object::Enemy2Object(EntityManager *manager, int i, int j, std::string k, sf::RenderWindow *window)
+Enemy2Object::Enemy2Object(EntityManager *manager, int i, int j, std::string k, sf::RenderWindow *window, int theme)
 {
-    this->load(k);
+    this->theme = theme;
+    if(theme == 0)this->load(k);
+    //else this->load(" spacetheme ");
     this->active = 1;
     this->groupId = 4;
     this->health = 2;

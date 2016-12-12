@@ -13,7 +13,6 @@ IndestructableObject::IndestructableObject(float x, float y, float directionX, f
     this->maxSpeed = 100.0f;
     //Setter origin til midten av astroiden.
     this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
-
     this->setScale(window->getSize().x/1280, window->getSize().y/720);
 
     this->setPosition(x,y);

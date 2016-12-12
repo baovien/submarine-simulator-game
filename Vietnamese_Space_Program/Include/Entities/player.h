@@ -22,7 +22,7 @@ public:
     virtual void collision(Entity* entity);
 private:
     int gamemode;
-    int mode;
+    int theme;
     float overheatValue;
     bool space;
 

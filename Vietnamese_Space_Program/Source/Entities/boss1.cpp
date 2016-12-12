@@ -1,10 +1,12 @@
 #include <iostream>
 #include "../../Include/Entities/boss1.h"
 
-BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::RenderWindow* window)
+BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::RenderWindow* window, int theme)
     : player(player)
 {
-    this->load("blowfish.png");
+    this->theme = theme;
+    if(theme == 0)this->load("blowfish.png");
+    else this->load("PLAYERSHIP.png");
     this->active = 1;
     this->groupId = 5;
     this->health = 10;
@@ -106,28 +108,28 @@ void BossObject::updateEntity(sf::RenderWindow *window) {
                     (this->getPosition().y - (this->getGlobalBounds().height / 2) * cos(angle)),
                     (-cos(angle) * bulletSpeed),
                     (sin(angle) * bulletSpeed),
-                    (angle * 180 / pi), window));
+                    (angle * 180 / pi), window, theme));
 
             this->manager->addEntity("Bullet", new Bullet(
                     (this->getPosition().x - (this->getGlobalBounds().width / 2) * sin(angle)),//Setter posisjon i x
                     (this->getPosition().y + (this->getGlobalBounds().height / 2) * cos(angle)),//Setter posisjon i y
                     (cos(angle) * bulletSpeed), //Setter fart i x
                     (-sin(angle) * bulletSpeed), //Setter fart i y
-                    ((angle + pi) * 180 / pi), window)); //Setter vinkel på kula
+                    ((angle + pi) * 180 / pi), window, 0)); //Setter vinkel på kula
 
             this->manager->addEntity("Bullet", new Bullet(
                     (this->getPosition().x - (this->getGlobalBounds().width / 2) * cos(angle)),//Setter posisjon i x
                     (this->getPosition().y - (this->getGlobalBounds().height / 2) * sin(angle)),//Setter posisjon i y
                     (-sin(angle) * bulletSpeed), //Setter fart i x
                     (-cos(angle) * bulletSpeed), //Setter fart i y
-                    (((angle + ((pi / 2) * 3)) * 180 / pi)), window)); //Setter vinkel på kula
+                    (((angle + ((pi / 2) * 3)) * 180 / pi)), window, 0)); //Setter vinkel på kula
 
             this->manager->addEntity("Bullet", new Bullet(
                     (this->getPosition().x + (this->getGlobalBounds().width / 2) * cos(angle)), //Setter posisjon i x
                     (this->getPosition().y + (this->getGlobalBounds().height / 2) * sin(angle)),//Setter posisjon i y
                     (sin(angle) * bulletSpeed), //Setter fart i x
                     (cos(angle) * bulletSpeed), //Setter fart i y
-                    (((angle + (pi / 2)) * 180 / pi)), window)); //Setter vinkel på kula
+                    (((angle + (pi / 2)) * 180 / pi)), window,0)); //Setter vinkel på kula
 
             this->pauseableClock.restart(); //restarter clock(nullstiller)
         }

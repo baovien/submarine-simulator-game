@@ -3,14 +3,17 @@
 #include "../../Include/Entities/enemy.h"
 
 //Initiater enemy, koden vår er satt opp for flere spillere så case 0 er spiller 1.
-EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager* manager, int mode, SoundLoader* soundLoader)
+EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager* manager, int mode, SoundLoader* soundLoader, int theme)
             : player(player),
               manager(manager),
               soundLoader(soundLoader),
               mode(mode)
 
 {
-    this->load("happyfish.png");
+    this->theme = theme;
+    if(theme == 0)this->load("happyfish.png");
+    else this->load("fighter3green.png");
+
     this->active = 1;
     this->groupId = 4;
     this->randomNumber = rand() % 4;
@@ -76,7 +79,7 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
                                                       yDistance/1000,
                                                       xDistance/1000,
                                                       0,
-                                                      window));
+                                                      window, theme));
         this->soundLoader->playEffect(Audio::ENEMY_SHOOT);
     }
     //Sjekker om spilleren er til venstre for fienden.
