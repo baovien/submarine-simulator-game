@@ -63,7 +63,7 @@ sf::Sprite *Utilities::addButton(sf::Texture *texture, float scaleX, float scale
 
 
 //Text, textsize, origin x, origin y, position x, position y, window
-sf::Text *Utilities::addText(std::string textContent, unsigned int textSize, int originX, int originY, float posX, float posY, sf::RenderWindow *window, int language) {
+sf::Text *Utilities::addText(sf::String textContent, unsigned int textSize, int originX, int originY, float posX, float posY, sf::RenderWindow *window, int language) {
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/Turtles.otf");
     sf::Text *text = new sf::Text(textContent, *this->font, textSize);
@@ -114,7 +114,7 @@ sf::Sprite *Utilities::getMuteButton() const {
     return muteButton;
 }
 
-std::string Utilities::translate(std::string wordToTranslate, int language) {
+std::string Utilities::translate(sf::String wordToTranslate, int language) {
     std::transform(wordToTranslate.begin(), wordToTranslate.end(), wordToTranslate.begin(), ::tolower);
     if (languageMap.find(wordToTranslate) != languageMap.end()) {
         switch (language) {
