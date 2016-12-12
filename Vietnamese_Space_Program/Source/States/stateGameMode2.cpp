@@ -203,12 +203,12 @@ void StateGameMode2::enemyShoot(sf::RenderWindow *window)
     } else random = 0;
     sf::Time elapsed1 = clockenemy.getElapsedTime();
 
-    if (elapsed1.asMicroseconds() > 10000000 && enemyList.size() > 0)
+    if (elapsed1.asMicroseconds() > 1000000 && enemyList.size() > 0)
     {
         this->manager->addEntity("Bullet", new Bullet(enemyList.at(random).back()->getPosition().x,
                                                       enemyList.at(random).back()->getPosition().y
                                                       + enemyList.at(random).back()->getGlobalBounds().height,
-                                                      window->getSize().x / 320, 0, 0, window));
+                                                      0.6, 0, 0, window));
         clockenemy.restart();
     }
 }
