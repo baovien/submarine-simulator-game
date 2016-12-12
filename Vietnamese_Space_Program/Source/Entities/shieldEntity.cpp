@@ -9,7 +9,6 @@ ShieldEntity::ShieldEntity(sf::RenderWindow* window, Player* player, SoundLoader
     this->active = 1;
     this->groupId = 10;
     this->isShieldActive = false;
-    this->manager = new EntityManager();
 
     this->setOrigin(this->getGlobalBounds().width / 2, this->getGlobalBounds().height / 2);
     this->scale(window->getSize().x / 1280.0f, window->getSize().y / 720.0f);

@@ -20,9 +20,6 @@ private:
     Player* player;
     sfuser::PauseableClock invincibleClock;
 
-    EntityManager* manager;
     SoundLoader* soundLoader;
-public:
-    bool* isShieldActivePointer = &isShieldActive;
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_SHIELDPOWERUP_H
