@@ -16,11 +16,11 @@ void StateGameMode2::initialize(sf::RenderWindow *window)
     machine.soundLoaderPointer->playMusic(Audio::Music::CLASSIC);
 
     this->bgTexture = new sf::Texture();
-    this->bgTexture->loadFromFile("Graphics/Sprites/background12.png");
+    this->bgTexture->loadFromFile("Graphics/Sprites/background1" + std::to_string(2+machine.selectedObjectsPointer->selectedTheme)+".png");
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
-    this->background->scale(1.5, 1.5);
+    this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
 
     util = new Utilities();
 
@@ -35,8 +35,9 @@ void StateGameMode2::initialize(sf::RenderWindow *window)
 
     manager = new EntityManager();
     this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2,
-                              window->getSize().y, window, 2, 0, machine.soundLoaderPointer);
+                              window->getSize().y, window, 2, machine.selectedObjectsPointer->selectedFighter, machine.soundLoaderPointer);
     this->manager->addEntity("ship", this->player);
+    std::cout<<machine.selectedObjectsPointer->selectedFighter<<std::endl;
 
 
     this->pausedText = new sf::Text("Paused\nPress " + machine.keybindMap.find("back")->second.first + " to Quit",
@@ -99,7 +100,6 @@ void StateGameMode2::render(sf::RenderWindow *window)
 
 void StateGameMode2::destroy(sf::RenderWindow *window)
 {
-
     delete this->lives;
     delete this->score;
     delete this->util;
@@ -128,7 +128,7 @@ void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event) {
                 }
                 std::cout << "   -- " << enemyList.at(i).size() << std::endl;
             }
-            std::cout << "--------------------------------------" << std::endl;
+            std::cout << "--------------------------------------" << std::to_string(machine.selectedObjectsPointer->selectedTheme)<< std::endl;
         }
     }
     if (event.type == sf::Event::MouseButtonReleased) {
@@ -145,13 +145,13 @@ void StateGameMode2::reinitialize(sf::RenderWindow *window)
 
 void StateGameMode2::spawnEnemies(sf::RenderWindow *window)
 {
-    for (int i = 0; i < 5; ++i)
+    for (int i = 0; i < 7; ++i)
     {
         std::vector<Enemy2Object *> tempList;
         enemyList.push_back(tempList);
         for (int j = 0; j < 5; ++j)
         {
-            enemy2Object = new Enemy2Object(manager, i, j, "fishis_0" + std::to_string(j + 1) + ".png", window,0);
+            enemy2Object = new Enemy2Object(manager, i, j, "fishis_" + std::to_string(j + 1) + "_" + std::to_string(machine.selectedObjectsPointer->selectedTheme)+".png", window,machine.selectedObjectsPointer->selectedTheme);
             this->manager->addEntity("Enemy", enemy2Object);
             enemyList.at(i).push_back(enemy2Object);
         }
@@ -214,7 +214,7 @@ void StateGameMode2::enemyShoot(sf::RenderWindow *window)
         this->manager->addEntity("Bullet", new Bullet(enemyList.at(random).back()->getPosition().x,
                                                       enemyList.at(random).back()->getPosition().y
                                                       + enemyList.at(random).back()->getGlobalBounds().height,
-                                                      0.6, 0, 0, window, 0));
+                                                      0.6, 0, 0, window, machine.selectedObjectsPointer->selectedTheme));
         clockenemy.restart();
     }
 }

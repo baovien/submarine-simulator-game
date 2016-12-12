@@ -15,7 +15,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->util = new Utilities;
 
     this->bgTexture = new sf::Texture();
-    this->bgTexture->loadFromFile("Graphics/Sprites/background12.png");
+    this->bgTexture->loadFromFile("Graphics/Sprites/background1" + std::to_string(2+machine.selectedObjectsPointer->selectedTheme) +".png");
     this->background = new sf::Sprite();
 
     this->background->setTexture(*this->bgTexture);
@@ -36,7 +36,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->lives->setScale(window->getSize().x / 1280, window->getSize().y / 720);
 
     //Init player
-    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2, window, 1, 0, machine.soundLoaderPointer);
+    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2, window, 1, machine.selectedObjectsPointer->selectedFighter, machine.soundLoaderPointer);
     this->manager->addEntity("ship", this->player);
 
     //this->bossObject = new BossObject(this->manager, this->player, this->mode, window);
@@ -170,25 +170,28 @@ void StateGameMode1::spawnObjects(sf::RenderWindow *window) {
     }
     if (clock.getElapsedTime().asSeconds() - junkTime > 1.f) {
         junkTime = clock.getElapsedTime().asSeconds();
-        int random = rand() % 5;
-        if (random == 1) {
-            this->manager->addEntity("indestructableObject", new IndestructableObject(window));
-        }
-    }
+            int random = rand() % 5;
+            if (random == 1)
+            {
+                this->manager->addEntity("indestructableObject", new IndestructableObject(window, machine.selectedObjectsPointer->selectedTheme));
+            }
 
+    }
 }
+
+
 
 void StateGameMode1::spawnWave(sf::RenderWindow *window) {
     if (waveNum > 5) this->mode = 2;
 
     if (waveNum % 5 == 0) { //BOSS HVER 5. WAVE
-        bossObject = new BossObject(this->manager, this->player, this->mode, window, 0);
+        bossObject = new BossObject(this->manager, this->player, this->mode, window, machine.selectedObjectsPointer->selectedTheme);
         this->manager->addEntity("Boss", bossObject);
         bossList.push_back(bossObject);
 
     } else {                  //ENEMYSPAWN
         for (int i = 0; i < waveNum; ++i) {
-            enemyObject = new EnemyObject(window, this->player, this->manager, this->mode, machine.soundLoaderPointer,0);
+            enemyObject = new EnemyObject(window, this->player, this->manager, this->mode, machine.soundLoaderPointer,machine.selectedObjectsPointer->selectedTheme);
             this->manager->addEntity("Enemy", enemyObject);
             enemyList.push_back(enemyObject);
         }

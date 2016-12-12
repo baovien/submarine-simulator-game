@@ -12,7 +12,7 @@ EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager
 {
     this->theme = theme;
     if(theme == 0)this->load("happyfish.png");
-    else this->load("fighter3green.png");
+    else this->load("UFO3.png");
 
     this->active = 1;
     this->groupId = 4;
@@ -73,6 +73,7 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
     randomNumber2 = rand() % 1000;
     if(this->mode == 2 && randomNumber2 < 2)
     {
+
         //float angle = this->getRotation() * player->pi/180;
         this->manager->addEntity("bullet", new Bullet(this->getPosition().x /*+ (this->getGlobalBounds().width/2) * sin(angle)*/,
                                                       this->getPosition().y /*- (this->getGlobalBounds().height/2) * cos(angle)*/,
@@ -109,11 +110,24 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
         }
     }
     if(this->health == 1){
-        this->load("dizzyfish.png");
+        if(theme == 0){
+            this->load("dizzyfish.png");
+        }
+        else{
+            this->load("UFO1.png");
+        }
+
     }
     else if(this->health <= 0){
-        this->load("deadfish.png");
-        this->destroyEntity();
+        if(theme == 0){
+            this->load("deadfish.png");
+            this->destroyEntity();
+        }
+        else{
+            this->load("UFO2.png");
+            this->destroyEntity();
+        }
+
     }
     if(player->getPosition().y < this->getPosition().y){
 

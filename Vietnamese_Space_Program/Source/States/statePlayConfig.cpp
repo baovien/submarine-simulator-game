@@ -14,6 +14,9 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
     this->background->setTexture(*this->bgTexture);
     this->background->scale(window->getSize().x/background->getGlobalBounds().width,window->getSize().y/background->getGlobalBounds().height);
 
+    machine.selectedObjectsPointer->selectedFighter=0;
+    machine.selectedObjectsPointer->selectedTheme=0;
+
     //Legger til play og back button
     for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i) {
         menuTextures[i].buttonMouseOver = new sf::Texture();
@@ -214,15 +217,19 @@ void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event) {
                 switch (i) {
                     case 0:
                         selected_Theme = i;
+                        machine.selectedObjectsPointer->selectedTheme = 0;
                         break;
                     case 1:
                         selected_Theme = i;
+                        machine.selectedObjectsPointer->selectedTheme = 1;
                         break;
                     case 2:
                         selected_Fighter = i;
+                        machine.selectedObjectsPointer->selectedFighter = 0;
                         break;
                     case 3:
                         selected_Fighter = i;
+                        machine.selectedObjectsPointer->selectedFighter = 1;
                         break;
                     case 4:
                         selected_Gamemode = i;

@@ -1,9 +1,9 @@
 #include <iostream>
 #include "../../Include/Entities/player.h"
 
-Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode, int theme, SoundLoader* soundLoader)
+Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode, int fighter, SoundLoader* soundLoader)
         : keybindMap(keybindMap),
-          theme(theme),
+          fighter(fighter),
           manager(manager),
           gamemode(gamemode),
           score(score),
@@ -13,7 +13,7 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
     this->groupId = 1;
         switch (gamemode) {
             case 1:
-                if(theme == 0)this->load("ubat1.png");
+                if(fighter == 0)this->load("ubat1.png");
                 else this->load("fighter.png");
 
                 this->setOrigin(this->getGlobalBounds().width / 2, this->getGlobalBounds().height / 2);
@@ -25,7 +25,7 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
                 this->overheatValue = 1.0f;
                 break;
             case 2:
-                if(theme == 0)this->load("ubat1.png");
+                if(fighter == 0)this->load("ubat1.png");
                 else this->load("fighter.png");
 
                 this->setOrigin(this->getGlobalBounds().width / 2, this->getGlobalBounds().height / 2);
@@ -97,7 +97,7 @@ void Player::updateEntity(sf::RenderWindow *window){
                                                                   (sin(angle)),
                                                                   (angle * 180 / pi),
                                                                   this->soundLoader,
-                                                                  window));
+                                                                  window, machine.selectedObjectsPointer->selectedFighter));
                 }
                 else if(this->overheatValue > 10) {
                     this->overheatValue = 15;
@@ -122,7 +122,7 @@ void Player::updateEntity(sf::RenderWindow *window){
                                                               (0),
                                                               0,
                                                               this->soundLoader,
-                                                              window));
+                                                              window, machine.selectedObjectsPointer->selectedFighter));
             }
             this->space = sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second);
             break;
