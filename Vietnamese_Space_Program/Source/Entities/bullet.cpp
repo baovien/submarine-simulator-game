@@ -40,8 +40,7 @@ void Bullet::updateEntity(sf::RenderWindow *window)
     Entity::updateEntity(window);
 }
 bool Bullet::canShoot(){
-    if(shoot == 1) return true;
-    else return false;
+    return shoot == 1;
 }
 void Bullet::collision(Entity *entity)
 {

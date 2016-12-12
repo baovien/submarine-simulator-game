@@ -30,5 +30,6 @@ void HealthPack::collision(Entity* entity)
             this->destroyEntity();
             this->lives->increaseLife();
             break;
+        default:break;
     }
 }

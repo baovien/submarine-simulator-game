@@ -31,7 +31,7 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
                 this->setOrigin(this->getGlobalBounds().width / 2, this->getGlobalBounds().height / 2);
                 this->setScale(window->getSize().x / 2560.0f, window->getSize().y / 1440.0f);
                 this->space = false;
-                this->setPosition(x - this->getGlobalBounds().width, y - this->getGlobalBounds().height / 1.5);
+                this->setPosition(x - this->getGlobalBounds().width, y - this->getGlobalBounds().height / 1.5f);
                 break;
             default:
                 break;
@@ -133,22 +133,22 @@ void Player::updateEntity(sf::RenderWindow *window){
         case 1:
             //Sjekker for kollisjon med vindukantene.
             if (this->getPosition().y + this->getGlobalBounds().height/2 < 0) {
-                this->setPosition(this->getPosition().x, window->getSize().y + this->getGlobalBounds().height/2.1);
+                this->setPosition(this->getPosition().x, window->getSize().y + this->getGlobalBounds().height/2.1f);
                 //this->speed = 0;
                 //this->move(-sin(angle) * speed, cos(angle) * speed);
             }
             if (this->getPosition().y - this->getGlobalBounds().height/2 > window->getSize().y) {
-                this->setPosition(this->getPosition().x, 0 - this->getGlobalBounds().height/2.1);
+                this->setPosition(this->getPosition().x, 0 - this->getGlobalBounds().height/2.1f);
                 //this->speed = 0;
                 //this->move(-sin(angle) * speed, cos(angle) * speed);
             }
             if (this->getPosition().x + this->getGlobalBounds().width/2 < 0) {
-                this->setPosition(window->getSize().x + this->getGlobalBounds().width/2.1, this->getPosition().y);
+                this->setPosition(window->getSize().x + this->getGlobalBounds().width/2.1f, this->getPosition().y);
                 //this->speed = 0;
                 //this->move(-sin(angle) * speed, cos(angle) * speed);
             }
             if (this->getPosition().x - this->getGlobalBounds().width/2 > window->getSize().x) {
-                this->setPosition(0 - this->getGlobalBounds().width/2.1, this->getPosition().y);
+                this->setPosition(0 - this->getGlobalBounds().width/2.1f, this->getPosition().y);
                 //this->speed = 0;
                 //this->move(-sin(angle) * speed, cos(angle) * speed);
             }
@@ -182,5 +182,6 @@ void Player::collision(Entity *entity) {
         case 9: // Indestructable Object nr 2
             entity->destroyEntity();
             this->lives->decreaseLife();
+        default:break;
     }
 }

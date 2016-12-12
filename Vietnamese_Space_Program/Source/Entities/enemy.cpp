@@ -136,5 +136,6 @@ void EnemyObject::collision(Entity *entity) {
             break;
         case 5:
             break;
+        default:break;
     }
 }

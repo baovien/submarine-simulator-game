@@ -207,6 +207,7 @@ void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         machine.setState(new StateMainMenu);
                         return;
                         //Returnknappen trykket
+                    default:break;
                 }
             }
         for (unsigned int i = 0; i < sizeof(PictureTexture) / sizeof(*PictureTexture); ++i)
@@ -230,6 +231,7 @@ void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event) {
                     case 5:
                         selected_Gamemode = i;
                         break;
+                    default:break;
                 }
             }
     }

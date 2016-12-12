@@ -293,6 +293,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         machine.soundLoaderPointer->stopMusic();
                         machine.setState(new StateMainMenu());
                         return;
+                    default:break;
                 }
             }
         }

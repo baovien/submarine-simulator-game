@@ -50,6 +50,7 @@ void Enemy2Object::collision(Entity *entity)
             this->health--;
             break;
 
+        default:break;
     }
 }
 

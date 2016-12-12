@@ -129,5 +129,6 @@ void IndestructableObject::collision(Entity* entity) {
             break;
         case 9:
             break;
+        default:break;
     }
 }
