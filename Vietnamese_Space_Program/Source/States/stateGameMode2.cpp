@@ -20,7 +20,7 @@ void StateGameMode2::initialize(sf::RenderWindow *window)
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
-    this->background->scale(1.5, 1.5);
+    this->background->scale(window->getSize().x /background->getGlobalBounds().width, window->getSize().y /background->getGlobalBounds().height);
 
     util = new Utilities();
 
@@ -28,12 +28,15 @@ void StateGameMode2::initialize(sf::RenderWindow *window)
     this->font->loadFromFile("Graphics/font.ttf");
 
     this->score = new Score(*font, 32U);
-    this->score->setPosition(20, 5);
+    this->score->setPosition(window->getSize().x/40,window->getSize().y/60);
+    this->score->setScale(window->getSize().x/1280.f, window->getSize().y/720.f);
 
     this->lives = new Lives(*font, 32U);
-    this->lives->setPosition(window->getSize().x - this->lives->getGlobalBounds().width - 20, 5);
+    this->lives->setPosition(window->getSize().x - window->getSize().x/10, window->getSize().y/60);
+    this->lives->setScale(window->getSize().x/1280.f, window->getSize().y/720.f);
 
     manager = new EntityManager();
+
     this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2,
                               window->getSize().y, window, 2, 2, machine.soundLoaderPointer);
     this->manager->addEntity("ship", this->player);
@@ -144,7 +147,7 @@ void StateGameMode2::reinitialize(sf::RenderWindow *window)
 
 void StateGameMode2::spawnEnemies(sf::RenderWindow *window)
 {
-    for (int i = 0; i < 22; ++i)
+    for (int i = 0; i < 7; ++i)
     {
         std::vector<Enemy2Object *> tempList;
         enemyList.push_back(tempList);

@@ -13,8 +13,10 @@ public:
 
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
+
 private:
 
+    bool shoot;
     SoundLoader* soundLoader;
     Score* score;
 };

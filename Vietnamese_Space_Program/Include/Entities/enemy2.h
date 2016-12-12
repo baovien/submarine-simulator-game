@@ -15,6 +15,7 @@ public:
     virtual void collision(Entity* entity);
 private:
 
+
     int health;
     EntityManager* manager;
 

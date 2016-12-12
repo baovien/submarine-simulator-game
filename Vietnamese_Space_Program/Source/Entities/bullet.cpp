@@ -31,21 +31,19 @@ Bullet::Bullet(float x, float y, float direction, float direction2, float angle 
 }
 void Bullet::updateEntity(sf::RenderWindow *window)
 {
-    if(this->getPosition().x + this->getGlobalBounds().width/2 < 0 || this->getPosition().x - this->getGlobalBounds().width/2 > window->getSize().x||
-       this->getPosition().y + this->getGlobalBounds().height/2 < 0 || this->getPosition().y - this->getGlobalBounds().height/2 > window->getSize().y)
-    {
-        this->destroyEntity();
+        if (this->getPosition().x + this->getGlobalBounds().width / 2 < 0 ||
+            this->getPosition().x - this->getGlobalBounds().width / 2 > window->getSize().x ||
+            this->getPosition().y + this->getGlobalBounds().height / 2 < 0 ||
+            this->getPosition().y - this->getGlobalBounds().height / 2 > window->getSize().y) {
+            this->destroyEntity();
     }
     Entity::updateEntity(window);
 }
 
-void Bullet::collision(Entity *entity)
-{
-    if(this->groupId == 2)
-    {
+void Bullet::collision(Entity *entity) {
+    if (this->groupId == 2) {
 
-        switch (entity->groupID())
-        {
+        switch (entity->groupID()) {
             case 3: // IndestructableObject nr 1
                 this->destroyEntity();
                 this->soundLoader->playEffect(Audio::BULLET_POP);
@@ -73,4 +71,8 @@ void Bullet::collision(Entity *entity)
         }
     }
 }
+
+
+
+
 

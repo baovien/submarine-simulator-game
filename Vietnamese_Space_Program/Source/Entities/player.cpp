@@ -138,10 +138,11 @@ void Player::updateEntity(sf::RenderWindow *window){
         case 2:
             if (right)this->move(window->getSize().x / 5 * *manager->deltaTime, 0);
             if (left)this->move(-(window->getSize().x / 5 * *manager->deltaTime), 0);
-            this->enemypausable.start();
-            if (this->enemypausable.getElapsedTime().asSeconds() > 0.5) {
-               if (!this->space &&
+
+                if (this->manager->getEntity("bullet") == NULL) {
+                if (!this->space &&
                     sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second)) {
+
 
                     this->manager->addEntity("bullet", new Bullet((this->score),
                                                                   (this->getPosition().x),
@@ -152,8 +153,9 @@ void Player::updateEntity(sf::RenderWindow *window){
                                                                   0,
                                                                   this->soundLoader,
                                                                   window));
-                    enemypausable.restart();
-                }
+
+
+            }
             }
 
             this->space = sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second);
