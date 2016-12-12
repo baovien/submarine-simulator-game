@@ -14,16 +14,12 @@ public:
     ShieldEntity(sf::RenderWindow* window, Player* player, SoundLoader* soundLoader);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
-    sfuser::PauseableClock clock; // starter clocken
 private:
-    bool isShieldActive;
+    sfuser::PauseableClock clock; // starter clocken
     Player* player;
-    int shieldLife;
     sfuser::PauseableClock invincibleClock;
 
     EntityManager* manager;
     SoundLoader* soundLoader;
-public:
-    bool* isShieldActivePointer = &isShieldActive;
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_SHIELDPOWERUP_H

@@ -33,7 +33,6 @@ protected:
     sf::Sprite overBarS;
     Lives* lives;
     Score* score;
-    ShieldEntity* shieldEntity;
     sf::Font* font;
     sf::Text* pausedText;
     sf::Text* waveText;
@@ -44,19 +43,19 @@ protected:
     Player* player;
     EnemyObject* enemyObject;
     BossObject* bossObject;
-    HealthPack* healthPack;
     sf::Texture* pausedTexture;
     sf::Sprite* pausedBackground;
-    sfuser::PauseableClock pauseableClockIndestructableObject;
-    sfuser::PauseableClock pauseableClockHealthPack;
-    sfuser::PauseableClock pauseableClockShieldEntity;
+    sfuser::PauseableClock clock;
 
+
+    void updateWaveText(sf::RenderWindow* window, bool choice);
     //Branch: Waves
     int mode = 1;
     int transparencyValue = 0;
-    int waveNum = 0;
 
+    int waveNum = 0;
     std::vector<EnemyObject*> enemyList;
+
     std::vector<BossObject*> bossList;
 
     void spawnObjects(sf::RenderWindow* window);
@@ -65,10 +64,6 @@ protected:
 
     void updateEnemyList(sf::RenderWindow* window);
 
-    void updateWaveText(sf::RenderWindow* window, bool choice);
-
-    //Spawned entities
-    int spawnedHealthPacks, spawnedShieldPacks;
 };
 
 

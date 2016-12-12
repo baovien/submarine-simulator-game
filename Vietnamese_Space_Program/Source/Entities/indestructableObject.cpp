@@ -30,8 +30,8 @@ IndestructableObject::IndestructableObject(sf::RenderWindow* window) {
     this->groupId = 9;
     this->health = 1;
     this->randomNumber = rand()%4;
-    this->maxSpeed = 1.5f;
-    this->setScale(window->getSize().x/2560,window->getSize().y/1440); //skaleres til 0.5, 0.5
+    this->maxSpeed = 125.f;
+    this->setScale(window->getSize().x/2560.f,window->getSize().y/1440.f); //skaleres til 0.5, 0.5
 
     //Setter origin til midten av asteroiden.
     this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);

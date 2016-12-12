@@ -39,11 +39,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2, window, 1, 2, machine.soundLoaderPointer);
     this->manager->addEntity("ship", this->player);
 
-    //Init entities
-    this->shieldEntity = new ShieldEntity(window, this->player, machine.soundLoaderPointer);
-    this->healthPack = new HealthPack(this->lives, machine.soundLoaderPointer, window);
     //this->bossObject = new BossObject(this->manager, this->player, this->mode, window);
-
     this->overBar.loadFromFile("Graphics/Sprites/overheat_border.png");
     this->overBarS.setTexture(this->overBar);
     this->overBarS.setOrigin(this->overBarS.getGlobalBounds().width/2, this->overBarS.getGlobalBounds().height/2);
@@ -69,6 +65,7 @@ void StateGameMode1::update(sf::RenderWindow *window) {
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
+        clock.start();
 
         this->manager->updateEntity(window, machine.deltaTimePointer);
         this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
@@ -89,16 +86,11 @@ void StateGameMode1::update(sf::RenderWindow *window) {
             updateWaveText(window, true);
         }
 
-        //spawnObjects(window);
+        spawnObjects(window);
         updateEnemyList(window);
         updateWaveText(window, false);
 
-    }else{
-        this->pauseableClockIndestructableObject.pause();
-        this->pauseableClockHealthPack.pause();
-        this->healthPack->clock.pause();
-        this->shieldEntity->clock.pause();
-    }
+    } else clock.pause();
 }
 
 void StateGameMode1::render(sf::RenderWindow *window) {
@@ -147,42 +139,27 @@ void StateGameMode1::handleEvent(sf::RenderWindow *window, sf::Event event) {
 void StateGameMode1::reinitialize(sf::RenderWindow *window) {}
 
 void StateGameMode1::spawnObjects(sf::RenderWindow *window) {
-
-    //Legger til healthpacks + indestructableObjects utenfor wavessystemet
-    this->pauseableClockIndestructableObject.start();
-    this->pauseableClockHealthPack.start();
-
-    this->healthPack->clock.start();
-    this->shieldEntity->clock.start();
-
-    if (this->pauseableClockIndestructableObject.getElapsedTime().asMicroseconds() > 5000000)   //Sjekker om verdien til clock er mer enn 5 sekunder
-    {
-        this->manager->addEntity("indestructableObject", new IndestructableObject(window));   //er clock mer enn 5 sekunder lager jeg en ny astroide
-        this->pauseableClockIndestructableObject.restart();                             //restarter clock(nullstiller)
-    }
-
-    if (pauseableClockShieldEntity.getElapsedTime().asMicroseconds() > 1000000) {
-        if (rand() % 10 < 2) {
-            spawnedShieldPacks++;
-            if (spawnedShieldPacks <= waveNum){
-                this->shieldEntity = new ShieldEntity(window, this->player, machine.soundLoaderPointer);
-                this->manager->addEntity("shieldEntity", this->shieldEntity);
-                this->shieldEntity->clock.restart();
-            }
+    static float powerUpTime = 0;
+    static float junkTime = 0;
+    if(clock.getElapsedTime().asSeconds() - powerUpTime > 5.f){
+        powerUpTime = clock.getElapsedTime().asSeconds();
+        int random = rand()% 2;
+        switch (random){
+            case 0:
+                this->manager->addEntity("healthPack", new HealthPack(this->lives, machine.soundLoaderPointer, window));
+                break;
+            case 1:
+                this->manager->addEntity("shieldEntity", new ShieldEntity(window, this->player, machine.soundLoaderPointer));
+                break;
+            default:break;
         }
-        pauseableClockShieldEntity.restart();
     }
-    if (pauseableClockHealthPack.getElapsedTime().asMicroseconds() > 5000000) {         //Sjekker om verdien til clock er mer enn 5 sekunder
-        if (rand() % 10 < 3) {
-            spawnedHealthPacks++;
-            if (spawnedHealthPacks <= waveNum){
-                //Init entities
-                this->healthPack = new HealthPack(this->lives, machine.soundLoaderPointer, window);
-                this->manager->addEntity("healthPack", this->healthPack);
-                this->healthPack->clock.restart();
-            }
+    if(clock.getElapsedTime().asSeconds() - junkTime > 1.f){
+        junkTime = clock.getElapsedTime().asSeconds();
+        int random = rand()%5;
+        if(random == 1){
+            this->manager->addEntity("indestructableObject", new IndestructableObject(window));
         }
-        pauseableClockHealthPack.restart();     //restarter clock(nullstiller)
     }
 
 }
