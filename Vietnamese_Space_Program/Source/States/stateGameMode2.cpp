@@ -42,12 +42,19 @@ void StateGameMode2::initialize(sf::RenderWindow *window) {
     this->manager->addEntity("ship", this->player);
 
 
-    this->pausedText = new sf::Text("Paused\nPress " + machine.keybindMap.find("back")->second.first + " to Quit",
-                                    *font, 32U);
-    this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2,
-                                this->pausedText->getGlobalBounds().height / 2);
-    this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
+    this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap.find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2,
+                                     window->getSize().x / 2, window->getSize().y / 2, window, machine.settingPointer->selectedLanguage);
 
+    this->pausedTexture = new sf::Texture();
+    this->pausedTexture->loadFromFile("Graphics/Sprites/overlayPause.png");
+
+
+    this->pausedBackground = new sf::Sprite();
+    this->pausedBackground->setTexture(*this->pausedTexture);
+    this->pausedBackground->setOrigin(this->pausedBackground->getGlobalBounds().width / 2, this->pausedBackground->getGlobalBounds().height / 2);
+    this->pausedBackground->setPosition(window->getSize().x / 2, window->getSize().y / 2);
+
+    util->makeMuteButton(window, machine.mutedPointer);
 }
 
 void StateGameMode2::update(sf::RenderWindow *window) {
@@ -79,7 +86,10 @@ void StateGameMode2::update(sf::RenderWindow *window) {
         enemyShoot(window);
 
 
-    } else enemyClock.pause();
+    } else{
+        enemyClock.pause();
+        util->checkMuteMouseOver(window);
+    }
 
 }
 
@@ -90,8 +100,9 @@ void StateGameMode2::render(sf::RenderWindow *window) {
 
     this->manager->renderEntity(window);
     if (util->paused) {
+        window->draw(*this->pausedBackground);
         window->draw(*this->pausedText);
-
+        window->draw(*util->getMuteButton());
 
     }
 }
@@ -105,6 +116,8 @@ void StateGameMode2::destroy(sf::RenderWindow *window) {
     delete this->pausedText;
     delete this->background;
     delete this->manager;
+    delete this->pausedTexture;
+    delete this->pausedBackground;
 
 }
 
@@ -117,6 +130,11 @@ void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event) {
         }
         if (event.key.code == machine.keybindMap.find("pause")->second.second) {
             util->pauseScreen();                        //Kaller pausefunksjonen
+        }
+    }
+    if (event.type == sf::Event::MouseButtonReleased) {
+        if (util->paused) {
+            util->checkMuteMouseClick(window, event, machine.mutedPointer);
         }
     }
 }

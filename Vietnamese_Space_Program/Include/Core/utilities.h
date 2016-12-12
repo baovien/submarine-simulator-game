@@ -99,7 +99,7 @@ public:
     sf::Text *addText(sf::String textContent, unsigned int textSize, int originX, int originY, float posX, float posY, sf::RenderWindow *window, int language);
 
     //Oversetter spesifike ord
-    std::string translate(sf::String wordToTranslate, int language);
+    sf::String translate(sf::String wordToTranslate, int language);
 
     //Tar inn sprite og returnerer true om mouseover
     bool checkMouseover(sf::Sprite *buttonSprite, sf::RenderWindow *window);
