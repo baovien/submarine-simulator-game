@@ -45,6 +45,7 @@ void StateGameMode2::initialize(sf::RenderWindow *window)
                                 this->pausedText->getGlobalBounds().height / 2);
     this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
 
+    util->makeMuteButton(window, machine.mutedPointer);
 }
 
 void StateGameMode2::update(sf::RenderWindow *window)
@@ -74,7 +75,10 @@ void StateGameMode2::update(sf::RenderWindow *window)
         enemyShoot(window);
 
 
-    } else enemyClock.pause();
+    } else{
+        enemyClock.pause();
+        util->checkMuteMouseOver(window);
+    }
 
 }
 
@@ -88,7 +92,7 @@ void StateGameMode2::render(sf::RenderWindow *window)
     if (util->paused)
     {
         window->draw(*this->pausedText);
-
+        window->draw(*this->util->getMuteButton());
 
     }
 }
@@ -125,6 +129,11 @@ void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event) {
                 std::cout << "   -- " << enemyList.at(i).size() << std::endl;
             }
             std::cout << "--------------------------------------" << std::endl;
+        }
+    }
+    if (event.type == sf::Event::MouseButtonReleased) {
+        if (util->paused) {
+            util->checkMuteMouseClick(window, event, machine.mutedPointer);
         }
     }
 }
