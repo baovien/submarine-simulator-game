@@ -45,6 +45,7 @@ void StateGameMode2::initialize(sf::RenderWindow *window)
                                 this->pausedText->getGlobalBounds().height / 2);
     this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
 
+    util->makeMuteButton(window, machine.mutedPointer);
 }
 
 void StateGameMode2::update(sf::RenderWindow *window)
@@ -74,7 +75,10 @@ void StateGameMode2::update(sf::RenderWindow *window)
         enemyShoot(window);
 
 
-    } else enemyClock.pause();
+    } else{
+        enemyClock.pause();
+        util->checkMuteMouseOver(window);
+    }
 
 }
 
@@ -88,7 +92,7 @@ void StateGameMode2::render(sf::RenderWindow *window)
     if (util->paused)
     {
         window->draw(*this->pausedText);
-
+        window->draw(*this->util->getMuteButton());
 
     }
 }
@@ -125,6 +129,11 @@ void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event) {
                 std::cout << "   -- " << enemyList.at(i).size() << std::endl;
             }
             std::cout << "--------------------------------------" << std::endl;
+        }
+    }
+    if (event.type == sf::Event::MouseButtonReleased) {
+        if (util->paused) {
+            util->checkMuteMouseClick(window, event, machine.mutedPointer);
         }
     }
 }
@@ -200,12 +209,12 @@ void StateGameMode2::enemyShoot(sf::RenderWindow *window)
     } else random = 0;
     sf::Time elapsed1 = clockenemy.getElapsedTime();
 
-    if (elapsed1.asMicroseconds() > 10000000 && enemyList.size() > 0)
+    if (elapsed1.asMicroseconds() > 1000000 && enemyList.size() > 0)
     {
         this->manager->addEntity("Bullet", new Bullet(enemyList.at(random).back()->getPosition().x,
                                                       enemyList.at(random).back()->getPosition().y
                                                       + enemyList.at(random).back()->getGlobalBounds().height,
-                                                      window->getSize().x / 320, 0, 0, window, 0));
+                                                      0.6, 0, 0, window));
         clockenemy.restart();
     }
 }

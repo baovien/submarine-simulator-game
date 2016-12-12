@@ -28,12 +28,12 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->waveText->setOutlineColor(sf::Color(0, 0, 0, (sf::Uint8) transparencyValue));
 
     this->score = new Score(*font, 32U);
-    this->score->setPosition(window->getSize().x/10,window->getSize().y/20);
-    this->score->setScale(window->getSize().x/1280, window->getSize().y/720);
+    this->score->setPosition(window->getSize().x / 10, window->getSize().y / 20);
+    this->score->setScale(window->getSize().x / 1280, window->getSize().y / 720);
 
     this->lives = new Lives(*font, 32U);
-    this->lives->setPosition(window->getSize().x - window->getSize().x/5, window->getSize().y/20);
-    this->lives->setScale(window->getSize().x/1280, window->getSize().y/720);
+    this->lives->setPosition(window->getSize().x - window->getSize().x / 5, window->getSize().y / 20);
+    this->lives->setScale(window->getSize().x / 1280, window->getSize().y / 720);
 
     //Init player
     this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2, window, 1, 0, machine.soundLoaderPointer);
@@ -42,14 +42,15 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     //this->bossObject = new BossObject(this->manager, this->player, this->mode, window);
     this->overBar.loadFromFile("Graphics/Sprites/overheat_border.png");
     this->overBarS.setTexture(this->overBar);
-    this->overBarS.setOrigin(this->overBarS.getGlobalBounds().width/2, this->overBarS.getGlobalBounds().height/2);
-    this->overBarS.setPosition(window->getSize().x/2, window->getSize().y - this->overBarS.getGlobalBounds().height);
-    this->overBarS.setScale(window->getSize().x/640,window->getSize().y/360);
+    this->overBarS.setOrigin(this->overBarS.getGlobalBounds().width / 2, this->overBarS.getGlobalBounds().height / 2);
+    this->overBarS.setPosition(window->getSize().x / 2, window->getSize().y - this->overBarS.getGlobalBounds().height);
+    this->overBarS.setScale(window->getSize().x / 640, window->getSize().y / 360);
 
     //Init pauseobjekter
     //Text, textsize, origin x, origin y, position x, position y, window, language int
 
-    this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap.find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2, window->getSize().x / 2, window->getSize().y / 2, window, machine.settingPointer->selectedLanguage);
+    this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap.find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2,
+                                     window->getSize().x / 2, window->getSize().y / 2, window, machine.settingPointer->selectedLanguage);
 
     this->pausedTexture = new sf::Texture();
     this->pausedTexture->loadFromFile("Graphics/Sprites/overlayPause.png");
@@ -58,6 +59,8 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->pausedBackground->setTexture(*this->pausedTexture);
     this->pausedBackground->setOrigin(this->pausedBackground->getGlobalBounds().width / 2, this->pausedBackground->getGlobalBounds().height / 2);
     this->pausedBackground->setPosition(window->getSize().x / 2, window->getSize().y / 2);
+
+    util->makeMuteButton(window, machine.mutedPointer);
 }
 
 void StateGameMode1::update(sf::RenderWindow *window) {
@@ -90,7 +93,10 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         updateEnemyList(window);
         updateWaveText(window, false);
 
-    } else clock.pause();
+    } else {
+        clock.pause();
+        util->checkMuteMouseOver(window);
+    }
 }
 
 void StateGameMode1::render(sf::RenderWindow *window) {
@@ -103,6 +109,7 @@ void StateGameMode1::render(sf::RenderWindow *window) {
     if (util->paused) {
         window->draw(*this->pausedBackground);
         window->draw(*this->pausedText);
+        window->draw(*this->util->getMuteButton());
     }
     window->draw(*this->waveText);
 
@@ -134,6 +141,12 @@ void StateGameMode1::handleEvent(sf::RenderWindow *window, sf::Event event) {
         }
 
     }
+
+    if (event.type == sf::Event::MouseButtonReleased) {
+        if (util->paused) {
+            util->checkMuteMouseClick(window, event, machine.mutedPointer);
+        }
+    }
 }
 
 void StateGameMode1::reinitialize(sf::RenderWindow *window) {}
@@ -141,23 +154,24 @@ void StateGameMode1::reinitialize(sf::RenderWindow *window) {}
 void StateGameMode1::spawnObjects(sf::RenderWindow *window) {
     static float powerUpTime = 0;
     static float junkTime = 0;
-    if(clock.getElapsedTime().asSeconds() - powerUpTime > 5.f){
+    if (clock.getElapsedTime().asSeconds() - powerUpTime > 5.f) {
         powerUpTime = clock.getElapsedTime().asSeconds();
-        int random = rand()% 2;
-        switch (random){
+        int random = rand() % 2;
+        switch (random) {
             case 0:
                 this->manager->addEntity("healthPack", new HealthPack(this->lives, machine.soundLoaderPointer, window));
                 break;
             case 1:
                 this->manager->addEntity("shieldEntity", new ShieldEntity(window, this->player, machine.soundLoaderPointer));
                 break;
-            default:break;
+            default:
+                break;
         }
     }
-    if(clock.getElapsedTime().asSeconds() - junkTime > 1.f){
+    if (clock.getElapsedTime().asSeconds() - junkTime > 1.f) {
         junkTime = clock.getElapsedTime().asSeconds();
-        int random = rand()%5;
-        if(random == 1){
+        int random = rand() % 5;
+        if (random == 1) {
             this->manager->addEntity("indestructableObject", new IndestructableObject(window));
         }
     }
@@ -214,11 +228,11 @@ void StateGameMode1::updateEnemyList(sf::RenderWindow *window) {
 
 void StateGameMode1::updateWaveText(sf::RenderWindow *window, bool choice) {
 
-    if(choice){
+    if (choice) {
         this->transparencyValue = 255;
-        if(waveNum % 5 == 0) this->waveText = util->addText(util->translate("Boss", machine.settingPointer->selectedLanguage), 75, 2, 2, window->getSize().x / 2, window->getSize().y / 4, window, machine.settingPointer->selectedLanguage);
+        if (waveNum % 5 == 0) this->waveText = util->addText(util->translate("Boss", machine.settingPointer->selectedLanguage), 75, 2, 2, window->getSize().x / 2, window->getSize().y / 4, window, machine.settingPointer->selectedLanguage);
         else this->waveText = util->addText(util->translate("Wave: ", machine.settingPointer->selectedLanguage) + std::to_string(waveNum), 75, 2, 2, window->getSize().x / 2, window->getSize().y / 4, window, machine.settingPointer->selectedLanguage);
-    }else{
+    } else {
         //Fader waveText
         this->waveText->setFillColor(sf::Color(255, 255, 255, (sf::Uint8) transparencyValue));
         this->waveText->setOutlineColor(sf::Color(0, 0, 0, (sf::Uint8) transparencyValue));
