@@ -39,11 +39,6 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2, window, 1, 2, machine.soundLoaderPointer);
     this->manager->addEntity("ship", this->player);
 
-    //Init entities
-    this->shieldEntity = new ShieldEntity(window, this->player, machine.soundLoaderPointer);
-    this->healthPack = new HealthPack(this->lives, machine.soundLoaderPointer, window);
-    //this->bossObject = new BossObject(this->manager, this->player, this->mode, window);
-
     this->overBar.loadFromFile("Graphics/Sprites/overheat_border.png");
     this->overBarS.setTexture(this->overBar);
     this->overBarS.setOrigin(this->overBarS.getGlobalBounds().width/2, this->overBarS.getGlobalBounds().height/2);
@@ -65,6 +60,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     machine.soundLoaderPointer->playMusic(Audio::Music::ARCADE);
 
 
+
 }
 
 void StateGameMode1::update(sf::RenderWindow *window) {
@@ -79,7 +75,35 @@ void StateGameMode1::update(sf::RenderWindow *window) {
             machine.setState(new StateGameOver);
             return;
         }
+        //Init entities
+        this->shieldEntity = new ShieldEntity(window, this->player, machine.soundLoaderPointer);
+        this->healthPack = new HealthPack(this->lives, machine.soundLoaderPointer, window);
+        //this->bossObject = new BossObject(this->manager, this->player, this->mode, window);
+        std::cout << shieldEntity->clockPointerShield->getElapsedTime().asSeconds() << std::endl;
+
         this->manager->updateEntity(window, machine.deltaTimePointer);
+
+        if (pauseableClockShieldEntity.getElapsedTime().asMicroseconds() > 10000000) {
+            if (rand() % 10 < 10) {
+                spawnedShieldPacks++;
+                if (spawnedShieldPacks <= waveNum){
+                    shieldEntity->clockPointerShield->restart();
+                    this->manager->addEntity("shieldEntity", this->shieldEntity);
+                }
+            }
+            pauseableClockShieldEntity.restart();
+        }
+        if (pauseableClockHealthPack.getElapsedTime().asMicroseconds() > 5000000) {         //Sjekker om verdien til clock er mer enn 5 sekunder
+            if (rand() % 10 < 10) {
+                spawnedHealthPacks++;
+                if (spawnedHealthPacks <= waveNum){
+                    //Init entities
+                    healthPack->clockPointerHealth->restart();
+                    this->manager->addEntity("healthPack", this->healthPack);
+                }
+            }
+            pauseableClockHealthPack.restart();     //restarter clock(nullstiller)
+        }
 
         this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
         this->lives->updateLife(util->translate("Lives", machine.settingPointer->selectedLanguage));
@@ -87,38 +111,14 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         //Legger til healthpacks + indestructableObjects utenfor wavessystemet
         this->pauseableClockIndestructableObject.start();
         this->pauseableClockHealthPack.start();
-        this->healthPack->clock.start();
-        this->shieldEntity->clock.start();
+        shieldEntity->clockPointerShield->start();
+        healthPack->clockPointerHealth->start();
         //this->bossObject->pauseableClock.start();
 
         if (this->pauseableClockIndestructableObject.getElapsedTime().asMicroseconds() > 5000000)   //Sjekker om verdien til clock er mer enn 5 sekunder
         {
             this->manager->addEntity("indestructableObject", new IndestructableObject(window));   //er clock mer enn 5 sekunder lager jeg en ny astroide
             this->pauseableClockIndestructableObject.restart();                             //restarter clock(nullstiller)
-        }
-
-        if (pauseableClockShieldEntity.getElapsedTime().asMicroseconds() > 10000000) {
-            if (rand() % 10 < 2) {
-                spawnedShieldPacks++;
-                if (spawnedShieldPacks <= waveNum){
-                    this->shieldEntity = new ShieldEntity(window, this->player, machine.soundLoaderPointer);
-                    this->manager->addEntity("shieldEntity", this->shieldEntity);
-                    this->shieldEntity->clock.restart();
-                }
-            }
-            pauseableClockShieldEntity.restart();
-        }
-        if (pauseableClockHealthPack.getElapsedTime().asMicroseconds() > 5000000) {         //Sjekker om verdien til clock er mer enn 5 sekunder
-            if (rand() % 10 < 3) {
-                spawnedHealthPacks++;
-                if (spawnedHealthPacks <= waveNum){
-                    //Init entities
-                    this->healthPack = new HealthPack(this->lives, machine.soundLoaderPointer, window);
-                    this->manager->addEntity("healthPack", this->healthPack);
-                    this->healthPack->clock.restart();
-                }
-            }
-            pauseableClockHealthPack.restart();     //restarter clock(nullstiller)
         }
 
         //////////////////////////WAVES
@@ -175,8 +175,8 @@ void StateGameMode1::update(sf::RenderWindow *window) {
     }else{ //Handle paused game
         this->pauseableClockIndestructableObject.pause();
         this->pauseableClockHealthPack.pause();
-        this->healthPack->clock.pause();
-        this->shieldEntity->clock.pause();
+        shieldEntity->clockPointerShield->pause();
+        healthPack->clockPointerHealth->pause();
         //this->bossObject->pauseableClock.pause();
     }
 

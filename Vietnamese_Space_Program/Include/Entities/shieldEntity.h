@@ -14,8 +14,8 @@ public:
     ShieldEntity(sf::RenderWindow* window, Player* player, SoundLoader* soundLoader);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
-    sfuser::PauseableClock clock; // starter clocken
 private:
+    sfuser::PauseableClock clock; // starter clocken
     bool isShieldActive;
     Player* player;
     int shieldLife;
@@ -24,6 +24,6 @@ private:
     EntityManager* manager;
     SoundLoader* soundLoader;
 public:
-    bool* isShieldActivePointer = &isShieldActive;
+    sfuser::PauseableClock* clockPointerShield = &clock;
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_SHIELDPOWERUP_H

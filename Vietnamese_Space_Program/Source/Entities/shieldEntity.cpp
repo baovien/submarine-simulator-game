@@ -29,6 +29,7 @@ void ShieldEntity::updateEntity(sf::RenderWindow *window){
     }
     if(invincibleClock.getElapsedTime().asMicroseconds() > 5000000) { // 5 sekunder invincibility
         this->destroyEntity();
+        invincibleClock.restart();
     }
     if(clock.getElapsedTime().asMicroseconds() > 4000000) //Sjekker om verdien til clock er mer enn 4 sekunder
     {
@@ -49,6 +50,7 @@ void ShieldEntity::collision(Entity* entity){
         case 6:
         case 9:
             if(this->isShieldActive){
+                invincibleClock.restart();
                 entity->destroyEntity();
             }
     }
