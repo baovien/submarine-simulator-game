@@ -26,10 +26,10 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
             break;
         case 2:
             this->load("ubat1.png");
-            this->setScale(window->getSize().x / 1280.0f, window->getSize().y / 720.0f);
             this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
+            this->setScale(window->getSize().x / 1920.0f, window->getSize().y / 1080.0f);
             this->space = false;
-            this->setPosition(x - this->getGlobalBounds().width, y - this->getGlobalBounds().height / 1.5);
+            this->setPosition(x - this->getGlobalBounds().width, y - this->getGlobalBounds().height / 1.9);
             break;
         default:
             break;
@@ -140,7 +140,7 @@ void Player::updateEntity(sf::RenderWindow *window){
             if (left)this->move(-(window->getSize().x / 5 * *manager->deltaTime), 0);
             this->enemypausable.start();
             if (this->enemypausable.getElapsedTime().asSeconds() > 0.5) {
-                if (!this->space &&
+               if (!this->space &&
                     sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second)) {
 
                     this->manager->addEntity("bullet", new Bullet((this->score),

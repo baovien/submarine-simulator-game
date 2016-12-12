@@ -27,7 +27,7 @@ Bullet::Bullet(float x, float y, float direction, float direction2, float angle 
     this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
     this->setPosition(x, y);
     this->setRotation(angle);
-    this->setScale(window->getSize().x/2560.0f, window->getSize().y/1440.0f);
+    this->setScale(window->getSize().x/3840.0f, window->getSize().y/2160.0f);
 }
 void Bullet::updateEntity(sf::RenderWindow *window)
 {

@@ -65,9 +65,17 @@ void StateGameMode2::update(sf::RenderWindow *window)
             return;
         }
 
+
+
         //std::cout << "size:  " << enemyList.size() << "time: " << enemyClock.getElapsedTime().asSeconds() << std::endl;
-        if (enemyList.size() == 0 && enemyClock.getElapsedTime().asSeconds() > 1.5) {
+        if (enemyList.size() == 0 && enemyClock.getElapsedTime().asSeconds() > 1.5 ) {
+            clockenemy.restart();
             spawnEnemies(window);
+            fart + 0.2;
+            if(antallGroup < 4) {
+                antallGroup++;
+            }
+
         }
         updateEnemyList();
         turnEnemies(window);
@@ -136,7 +144,7 @@ void StateGameMode2::reinitialize(sf::RenderWindow *window)
 
 void StateGameMode2::spawnEnemies(sf::RenderWindow *window)
 {
-    for (int i = 0; i < 5; ++i)
+    for (int i = 0; i < 22; ++i)
     {
         std::vector<Enemy2Object *> tempList;
         enemyList.push_back(tempList);
@@ -188,24 +196,30 @@ void StateGameMode2::updateEnemyList() {
     }
 }
 
-void StateGameMode2::enemyShoot(sf::RenderWindow *window)
-{
+void StateGameMode2::enemyShoot(sf::RenderWindow *window) {
     //random int fra 0 til size of enemyList
     //hvert halve sekund
     //spawn kule med posisjon enemyList.at(randomInt).back().getposx og y - en halv enemyList.at(randomInt).back().getGlobalbounds.height
     int random;
-    if (enemyList.size() > 1)
-    {
+
+    if (enemyList.size() > 1) {
         random = rand() % (enemyList.size() - 1);
     } else random = 0;
+
+
     sf::Time elapsed1 = clockenemy.getElapsedTime();
 
-    if (elapsed1.asMicroseconds() > 1000000 && enemyList.size() > 0)
-    {
-        this->manager->addEntity("Bullet", new Bullet(enemyList.at(random).back()->getPosition().x,
-                                                      enemyList.at(random).back()->getPosition().y
-                                                      + enemyList.at(random).back()->getGlobalBounds().height,
-                                                      0.6, 0, 0, window));
-        clockenemy.restart();
+        if (elapsed1.asSeconds() > (5 - antallGroup) && enemyList.size() > 0) {
+
+
+            this->manager->addEntity("Bullet", new Bullet(enemyList.at(random).back()->getPosition().x,
+                                                          enemyList.at(random).back()->getPosition().y
+                                                          + enemyList.at(random).back()->getGlobalBounds().height,
+                                                          (0.1+fart), 0, 0, window));
+
+            clockenemy.restart();
+
+
+        }
+
     }
-}
