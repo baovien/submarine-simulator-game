@@ -214,7 +214,7 @@ void StateGameMode2::enemyShoot(sf::RenderWindow *window)
         this->manager->addEntity("Bullet", new Bullet(enemyList.at(random).back()->getPosition().x,
                                                       enemyList.at(random).back()->getPosition().y
                                                       + enemyList.at(random).back()->getGlobalBounds().height,
-                                                      0.6, 0, 0, window));
+                                                      0.6, 0, 0, window, 0));
         clockenemy.restart();
     }
 }
