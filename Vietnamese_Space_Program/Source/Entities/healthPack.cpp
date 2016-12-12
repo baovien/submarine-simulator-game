@@ -8,8 +8,8 @@ HealthPack::HealthPack(Lives* lives, SoundLoader* soundLoader, sf::RenderWindow*
     this->groupId = 7;
     this->lives = lives;
 
-    this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
-    this->setScale(window->getSize().x/1280, window->getSize().y/720);
+    this->setOrigin(this->getGlobalBounds().height/2.f, this->getGlobalBounds().height/2.f);
+    this->setScale(window->getSize().x/1280.f, window->getSize().y/720.f);
     this->setPosition(rand() % 1280, rand() % 720);
 }
 void HealthPack::updateEntity(sf::RenderWindow *window)

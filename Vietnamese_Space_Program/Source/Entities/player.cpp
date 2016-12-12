@@ -18,7 +18,7 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
             if (theme == 0)this->load("ubat1.png");
             else this->load("fighter.png");
 
-            this->setOrigin(this->getGlobalBounds().width / 2, this->getGlobalBounds().height / 2);
+            this->setOrigin(this->getGlobalBounds().width / 2.f, this->getGlobalBounds().height / 2.f);
             this->space = false;
             this->setPosition(x, y);
             this->setScale(window->getSize().x / 1280.0f, window->getSize().y / 720.0f);
@@ -30,7 +30,7 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
             if (theme == 0)this->load("ubat1.png");
             else this->load("fighter.png");
 
-            this->setOrigin(this->getGlobalBounds().width / 2, this->getGlobalBounds().height / 2);
+            this->setOrigin(this->getGlobalBounds().width / 2.f, this->getGlobalBounds().height / 2.f);
             this->setScale(window->getSize().x / 2560.0f, window->getSize().y / 1440.0f);
             this->space = false;
             this->setPosition(x - this->getGlobalBounds().width, y - this->getGlobalBounds().height / 1.5f);
@@ -75,8 +75,8 @@ void Player::updateEntity(sf::RenderWindow *window) {
                 else if (speed + dec < 0) speed += dec;
                 else speed = 0;
             }
-            this->move((sin(angle) * speed) * (*machine.deltaTimePointer) * window->getSize().x / 1280,
-                       (-cos(angle) * speed) * (*machine.deltaTimePointer) * window->getSize().y / 720);
+            this->move((sin(angle) * speed) * (*machine.deltaTimePointer) * window->getSize().x / 1280.f,
+                       (-cos(angle) * speed) * (*machine.deltaTimePointer) * window->getSize().y / 720.f);
 
             if (this->getRotation() < 360 && this->getRotation() > 180) {
                 float turn = window->getSize().x / 2560.0f;
@@ -123,7 +123,7 @@ void Player::updateEntity(sf::RenderWindow *window) {
                     this->manager->addEntity("bullet", new Bullet((this->score),
                                                                   (this->getPosition().x),
                                                                   (this->getPosition().y -
-                                                                   this->getGlobalBounds().height / 2),
+                                                                   this->getGlobalBounds().height / 2.f),
                                                                   (-1),
                                                                   (0),
                                                                   0,
@@ -139,30 +139,30 @@ void Player::updateEntity(sf::RenderWindow *window) {
     switch (this->gamemode) {
         case 1:
             //Sjekker for kollisjon med vindukantene.
-            if (this->getPosition().y + this->getGlobalBounds().height / 2 < 0) {
+            if (this->getPosition().y + this->getGlobalBounds().height / 2.f < 0) {
                 this->setPosition(this->getPosition().x, window->getSize().y + this->getGlobalBounds().height / 2.1f);
                 //this->speed = 0;
                 //this->move(-sin(angle) * speed, cos(angle) * speed);
             }
-            if (this->getPosition().y - this->getGlobalBounds().height / 2 > window->getSize().y) {
+            if (this->getPosition().y - this->getGlobalBounds().height / 2.f > window->getSize().y) {
                 this->setPosition(this->getPosition().x, 0 - this->getGlobalBounds().height / 2.1f);
                 //this->speed = 0;
                 //this->move(-sin(angle) * speed, cos(angle) * speed);
             }
-            if (this->getPosition().x + this->getGlobalBounds().width / 2 < 0) {
+            if (this->getPosition().x + this->getGlobalBounds().width / 2.f < 0) {
                 this->setPosition(window->getSize().x + this->getGlobalBounds().width / 2.1f, this->getPosition().y);
                 //this->speed = 0;
                 //this->move(-sin(angle) * speed, cos(angle) * speed);
             }
-            if (this->getPosition().x - this->getGlobalBounds().width / 2 > window->getSize().x) {
+            if (this->getPosition().x - this->getGlobalBounds().width / 2.f > window->getSize().x) {
                 this->setPosition(0 - this->getGlobalBounds().width / 2.1f, this->getPosition().y);
                 //this->speed = 0;
                 //this->move(-sin(angle) * speed, cos(angle) * speed);
             }
             break;
         case 2:
-            if (this->getPosition().x + this->getGlobalBounds().width / 2 > window->getSize().x) this->move(-5, 0);
-            if (this->getPosition().x - this->getGlobalBounds().width / 2 < 0) this->move(5, 0);
+            if (this->getPosition().x + this->getGlobalBounds().width / 2.f > window->getSize().x) this->move(-5, 0);
+            if (this->getPosition().x - this->getGlobalBounds().width / 2.f < 0) this->move(5, 0);
             break;
     }
     if (this->lives->getValue() <= 0) {

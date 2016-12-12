@@ -28,29 +28,29 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->waveText->setOutlineColor(sf::Color(0, 0, 0, (sf::Uint8) transparencyValue));
 
     this->score = new Score(*font, 32U);
-    this->score->setPosition(window->getSize().x / 10, window->getSize().y / 20);
-    this->score->setScale(window->getSize().x / 1280, window->getSize().y / 720);
+    this->score->setPosition(window->getSize().x / 10.f, window->getSize().y / 20.f);
+    this->score->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
 
     this->lives = new Lives(*font, 32U);
-    this->lives->setPosition(window->getSize().x - window->getSize().x / 5, window->getSize().y / 20);
-    this->lives->setScale(window->getSize().x / 1280, window->getSize().y / 720);
+    this->lives->setPosition(window->getSize().x - window->getSize().x / 5.f, window->getSize().y / 20.f);
+    this->lives->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
 
     //Init player
-    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2, window->getSize().y / 2, window, 1, 0, machine.soundLoaderPointer);
+    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2.f, window->getSize().y / 2.f, window, 1, 0, machine.soundLoaderPointer);
     this->manager->addEntity("ship", this->player);
 
     //this->bossObject = new BossObject(this->manager, this->player, this->mode, window);
     this->overBar.loadFromFile("Graphics/Sprites/overheat_border.png");
     this->overBarS.setTexture(this->overBar);
-    this->overBarS.setOrigin(this->overBarS.getGlobalBounds().width / 2, this->overBarS.getGlobalBounds().height / 2);
-    this->overBarS.setPosition(window->getSize().x / 2, window->getSize().y - this->overBarS.getGlobalBounds().height);
-    this->overBarS.setScale(window->getSize().x / 640, window->getSize().y / 360);
+    this->overBarS.setOrigin(this->overBarS.getGlobalBounds().width / 2.f, this->overBarS.getGlobalBounds().height / 2.f);
+    this->overBarS.setPosition(window->getSize().x / 2.f, window->getSize().y - this->overBarS.getGlobalBounds().height);
+    this->overBarS.setScale(window->getSize().x / 640.f, window->getSize().y / 360.f);
 
     //Init pauseobjekter
     //Text, textsize, origin x, origin y, position x, position y, window, language int
 
     this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap.find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2,
-                                     window->getSize().x / 2, window->getSize().y / 2, window, machine.settingPointer->selectedLanguage);
+                                     window->getSize().x / 2.f, window->getSize().y / 2.f, window, machine.settingPointer->selectedLanguage);
 
     this->pausedTexture = new sf::Texture();
     this->pausedTexture->loadFromFile("Graphics/Sprites/overlayPause.png");

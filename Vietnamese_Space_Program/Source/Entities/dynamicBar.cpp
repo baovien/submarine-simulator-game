@@ -2,16 +2,16 @@
 
 Bar::Bar(sf::RenderWindow *window) {
     this->load("overheat.png");
-    this->setOrigin(this->getGlobalBounds().width / 2, this->getGlobalBounds().height / 2);
-    this->setPosition(window->getSize().x/2, window->getSize().y - this->getGlobalBounds().height);
+    this->setOrigin(this->getGlobalBounds().width / 2.f, this->getGlobalBounds().height / 2.f);
+    this->setPosition(window->getSize().x/2.f, window->getSize().y - this->getGlobalBounds().height);
     this->setTextureRect(sf::IntRect(0, 0, 12, 20));
-    this->setScale(window->getSize().x/640, window->getSize().y/360);
+    this->setScale(window->getSize().x/640.f, window->getSize().y/360.f);
 }
 Bar::Bar(sf::RenderWindow *window, float x, float y) {
     this->load("overheat.png");
     this->setPosition(x, y);
-    this->setScale(window->getSize().x / 1280, window->getSize().y / 720);
-    this->setTextureRect(sf::IntRect(0, 0, window->getSize().x * 120 / 1280, window->getSize().y * 20 / 720));
+    this->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
+    this->setTextureRect(sf::IntRect(0, 0, window->getSize().x * 120.f / 1280.f, window->getSize().y * 20.f / 720.f));
     this->setOrigin(this->getGlobalBounds().width / 2, this->getGlobalBounds().height / 2);
 }
 void Bar::updateEntity(sf::RenderWindow *window, float overHeatValue)

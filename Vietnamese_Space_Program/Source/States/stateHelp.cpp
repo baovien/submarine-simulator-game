@@ -42,39 +42,39 @@ void stateHelp::initialize(sf::RenderWindow *window) {
 
     this->enemyFish = new sf::Sprite();
     this->enemyFish->setTexture(*this->enemyFishTexture);
-    this->enemyFish->setOrigin(this->enemyFish->getGlobalBounds().width/2, this->enemyFish->getGlobalBounds().height/2);
+    this->enemyFish->setOrigin(this->enemyFish->getGlobalBounds().width/2.f, this->enemyFish->getGlobalBounds().height/2.f);
     this->enemyFish->scale(window->getSize().x / 3840.0f, window->getSize().y / 2160.0f);
-    this->enemyFish->setPosition(window->getSize().x/35,window->getSize().y/4.45f);
+    this->enemyFish->setPosition(window->getSize().x/35.f,window->getSize().y/4.45f);
 
     this->boss = new sf::Sprite();
     this->boss->setTexture(*this->bossTexture);
-    this->boss->setOrigin(this->boss->getGlobalBounds().width / 2, this->boss->getGlobalBounds().height / 2);
+    this->boss->setOrigin(this->boss->getGlobalBounds().width / 2.f, this->boss->getGlobalBounds().height / 2.f);
     this->boss->scale(window->getSize().x / 5248.0f, window->getSize().y / 2952.0f);
-    this->boss->setPosition(window->getSize().x / 35, window->getSize().y / 3);
+    this->boss->setPosition(window->getSize().x / 35.f, window->getSize().y / 3.f);
 
     this->healthPack = new sf::Sprite();
     this->healthPack->setTexture(*this->healthPackTexture);
-    this->healthPack->setOrigin(this->healthPack->getGlobalBounds().width / 2, this->healthPack->getGlobalBounds().height / 2);
+    this->healthPack->setOrigin(this->healthPack->getGlobalBounds().width / 2, this->healthPack->getGlobalBounds().height / 2.f);
     this->healthPack->scale(window->getSize().x / 2560.0f, window->getSize().y / 1440.0f);
-    this->healthPack->setPosition(window->getSize().x / 35, window->getSize().y / 2.4f);
+    this->healthPack->setPosition(window->getSize().x / 35.f, window->getSize().y / 2.4f);
 
     this->shield = new sf::Sprite();
     this->shield->setTexture(*this->shieldTexture);
-    this->shield->setOrigin(this->shield->getGlobalBounds().width / 2, this->shield->getGlobalBounds().height / 2);
+    this->shield->setOrigin(this->shield->getGlobalBounds().width / 2.f, this->shield->getGlobalBounds().height / 2.f);
     this->shield->scale(window->getSize().x / 2560.0f, window->getSize().y / 1440.0f);
-    this->shield->setPosition(window->getSize().x / 35, window->getSize().y / 2.15f);
+    this->shield->setPosition(window->getSize().x / 35.f, window->getSize().y / 2.15f);
 
     this->overheat = new sf::Sprite();
     this->overheat->setTexture(*this->overheatTexture);
-    this->overheat->setOrigin(this->overheat->getGlobalBounds().width / 2, this->overheat->getGlobalBounds().height / 2);
+    this->overheat->setOrigin(this->overheat->getGlobalBounds().width / 2.f, this->overheat->getGlobalBounds().height / 2.f);
     this->overheat->scale(window->getSize().x / 2944.0f, window->getSize().y / 1656.0f);
-    this->overheat->setPosition(window->getSize().x / 35, window->getSize().y / 1.9f);
+    this->overheat->setPosition(window->getSize().x / 35.f, window->getSize().y / 1.9f);
 
     this->junk = new sf::Sprite();
     this->junk->setTexture(*this->junkTexture);
-    this->junk->setOrigin(this->junk->getGlobalBounds().width / 2, this->junk->getGlobalBounds().height / 2);
+    this->junk->setOrigin(this->junk->getGlobalBounds().width / 2.f, this->junk->getGlobalBounds().height / 2.f);
     this->junk->scale(window->getSize().x / 3072.0f, window->getSize().y / 1728.0f);
-    this->junk->setPosition(window->getSize().x / 35, window->getSize().y / 1.6f);
+    this->junk->setPosition(window->getSize().x / 35.f, window->getSize().y / 1.6f);
 
     /*this->underwater = new sf::Sprite();
     this->underwater->setTexture(*this->underwaterTexture);
@@ -84,9 +84,9 @@ void stateHelp::initialize(sf::RenderWindow *window) {
 
     this->classic = new sf::Sprite();
     this->classic->setTexture(*this->classicTexture);
-    this->classic->setOrigin(this->classic->getGlobalBounds().width / 2, this->classic->getGlobalBounds().height / 2);
+    this->classic->setOrigin(this->classic->getGlobalBounds().width / 2.f, this->classic->getGlobalBounds().height / 2.f);
     this->classic->scale(window->getSize().x / 10240.0f, window->getSize().y / 5760.0f);
-    this->classic->setPosition(window->getSize().x / 35, window->getSize().y / 1.3f);
+    this->classic->setPosition(window->getSize().x / 35.f, window->getSize().y / 1.3f);
 
     util.makeMuteButton(window, machine.mutedPointer);
 
@@ -143,9 +143,9 @@ void stateHelp::initialize(sf::RenderWindow *window) {
 
     button = new sf::Sprite();
     button->setTexture(*this->buttonTexture.buttonNormal);
-    button->setOrigin(button->getGlobalBounds().width / 2, button->getGlobalBounds().height / 2);
+    button->setOrigin(button->getGlobalBounds().width / 2.f, button->getGlobalBounds().height / 2.f);
     button->scale(window->getSize().x / 5120.f, window->getSize().y / 2880.f);
-    button->setPosition(window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
+    button->setPosition(window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10.f);
 }
 
 void stateHelp::update(sf::RenderWindow *window) {

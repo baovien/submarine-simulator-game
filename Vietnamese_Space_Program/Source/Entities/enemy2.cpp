@@ -12,14 +12,14 @@ Enemy2Object::Enemy2Object(EntityManager *manager, int i, int j, std::string k, 
     this->manager = manager;
 
     this->scale(-(window->getSize().x / 3200.f), window->getSize().y / 1800.f);
-    this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2);
+    this->setOrigin(this->getGlobalBounds().height / 2, this->getGlobalBounds().height / 2.f);
 
     this->setPosition(window->getSize().x / 15.f + i * this->getGlobalBounds().width,
                       window->getSize().y / 2.8f - this->getGlobalBounds().height * 5 +
                       j * this->getGlobalBounds().height);
     //this->velocity.x = window->getSize().x/20 * *manager->deltaTime;
 
-    this->velocity.x = 100;
+    this->velocity.x = 100.f;
 
 }
 

@@ -28,22 +28,22 @@ void StateGameMode2::initialize(sf::RenderWindow *window) {
     this->font->loadFromFile("Graphics/font.ttf");
 
     this->score = new Score(*font, 32U);
-    this->score->setPosition(window->getSize().x / 40, window->getSize().y / 60);
+    this->score->setPosition(window->getSize().x / 40.f, window->getSize().y / 60.f);
     this->score->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
 
     this->lives = new Lives(*font, 32U);
-    this->lives->setPosition(window->getSize().x - window->getSize().x / 10, window->getSize().y / 60);
+    this->lives->setPosition(window->getSize().x - window->getSize().x / 10.f, window->getSize().y / 60.0f);
     this->lives->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
 
     manager = new EntityManager();
 
-    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2,
+    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2.f,
                               window->getSize().y, window, 2, 2, machine.soundLoaderPointer);
     this->manager->addEntity("ship", this->player);
 
 
     this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap.find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2,
-                                     window->getSize().x / 2, window->getSize().y / 2, window, machine.settingPointer->selectedLanguage);
+                                     window->getSize().x / 2.f, window->getSize().y / 2.f, window, machine.settingPointer->selectedLanguage);
 
     this->pausedTexture = new sf::Texture();
     this->pausedTexture->loadFromFile("Graphics/Sprites/overlayPause.png");
@@ -51,8 +51,8 @@ void StateGameMode2::initialize(sf::RenderWindow *window) {
 
     this->pausedBackground = new sf::Sprite();
     this->pausedBackground->setTexture(*this->pausedTexture);
-    this->pausedBackground->setOrigin(this->pausedBackground->getGlobalBounds().width / 2, this->pausedBackground->getGlobalBounds().height / 2);
-    this->pausedBackground->setPosition(window->getSize().x / 2, window->getSize().y / 2);
+    this->pausedBackground->setOrigin(this->pausedBackground->getGlobalBounds().width / 2.f, this->pausedBackground->getGlobalBounds().height / 2.f);
+    this->pausedBackground->setPosition(window->getSize().x / 2.f, window->getSize().y / 2.f);
 
     util->makeMuteButton(window, machine.mutedPointer);
 }

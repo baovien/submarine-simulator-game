@@ -22,16 +22,16 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
     //Plassering og konfigurasjon av Arcade-tabell
     TableArcade = new sf::Sprite();
     TableArcade->setTexture(*this->tableTexture);
-    TableArcade->setOrigin(TableArcade->getGlobalBounds().width / 2, TableArcade->getGlobalBounds().height / 2);
+    TableArcade->setOrigin(TableArcade->getGlobalBounds().width / 2.f, TableArcade->getGlobalBounds().height / 2.f);
     TableArcade->setScale(window->getSize().x / 1408.0f, window->getSize().y / 792.0f);
-    TableArcade->setPosition(window->getSize().x / 2, window->getSize().y / 2.5f);
+    TableArcade->setPosition(window->getSize().x / 2.f, window->getSize().y / 2.5f);
 
     //Plassering og konfigurasjon av Classic-tabell
     TableClassic = new sf::Sprite();
     TableClassic->setTexture(*this->tableTexture);
-    TableClassic->setOrigin(TableClassic->getGlobalBounds().width / 2, TableClassic->getGlobalBounds().height / 2);
+    TableClassic->setOrigin(TableClassic->getGlobalBounds().width / 2.f, TableClassic->getGlobalBounds().height / 2.f);
     TableClassic->setScale(window->getSize().x / 1408.0f, window->getSize().y / 792.0f);
-    TableClassic->setPosition(window->getSize().x / 2, window->getSize().y / 1.2f);
+    TableClassic->setPosition(window->getSize().x / 2.f, window->getSize().y / 1.2f);
 
     //Legger til tekster
     this->title = util.addText("HIGHSCORE", 75, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
@@ -48,9 +48,9 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
     //Lager backknappen
     backButton = new sf::Sprite();
     backButton->setTexture(*this->backTexture.buttonNormal);
-    backButton->setOrigin(backButton->getGlobalBounds().width / 2, backButton->getGlobalBounds().height / 2);
+    backButton->setOrigin(backButton->getGlobalBounds().width / 2.f, backButton->getGlobalBounds().height / 2.f);
     backButton->scale(window->getSize().x / 5120.f, window->getSize().y / 2880.f);
-    backButton->setPosition(window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
+    backButton->setPosition(window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10.f);
 
     //Lager muteknappen
     util.makeMuteButton(window, machine.mutedPointer);

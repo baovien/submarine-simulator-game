@@ -12,12 +12,12 @@ IndestructableObject::IndestructableObject(float x, float y, float directionX, f
     this->health = 1;
     this->maxSpeed = 100.0f;
     //Setter origin til midten av astroiden.
-    this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
-    this->setScale(window->getSize().x/1280, window->getSize().y/720);
+    this->setOrigin(this->getGlobalBounds().width/2.f, this->getGlobalBounds().height/2.f);
+    this->setScale(window->getSize().x/1280.f, window->getSize().y/720.f);
 
     this->setPosition(x,y);
-    this->velocity.x = directionX * 100;
-    this->velocity.y = directionY * 100;
+    this->velocity.x = directionX * 100.f;
+    this->velocity.y = directionY * 100.f;
     this->setRotation(angle);
 }
 
@@ -33,7 +33,7 @@ IndestructableObject::IndestructableObject(sf::RenderWindow* window) {
     this->setScale(window->getSize().x/2560.f,window->getSize().y/1440.f); //skaleres til 0.5, 0.5
 
     //Setter origin til midten av asteroiden.
-    this->setOrigin(this->getGlobalBounds().width/2, this->getGlobalBounds().height/2);
+    this->setOrigin(this->getGlobalBounds().width/2.f, this->getGlobalBounds().height/2.f);
 
     //Setter en absolutt rotasjon
     this->setRotation(2);
@@ -44,11 +44,11 @@ IndestructableObject::IndestructableObject(sf::RenderWindow* window) {
     //Spawner tilfeldig fra venstre del av skjermen
     if (randomNumber == 1) {
         this->setPosition(-this->getGlobalBounds().width, rand() % window->getSize().y);
-        if(this->getPosition().y > window->getSize().y/1.5) {
+        if(this->getPosition().y > window->getSize().y/1.5f) {
             this->velocity.x = maxSpeed;
             this->velocity.y = rand()%3-4;
         }
-        else if(this->getPosition().y < window->getSize().y/3) {
+        else if(this->getPosition().y < window->getSize().y/3.f) {
             this->velocity.x = maxSpeed;
             this->velocity.y = rand()%3;
         }
@@ -60,11 +60,11 @@ IndestructableObject::IndestructableObject(sf::RenderWindow* window) {
         //Spawner tilfeldig fra høyre del av skjermen
     else if (randomNumber == 2) {
         this->setPosition(window->getSize().x + this->getGlobalBounds().width, rand() % window->getSize().y + this->getGlobalBounds().height);
-        if(this->getPosition().y > window->getSize().y/1.5) {
+        if(this->getPosition().y > window->getSize().y/1.5f) {
             this->velocity.x = -maxSpeed;
             this->velocity.y = rand()%3-4;
         }
-        else if(this->getPosition().y < window->getSize().y/3) {
+        else if(this->getPosition().y < window->getSize().y/3.f) {
             this->velocity.x = -maxSpeed;
             this->velocity.y = rand()%3;
         }
@@ -76,11 +76,11 @@ IndestructableObject::IndestructableObject(sf::RenderWindow* window) {
     //Spawner tilfeldig fra øverst del av skjermen
     else if (randomNumber == 3) {
         this->setPosition(rand() % window->getSize().x + this->getGlobalBounds().width, -this->getGlobalBounds().height);
-        if(this->getPosition().x > window->getSize().x/1.5) {
+        if(this->getPosition().x > window->getSize().x/1.5f) {
             this->velocity.y = maxSpeed;
             this->velocity.x = rand()% 3-4;
         }
-        else if(this->getPosition().x < window->getSize().x/3) {
+        else if(this->getPosition().x < window->getSize().x/3.f) {
             this->velocity.y = maxSpeed;
             this->velocity.x = rand()%3;
         }
@@ -92,11 +92,11 @@ IndestructableObject::IndestructableObject(sf::RenderWindow* window) {
     //Spawner tilfeldig fra nederste del av skjermen
     else {
         this->setPosition(rand() % window->getSize().x + this->getGlobalBounds().width, window->getSize().y + this->getGlobalBounds().height);
-        if(this->getPosition().x > window->getSize().x/1.5) {
+        if(this->getPosition().x > window->getSize().x/1.5f) {
             this->velocity.y = -maxSpeed;
             this->velocity.x = rand()%3-4;
         }
-        if(this->getPosition().x < window->getSize().x/3) {
+        if(this->getPosition().x < window->getSize().x/3.f) {
             this->velocity.y = -maxSpeed;
             this->velocity.x = rand()%3;
         }

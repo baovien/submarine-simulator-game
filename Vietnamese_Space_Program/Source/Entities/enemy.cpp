@@ -19,7 +19,7 @@ EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager
     this->randomNumber = rand() % 4;
     this->easingAmount = 0.05f;
     this->maxSpeed = 100.0f;
-    this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
+    this->setOrigin(this->getGlobalBounds().height/2.f, this->getGlobalBounds().height/2.f);
     this->setScale(window->getSize().x/2560.0f, window->getSize().y/1440.0f);
         switch(mode)
         {
@@ -35,7 +35,7 @@ EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager
     if (randomNumber == 1) {
         this->setPosition(0 - this->getGlobalBounds().width * 2, rand() % window->getSize().y);
     } else if (randomNumber == 2) {
-        this->setPosition(window->getSize().x + this->getGlobalBounds().width * 2, rand() % window->getSize().y);
+        this->setPosition(window->getSize().x + this->getGlobalBounds().width * 2.f, rand() % window->getSize().y);
     } else if (randomNumber == 3) {
         this->setPosition(rand() % window->getSize().x + this->getGlobalBounds().width* 2, 0 - this->getGlobalBounds().height * 2);
     } else {
@@ -76,8 +76,8 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
         //float angle = this->getRotation() * player->pi/180;
         this->manager->addEntity("bullet", new Bullet(this->getPosition().x /*+ (this->getGlobalBounds().width/2) * sin(angle)*/,
                                                       this->getPosition().y /*- (this->getGlobalBounds().height/2) * cos(angle)*/,
-                                                      yDistance/1000,
-                                                      xDistance/1000,
+                                                      yDistance/1000.f,
+                                                      xDistance/1000.f,
                                                       0,
                                                       window, theme));
         this->soundLoader->playEffect(Audio::ENEMY_SHOOT);
