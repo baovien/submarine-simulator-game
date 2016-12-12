@@ -12,8 +12,8 @@ public:
     HealthPack(Lives* lives, SoundLoader* soundLoader, sf::RenderWindow* window);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
-    sfuser::PauseableClock clock; // starter clocken
 private:
+    sfuser::PauseableClock clock; // starter clocken
     Lives* lives;
     SoundLoader* soundLoader;
 };

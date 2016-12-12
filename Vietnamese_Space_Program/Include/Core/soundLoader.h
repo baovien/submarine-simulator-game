@@ -34,12 +34,12 @@ public:
 
     //Effects
     void playEffect(Audio::Effect soundName);
-
+    void removeStoppedEffects();
     //Music
     void playMusic(Audio::Music soundName);
     void stopMusic();
 
-    void checkMuteMusic();
+    void updateSounds();
     void initSoundPointers(bool *muted, bool *mutedMusic);
 
 private:

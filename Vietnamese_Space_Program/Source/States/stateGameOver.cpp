@@ -114,7 +114,7 @@ void StateGameOver::initialize(sf::RenderWindow *window) {
  * @param window
  */
 void StateGameOver::update(sf::RenderWindow *window) {
-    machine.soundLoaderPointer->checkMuteMusic();
+    machine.soundLoaderPointer->updateSounds();
     //Sjekker mouseover for hver knapp og endrer texture om den er mouseovera eller trykket
     util.checkMuteMouseOver(window);
     for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)); ++i) {

@@ -14,11 +14,10 @@ public:
     ShieldEntity(sf::RenderWindow* window, Player* player, SoundLoader* soundLoader);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
-    sfuser::PauseableClock clock; // starter clocken
 private:
+    sfuser::PauseableClock clock; // starter clocken
     bool isShieldActive;
     Player* player;
-    int shieldLife;
     sfuser::PauseableClock invincibleClock;
 
     EntityManager* manager;

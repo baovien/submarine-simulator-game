@@ -11,8 +11,9 @@
  * I-Object     GroupID = 3
  * Enemies      GroupID = 4
  * Boss         GroupID = 5
- *
- *
+ * Boss_bullet  GroupID = 6
+ * HealthPack   GroupID = 7
+ * I-Object_2   GroupID = 9
  * @return
  */
 
@@ -96,8 +97,4 @@ EntityManager::~EntityManager() {
         delete iterator.second;
     }
     this->entities.clear();
-}
-
-std::vector<Entity*> EntityManager::getEntities(int groupID) {
-
 }
