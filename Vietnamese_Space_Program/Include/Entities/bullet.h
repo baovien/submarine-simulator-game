@@ -12,9 +12,7 @@ public:
     Bullet(float x, float y, float direction, float direction2, float angle, sf::RenderWindow* window, int theme);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
-    bool canShoot();
 private:
-    int shoot;
     SoundLoader* soundLoader;
     Score* score;
 };

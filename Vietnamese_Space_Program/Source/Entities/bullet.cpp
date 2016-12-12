@@ -14,7 +14,6 @@ Bullet::Bullet(Score* score, float x, float y, float direction, float direction2
     this->setRotation(angle);
     this->score = score;
     this->setScale(window->getSize().x/3840.0f, window->getSize().y/2160.0f);
-    this->shoot = 0;
 
 }
 Bullet::Bullet(float x, float y, float direction, float direction2, float angle , sf::RenderWindow* window, int theme)
@@ -39,9 +38,7 @@ void Bullet::updateEntity(sf::RenderWindow *window)
     }
     Entity::updateEntity(window);
 }
-bool Bullet::canShoot(){
-    return shoot == 1;
-}
+
 void Bullet::collision(Entity *entity)
 {
     if(this->groupId == 2)
@@ -58,7 +55,6 @@ void Bullet::collision(Entity *entity)
                 this->destroyEntity();
                 this->score->incrementScore();
                 this->soundLoader->playEffect(Audio::BULLET_POP);
-                this->shoot = 1;
                 break;
 
             case 5: // Boss

@@ -43,6 +43,9 @@ protected:
     sfuser::PauseableClock enemyClock;
     sf::Clock clockenemy;
 
+    int wave = 0;
+    bool nextCollissionRight = true;
+
 
     void spawnEnemies(sf::RenderWindow *window);
 
@@ -51,6 +54,8 @@ protected:
     void updateEnemyList();
 
     void enemyShoot(sf::RenderWindow *window);
+
+
 
 };
 

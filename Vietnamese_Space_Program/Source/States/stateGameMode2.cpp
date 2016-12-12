@@ -4,8 +4,7 @@
 #include "../../Include/States/stateGameOver.h"
 
 
-void StateGameMode2::initialize(sf::RenderWindow *window)
-{
+void StateGameMode2::initialize(sf::RenderWindow *window) {
 
     this->manager = new EntityManager();
 
@@ -20,7 +19,8 @@ void StateGameMode2::initialize(sf::RenderWindow *window)
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
-    this->background->scale(1.5, 1.5);
+    this->background->scale(window->getSize().x / background->getGlobalBounds().width,
+                            window->getSize().y / background->getGlobalBounds().height);
 
     util = new Utilities();
 
@@ -28,14 +28,17 @@ void StateGameMode2::initialize(sf::RenderWindow *window)
     this->font->loadFromFile("Graphics/font.ttf");
 
     this->score = new Score(*font, 32U);
-    this->score->setPosition(20, 5);
+    this->score->setPosition(window->getSize().x / 40, window->getSize().y / 60);
+    this->score->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
 
     this->lives = new Lives(*font, 32U);
-    this->lives->setPosition(window->getSize().x - this->lives->getGlobalBounds().width - 20, 5);
+    this->lives->setPosition(window->getSize().x - window->getSize().x / 10, window->getSize().y / 60);
+    this->lives->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
 
     manager = new EntityManager();
+
     this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2,
-                              window->getSize().y, window, 2, 0, machine.soundLoaderPointer);
+                              window->getSize().y, window, 2, 2, machine.soundLoaderPointer);
     this->manager->addEntity("ship", this->player);
 
 
@@ -45,11 +48,9 @@ void StateGameMode2::initialize(sf::RenderWindow *window)
                                 this->pausedText->getGlobalBounds().height / 2);
     this->pausedText->setPosition(window->getSize().x / 2, window->getSize().y / 2);
 
-    util->makeMuteButton(window, machine.mutedPointer);
 }
 
-void StateGameMode2::update(sf::RenderWindow *window)
-{
+void StateGameMode2::update(sf::RenderWindow *window) {
     machine.soundLoaderPointer->updateSounds();
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
@@ -59,46 +60,43 @@ void StateGameMode2::update(sf::RenderWindow *window)
         this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
         this->lives->updateLife(util->translate("Lives", machine.settingPointer->selectedLanguage));
 
-        if (this->lives->getValue() <= 0)
-        {
+        if (this->lives->getValue() <= 0) {
             machine.setGameOverScore(this->score->getValue());
             machine.setState(new StateGameOver);
             return;
         }
 
+
+
         //std::cout << "size:  " << enemyList.size() << "time: " << enemyClock.getElapsedTime().asSeconds() << std::endl;
         if (enemyList.size() == 0 && enemyClock.getElapsedTime().asSeconds() > 1.5) {
+            clockenemy.restart();
             spawnEnemies(window);
+            wave++;
         }
         updateEnemyList();
         turnEnemies(window);
         enemyShoot(window);
 
 
-    } else{
-        enemyClock.pause();
-        util->checkMuteMouseOver(window);
-    }
+    } else enemyClock.pause();
 
 }
 
-void StateGameMode2::render(sf::RenderWindow *window)
-{
+void StateGameMode2::render(sf::RenderWindow *window) {
     window->draw(*this->background);
     window->draw(*this->score);
     window->draw(*this->lives);
 
     this->manager->renderEntity(window);
-    if (util->paused)
-    {
+    if (util->paused) {
         window->draw(*this->pausedText);
-        window->draw(*this->util->getMuteButton());
+
 
     }
 }
 
-void StateGameMode2::destroy(sf::RenderWindow *window)
-{
+void StateGameMode2::destroy(sf::RenderWindow *window) {
 
     delete this->lives;
     delete this->score;
@@ -119,39 +117,21 @@ void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event) {
         }
         if (event.key.code == machine.keybindMap.find("pause")->second.second) {
             util->pauseScreen();                        //Kaller pausefunksjonen
-            for (int i = 0; i < enemyList.size(); ++i)
-            {
-                std::cout << " ROW" + std::to_string(i) + " :";
-                for (int j = 0; j < enemyList.at(i).size(); ++j)
-                {
-                    std::cout << enemyList.at(i).at(j)->activeEntity() << "     ";
-                }
-                std::cout << "   -- " << enemyList.at(i).size() << std::endl;
-            }
-            std::cout << "--------------------------------------" << std::endl;
-        }
-    }
-    if (event.type == sf::Event::MouseButtonReleased) {
-        if (util->paused) {
-            util->checkMuteMouseClick(window, event, machine.mutedPointer);
         }
     }
 }
 
-void StateGameMode2::reinitialize(sf::RenderWindow *window)
-{
+void StateGameMode2::reinitialize(sf::RenderWindow *window) {
 
 }
 
-void StateGameMode2::spawnEnemies(sf::RenderWindow *window)
-{
-    for (int i = 0; i < 5; ++i)
-    {
+void StateGameMode2::spawnEnemies(sf::RenderWindow *window) {
+    for (int i = 0; i < 7; ++i) {
         std::vector<Enemy2Object *> tempList;
         enemyList.push_back(tempList);
-        for (int j = 0; j < 5; ++j)
-        {
-            enemy2Object = new Enemy2Object(manager, i, j, "fishis_0" + std::to_string(j + 1) + ".png", window,0);
+        for (int j = 0; j < 5; ++j) {
+            enemy2Object = new Enemy2Object(manager, i, j, "fishis_0" + std::to_string(j + 1) + ".png", window,
+                                            machine.selectedObjectsPointer->selectedTheme);
             this->manager->addEntity("Enemy", enemy2Object);
             enemyList.at(i).push_back(enemy2Object);
         }
@@ -159,62 +139,90 @@ void StateGameMode2::spawnEnemies(sf::RenderWindow *window)
 }
 
 void StateGameMode2::turnEnemies(sf::RenderWindow *window) {
-    for (int i = 0; i < enemyList.size(); ++i){
-        if(enemyList.at(i).front()->getPosition().x > window->getSize().x || enemyList.at(i).front()->getPosition().x < 0){
-            for (int j = 0; j < enemyList.size(); ++j)
-            {
-                for (int k = 0; k < enemyList.at(j).size(); ++k)
-                {
-                    enemyList.at(j).at(k)->velocity.x = enemyList.at(j).at(k)->velocity.x * -1;
-                    enemyList.at(j).at(k)->setPosition(enemyList.at(j).at(k)->getPosition().x,
-                                                       enemyList.at(j).at(k)->getPosition().y + enemyList.at(j).at(k)->getGlobalBounds().height);
+    if (nextCollissionRight) {
+        for (int i = 0; i < enemyList.size(); ++i) {
+            if (enemyList.at(i).front()->getPosition().x > window->getSize().x) {
+                nextCollissionRight = !nextCollissionRight;
+                for (int j = 0; j < enemyList.size(); ++j) {
+                    for (int k = 0; k < enemyList.at(j).size(); ++k) {
+                        if (enemyList.at(j).at(k) != nullptr) {
+                            enemyList.at(j).at(k)->velocity.x = enemyList.at(j).at(k)->velocity.x * -1.2f;
+                            enemyList.at(j).at(k)->setPosition(enemyList.at(j).at(k)->getPosition().x,
+                                                               enemyList.at(j).at(k)->getPosition().y +
+                                                               enemyList.at(j).at(k)->getGlobalBounds().height);
 
-                    enemyList.at(j).at(k)->scale(-1.0f, 1.0f);
+                            enemyList.at(j).at(k)->scale(-1.0f, 1.0f);
+                        }
+                    }
                 }
+                break;
             }
-            break;
         }
-    }
-}
 
-void StateGameMode2::updateEnemyList() {
-    for (int i = 0; i < enemyList.size(); ++i)
-    {
-        if (enemyList.at(i).size() == 0)
-        {
-            enemyClock.restart();
-            enemyList.erase(enemyList.begin() + i);
-            break;
-        }
-        for (int j = 0; j < enemyList.at(i).size(); ++j)
-        {
-            if (enemyList.at(i).at(j)->activeEntity() == 0)
-            {
-                enemyList.at(i).erase(enemyList.at(i).begin() + j);
+    } else {
+        for (int i = 0; i < enemyList.size(); ++i) {
+            if (enemyList.at(i).front()->getPosition().x < 0) {
+                nextCollissionRight = !nextCollissionRight;
+                for (int j = 0; j < enemyList.size(); ++j) {
+                    for (int k = 0; k < enemyList.at(j).size(); ++k) {
+                        if (enemyList.at(j).at(k) != nullptr) {
+                            enemyList.at(j).at(k)->velocity.x = enemyList.at(j).at(k)->velocity.x * -1.2f;
+                            enemyList.at(j).at(k)->setPosition(enemyList.at(j).at(k)->getPosition().x,
+                                                               enemyList.at(j).at(k)->getPosition().y +
+                                                               enemyList.at(j).at(k)->getGlobalBounds().height);
+
+                            enemyList.at(j).at(k)->scale(-1.0f, 1.0f);
+                        }
+                    }
+                }
                 break;
             }
         }
     }
 }
 
-void StateGameMode2::enemyShoot(sf::RenderWindow *window)
-{
+void StateGameMode2::updateEnemyList() {
+    for (int i = 0; i < enemyList.size(); ++i) {
+        if (enemyList.at(i).size() == 0) {
+            enemyClock.restart();
+            enemyList.erase(enemyList.begin() + i);
+            break;
+        }
+        for (int j = 0; j < enemyList.at(i).size(); ++j) {
+            if (enemyList.at(i).at(j) != nullptr) {
+                if (enemyList.at(i).at(j)->activeEntity() == 0) {
+                    enemyList.at(i).erase(enemyList.at(i).begin() + j);
+                    break;
+                }
+            }
+        }
+    }
+}
+
+void StateGameMode2::enemyShoot(sf::RenderWindow *window) {
     //random int fra 0 til size of enemyList
     //hvert halve sekund
     //spawn kule med posisjon enemyList.at(randomInt).back().getposx og y - en halv enemyList.at(randomInt).back().getGlobalbounds.height
     int random;
-    if (enemyList.size() > 1)
-    {
+
+    if (enemyList.size() > 1) {
         random = rand() % (enemyList.size() - 1);
     } else random = 0;
+
+
     sf::Time elapsed1 = clockenemy.getElapsedTime();
 
-    if (elapsed1.asMicroseconds() > 1000000 && enemyList.size() > 0)
-    {
-        this->manager->addEntity("Bullet", new Bullet(enemyList.at(random).back()->getPosition().x,
-                                                      enemyList.at(random).back()->getPosition().y
-                                                      + enemyList.at(random).back()->getGlobalBounds().height,
-                                                      0.6, 0, 0, window, 0));
-        clockenemy.restart();
+    if (elapsed1.asSeconds() > (4.f / (wave + 1)) && enemyList.size() > 0) {
+        if (enemyList.at(random).back() != nullptr) {
+            this->manager->addEntity("Bullet", new Bullet(enemyList.at(random).back()->getPosition().x,
+                                                          enemyList.at(random).back()->getPosition().y
+                                                          + enemyList.at(random).back()->getGlobalBounds().height,
+                                                          (0.75f), 0, 0, window,
+                                                          machine.selectedObjectsPointer->selectedTheme));
+
+            clockenemy.restart();
+        }
+
     }
+
 }
