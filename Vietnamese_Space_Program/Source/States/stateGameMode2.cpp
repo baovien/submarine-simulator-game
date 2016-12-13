@@ -151,6 +151,7 @@ void StateGameMode2::spawnEnemies(sf::RenderWindow *window) {
             enemyList.at(i).push_back(enemy2Object);
         }
     }
+    nextCollissionRight = true;
 }
 
 void StateGameMode2::turnEnemies(sf::RenderWindow *window) {
