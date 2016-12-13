@@ -47,6 +47,11 @@ protected:
     sf::Sprite* pausedBackground;
     sfuser::PauseableClock clock;
 
+    bool waveDone = false;
+    float powerUpTime = 0;
+    float junkTime = 0;
+    sfuser::PauseableClock waveClock;
+
 
     void updateWaveText(sf::RenderWindow* window, bool choice);
     //Branch: Waves

@@ -134,7 +134,6 @@ void IndestructableObject::updateEntity(sf::RenderWindow *window) {
 void IndestructableObject::collision(Entity* entity) {
     switch (entity->groupID()) {
         case 4: // Enemy
-            entity->destroyEntity();
             break;
         case 9:
             break;

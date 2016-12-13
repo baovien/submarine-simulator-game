@@ -1,7 +1,7 @@
 #include <iostream>
 #include "../../Include/Entities/player.h"
 
-Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode, int fighter, SoundLoader* soundLoader)
+Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode, int fighter, SoundLoader *soundLoader)
         : keybindMap(keybindMap),
           fighter(fighter),
           manager(manager),
@@ -11,32 +11,32 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
           soundLoader(soundLoader) {
     this->active = 1;
     this->groupId = 1;
-        switch (gamemode) {
-            case 1:
-                if(fighter == 0)this->load("ubat1.png");
-                else this->load("fighter.png");
+    switch (gamemode) {
+        case 1:
+            if (fighter == 0)this->load("ubat1.png");
+            else this->load("fighter.png");
 
-                this->setOrigin(this->getGlobalBounds().width / 2.f, this->getGlobalBounds().height / 2.f);
-                this->space = false;
-                this->setPosition(x, y);
-                this->setScale(window->getSize().x / 1280.0f, window->getSize().y / 720.0f);
-                this->bar = new Bar(window);
-                this->manager->addEntity("bar", this->bar);
-                this->overheatValue = 1.0f;
-                break;
-            case 2:
-                if(fighter == 0)this->load("ubat1.png");
-                else this->load("fighter.png");
+            this->setOrigin(this->getGlobalBounds().width / 2.f, this->getGlobalBounds().height / 2.f);
+            this->space = false;
+            this->setPosition(x, y);
+            this->setScale(window->getSize().x / 1280.0f, window->getSize().y / 720.0f);
+            this->bar = new Bar(window);
+            this->manager->addEntity("bar", this->bar);
+            this->overheatValue = 1.0f;
+            break;
+        case 2:
+            if (fighter == 0)this->load("ubat1.png");
+            else this->load("fighter.png");
 
-                this->setOrigin(this->getGlobalBounds().width / 2.f, this->getGlobalBounds().height / 2.f);
-                this->setScale(window->getSize().x / 2560.0f, window->getSize().y / 1440.0f);
-                this->space = false;
-                this->setPosition(x - this->getGlobalBounds().width, y - this->getGlobalBounds().height / 1.5f);
-                break;
-            default:
-                break;
-        }
+            this->setOrigin(this->getGlobalBounds().width / 2.f, this->getGlobalBounds().height / 2.f);
+            this->setScale(window->getSize().x / 2560.0f, window->getSize().y / 1440.0f);
+            this->space = false;
+            this->setPosition(x - this->getGlobalBounds().width, y - this->getGlobalBounds().height / 1.5f);
+            break;
+        default:
+            break;
     }
+}
 
 
 //update funksjonen har kontroll på bevegelsen til player.
@@ -52,7 +52,12 @@ void Player::updateEntity(sf::RenderWindow *window) {
     if (this->lives->getValue() <= 0) {
         this->load("explosion.png");
     }
+
+
     switch (this->gamemode) {
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////                                         GAME MODE 1 UPDATE                                  /////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         case 1:
             this->setRotation(angle * 180 / pi);
             if (right) angle += turnspeed * (*machine.deltaTimePointer);
@@ -100,8 +105,7 @@ void Player::updateEntity(sf::RenderWindow *window) {
                                                                   (angle * 180 / pi),
                                                                   this->soundLoader,
                                                                   window, machine.selectedObjectsPointer->selectedFighter));
-                }
-                else if(this->overheatValue > 10) {
+                } else if (this->overheatValue > 10) {
                     this->overheatValue = 15;
                     soundLoader->playEffect(Audio::OVERHEAT);
                 }
@@ -110,20 +114,40 @@ void Player::updateEntity(sf::RenderWindow *window) {
             this->overheatValue = this->overheatValue - 0.05f;
             if (this->overheatValue < 1)this->overheatValue = 1;
             this->space = sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second);
+
+            if (*this->isShieldActivePointer) {
+                clock.start();
+                if (clock.getElapsedTime().asSeconds() > 5) {
+                    *this->isShieldActivePointer = false;
+                }
+                if (firstTimeLoading) {
+                    if (fighter == 0)this->load("ubatShield.png");
+                    else this->load("fighterShield.png");
+                    firstTimeLoading = false;
+                }
+            }
+            if (!*this->isShieldActivePointer) {
+                if (!firstTimeLoading) {
+                    if (fighter == 0)this->load("ubat1.png");
+                    else this->load("fighter.png");
+                    firstTimeLoading = true;
+                }
+                clock.restart();
+            }
             break;
 
-
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /////////////////                                         GAME MODE 2 UPDATE                                  /////////////////
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         case 2:
             //if (right)this->move(10, 0);
             //if (left)this->move(-10, 0);
-            if(left) this->velocity.x = -400;
-            else if(right) this->velocity.x = 400;
+            if (left) this->velocity.x = -400;
+            else if (right) this->velocity.x = 400;
             else this->velocity.x = 0;
-            if (manager->getEntity("bullet") == NULL)
-            {
+            if (manager->getEntity("bullet") == NULL) {
                 if (!this->space &&
-                    sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second))
-                {
+                    sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second)) {
                     this->manager->addEntity("bullet", new Bullet((this->score),
                                                                   (this->getPosition().x),
                                                                   (this->getPosition().y -
@@ -169,6 +193,8 @@ void Player::updateEntity(sf::RenderWindow *window) {
             if (this->getPosition().x + this->getGlobalBounds().width / 2.f > window->getSize().x) this->move(-5, 0);
             if (this->getPosition().x - this->getGlobalBounds().width / 2.f < 0) this->move(5, 0);
             break;
+        default:
+            break;
     }
     if (this->lives->getValue() <= 0) {
         this->destroyEntity();
@@ -180,22 +206,39 @@ void Player::collision(Entity *entity) {
     switch (entity->groupID()) {
         case 3: // Indestructable Object nr 1
             entity->destroyEntity();
-            this->lives->decreaseLife();
+            if (!*this->isShieldActivePointer) {
+                this->lives->decreaseLife();
+            }
             break;
         case 4: // Enemy
             entity->destroyEntity();
-            this->lives->decreaseLife();
+            if (!*this->isShieldActivePointer) {
+                this->lives->decreaseLife();
+            }
             break;
         case 5: // Boss
+            if (!*this->isShieldActivePointer) {
+                this->lives->decreaseLife();
+            }
             break;
         case 6: //Boss bullet
             entity->destroyEntity();
-            this->lives->decreaseLife();
+            if (!*this->isShieldActivePointer) {
+                this->lives->decreaseLife();
+            }
             break;
         case 9: // Indestructable Object nr 2
             entity->destroyEntity();
-            this->lives->decreaseLife();
+            if (!*this->isShieldActivePointer) {
+                this->lives->decreaseLife();
+            }
         default:
             break;
     }
+}
+
+void Player::pauseClock(bool pause) {
+    if (pause) {
+        clock.pause();
+    } else clock.start();
 }

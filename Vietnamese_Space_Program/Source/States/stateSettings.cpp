@@ -241,6 +241,7 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
                 inOverlay = false;
             } else {
                 machine.setState(new StateMainMenu);
+                return;
             }
             return;
         }
