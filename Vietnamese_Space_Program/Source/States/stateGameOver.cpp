@@ -25,8 +25,8 @@ void StateGameOver::initialize(sf::RenderWindow *window) {
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
-    this->background->scale(window->getSize().x/background->getGlobalBounds().width,
-                            window->getSize().y/background->getGlobalBounds().height);
+    this->background->scale(window->getSize().x / background->getGlobalBounds().width,
+                            window->getSize().y / background->getGlobalBounds().height);
 
     this->textBox = new sf::RectangleShape();
     this->textBox->setOutlineColor(sf::Color::Black);
@@ -107,6 +107,12 @@ void StateGameOver::initialize(sf::RenderWindow *window) {
     menuButtons[1]->setPosition(window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10.f);
 
     util.makeMuteButton(window, machine.mutedPointer);
+
+    this->clickToActivate = util.addText("", 75, 2, 2, window->getSize().x / 2,
+                                         window->getSize().y / 1.82f, window,
+                                         machine.settingPointer->selectedLanguage);
+    this->clickToActivate->setFillColor(sf::Color::Transparent);
+    this->clickToActivate->setOutlineColor(sf::Color::Transparent);
 }
 
 /**
@@ -138,7 +144,7 @@ void StateGameOver::render(sf::RenderWindow *window) {
     this->gameOverText->setFillColor(sf::Color::White);
     this->score->setFillColor(sf::Color::White);
     this->text->setFillColor(sf::Color::White);
-    if(!this->boxIsClicked){
+    if (!this->boxIsClicked) {
         this->textBox->setFillColor(sf::Color(128, 128, 128, 255));
     }
     this->clickToActivate->setFillColor(sf::Color(255, 255, 255, 225));
@@ -198,39 +204,32 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
         //Back on escapekey hvis tekstboksen ikke er aktiv
         if (event.key.code == machine.keybindMap.find("back")->second.second && !this->boxIsClicked) {
             //Arcade
-            if(machine.selectedObjectsPointer->selectedGamemode==1){
+            if (machine.selectedObjectsPointer->selectedGamemode == 1) {
                 saveScoreArcade();
             }
-            //Classic
-            else if (machine.selectedObjectsPointer->selectedGamemode==2) {
+                //Classic
+            else if (machine.selectedObjectsPointer->selectedGamemode == 2) {
                 saveScoreClassic();
             }
             machine.setState(new StateMainMenu);
             return;
         }
-        //Sjekker om brukeren har trykket "back" mens tekstboksen er aktiv.
-        else if (event.key.code == machine.keybindMap.find("back")->second.second && this->boxIsClicked){
+            //Sjekker om brukeren har trykket "back" mens tekstboksen er aktiv.
+        else if (event.key.code == machine.keybindMap.find("back")->second.second && this->boxIsClicked) {
             //Gjør navnteksten i boksen til defaultverdi: Player
             this->playerName = "";
             this->text->setString("");
-            this->clickToActivate = util.addText(util.translate("Player", machine.settingPointer->selectedLanguage),
-                                                 75, 2, 2, window->getSize().x / 2,
-                                                 window->getSize().y / 1.86f, window,
-                                                 machine.settingPointer->selectedLanguage);
+            this->boxIsClicked = false;
+        } else //Sjekker om brukeren har trykket "select" mens tekstboksen er aktiv, hvis ja, så skal det som står i tekstboksen lagres.
+        if (event.key.code == machine.keybindMap.find("select")->second.second) {
             this->boxIsClicked = false;
         }
     }
-
     if (this->highscoreOrNAH && this->boxIsClicked) {
         this->textBox->setFillColor(sf::Color::White);
-        this->clickToActivate = util.addText("", 75, 2, 2, window->getSize().x / 2,
-                                             window->getSize().y / 1.82f, window,
-                                             machine.settingPointer->selectedLanguage);
+        this->clickToActivate->setFillColor(sf::Color::White);
+        this->clickToActivate->setOutlineColor(sf::Color::Black);
 
-        //Sjekker om brukeren har trykket "select" mens tekstboksen er aktiv, hvis ja, så skal det som står i tekstboksen lagres.
-        if (event.key.code == machine.keybindMap.find("select")->second.second){
-            this->boxIsClicked = false;
-        }
 
         //Sjekker om brukeren skriver noe i tekstfeltet, det som blir skrevet i tekstfeltet dukker opp på skjermen
         if (event.type == event.TextEntered) {
@@ -239,7 +238,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                 this->text->setString(playerName);
                 this->text->setOrigin(this->text->getLocalBounds().width / 2, 0);
 
-            } else if (event.text.unicode == '\n'){
+            } else if (event.text.unicode == '\n') {
                 playerName = playerName.erase(playerName.size() - 1, -1);
             } else if (event.text.unicode == '\b' && playerName.size() == 0) {
                 playerName = "";
@@ -270,14 +269,14 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                 switch (i) {
                     case 0: //restart knappen er trykket
                         //Arcade
-                        if(machine.selectedObjectsPointer->selectedGamemode==1){
+                        if (machine.selectedObjectsPointer->selectedGamemode == 1) {
                             saveScoreArcade();
                             machine.setState(new StateGameMode1());
                             machine.soundLoaderPointer->stopMusic();
                             return;
                         }
-                        //Classic
-                        else if (machine.selectedObjectsPointer->selectedGamemode==2) {
+                            //Classic
+                        else if (machine.selectedObjectsPointer->selectedGamemode == 2) {
                             saveScoreClassic();
                             machine.setState(new StateGameMode2());
                             machine.soundLoaderPointer->stopMusic();
@@ -287,17 +286,18 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         return;
                     case 1: //return knappen er trykket
                         // Arcade
-                        if(machine.selectedObjectsPointer->selectedGamemode==1){
+                        if (machine.selectedObjectsPointer->selectedGamemode == 1) {
                             saveScoreArcade();
                         }
                             //Classic
-                        else if (machine.selectedObjectsPointer->selectedGamemode==2) {
+                        else if (machine.selectedObjectsPointer->selectedGamemode == 2) {
                             saveScoreClassic();
                         }
                         machine.soundLoaderPointer->stopMusic();
                         machine.setState(new StateMainMenu());
                         return;
-                    default:break;
+                    default:
+                        break;
                 }
             }
         }
@@ -313,9 +313,9 @@ bool sortDescending(const std::pair<int, std::string> &a, const std::pair<int, s
     return (a.first > b.first);
 }
 
-void StateGameOver::saveScoreArcade(){
+void StateGameOver::saveScoreArcade() {
     //Sjekker om spillerens sitt navn er blank
-    if(this->playerName == ""){
+    if (this->playerName == "") {
         this->playerName = "Player";
     }
     //Bytter ut det siste objektet i listen med det nye
@@ -328,9 +328,9 @@ void StateGameOver::saveScoreArcade(){
               sortDescending);
 }
 
-void StateGameOver::saveScoreClassic(){
+void StateGameOver::saveScoreClassic() {
     //Sjekker om spillerens sitt navn er blank
-    if(this->playerName == ""){
+    if (this->playerName == "") {
         this->playerName = "Player";
     }
     //Bytter ut det siste objektet i listen med det nye
