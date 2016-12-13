@@ -1,6 +1,19 @@
 #include <iostream>
 #include "../../Include/Entities/player.h"
-
+/**
+ *
+ * @param keybindMap
+ * @param lives
+ * @param score
+ * @param manager
+ * @param x
+ * @param y
+ * @param window
+ * @param gamemode
+ * @param fighter
+ * @param soundLoader
+ * @return
+ */
 Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode, int fighter, SoundLoader *soundLoader)
         : keybindMap(keybindMap),
           fighter(fighter),
@@ -39,7 +52,10 @@ Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindM
 }
 
 
-//update funksjonen har kontroll på bevegelsen til player.
+/**
+ * Updates player's position
+ * @param window
+ */
 void Player::updateEntity(sf::RenderWindow *window) {
     Entity::updateEntity(window);
     up = 0, down = 0, left = 0, right = 0;
@@ -121,7 +137,7 @@ void Player::updateEntity(sf::RenderWindow *window) {
                 }
             }
             this->bar->updateEntity(window, this->overheatValue);
-            this->overheatValue = this->overheatValue - 0.05f;
+            this->overheatValue = this->overheatValue - (1.25f * *manager->deltaTime);
             if (this->overheatValue < 1)this->overheatValue = 1;
             this->space = sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second);
 
