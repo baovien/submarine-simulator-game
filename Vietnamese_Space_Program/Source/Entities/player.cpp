@@ -59,28 +59,36 @@ void Player::updateEntity(sf::RenderWindow *window) {
         /////////////////                                         GAME MODE 1 UPDATE                                  /////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         case 1:
-            this->setRotation(angle * 180 / pi);
-            if (right) angle += turnspeed * (*machine.deltaTimePointer);
-            if (left) angle -= turnspeed * (*machine.deltaTimePointer);
-            if (up && speed < maxSpeed) {
-                if (speed < 0) speed += dec;
-                else speed += acc;
-            }
-            if (down && speed > -maxSpeed) {
-                if (speed > 0) {
-                    speed -= dec;
-                } else {
-                    speed -= acc;
-                }
-            }
-            if (!up && !down) {
-                if (speed - dec > 0) speed -= dec;
-                else if (speed + dec < 0) speed += dec;
-                else speed = 0;
-            }
-            this->move((sin(angle) * speed) * (*machine.deltaTimePointer) * window->getSize().x / 1280.f,
-                       (-cos(angle) * speed) * (*machine.deltaTimePointer) * window->getSize().y / 720.f);
 
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            ////        Players bevegelse settes her og velocity er alltid 0, så move gjøres her.      ////
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            this->setRotation(angle * 180 / pi);                                                       ////
+            if (right) angle += turnspeed * (*machine.deltaTimePointer);                               ////
+            if (left) angle -= turnspeed * (*machine.deltaTimePointer);                                ////
+            if (up && speed < maxSpeed) {                                                              ////
+                if (speed < 0) speed += dec;                                                           ////
+                else speed += acc;                                                                     ////
+            }                                                                                          ////
+            if (down && speed > -maxSpeed) {                                                           ////
+                if (speed > 0) {                                                                       ////
+                    speed -= dec;                                                                      ////
+                } else {                                                                               ////
+                    speed -= acc;                                                                      ////
+                }                                                                                      ////
+            }                                                                                          ////
+            if (!up && !down) {                                                                        ////
+                if (speed - dec > 0) speed -= dec;                                                     ////
+                else if (speed + dec < 0) speed += dec;                                                ////
+                else speed = 0;                                                                        ////
+            }                                                                                          /////////
+            this->move((sin(angle) * speed) * (*machine.deltaTimePointer) * window->getSize().x / 1280.f,   ////
+                       (-cos(angle) * speed) * (*machine.deltaTimePointer) * window->getSize().y / 720.f);  ////
+            ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            ////////////////////////////////////////////////////////////////////
+            ////        Flipper player om han krysser y-aksen               ////
+            ////////////////////////////////////////////////////////////////////
             if (this->getRotation() < 360 && this->getRotation() > 180) {
                 float turn = window->getSize().x / 2560.0f;
                 turn *= -1;
@@ -89,7 +97,9 @@ void Player::updateEntity(sf::RenderWindow *window) {
                 this->setScale(window->getSize().x / 2560.0f, window->getSize().y / 1440.0f);
             }
 
-            //skyte bullet
+            /////////////////////////////////////////////////////////////////////
+            ////        Skyte bullet om ikke overheata                       ////
+            /////////////////////////////////////////////////////////////////////
             if (!this->space &&
                 sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second)) {
                 if (this->overheatValue < 10) {
@@ -115,36 +125,47 @@ void Player::updateEntity(sf::RenderWindow *window) {
             if (this->overheatValue < 1)this->overheatValue = 1;
             this->space = sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second);
 
-            if (*this->isShieldActivePointer) {
-                clock.start();
-                if (clock.getElapsedTime().asSeconds() > 5) {
-                    *this->isShieldActivePointer = false;
-                }
-                if (firstTimeLoading) {
-                    if (fighter == 0)this->load("ubatShield.png");
-                    else this->load("fighterShield.png");
-                    firstTimeLoading = false;
-                }
-            }
-            if (!*this->isShieldActivePointer) {
-                if (!firstTimeLoading) {
-                    if (fighter == 0)this->load("ubat1.png");
-                    else this->load("fighter.png");
-                    firstTimeLoading = true;
-                }
-                clock.restart();
-            }
+
+
+            ////////////////////////////////////////////////////////////////////
+            ////        Setter texture avhengig av om shield er active      ////
+            ////////////////////////////////////////////////////////////////////
+            if (*this->isShieldActivePointer) {                             ////
+                clock.start();                                              ////
+                if (clock.getElapsedTime().asSeconds() > 5) {               ////
+                    *this->isShieldActivePointer = false;                   ////
+                }                                                           ////
+                if (firstTimeLoading) {                                     ////
+                    if (fighter == 0)this->load("ubatShield.png");          ////
+                    else this->load("fighterShield.png");                   ////
+                    firstTimeLoading = false;                               ////
+                }                                                           ////
+            }                                                               ////
+            if (!*this->isShieldActivePointer) {                            ////
+                if (!firstTimeLoading) {                                    ////
+                    if (fighter == 0)this->load("ubat1.png");               ////
+                    else this->load("fighter.png");                         ////
+                    firstTimeLoading = true;                                ////
+                }                                                           ////
+                clock.restart();                                            ////
+            }                                                               ////
+            ////////////////////////////////////////////////////////////////////
             break;
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             /////////////////                                         GAME MODE 2 UPDATE                                  /////////////////
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         case 2:
-            //if (right)this->move(10, 0);
-            //if (left)this->move(-10, 0);
+            ////////////////////////////////////////////////////////////////////
+            ////                  Players bevegelse                         ////
+            ////////////////////////////////////////////////////////////////////
             if (left) this->velocity.x = -400;
             else if (right) this->velocity.x = 400;
             else this->velocity.x = 0;
+
+            ////////////////////////////////////////////////////////////////////
+            ////        Skyte bullet om ingen andre eksisterer              ////
+            ////////////////////////////////////////////////////////////////////
             if (manager->getEntity("bullet") == NULL) {
                 if (!this->space &&
                     sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second)) {
@@ -166,6 +187,9 @@ void Player::updateEntity(sf::RenderWindow *window) {
             break;
     }
     switch (this->gamemode) {
+        ////////////////////////////////////////////////////////////////////
+        ////        Vindukantkollisjon i gamemode 1                     ////
+        ////////////////////////////////////////////////////////////////////
         case 1:
             //Sjekker for kollisjon med vindukantene.
             if (this->getPosition().y + this->getGlobalBounds().height / 2.f < 0) {
@@ -190,12 +214,18 @@ void Player::updateEntity(sf::RenderWindow *window) {
             }
             break;
         case 2:
+            ////////////////////////////////////////////////////////////////////
+            ////        Vindukantkollisjon i gamemode 2                     ////
+            ////////////////////////////////////////////////////////////////////
             if (this->getPosition().x + this->getGlobalBounds().width / 2.f > window->getSize().x) this->move(-5, 0);
             if (this->getPosition().x - this->getGlobalBounds().width / 2.f < 0) this->move(5, 0);
             break;
         default:
             break;
     }
+    ////////////////////////////////////////////////////////////////////
+    ////        Slett player om lives er 0                          ////
+    ////////////////////////////////////////////////////////////////////
     if (this->lives->getValue() <= 0) {
         this->destroyEntity();
     }
