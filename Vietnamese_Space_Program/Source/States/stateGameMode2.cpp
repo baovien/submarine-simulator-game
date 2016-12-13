@@ -10,6 +10,7 @@ void StateGameMode2::initialize(sf::RenderWindow *window) {
 
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
+    currentWindowSize = window->getSize();
 
     machine.soundLoaderPointer->stopMusic();
     machine.soundLoaderPointer->playMusic(Audio::Music::CLASSIC);
@@ -55,6 +56,7 @@ void StateGameMode2::initialize(sf::RenderWindow *window) {
     this->pausedBackground->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
 
     util->makeMuteButton(window, machine.mutedPointer);
+
 }
 
 void StateGameMode2::update(sf::RenderWindow *window) {
@@ -138,7 +140,32 @@ void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event) {
 }
 
 void StateGameMode2::reinitialize(sf::RenderWindow *window) {
+    sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
+    window->setView(newView);
 
+    this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
+
+    this->score->setPosition(window->getSize().x / 10.f, window->getSize().y / 20.f);
+    this->score->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
+
+    this->lives->setPosition(window->getSize().x - window->getSize().x / 5.f, window->getSize().y / 20.f);
+    this->lives->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
+
+    this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap.find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2,
+                                     window->getSize().x / 2.f, window->getSize().y / 2.f, window, machine.settingPointer->selectedLanguage);
+
+    this->pausedBackground->setPosition(window->getSize().x / 2, window->getSize().y / 2);
+    this->pausedBackground->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
+
+    util->makeMuteButton(window, machine.mutedPointer);
+
+    for (auto iterator = manager->entitiesPointer->begin(); iterator != manager->entitiesPointer->end(); iterator++){
+        iterator->second->scale(window->getSize().x / (currentWindowSize.x * 1.f), window->getSize().y / (currentWindowSize.y * 1.f));
+        iterator->second->setPosition(iterator->second->getPosition().x * (window->getSize().x / (currentWindowSize.x * 1.f)),
+                                      iterator->second->getPosition().y * (window->getSize().y / (currentWindowSize.y * 1.f)));
+    }
+
+    currentWindowSize = window->getSize();
 }
 
 void StateGameMode2::spawnEnemies(sf::RenderWindow *window) {

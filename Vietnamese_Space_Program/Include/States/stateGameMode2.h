@@ -44,6 +44,7 @@ protected:
     sf::Clock clockenemy;
     sf::Texture* pausedTexture;
     sf::Sprite* pausedBackground;
+    sf::Vector2u currentWindowSize;
 
     int wave = 0;
     bool nextCollissionRight = true;

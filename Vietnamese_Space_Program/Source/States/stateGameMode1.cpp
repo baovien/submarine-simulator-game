@@ -7,6 +7,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
 
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
+    currentWindowSize = window->getSize();
 
     machine.soundLoaderPointer->stopMusic();
     machine.soundLoaderPointer->playMusic(Audio::Music::ARCADE);
@@ -165,6 +166,8 @@ void StateGameMode1::reinitialize(sf::RenderWindow *window) {
     this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
 
     this->waveText = util->addText("Wave: ", 75, 2, 2, window->getSize().x / 2, window->getSize().y / 4, window, machine.settingPointer->selectedLanguage);
+    if (waveNum % 5 == 0) this->waveText->setString(util->translate("Boss", machine.settingPointer->selectedLanguage));
+    else this->waveText->setString(util->translate("Wave: ", machine.settingPointer->selectedLanguage) + std::to_string(waveNum));
     this->waveText->setFillColor(sf::Color(255, 255, 255, (sf::Uint8) transparencyValue));
     this->waveText->setOutlineColor(sf::Color(0, 0, 0, (sf::Uint8) transparencyValue));
 
@@ -174,22 +177,24 @@ void StateGameMode1::reinitialize(sf::RenderWindow *window) {
     this->lives->setPosition(window->getSize().x - window->getSize().x / 5.f, window->getSize().y / 20.f);
     this->lives->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
 
-
-    //this->bossObject = new BossObject(this->manager, this->player, this->mode, window);
-    this->overBarS.setPosition(window->getSize().x / 2.f, window->getSize().y - this->overBarS.getGlobalBounds().height);
-    this->overBarS.setScale(window->getSize().x / 640.f, window->getSize().y / 360.f);
-
-    //Init pauseobjekter
-    //Text, textsize, origin x, origin y, position x, position y, window, language int
-
     this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap.find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2,
                                      window->getSize().x / 2.f, window->getSize().y / 2.f, window, machine.settingPointer->selectedLanguage);
-
 
     this->pausedBackground->setPosition(window->getSize().x / 2, window->getSize().y / 2);
     this->pausedBackground->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
 
     util->makeMuteButton(window, machine.mutedPointer);
+
+    for (auto iterator = manager->entitiesPointer->begin(); iterator != manager->entitiesPointer->end(); iterator++){
+        iterator->second->scale(window->getSize().x / (currentWindowSize.x * 1.f), window->getSize().y / (currentWindowSize.y * 1.f));
+        iterator->second->setPosition(iterator->second->getPosition().x * (window->getSize().x / (currentWindowSize.x * 1.f)),
+                                      iterator->second->getPosition().y * (window->getSize().y / (currentWindowSize.y * 1.f)));
+    }
+
+    this->overBarS.setScale(window->getSize().x / 640.f, window->getSize().y / 360.f);
+    this->overBarS.setPosition(window->getSize().x / 2.f, window->getSize().y - this->overBarS.getGlobalBounds().height/2.f);
+
+    currentWindowSize = window->getSize();
 
 }
 
@@ -272,8 +277,8 @@ void StateGameMode1::updateWaveText(sf::RenderWindow *window, bool choice) {
 
     if (choice) {
         this->transparencyValue = 255;
-        if (waveNum % 5 == 0) this->waveText = util->addText(util->translate("Boss", machine.settingPointer->selectedLanguage), 75, 2, 2, window->getSize().x / 2, window->getSize().y / 4, window, machine.settingPointer->selectedLanguage);
-        else this->waveText = util->addText(util->translate("Wave: ", machine.settingPointer->selectedLanguage) + std::to_string(waveNum), 75, 2, 2, window->getSize().x / 2, window->getSize().y / 4, window, machine.settingPointer->selectedLanguage);
+        if (waveNum % 5 == 0) this->waveText->setString(util->translate("Boss", machine.settingPointer->selectedLanguage));
+        else this->waveText->setString(util->translate("Wave: ", machine.settingPointer->selectedLanguage) + std::to_string(waveNum));
     } else {
         //Fader waveText
         this->waveText->setFillColor(sf::Color(255, 255, 255, (sf::Uint8) transparencyValue));

@@ -18,5 +18,7 @@ public:
     float* deltaTime;
 protected:
     std::unordered_map<std::string, Entity*> entities;
+public:
+    std::unordered_map<std::string, Entity*>* entitiesPointer = &entities;
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_ENTITYMANAGER_H
