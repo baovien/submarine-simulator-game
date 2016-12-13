@@ -140,6 +140,7 @@ void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event) {
 }
 
 void StateGameMode2::reinitialize(sf::RenderWindow *window) {
+    util->paused = true;
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
 
