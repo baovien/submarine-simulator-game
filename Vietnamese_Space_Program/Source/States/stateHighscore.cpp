@@ -122,6 +122,7 @@ void StateHighscore::destroy(sf::RenderWindow *window) {
     delete this->TableArcade;
     delete this->TableClassic;
     delete this->background;
+    tableText.clear();
 
     delete this->title;
     delete this->titleArcade;
@@ -156,6 +157,7 @@ void StateHighscore::handleEvent(sf::RenderWindow *window, sf::Event event) {
 }
 
 void StateHighscore::reinitialize(sf::RenderWindow *window) {
+    destroy(window);
     initialize(window);
 }
 

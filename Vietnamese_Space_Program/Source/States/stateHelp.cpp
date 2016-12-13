@@ -249,5 +249,6 @@ void stateHelp::handleEvent(sf::RenderWindow *window, sf::Event event) {
 }
 
 void stateHelp::reinitialize(sf::RenderWindow *window) {
+    destroy(window);
     initialize(window);
 }

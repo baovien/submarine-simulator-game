@@ -135,6 +135,7 @@ void StateMainMenu::handleEvent(sf::RenderWindow *window, sf::Event event) {
 }
 
 void StateMainMenu::reinitialize(sf::RenderWindow *window) {
+    destroy(window);
     initialize(window);
 }
 

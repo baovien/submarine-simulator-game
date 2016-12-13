@@ -305,6 +305,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
 }
 
 void StateGameOver::reinitialize(sf::RenderWindow *window) {
+    destroy(window);
     initialize(window);
 }
 

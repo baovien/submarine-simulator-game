@@ -16,6 +16,7 @@ private:
     };
     muteTextureStruct muteTextures[2];
 
+private:
     std::map<const sf::String, std::tuple<sf::String, sf::String, sf::String>> languageMap =
             {{"submarine simulator", std::make_tuple(L"Ubåtsimulator" , "podmornica simulator", "Simulateur de sous-marin")},
              {"wave: ", std::make_tuple(L"Bølge: " , "talas: ", "vague: ")},
@@ -77,6 +78,8 @@ private:
 
 
 public:
+    Utilities();
+
     bool paused = false;
 
     sf::Sprite *getMuteButton() const;

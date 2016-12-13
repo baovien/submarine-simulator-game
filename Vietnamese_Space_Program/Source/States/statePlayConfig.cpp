@@ -245,5 +245,6 @@ void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event) {
 }
 
 void StatePlayConfig::reinitialize(sf::RenderWindow *window) {
+    destroy(window);
     initialize(window);
 }

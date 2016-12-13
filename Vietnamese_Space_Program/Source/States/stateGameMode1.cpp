@@ -158,7 +158,40 @@ void StateGameMode1::handleEvent(sf::RenderWindow *window, sf::Event event) {
     }
 }
 
-void StateGameMode1::reinitialize(sf::RenderWindow *window) {}
+void StateGameMode1::reinitialize(sf::RenderWindow *window) {
+    sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
+    window->setView(newView);
+
+    this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
+
+    this->waveText = util->addText("Wave: ", 75, 2, 2, window->getSize().x / 2, window->getSize().y / 4, window, machine.settingPointer->selectedLanguage);
+    this->waveText->setFillColor(sf::Color(255, 255, 255, (sf::Uint8) transparencyValue));
+    this->waveText->setOutlineColor(sf::Color(0, 0, 0, (sf::Uint8) transparencyValue));
+
+    this->score->setPosition(window->getSize().x / 10.f, window->getSize().y / 20.f);
+    this->score->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
+
+    this->lives->setPosition(window->getSize().x - window->getSize().x / 5.f, window->getSize().y / 20.f);
+    this->lives->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
+
+
+    //this->bossObject = new BossObject(this->manager, this->player, this->mode, window);
+    this->overBarS.setPosition(window->getSize().x / 2.f, window->getSize().y - this->overBarS.getGlobalBounds().height);
+    this->overBarS.setScale(window->getSize().x / 640.f, window->getSize().y / 360.f);
+
+    //Init pauseobjekter
+    //Text, textsize, origin x, origin y, position x, position y, window, language int
+
+    this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap.find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2,
+                                     window->getSize().x / 2.f, window->getSize().y / 2.f, window, machine.settingPointer->selectedLanguage);
+
+
+    this->pausedBackground->setPosition(window->getSize().x / 2, window->getSize().y / 2);
+    this->pausedBackground->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
+
+    util->makeMuteButton(window, machine.mutedPointer);
+
+}
 
 void StateGameMode1::spawnObjects(sf::RenderWindow *window) {
     if (clock.getElapsedTime().asSeconds() - powerUpTime > 5.f && waveNum % 5 != 0) {

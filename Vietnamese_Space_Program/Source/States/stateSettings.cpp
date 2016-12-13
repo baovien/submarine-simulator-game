@@ -288,6 +288,7 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         case 4:
                             machine.setState(new StateMainMenu());
                             return;
+                        default:break;
                     }
                 }
             }
@@ -329,6 +330,7 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         case 6:
                             inOverlay = false;
                             return;
+                        default:break;
                     }
                 }
             }
@@ -347,6 +349,7 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         case 2:
                             window->setFramerateLimit(120);
                             break;
+                        default:break;
                     }
                 }
 
@@ -367,5 +370,6 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
 }
 
 void StateSettings::reinitialize(sf::RenderWindow *window) {
+    destroy(window);
     initialize(window);
 }

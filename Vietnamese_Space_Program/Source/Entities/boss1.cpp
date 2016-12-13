@@ -20,7 +20,7 @@ BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::Ren
 
     this->easingAmount = 0.05f;
     this->maxSpeed = (window->getSize().x/1280.f)*100;
-    this->pi = 3.141592653599;
+    this->pi = 3.141592653599f;
     this->bulletSpeed = (window->getSize().x/1280.f);
     this->objectSpeed = (window->getSize().x/1280.f);
 

@@ -2,7 +2,10 @@
 #include "../../Include/Core/utilities.h"
 
 
-void Utilities::makeMuteButton(sf::RenderWindow *window, bool *mutedPointer) {
+Utilities::Utilities() {
+    this->font = new sf::Font();
+    this->font->loadFromFile("Graphics/Turtles.otf");
+
     for (unsigned int i = 0; i < (sizeof(muteTextures) / sizeof(*muteTextures)); ++i) {
         muteTextures[i].buttonMouseOver = new sf::Texture();
         muteTextures[i].buttonMouseOver->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(15 + i * 3) + ".png");
@@ -13,6 +16,10 @@ void Utilities::makeMuteButton(sf::RenderWindow *window, bool *mutedPointer) {
         muteTextures[i].buttonClicked = new sf::Texture();
         muteTextures[i].buttonClicked->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(15 + i * 3 + 2) + ".png");
     }
+}
+
+void Utilities::makeMuteButton(sf::RenderWindow *window, bool *mutedPointer) {
+
     if (*mutedPointer) { //Sjekker om det er muta når jeg lager knappen og bytter til muteversjonen av knappen om de er det.
         std::swap(muteTextures[0], muteTextures[1]);
     }
@@ -64,8 +71,7 @@ sf::Sprite *Utilities::addButton(sf::Texture *texture, float scaleX, float scale
 
 //Text, textsize, origin x, origin y, position x, position y, window
 sf::Text *Utilities::addText(sf::String textContent, unsigned int textSize, int originX, int originY, float posX, float posY, sf::RenderWindow *window, int language) {
-    this->font = new sf::Font();
-    this->font->loadFromFile("Graphics/Turtles.otf");
+
     sf::Text *text = new sf::Text(textContent, *this->font, textSize);
     std::transform(textContent.begin(), textContent.end(), textContent.begin(), ::tolower);
 
@@ -129,3 +135,4 @@ sf::String Utilities::translate(sf::String wordToTranslate, int language) {
         }
     } else return wordToTranslate;
 }
+

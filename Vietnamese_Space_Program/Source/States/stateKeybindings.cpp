@@ -184,5 +184,6 @@ void StateKeybindings::handleEvent(sf::RenderWindow *window, sf::Event event) {
 }
 
 void StateKeybindings::reinitialize(sf::RenderWindow *window) {
+    destroy(window);
     initialize(window);
 }
