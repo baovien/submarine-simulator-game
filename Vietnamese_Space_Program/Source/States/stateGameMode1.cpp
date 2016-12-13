@@ -59,6 +59,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->pausedBackground->setTexture(*this->pausedTexture);
     this->pausedBackground->setOrigin(this->pausedBackground->getGlobalBounds().width / 2, this->pausedBackground->getGlobalBounds().height / 2);
     this->pausedBackground->setPosition(window->getSize().x / 2, window->getSize().y / 2);
+    this->pausedBackground->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
 
     util->makeMuteButton(window, machine.mutedPointer);
 }
