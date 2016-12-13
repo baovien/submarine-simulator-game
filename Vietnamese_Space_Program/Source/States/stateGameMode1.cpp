@@ -15,7 +15,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->util = new Utilities;
 
     this->bgTexture = new sf::Texture();
-    this->bgTexture->loadFromFile("Graphics/Sprites/background1" + std::to_string(2+machine.selectedObjectsPointer->selectedTheme) +".png");
+    this->bgTexture->loadFromFile("Graphics/Sprites/background1" + std::to_string(2 + machine.selectedObjectsPointer->selectedTheme) + ".png");
     this->background = new sf::Sprite();
 
     this->background->setTexture(*this->bgTexture);
@@ -69,6 +69,8 @@ void StateGameMode1::update(sf::RenderWindow *window) {
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
         clock.start();
+        waveClock.start();
+        player->pauseClock(false);
 
         this->manager->updateEntity(window, machine.deltaTimePointer);
         this->score->updateScore(util->translate("Score", machine.settingPointer->selectedLanguage));
@@ -81,9 +83,13 @@ void StateGameMode1::update(sf::RenderWindow *window) {
             machine.setState(new StateGameOver);
             return;
         }
-
-        if (enemyList.size() == 0 && bossList.size() == 0) {
+        if(enemyList.size() == 0 && bossList.size() == 0 && !waveDone){
+            waveDone = true;
+            waveClock.restart();
+        }
+        if (enemyList.size() == 0 && bossList.size() == 0 && waveDone && waveClock.getElapsedTime().asSeconds() > 3) {
             machine.soundLoaderPointer->playEffect(Audio::Effect::WAVEDONE);
+            waveDone = false;
             waveNum++;
             spawnWave(window);
             updateWaveText(window, true);
@@ -95,6 +101,8 @@ void StateGameMode1::update(sf::RenderWindow *window) {
 
     } else {
         clock.pause();
+        player->pauseClock(true);
+        waveClock.pause();
         util->checkMuteMouseOver(window);
     }
 }
@@ -152,9 +160,7 @@ void StateGameMode1::handleEvent(sf::RenderWindow *window, sf::Event event) {
 void StateGameMode1::reinitialize(sf::RenderWindow *window) {}
 
 void StateGameMode1::spawnObjects(sf::RenderWindow *window) {
-    static float powerUpTime = 0;
-    static float junkTime = 0;
-    if (clock.getElapsedTime().asSeconds() - powerUpTime > 5.f) {
+    if (clock.getElapsedTime().asSeconds() - powerUpTime > 5.f && waveNum % 5 != 0) {
         powerUpTime = clock.getElapsedTime().asSeconds();
         int random = rand() % 2;
         switch (random) {
@@ -162,7 +168,8 @@ void StateGameMode1::spawnObjects(sf::RenderWindow *window) {
                 this->manager->addEntity("healthPack", new HealthPack(this->lives, machine.soundLoaderPointer, window));
                 break;
             case 1:
-                this->manager->addEntity("shieldEntity", new ShieldEntity(window, this->player, machine.soundLoaderPointer));
+                if (!*player->isShieldActivePointer)
+                    this->manager->addEntity("shieldEntity", new ShieldEntity(window, this->player, machine.soundLoaderPointer));
                 break;
             default:
                 break;
@@ -170,15 +177,13 @@ void StateGameMode1::spawnObjects(sf::RenderWindow *window) {
     }
     if (clock.getElapsedTime().asSeconds() - junkTime > 1.f) {
         junkTime = clock.getElapsedTime().asSeconds();
-            int random = rand() % 5;
-            if (random == 1)
-            {
-                this->manager->addEntity("indestructableObject", new IndestructableObject(window, machine.selectedObjectsPointer->selectedTheme));
-            }
+        int random = rand() % 5;
+        if (random == 1) {
+            this->manager->addEntity("indestructableObject", new IndestructableObject(window, machine.selectedObjectsPointer->selectedTheme));
+        }
 
     }
 }
-
 
 
 void StateGameMode1::spawnWave(sf::RenderWindow *window) {
@@ -191,7 +196,7 @@ void StateGameMode1::spawnWave(sf::RenderWindow *window) {
 
     } else {                  //ENEMYSPAWN
         for (int i = 0; i < waveNum; ++i) {
-            enemyObject = new EnemyObject(window, this->player, this->manager, this->mode, machine.soundLoaderPointer,machine.selectedObjectsPointer->selectedTheme);
+            enemyObject = new EnemyObject(window, this->player, this->manager, this->mode, machine.soundLoaderPointer, machine.selectedObjectsPointer->selectedTheme);
             this->manager->addEntity("Enemy", enemyObject);
             enemyList.push_back(enemyObject);
         }

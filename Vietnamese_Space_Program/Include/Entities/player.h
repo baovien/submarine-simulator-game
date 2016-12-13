@@ -25,6 +25,9 @@ private:
     int fighter;
     float overheatValue;
     bool space;
+    bool isShieldActive = false;
+    bool firstTimeLoading = true;
+    sfuser::PauseableClock clock;
 
     SoundLoader* soundLoader;
     Lives* lives;
@@ -32,9 +35,11 @@ private:
     Bar* bar;
     EntityManager* manager;
     std::map<const std::string, std::pair<std::string, int>> keybindMap;
-    sfuser::PauseableClock enemypausable;
+public:
+    bool* isShieldActivePointer = &isShieldActive;
 
 
+    void pauseClock(bool pause);
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_PLAYER_H

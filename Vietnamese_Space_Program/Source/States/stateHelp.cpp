@@ -101,7 +101,7 @@ void stateHelp::initialize(sf::RenderWindow *window) {
     gamemode2 = util.addText("This is the classic arcade space shooter game where the player only can move horizontally at the bottom of the screen.\n"
                                      "The aim is to defeat the enemies by shooting them, while they move horizontally back and forth across the screen as\n"
                                      "they advance towards the bottom of the screen."
-                                     " The enemies can kill the player by either shoot it \nor by colliding into it."
+                                     " The enemies can kill the player by either shooting it \nor by colliding into it."
                                      " The default keybind for shooting is space.", 18 , 0, 0,window->getSize().x / 16.5f, window->getSize().y / 1.4f, window, machine.settingPointer->selectedLanguage);
 
     asteroid1 = util.addText("Enemy spawn in waves. They chase you and will shoot at you after the first boss. The number of enemies \ndepend on the wave. Running into"

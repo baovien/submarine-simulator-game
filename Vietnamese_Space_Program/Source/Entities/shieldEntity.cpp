@@ -5,10 +5,10 @@ ShieldEntity::ShieldEntity(sf::RenderWindow* window, Player* player, SoundLoader
         : player(player),
           soundLoader(soundLoader)
 {
+    this->isShieldActivePointer = player->isShieldActivePointer;
     this->load("shieldPowerUp.png");
     this->active = 1;
     this->groupId = 10;
-    this->isShieldActive = false;
     this->manager = new EntityManager();
 
     this->setOrigin(this->getGlobalBounds().width / 2.f, this->getGlobalBounds().height / 2.f);
@@ -17,8 +17,14 @@ ShieldEntity::ShieldEntity(sf::RenderWindow* window, Player* player, SoundLoader
 }
 
 void ShieldEntity::updateEntity(sf::RenderWindow *window){
-    invincibleClock.pause();
-    if (isShieldActive){
+    if(clock.getElapsedTime().asSeconds() > 5)
+    {
+        this->destroyEntity();
+    }
+
+
+    /*
+    if (*this->isShieldActivePointer){
         this->load("Shield.png");
         this->setPosition(this->player->getPosition().x, this->player->getPosition().y);
         this->setOrigin(this->getGlobalBounds().width / 4.f, this->getGlobalBounds().height / 4.f);
@@ -34,6 +40,7 @@ void ShieldEntity::updateEntity(sf::RenderWindow *window){
         this->destroyEntity();      //despawnes etter 4 sekunder
         clock.restart();            //restarter clock
     }
+    */
     Entity::updateEntity(window);
 }
 
@@ -41,14 +48,10 @@ void ShieldEntity::collision(Entity* entity){
     switch(entity->groupID()){
         case 1: //Player
             //this->soundLoader->playEffect(Audio::?????);
-            this->isShieldActive = true;
+            *this->isShieldActivePointer = true;
+            this->destroyEntity();
             break;
-        case 3:
-        case 4:
-        case 6:
-        case 9:
-            if(this->isShieldActive){
-                entity->destroyEntity();
-            }
+
+        default:break;
     }
 }
