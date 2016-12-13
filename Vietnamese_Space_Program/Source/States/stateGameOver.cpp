@@ -225,7 +225,6 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
             this->boxIsClicked = false;
         }
     }
-    std::cout << this->highscoreOrNAH << " - "  << this->boxIsClicked << std::endl;
     if (this->highscoreOrNAH && this->boxIsClicked) {
         this->textBox->setFillColor(sf::Color::White);
         this->clickToActivate->setFillColor(sf::Color::White);
