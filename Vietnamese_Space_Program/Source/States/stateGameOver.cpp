@@ -273,13 +273,17 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         if(machine.selectedObjectsPointer->selectedGamemode==1){
                             saveScoreArcade();
                             machine.setState(new StateGameMode1());
+                            machine.soundLoaderPointer->stopMusic();
+                            return;
                         }
                         //Classic
                         else if (machine.selectedObjectsPointer->selectedGamemode==2) {
                             saveScoreClassic();
                             machine.setState(new StateGameMode2());
+                            machine.soundLoaderPointer->stopMusic();
+                            return;
+
                         }
-                        machine.soundLoaderPointer->stopMusic();
                         return;
                     case 1: //return knappen er trykket
                         // Arcade
