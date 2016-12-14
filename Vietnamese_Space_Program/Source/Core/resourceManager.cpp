@@ -1,21 +1,19 @@
+#include <iostream>
 #include "../../Include/Core/resourceManager.h"
 
-void ResourceManager::loadFiles() {
+void ResourceManager::loadFiles(int fighter, int gameMode, int theme) {
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
     
     //Main menu textures
-    for (unsigned int i = 0; i < (sizeof(mainMenuTextures) / sizeof(*mainMenuTextures)); ++i) {
-        mainMenuTextures[i].buttonMouseOver = new sf::Texture();
-        mainMenuTextures[i].buttonMouseOver->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3) + ".png");
+    for (unsigned int i = 0; i < 5; ++i) {
+        mainMenuTextures[i].buttonMouseOver.loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3) + ".png");
 
-        mainMenuTextures[i].buttonNormal = new sf::Texture();
-        mainMenuTextures[i].buttonNormal->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3 + 1) + ".png");
+        mainMenuTextures[i].buttonNormal.loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3 + 1) + ".png");
 
-        mainMenuTextures[i].buttonClicked = new sf::Texture();
-        mainMenuTextures[i].buttonClicked->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3 + 2) + ".png");
+        mainMenuTextures[i].buttonClicked.loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3 + 2) + ".png");
     }
-    
+/*
     
     //statePlayConfig
     for (unsigned int i = 0; i < sizeof(playConfigMenuTextures) / sizeof(*playConfigMenuTextures); ++i) {
@@ -154,10 +152,11 @@ void ResourceManager::loadFiles() {
 
     //Gamemode 2 and 1
     this->bgTexture = new sf::Texture();
-    this->bgTexture->loadFromFile("Graphics/Sprites/background1" + std::to_string(2+machine.selectedObjectsPointer->selectedTheme)+".png");
+    this->bgTexture->loadFromFile("Graphics/Sprites/background1" + std::to_string(2+theme)+".png");
     this->pausedTexture = new sf::Texture();
     this->pausedTexture->loadFromFile("Graphics/Sprites/overlayPause.png");
 
+    this->overBar.loadFromFile("Graphics/Sprites/overheat_border.png");
 
 
 
@@ -169,4 +168,5 @@ void ResourceManager::loadFiles() {
 
 
 
+*/
 }

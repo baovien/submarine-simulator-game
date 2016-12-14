@@ -8,7 +8,7 @@ Machine::Machine()
 {
     this->state = NULL;
     soundLoaderPointer->initSoundPointers(mutedPointer, mutedMusicPointer);
-
+    resourceManager.loadFiles(selectedObjectsPointer->selectedFighter, selectedObjectsPointer->selectedGamemode, selectedObjectsPointer->selectedTheme);
 }
 
 /**

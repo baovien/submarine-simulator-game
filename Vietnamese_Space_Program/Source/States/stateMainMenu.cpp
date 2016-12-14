@@ -14,28 +14,17 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
 
-    this->bgTexture = new sf::Texture();
-    this->bgTexture->loadFromFile("Graphics/Sprites/bakgrunn.png");
-
     this->background = new sf::Sprite();
-    this->background->setTexture(*this->bgTexture);
+    this->background->setTexture(*machine.resourceManagerPointer->bgTexture);
     this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
 
     //loader alle knapper og versjoner av knapper. Finnes 3 versjoner av hver (vanlig, mouseover og clicked).
     //Ganger med 3 fordi jeg kun vil få hver 3. knapp
-    for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)); ++i)
+    for (unsigned int i = 0; i < 5; ++i)
     {
-        menuTextures[i].buttonMouseOver = new sf::Texture();
-        menuTextures[i].buttonMouseOver->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3) + ".png");
-
-        menuTextures[i].buttonNormal = new sf::Texture();
-        menuTextures[i].buttonNormal->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3 + 1) + ".png");
-
-        menuTextures[i].buttonClicked = new sf::Texture();
-        menuTextures[i].buttonClicked->loadFromFile("Graphics/Sprites/MainMenu_buttons/Btn" + std::to_string(i * 3 + 2) + ".png");
-
+        sf::Texture hei = machine.resourceManagerPointer->mainMenuTextures[0].buttonNormal;
         menuButtons[i] = new sf::Sprite();
-        menuButtons[i]->setTexture(*this->menuTextures[i].buttonNormal);
+        menuButtons[i]->setTexture(hei);
         menuButtons[i]->setOrigin(menuButtons[i]->getGlobalBounds().width / 2, menuButtons[i]->getGlobalBounds().height / 2);
         if(i<5 && i>0) {
             menuButtons[i]->scale(window->getSize().x/1920.f,  window->getSize().y/1080.f);
@@ -45,7 +34,7 @@ void StateMainMenu::initialize(sf::RenderWindow *window) {
     //Scaler og posisjoner de som varierer mye ift. de andre utenfor for-løkken
     menuButtons[0]->scale(window->getSize().x/960.f,  window->getSize().y/540.f);
     menuButtons[0]->setPosition(window->getSize().x / 2, window->getSize().y / 2.5f);
-
+    std::cout << menuButtons[4]->getGlobalBounds().height << std::endl;
     util.makeMuteButton(window, machine.mutedPointer);
 
     //Text, textsize, origin x, origin y, position x, position y
@@ -76,8 +65,8 @@ void StateMainMenu::render(sf::RenderWindow *window) {
     window->draw(*this->background);
     window->draw(*this->title);
 
-    for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)); ++i) {
-        window->draw(*this->menuButtons[i]);
+    for (unsigned int i = 0; i < 5; ++i) {
+        window->draw(*menuButtons[i]);
     }
     window->draw(*util.getMuteButton());
 

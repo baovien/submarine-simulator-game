@@ -68,7 +68,9 @@ private:
 
 private:
     float deltaTime;
+    ResourceManager resourceManager;
 public:
+    ResourceManager* resourceManagerPointer = &resourceManager;
     float* deltaTimePointer = &deltaTime;
     SoundLoader* soundLoaderPointer = &soundLoader;
     bool* mutedMusicPointer = &mutedMusic;
@@ -81,6 +83,7 @@ public:
 private:
     sf::RenderWindow *window;
     States *state;
+
     int gameOverScore;
 
 };

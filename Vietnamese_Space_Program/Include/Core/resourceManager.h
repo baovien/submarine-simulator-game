@@ -6,12 +6,15 @@
 class ResourceManager
 {
 public:
-    void loadFiles();
+    void loadFiles(int fighter, int gameMode, int theme);
+    sf::Texture* bgTexture; /////////////////////////////////////////////////////////////////////
+
 private:
+
     struct menuTextureStruct{
-        sf::Texture* buttonNormal;
-        sf::Texture* buttonMouseOver;
-        sf::Texture* buttonClicked;
+        sf::Texture buttonNormal;
+        sf::Texture buttonMouseOver;
+        sf::Texture buttonClicked;
     };
 
     struct PictureTextureStruct
@@ -20,14 +23,9 @@ private:
         sf::Texture *buttonMouseOver;
     };
 
-    sf::Texture* bgTexture; /////////////////////////////////////////////////////////////////////
-
-
-
-
+public:
     menuTextureStruct mainMenuTextures[5]; //main menu
-
-
+    menuTextureStruct* mainMenuTexturesPointer = mainMenuTextures;
 
 
 
@@ -90,14 +88,10 @@ private:
 
 
     sf::Texture* pausedTexture; //Gamemode 2
-
-
-
-
-
     sf::Texture overBar;        //Gamemode 1
-    //sf::Texture* pausedTexture;
 
+
+    //sf::Texture* pausedTexture;
 
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_RESOURCEMANAGER_H
