@@ -30,7 +30,7 @@ private:
     sf::Text* alreadyBoundText;
 
 
-    sf::Texture* ballTexture;
+    sf::Texture* keyBindTexture;
     sf::Texture* bgTexture;
     sf::Sprite* background;
 

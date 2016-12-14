@@ -3,6 +3,7 @@
 
 #include "state.h"
 #include "soundLoader.h"
+#include "resourceManager.h"
 
 class Machine {
 public:

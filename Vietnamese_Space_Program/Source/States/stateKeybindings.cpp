@@ -8,8 +8,8 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/Window/Window_10.png");
 
-    this->ballTexture = new sf::Texture();
-    this->ballTexture->loadFromFile("Graphics/Sprites/Buttons/Button_36.png");
+    this->keyBindTexture = new sf::Texture();
+    this->keyBindTexture->loadFromFile("Graphics/Sprites/Buttons/Button_36.png");
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
@@ -47,7 +47,7 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
         keySquares ks = StateKeybindings::keySquares();
         keyVector.push_back(ks);
         keyVector[i].keySquare = new sf::Sprite();
-        keyVector[i].keySquare->setTexture(*this->ballTexture);
+        keyVector[i].keySquare->setTexture(*this->keyBindTexture);
         keyVector[i].keySquare->setOrigin(keyVector[i].keySquare->getGlobalBounds().width / 2, keyVector[i].keySquare->getGlobalBounds().height / 2);
         keyVector[i].keySquare->scale(window->getSize().x / 2880.f, window->getSize().y / 1620.f);
         keyVector[i].keySquare->setPosition(positionList[i].x, positionList[i].y);
@@ -128,7 +128,7 @@ void StateKeybindings::destroy(sf::RenderWindow *window) {
     delete this->movementText;
     delete this->alreadyBoundText;
 
-    delete this->ballTexture;
+    delete this->keyBindTexture;
     delete this->bgTexture;
     delete this->background;
 }

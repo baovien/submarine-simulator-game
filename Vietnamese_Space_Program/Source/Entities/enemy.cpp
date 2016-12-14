@@ -55,7 +55,7 @@ EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager
 }
 
 /**
- * Controls the enemy's position, bullet firing and needed texture, given by it's hp.
+ * Controls the enemy's position, bullet firing and current texture, given by it's hp.
  * @param window
  */
 void EnemyObject::updateEntity(sf::RenderWindow *window) {
