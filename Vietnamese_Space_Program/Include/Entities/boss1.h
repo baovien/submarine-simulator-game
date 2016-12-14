@@ -9,7 +9,7 @@
 class BossObject : public Entity
 {
 public:
-    BossObject(EntityManager* manager, Player* player, int mode, sf::RenderWindow* window, int theme);
+    BossObject(EntityManager* manager, Player* player, int mode, sf::RenderWindow* window, int theme, int bossWave);
     void updateEntity(sf::RenderWindow *window);
     virtual void collision(Entity* entity);
 
@@ -21,7 +21,7 @@ private:
     int health, randomNumber;
     double angle;
     int theme;
-
+    int bossWave;
     float xDistance, yDistance, distance, easingAmount, maxSpeed, pi, objectSpeed;
     int bulletSpeed;
 

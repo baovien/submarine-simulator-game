@@ -57,6 +57,7 @@ protected:
     void updateWaveText(sf::RenderWindow* window, bool choice);
     //Branch: Waves
     int mode = 1;
+    int bossWave = 0;
     int transparencyValue = 0;
 
     int waveNum = 0;

@@ -19,5 +19,8 @@ private:
     Player* player;
 
     SoundLoader* soundLoader;
+public:
+    bool* isShieldActivePointer;
+
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_SHIELDPOWERUP_H

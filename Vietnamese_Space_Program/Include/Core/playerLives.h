@@ -9,6 +9,7 @@ public:
     Lives(sf::Font &font, unsigned int size);
     void increaseLife();
     void decreaseLife();
+    void instaKill();
     void updateLife(std::string livesText);
     int getValue() const;
 

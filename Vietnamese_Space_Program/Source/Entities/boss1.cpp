@@ -9,25 +9,26 @@
  * @param theme - The current selected theme.
  * @return
  */
-BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::RenderWindow* window, int theme)
+BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::RenderWindow* window, int theme, int bossWave)
     : player(player)
 {
+    this->bossWave = bossWave;
     this->theme = theme;
     if(theme == 0)this->load("blowfish.png");
     else this->load("Spacestation.png");
     this->active = 1;
     this->groupId = 5;
-    this->health = 10;
+    this->health = 10 + (10 * bossWave);
     //this->setRotation(1);
     this->setOrigin(this->getGlobalBounds().height/2.f, this->getGlobalBounds().height/2.f);
     this->setScale((window->getSize().x/1280.f), (window->getSize().y/720.f));
 
     this->manager = manager;
     this->player = player;
-    this->velocity.x = (window->getSize().x/1280.f)*100;
+    this->velocity.x = ((window->getSize().x/1280.f)*50) * bossWave;
 
     this->easingAmount = 0.05f;
-    this->maxSpeed = (window->getSize().x/1280.f)*100;
+    this->maxSpeed = ((window->getSize().x/1280.f)*50) * bossWave;
     this->pi = 3.141592653599f;
     this->bulletSpeed = (window->getSize().x/1280.f);
     this->objectSpeed = (window->getSize().x/1280.f);
@@ -43,7 +44,7 @@ BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::Ren
         this->setPosition(rand() % window->getSize().x + this->getGlobalBounds().width * 2, window->getSize().y + this->getGlobalBounds().height * 2);
     }
     
-    this->bar = new Bar(window, this->getPosition().x, this->getPosition().y + this->getGlobalBounds().height);
+    this->bar = new Bar(window, this->getPosition().x, this->getPosition().y + this->getGlobalBounds().height, this->health);
     this->bar->setColor(sf::Color::Red);
     this->manager->addEntity("HpBar", this->bar);
 }
@@ -76,8 +77,8 @@ void BossObject::updateEntity(sf::RenderWindow *window) {
         }
         //Endre sprites i forhold til health
         if (this->health <= 0) {   //Destroy
-            //this->load("explosion.png");
-            //this->scale(3, 3);
+            this->load("explosion.png");
+            this->scale(window->getSize().x/426.6f, window->getSize().y/240.f);
             this->destroyEntity();
 
             this->manager->addEntity("IndestructableObject", new IndestructableObject(
@@ -111,7 +112,7 @@ void BossObject::updateEntity(sf::RenderWindow *window) {
         }
 
         this->pauseableClock.start();   //starter klokka
-        if (this->pauseableClock.getElapsedTime().asMicroseconds() > 3000000) {
+        if (this->pauseableClock.getElapsedTime().asMicroseconds() > 3000000/bossWave) {
             angle = (rand()% window->getSize().y - this->getGlobalBounds().height) * pi / 180;
 
             this->manager->addEntity("Bullet", new Bullet(

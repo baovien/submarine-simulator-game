@@ -21,10 +21,12 @@ Bar::Bar(sf::RenderWindow *window)
  * @param y - y start position
  * @return
  */
-Bar::Bar(sf::RenderWindow *window, float x, float y)
+Bar::Bar(sf::RenderWindow *window, float x, float y, float bossHP)
 {
     this->load("overheat.png");
     this->setPosition(x, y);
+    this->HP = bossHP; //Faktiske HP til boss
+    this->bossHP = 120/bossHP; //decrement for HP baren
     this->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
     this->setTextureRect(sf::IntRect(0, 0, window->getSize().x * 120.f / 1280.f, window->getSize().y * 20.f / 720.f));
     this->setOrigin(this->getGlobalBounds().width / 2, this->getGlobalBounds().height / 2);
@@ -52,9 +54,9 @@ void Bar::updateEntity(sf::RenderWindow *window, float overHeatValue)
  */
 void Bar::updateEntity2(sf::RenderWindow *window, float overHeatValue, float x, float y)
 {
-    this->overheatcheck = overHeatValue;
-    if (overheatcheck == 0)this->destroyEntity();
+    if (overHeatValue == 0)this->destroyEntity();
+    this->overheatcheck = HP - overHeatValue;
     this->setPosition(x, y);
-    this->setTextureRect(sf::IntRect(0, 0, overheatcheck, 20));
+    this->setTextureRect(sf::IntRect(0, 0, 120 - (this->bossHP * overheatcheck), 20));
     Entity::updateEntity(window);
 }

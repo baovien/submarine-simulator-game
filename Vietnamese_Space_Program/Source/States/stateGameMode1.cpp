@@ -237,12 +237,15 @@ void StateGameMode1::spawnWave(sf::RenderWindow *window) {
     if (waveNum > 5) this->mode = 2;
 
     if (waveNum % 5 == 0) { //BOSS HVER 5. WAVE
-        bossObject = new BossObject(this->manager, this->player, this->mode, window, machine.selectedObjectsPointer->selectedTheme);
+        this->bossWave++;
+        bossObject = new BossObject(this->manager, this->player, this->mode, window, machine.selectedObjectsPointer->selectedTheme, 4);
         this->manager->addEntity("Boss", bossObject);
         bossList.push_back(bossObject);
 
     } else {                  //ENEMYSPAWN
         for (int i = 0; i < waveNum; ++i) {
+            bossObject = new BossObject(this->manager, this->player, this->mode, window, machine.selectedObjectsPointer->selectedTheme, 3);
+            this->manager->addEntity("Boss", bossObject);
             enemyObject = new EnemyObject(window, this->player, this->manager, this->mode, machine.soundLoaderPointer, machine.selectedObjectsPointer->selectedTheme);
             this->manager->addEntity("Enemy", enemyObject);
             enemyList.push_back(enemyObject);

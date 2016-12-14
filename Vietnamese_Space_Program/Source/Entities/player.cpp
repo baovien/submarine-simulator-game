@@ -267,7 +267,8 @@ void Player::collision(Entity *entity) {
             break;
         case 5: // Boss
             if (!*this->isShieldActivePointer) {
-                this->lives->decreaseLife();
+                //Skal vi lage en delay her?
+                this->lives->instaKill();
             }
             break;
         case 6: //Boss bullet

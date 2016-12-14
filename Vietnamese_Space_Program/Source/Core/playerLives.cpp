@@ -23,7 +23,12 @@ void Lives::decreaseLife() {
 void Lives::increaseLife() {
     this->value += 1;
 }
-
+/**
+ * Instakill if boss hits player
+ */
+void Lives::instaKill(){
+    this->value = 0;
+}
 /**
  * Updates the livestext shown in the game modes.
  * @param livesText - Text
