@@ -96,8 +96,6 @@ void StateMainMenu::destroy(sf::RenderWindow *window) {
     delete this->background;
     delete this->bgTexture;
 
-    //TODO
-    //sl.~SoundLoader();
 }
 
 void StateMainMenu::handleEvent(sf::RenderWindow *window, sf::Event event) {
@@ -128,12 +126,14 @@ void StateMainMenu::handleEvent(sf::RenderWindow *window, sf::Event event) {
                     case 4:
                         quitGame = true;
                         return;
+                    default:break;
                 }
             }
     }
 }
 
 void StateMainMenu::reinitialize(sf::RenderWindow *window) {
+    destroy(window);
     initialize(window);
 }
 

@@ -16,6 +16,7 @@ private:
     };
     muteTextureStruct muteTextures[2];
 
+private:
     std::map<const sf::String, std::tuple<sf::String, sf::String, sf::String>> languageMap =
             {{"submarine simulator", std::make_tuple(L"Ubåtsimulator" , "podmornica simulator", "Simulateur de sous-marin")},
              {"wave: ", std::make_tuple(L"Bølge: " , "talas: ", "vague: ")},
@@ -77,6 +78,8 @@ private:
 
 
 public:
+    Utilities();
+
     bool paused = false;
 
     sf::Sprite *getMuteButton() const;
@@ -99,7 +102,7 @@ public:
     sf::Text *addText(sf::String textContent, unsigned int textSize, int originX, int originY, float posX, float posY, sf::RenderWindow *window, int language);
 
     //Oversetter spesifike ord
-    std::string translate(sf::String wordToTranslate, int language);
+    sf::String translate(sf::String wordToTranslate, int language);
 
     //Tar inn sprite og returnerer true om mouseover
     bool checkMouseover(sf::Sprite *buttonSprite, sf::RenderWindow *window);

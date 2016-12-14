@@ -8,6 +8,9 @@
 //if(event.key.code == event.key.code == machine.keybindMap->find("DET DU VIL")->second.second){ KODE }
 //der DET DU VIL er navnet på det du ønsker å triggere. Enten up, down, left, right, select, back, shoot eller pause
 
+/**
+ * The game's runner.
+ */
 void App::run() {
 
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Vietnamese Space Program"); //, sf::Style::Titlebar | sf::Style::Close) FULL HD OMG
@@ -24,29 +27,27 @@ void App::run() {
     bool wait = false;
     sf::Clock clock;
     while (window.isOpen()) {
-        //std::cout << 1 / *machine.deltaTimePointer << std::endl;
         *machine.deltaTimePointer = clock.restart().asSeconds();
         sf::Event event;
         while (window.pollEvent(event)) {
-            if(event.type == sf::Event::LostFocus){
+            if (event.type == sf::Event::LostFocus) {
                 wait = true;
             }
-            if(event.type == sf::Event::GainedFocus){
+            if (event.type == sf::Event::GainedFocus) {
                 wait = false;
             }
-            if(!wait) {
+            if (!wait) {
                 //Close down window
                 if (event.type == sf::Event::Closed) {
                     window.close();
                 } else if (event.type == sf::Event::Resized) {
                     machine.reinitialize();
-//                window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
                 } else machine.eventHandler(event);
             }
         }
 
         //window.clear(sf::Color::Black);
-        if(!wait) {
+        if (!wait) {
             machine.update();
             machine.render();
             window.display();

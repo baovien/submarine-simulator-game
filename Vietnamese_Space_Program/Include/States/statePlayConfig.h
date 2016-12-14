@@ -68,6 +68,7 @@ private:
     Utilities util;
 
     //Velger hvem som skal være valgt som standard
+
     int selected_Theme = 0;
     int selected_Fighter = 2;
     int selected_Gamemode = 4;

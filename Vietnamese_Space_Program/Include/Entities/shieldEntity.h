@@ -16,9 +16,7 @@ public:
     virtual void collision(Entity* entity);
 private:
     sfuser::PauseableClock clock; // starter clocken
-    bool isShieldActive;
     Player* player;
-    sfuser::PauseableClock invincibleClock;
 
     SoundLoader* soundLoader;
 };

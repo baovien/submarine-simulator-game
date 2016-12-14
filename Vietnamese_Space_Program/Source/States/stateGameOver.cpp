@@ -5,10 +5,6 @@
 
 #include <cstring>
 
-/**
- * Init settingsState.
- * @param window
- */
 void StateGameOver::initialize(sf::RenderWindow *window) {
 
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
@@ -25,56 +21,56 @@ void StateGameOver::initialize(sf::RenderWindow *window) {
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
-    this->background->scale(window->getSize().x/background->getGlobalBounds().width,
-                            window->getSize().y/background->getGlobalBounds().height);
+    this->background->scale(window->getSize().x / background->getGlobalBounds().width,
+                            window->getSize().y / background->getGlobalBounds().height);
 
     this->textBox = new sf::RectangleShape();
     this->textBox->setOutlineColor(sf::Color::Black);
     this->textBox->setOutlineThickness(2);
     this->textBox->setSize(sf::Vector2f(600, 125));
-    this->textBox->setPosition(window->getSize().x / 2, window->getSize().y / 1.7f);
-    this->textBox->setOrigin(this->textBox->getLocalBounds().width / 2, this->textBox->getLocalBounds().height / 2);
+    this->textBox->setPosition(window->getSize().x / 2.f, window->getSize().y / 1.7f);
+    this->textBox->setOrigin(this->textBox->getLocalBounds().width / 2.f, this->textBox->getLocalBounds().height / 2.f);
     this->textBox->scale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
 
     this->gameOverScore = machine.getGameOverScore();
     this->gameOverText = util.addText((util.translate("Game Over", machine.settingPointer->selectedLanguage)),
-                                      75, 2, 2, window->getSize().x / 2,
+                                      75, 2, 2, window->getSize().x / 2.f,
                                       (window->getSize().y / 24.0f),
                                       window, machine.settingPointer->selectedLanguage);
 
     this->score = util.addText((util.translate("Score: ", machine.settingPointer->selectedLanguage)) + std::to_string(this->gameOverScore),
-                               50, 2, 2, window->getSize().x / 2,
+                               50, 2, 2, window->getSize().x / 2.f,
                                this->gameOverText->getGlobalBounds().height * 2,
                                window, machine.settingPointer->selectedLanguage);
 
-    this->text = util.addText(playerName, 75, 2, 2, window->getSize().x / 2,
+    this->text = util.addText(playerName, 75, 2, 2, window->getSize().x / 2.f,
                               window->getSize().y / 1.95f, window, machine.settingPointer->selectedLanguage);
 
     this->clickToActivate = util.addText((util.translate("Player", machine.settingPointer->selectedLanguage)),
-                                         75, 2, 2, window->getSize().x / 2,
+                                         75, 2, 2, window->getSize().x / 2.f,
                                          window->getSize().y / 1.86f, window, machine.settingPointer->selectedLanguage);
 
     this->congratulationsText = util.addText((util.translate("Congratulations, after your striking performance",
                                                              machine.settingPointer->selectedLanguage)),
-                                             40, 2, 2, window->getSize().x / 2,
+                                             40, 2, 2, window->getSize().x / 2.f,
                                              window->getSize().y / 3.25f,
                                              window, machine.settingPointer->selectedLanguage);
-    this->congratulationsText->setOrigin(this->congratulationsText->getLocalBounds().width / 2, 0);
+    this->congratulationsText->setOrigin(this->congratulationsText->getLocalBounds().width / 2.f, 0);
 
     this->congratulationsText2 = util.addText((util.translate("you have been placed on the leaderboard",
                                                               machine.settingPointer->selectedLanguage)),
-                                              40, 2, 2, window->getSize().x / 2,
+                                              40, 2, 2, window->getSize().x / 2.f,
                                               window->getSize().y / 2.7f,
                                               window, machine.settingPointer->selectedLanguage);
-    this->congratulationsText2->setOrigin(this->congratulationsText2->getLocalBounds().width / 2, 0);
+    this->congratulationsText2->setOrigin(this->congratulationsText2->getLocalBounds().width / 2.f, 0);
 
     this->whatAShameText = util.addText(util.translate("You did not manage to enter the leaderboard this time"
                                                                "\nmaybe you will next time. Good luck!",
                                                        machine.settingPointer->selectedLanguage),
-                                        40, 2, 2, window->getSize().x / 2,
+                                        40, 2, 2, window->getSize().x / 2.f,
                                         window->getSize().y / 2.7f,
                                         window, machine.settingPointer->selectedLanguage);
-    this->whatAShameText->setOrigin(this->whatAShameText->getLocalBounds().width / 2, 0);
+    this->whatAShameText->setOrigin(this->whatAShameText->getLocalBounds().width / 2.f, 0);
 
 
     //loader alle knapper og versjoner av knapper. Finnes 3 versjoner av hver (vanlig, mouseover og clicked).
@@ -100,19 +96,21 @@ void StateGameOver::initialize(sf::RenderWindow *window) {
 
     //Setter posisjonen og skalinga til RESTART-button
     menuButtons[0]->scale(window->getSize().x / 1536.0f, window->getSize().y / 864.0f);
-    menuButtons[0]->setPosition(window->getSize().x / 2, window->getSize().y / 1.2f);
+    menuButtons[0]->setPosition(window->getSize().x / 2.f, window->getSize().y / 1.2f);
 
     //Setter posisjonen og skalinga til BACK-button
     menuButtons[1]->scale(window->getSize().x / 5120.f, window->getSize().y / 2880.f);
-    menuButtons[1]->setPosition(window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
+    menuButtons[1]->setPosition(window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10.f);
 
     util.makeMuteButton(window, machine.mutedPointer);
+
+    this->clickToActivate = util.addText("", 75, 2, 2, window->getSize().x / 2,
+                                         window->getSize().y / 1.82f, window,
+                                         machine.settingPointer->selectedLanguage);
+    this->clickToActivate->setFillColor(sf::Color::Transparent);
+    this->clickToActivate->setOutlineColor(sf::Color::Transparent);
 }
 
-/**
- * Update on keyevent, navigation through settings
- * @param window
- */
 void StateGameOver::update(sf::RenderWindow *window) {
     machine.soundLoaderPointer->updateSounds();
     //Sjekker mouseover for hver knapp og endrer texture om den er mouseovera eller trykket
@@ -130,15 +128,11 @@ void StateGameOver::update(sf::RenderWindow *window) {
     }
 }
 
-/**
- *
- * @param window
- */
 void StateGameOver::render(sf::RenderWindow *window) {
     this->gameOverText->setFillColor(sf::Color::White);
     this->score->setFillColor(sf::Color::White);
     this->text->setFillColor(sf::Color::White);
-    if(!this->boxIsClicked){
+    if (!this->boxIsClicked) {
         this->textBox->setFillColor(sf::Color(128, 128, 128, 255));
     }
     this->clickToActivate->setFillColor(sf::Color(255, 255, 255, 225));
@@ -148,7 +142,7 @@ void StateGameOver::render(sf::RenderWindow *window) {
 
     //Itererer gjennom vektoren for å sjekke om scoren spilleren fikk er høyere enn noen av highscoresa
     //Forskjellige ting drawes utifra om spilleren har fått highscore eller ikke
-    for (int i = 0; i < machine.arcadeScorePointer->size(); i++) {
+    for (unsigned int i = 0; i < machine.arcadeScorePointer->size(); i++) {
         if (gameOverScore > machine.arcadeScorePointer->at(i).first) {
             this->highscoreOrNAH = true;
             this->congratulationsText->setFillColor(sf::Color::White);
@@ -198,39 +192,32 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
         //Back on escapekey hvis tekstboksen ikke er aktiv
         if (event.key.code == machine.keybindMap.find("back")->second.second && !this->boxIsClicked) {
             //Arcade
-            if(machine.selectedObjectsPointer->selectedGamemode==1){
+            if (machine.selectedObjectsPointer->selectedGamemode == 1) {
                 saveScoreArcade();
             }
-            //Classic
-            else if (machine.selectedObjectsPointer->selectedGamemode==2) {
+                //Classic
+            else if (machine.selectedObjectsPointer->selectedGamemode == 2) {
                 saveScoreClassic();
             }
             machine.setState(new StateMainMenu);
             return;
         }
-        //Sjekker om brukeren har trykket "back" mens tekstboksen er aktiv.
-        else if (event.key.code == machine.keybindMap.find("back")->second.second && this->boxIsClicked){
+            //Sjekker om brukeren har trykket "back" mens tekstboksen er aktiv.
+        else if (event.key.code == machine.keybindMap.find("back")->second.second && this->boxIsClicked) {
             //Gjør navnteksten i boksen til defaultverdi: Player
             this->playerName = "";
             this->text->setString("");
-            this->clickToActivate = util.addText(util.translate("Player", machine.settingPointer->selectedLanguage),
-                                                 75, 2, 2, window->getSize().x / 2,
-                                                 window->getSize().y / 1.86f, window,
-                                                 machine.settingPointer->selectedLanguage);
+            this->boxIsClicked = false;
+        } else //Sjekker om brukeren har trykket "select" mens tekstboksen er aktiv, hvis ja, så skal det som står i tekstboksen lagres.
+        if (event.key.code == machine.keybindMap.find("select")->second.second) {
             this->boxIsClicked = false;
         }
     }
-
     if (this->highscoreOrNAH && this->boxIsClicked) {
         this->textBox->setFillColor(sf::Color::White);
-        this->clickToActivate = util.addText("", 75, 2, 2, window->getSize().x / 2,
-                                             window->getSize().y / 1.82f, window,
-                                             machine.settingPointer->selectedLanguage);
+        this->clickToActivate->setFillColor(sf::Color::White);
+        this->clickToActivate->setOutlineColor(sf::Color::Black);
 
-        //Sjekker om brukeren har trykket "select" mens tekstboksen er aktiv, hvis ja, så skal det som står i tekstboksen lagres.
-        if (event.key.code == machine.keybindMap.find("select")->second.second){
-            this->boxIsClicked = false;
-        }
 
         //Sjekker om brukeren skriver noe i tekstfeltet, det som blir skrevet i tekstfeltet dukker opp på skjermen
         if (event.type == event.TextEntered) {
@@ -239,7 +226,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                 this->text->setString(playerName);
                 this->text->setOrigin(this->text->getLocalBounds().width / 2, 0);
 
-            } else if (event.text.unicode == '\n'){
+            } else if (event.text.unicode == '\n') {
                 playerName = playerName.erase(playerName.size() - 1, -1);
             } else if (event.text.unicode == '\b' && playerName.size() == 0) {
                 playerName = "";
@@ -270,29 +257,35 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                 switch (i) {
                     case 0: //restart knappen er trykket
                         //Arcade
-                        if(machine.selectedObjectsPointer->selectedGamemode==1){
+                        if (machine.selectedObjectsPointer->selectedGamemode == 1) {
                             saveScoreArcade();
                             machine.setState(new StateGameMode1());
+                            machine.soundLoaderPointer->stopMusic();
+                            return;
                         }
-                        //Classic
-                        else if (machine.selectedObjectsPointer->selectedGamemode==2) {
+                            //Classic
+                        else if (machine.selectedObjectsPointer->selectedGamemode == 2) {
                             saveScoreClassic();
                             machine.setState(new StateGameMode2());
+                            machine.soundLoaderPointer->stopMusic();
+                            return;
+
                         }
-                        machine.soundLoaderPointer->stopMusic();
                         return;
                     case 1: //return knappen er trykket
                         // Arcade
-                        if(machine.selectedObjectsPointer->selectedGamemode==1){
+                        if (machine.selectedObjectsPointer->selectedGamemode == 1) {
                             saveScoreArcade();
                         }
                             //Classic
-                        else if (machine.selectedObjectsPointer->selectedGamemode==2) {
+                        else if (machine.selectedObjectsPointer->selectedGamemode == 2) {
                             saveScoreClassic();
                         }
                         machine.soundLoaderPointer->stopMusic();
                         machine.setState(new StateMainMenu());
                         return;
+                    default:
+                        break;
                 }
             }
         }
@@ -300,17 +293,26 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
 }
 
 void StateGameOver::reinitialize(sf::RenderWindow *window) {
+    destroy(window);
     initialize(window);
 }
 
-//funksjon for å sortere vector i descending order.
+/**
+ * Check if a given value 1 is higher than the other
+ * @param a - value 1
+ * @param b -value 2
+ * @return
+ */
 bool sortDescending(const std::pair<int, std::string> &a, const std::pair<int, std::string> &b) {
     return (a.first > b.first);
 }
 
-void StateGameOver::saveScoreArcade(){
+/**
+ * puts the score into the current arcade highscore and sorts it.
+ */
+void StateGameOver::saveScoreArcade() {
     //Sjekker om spillerens sitt navn er blank
-    if(this->playerName == ""){
+    if (this->playerName == "") {
         this->playerName = "Player";
     }
     //Bytter ut det siste objektet i listen med det nye
@@ -323,9 +325,12 @@ void StateGameOver::saveScoreArcade(){
               sortDescending);
 }
 
-void StateGameOver::saveScoreClassic(){
+/**
+ * puts the score into the current classic highscore and sorts it.
+ */
+void StateGameOver::saveScoreClassic() {
     //Sjekker om spillerens sitt navn er blank
-    if(this->playerName == ""){
+    if (this->playerName == "") {
         this->playerName = "Player";
     }
     //Bytter ut det siste objektet i listen med det nye

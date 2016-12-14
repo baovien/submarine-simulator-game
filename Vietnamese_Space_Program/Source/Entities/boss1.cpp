@@ -1,28 +1,36 @@
 #include <iostream>
 #include "../../Include/Entities/boss1.h"
-
+/**
+ * The boss' constructor.
+ * @param manager - The entitymanager.
+ * @param player
+ * @param mode - The current selected gamemode.
+ * @param window
+ * @param theme - The current selected theme.
+ * @return
+ */
 BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::RenderWindow* window, int theme)
     : player(player)
 {
     this->theme = theme;
     if(theme == 0)this->load("blowfish.png");
-    else this->load("PLAYERSHIP.png");
+    else this->load("Spacestation.png");
     this->active = 1;
     this->groupId = 5;
     this->health = 10;
     //this->setRotation(1);
-    this->setOrigin(this->getGlobalBounds().height/2, this->getGlobalBounds().height/2);
-    this->setScale((window->getSize().x/1280), (window->getSize().y/720));
+    this->setOrigin(this->getGlobalBounds().height/2.f, this->getGlobalBounds().height/2.f);
+    this->setScale((window->getSize().x/1280.f), (window->getSize().y/720.f));
 
     this->manager = manager;
     this->player = player;
-    this->velocity.x = (window->getSize().x/1280)*100;
+    this->velocity.x = (window->getSize().x/1280.f)*100;
 
     this->easingAmount = 0.05f;
-    this->maxSpeed = (window->getSize().x/1280)*100;
-    this->pi = 3.141592653599;
-    this->bulletSpeed = (window->getSize().x/1280);
-    this->objectSpeed = (window->getSize().x/1280);
+    this->maxSpeed = (window->getSize().x/1280.f)*100;
+    this->pi = 3.141592653599f;
+    this->bulletSpeed = (window->getSize().x/1280.f);
+    this->objectSpeed = (window->getSize().x/1280.f);
 
     this->randomNumber = rand()%4;
     if (randomNumber == 1) {
@@ -39,7 +47,10 @@ BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::Ren
     this->bar->setColor(sf::Color::Red);
     this->manager->addEntity("HpBar", this->bar);
 }
-
+/**
+ * Controls the boss' movement, shooting and healthbar.
+ * @param window
+ */
 void BossObject::updateEntity(sf::RenderWindow *window) {
 
     // Gjør at bossen følger spilleren vha. pythagoras. Smoothere bevegelse
@@ -108,37 +119,41 @@ void BossObject::updateEntity(sf::RenderWindow *window) {
                     (this->getPosition().y - (this->getGlobalBounds().height / 2) * cos(angle)),
                     (-cos(angle) * bulletSpeed),
                     (sin(angle) * bulletSpeed),
-                    (angle * 180 / pi), window, theme));
+                    ((angle * 180 / pi)+180), window, machine.selectedObjectsPointer->selectedTheme));
 
             this->manager->addEntity("Bullet", new Bullet(
                     (this->getPosition().x - (this->getGlobalBounds().width / 2) * sin(angle)),//Setter posisjon i x
                     (this->getPosition().y + (this->getGlobalBounds().height / 2) * cos(angle)),//Setter posisjon i y
                     (cos(angle) * bulletSpeed), //Setter fart i x
                     (-sin(angle) * bulletSpeed), //Setter fart i y
-                    ((angle + pi) * 180 / pi), window, 0)); //Setter vinkel på kula
+                    (((angle + pi)*180/pi)+180 ), window, machine.selectedObjectsPointer->selectedTheme)); //Setter vinkel på kula
 
             this->manager->addEntity("Bullet", new Bullet(
                     (this->getPosition().x - (this->getGlobalBounds().width / 2) * cos(angle)),//Setter posisjon i x
                     (this->getPosition().y - (this->getGlobalBounds().height / 2) * sin(angle)),//Setter posisjon i y
                     (-sin(angle) * bulletSpeed), //Setter fart i x
                     (-cos(angle) * bulletSpeed), //Setter fart i y
-                    (((angle + ((pi / 2) * 3)) * 180 / pi)), window, 0)); //Setter vinkel på kula
+                    (((angle + ((pi / 2) * 3)) * 180 / pi)+180), window, machine.selectedObjectsPointer->selectedTheme)); //Setter vinkel på kula
 
             this->manager->addEntity("Bullet", new Bullet(
                     (this->getPosition().x + (this->getGlobalBounds().width / 2) * cos(angle)), //Setter posisjon i x
                     (this->getPosition().y + (this->getGlobalBounds().height / 2) * sin(angle)),//Setter posisjon i y
                     (sin(angle) * bulletSpeed), //Setter fart i x
                     (cos(angle) * bulletSpeed), //Setter fart i y
-                    (((angle + (pi / 2)) * 180 / pi)), window,0)); //Setter vinkel på kula
+                    (((angle + (pi / 2)) * 180 / pi)+180), window,machine.selectedObjectsPointer->selectedTheme)); //Setter vinkel på kula
 
             this->pauseableClock.restart(); //restarter clock(nullstiller)
         }
 
-        this->bar->updateEntity2(window, 12*this->health , this->getPosition().x, this->getPosition().y + this->getGlobalBounds().height/2.1);
+        this->bar->updateEntity2(window, 12*this->health , this->getPosition().x, this->getPosition().y + this->getGlobalBounds().height/2.1f);
         Entity::updateEntity(window);
     }
 }
 
+/**
+ * Decides the outcome of a collision between the player and the given entity.
+ * @param entity - entity being checked for collision.
+ */
 void BossObject::collision(Entity *entity) {
     switch (entity->groupID()) {
         case 2: // Bullets

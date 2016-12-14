@@ -46,6 +46,12 @@ protected:
     sf::Texture* pausedTexture;
     sf::Sprite* pausedBackground;
     sfuser::PauseableClock clock;
+    sf::Vector2u currentWindowSize;
+
+    bool waveDone = false;
+    float powerUpTime = 0;
+    float junkTime = 0;
+    sfuser::PauseableClock waveClock;
 
 
     void updateWaveText(sf::RenderWindow* window, bool choice);

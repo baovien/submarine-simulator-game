@@ -14,6 +14,9 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
     this->background->setTexture(*this->bgTexture);
     this->background->scale(window->getSize().x/background->getGlobalBounds().width,window->getSize().y/background->getGlobalBounds().height);
 
+    machine.selectedObjectsPointer->selectedFighter=0;
+    machine.selectedObjectsPointer->selectedTheme=0;
+
     //Legger til play og back button
     for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i) {
         menuTextures[i].buttonMouseOver = new sf::Texture();
@@ -65,17 +68,17 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
     this->Classic = util.addText("CLASSIC", 30, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 2.1f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
 
     //FIGHTERS
-    this->fighter = util.addText("SELECT FIGHTER", 35, 2, 2, window->getSize().x - window->getSize().x / 6, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
+    this->fighter = util.addText("SELECT FIGHTER", 35, 2, 2, window->getSize().x - window->getSize().x / 6.f, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
     //SUBMARINE
     PictureButtons[2]->scale(window->getSize().x / 1536.0f, window->getSize().y / 864.0f);
     PictureButtons[2]->rotate(90);
-    PictureButtons[2]->setPosition( window->getSize().x - window->getSize().x / 6, window->getSize().y / 4.5f);
-    this->Submarine = util.addText("SUBMARINE", 30, 2, 2, window->getSize().x - window->getSize().x / 6, window->getSize().y / 4.5f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
+    PictureButtons[2]->setPosition( window->getSize().x - window->getSize().x / 6.f, window->getSize().y / 4.5f);
+    this->Submarine = util.addText("SUBMARINE", 30, 2, 2, window->getSize().x - window->getSize().x / 6.f, window->getSize().y / 4.5f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
     //SPACEFIGHTER
     PictureButtons[3]->scale(window->getSize().x / 1536.0f, window->getSize().y / 864.0f);
     PictureButtons[3]->rotate(90);
-    PictureButtons[3]->setPosition(window->getSize().x - window->getSize().x / 6, window->getSize().y / 2.1f);
-    this->Spaceship = util.addText("SPACESHIP", 30, 2, 2, window->getSize().x - window->getSize().x / 6, window->getSize().y / 2.1f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
+    PictureButtons[3]->setPosition(window->getSize().x - window->getSize().x / 6.f, window->getSize().y / 2.1f);
+    this->Spaceship = util.addText("SPACESHIP", 30, 2, 2, window->getSize().x - window->getSize().x / 6.f, window->getSize().y / 2.1f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
 
     //PLAY-button posisjonen og skalinga
     menuButtons[0]->scale(window->getSize().x / 1536.0f, window->getSize().y / 864.0f);
@@ -83,7 +86,7 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
 
     //BACK-button posisjonen og skalinga
     menuButtons[1]->scale(window->getSize().x / 5120.f, window->getSize().y / 2880.f);
-    menuButtons[1]->setPosition(window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
+    menuButtons[1]->setPosition(window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10.f);
 
     util.makeMuteButton(window, machine.mutedPointer);
 }
@@ -207,6 +210,7 @@ void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         machine.setState(new StateMainMenu);
                         return;
                         //Returnknappen trykket
+                    default:break;
                 }
             }
         for (unsigned int i = 0; i < sizeof(PictureTexture) / sizeof(*PictureTexture); ++i)
@@ -214,15 +218,19 @@ void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event) {
                 switch (i) {
                     case 0:
                         selected_Theme = i;
+                        machine.selectedObjectsPointer->selectedTheme = 0;
                         break;
                     case 1:
                         selected_Theme = i;
+                        machine.selectedObjectsPointer->selectedTheme = 1;
                         break;
                     case 2:
                         selected_Fighter = i;
+                        machine.selectedObjectsPointer->selectedFighter = 0;
                         break;
                     case 3:
                         selected_Fighter = i;
+                        machine.selectedObjectsPointer->selectedFighter = 1;
                         break;
                     case 4:
                         selected_Gamemode = i;
@@ -230,11 +238,13 @@ void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event) {
                     case 5:
                         selected_Gamemode = i;
                         break;
+                    default:break;
                 }
             }
     }
 }
 
 void StatePlayConfig::reinitialize(sf::RenderWindow *window) {
+    destroy(window);
     initialize(window);
 }

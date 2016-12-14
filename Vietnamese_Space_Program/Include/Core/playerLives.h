@@ -11,7 +11,6 @@ public:
     void decreaseLife();
     void updateLife(std::string livesText);
     int getValue() const;
-    void setValue(int life);
 
 private:
     int value;
