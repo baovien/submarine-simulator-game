@@ -2,7 +2,17 @@
 #include <iostream>
 #include "../../Include/Entities/enemy.h"
 
-//Initiater enemy, koden vår er satt opp for flere spillere så case 0 er spiller 1.
+
+/**
+ * Game mode 1's enemy's constructor.
+ * @param window
+ * @param player
+ * @param manager - The entitymanager
+ * @param mode - Current wave. Deciding whether the enemy shoots or not.
+ * @param soundLoader
+ * @param theme - Current theme, deciding what texture to load.
+ * @return
+ */
 EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager* manager, int mode, SoundLoader* soundLoader, int theme)
             : player(player),
               manager(manager),
@@ -44,6 +54,10 @@ EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager
 
 }
 
+/**
+ * Controls the enemy's position, bullet firing and needed texture, given by it's hp.
+ * @param window
+ */
 void EnemyObject::updateEntity(sf::RenderWindow *window) {
     this->xDistance = this->player->getPosition().x - this->getPosition().x;
     this->yDistance = this->player->getPosition().y - this->getPosition().y;
@@ -135,7 +149,10 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
     Entity::updateEntity(window);
 }
 
-//Kollisjon med andre entities.
+/**
+ * Decides the outcome of a collision between the player and the given entity.
+ * @param entity - entity being checked for collision.
+ */
 void EnemyObject::collision(Entity *entity) {
     switch (entity->groupID()) {
         case 2: // Player sine kuler.

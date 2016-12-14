@@ -1,5 +1,10 @@
 #include "../../Include/Entities/dynamicBar.h"
 
+/**
+ * Overheat bar's constructor
+ * @param window
+ * @return
+ */
 Bar::Bar(sf::RenderWindow *window)
 {
     this->load("overheat.png");
@@ -9,6 +14,13 @@ Bar::Bar(sf::RenderWindow *window)
     this->setScale(window->getSize().x / 640.f, window->getSize().y / 360.f);
 }
 
+/**
+ * Boss' health bar's constructor.
+ * @param window
+ * @param x - x start position
+ * @param y - y start position
+ * @return
+ */
 Bar::Bar(sf::RenderWindow *window, float x, float y)
 {
     this->load("overheat.png");
@@ -18,6 +30,11 @@ Bar::Bar(sf::RenderWindow *window, float x, float y)
     this->setOrigin(this->getGlobalBounds().width / 2, this->getGlobalBounds().height / 2);
 }
 
+/**
+ * Updates the overheat bar's current progress.
+ * @param window
+ * @param overHeatValue - Current overheat value.
+ */
 void Bar::updateEntity(sf::RenderWindow *window, float overHeatValue)
 {
     this->overheatcheck = overHeatValue;
@@ -26,6 +43,13 @@ void Bar::updateEntity(sf::RenderWindow *window, float overHeatValue)
     Entity::updateEntity(window);
 }
 
+/**
+ * Updates the boss' health bar's current progress.
+ * @param window
+ * @param overHeatValue - Current health of the boss.
+ * @param x - Position x
+ * @param y - Position y
+ */
 void Bar::updateEntity2(sf::RenderWindow *window, float overHeatValue, float x, float y)
 {
     this->overheatcheck = overHeatValue;

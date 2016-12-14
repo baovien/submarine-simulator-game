@@ -1,7 +1,11 @@
 #include <iostream>
 #include "../../Include/Core/utilities.h"
 
-
+/**
+ * Utility constructor. Utility contains many functions that are not always connected to one another.
+ * Splitting this into more classes divided by their connection to eachother would reduce unnecessary passing of data.
+ * @return
+ */
 Utilities::Utilities() {
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/Turtles.otf");
@@ -18,6 +22,11 @@ Utilities::Utilities() {
     }
 }
 
+/**
+ * Creates a mute button for the state to implement.
+ * @param window
+ * @param mutedPointer - Points to whether the game is muted or not. Variable pointed to lies in machine.
+ */
 void Utilities::makeMuteButton(sf::RenderWindow *window, bool *mutedPointer) {
 
     if (*mutedPointer) { //Sjekker om det er muta når jeg lager knappen og bytter til muteversjonen av knappen om de er det.
@@ -30,6 +39,10 @@ void Utilities::makeMuteButton(sf::RenderWindow *window, bool *mutedPointer) {
     muteButton->setPosition(window->getSize().x - window->getSize().x * 0.95f, window->getSize().y - window->getSize().y / 10);
 }
 
+/**
+ * Checks if the mutebutton is being mouseovered, clicked or untouched changes texture depending on that.
+ * @param window
+ */
 void Utilities::checkMuteMouseOver(sf::RenderWindow *window) {
     if (checkMouseover(muteButton, window)) {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
@@ -42,21 +55,34 @@ void Utilities::checkMuteMouseOver(sf::RenderWindow *window) {
     }
 }
 
+/**
+ * Checks if the button has been clicked and the button has been released.
+ * Flips the mute bool if so, muting or unmuting the game.
+ * @param window
+ * @param event
+ * @param mutedPointer - Points to whether the game is muted or not. Variable pointed to lies in machine.
+ */
 void Utilities::checkMuteMouseClick(sf::RenderWindow *window, sf::Event event, bool *mutedPointer) {
     if (checkMouseclick(muteButton, event)) {
         *mutedPointer = !*mutedPointer;
         std::swap(muteTextures[0], muteTextures[1]);
     }
-    /*if(*mutedPointer){
-        //MÅ MEKKE MUTE HER
-    }
-    else{
-        //MÅ MEKKE UNMUTE HER
-    }
-     */
 }
 
-//Texture, scale x, scale y, position x, position y, window
+
+/**
+ * A factory for making sprites, supposed to reduce the possibility of doing things in the wrong order,
+ * scaling incorrectly, etc.
+ * Is not in use due to it being bugged when it was implemented and fixed at a stage in which most of
+ * the sprites were already made without using the factory.
+ * @param texture - a pointer to the texture to be loaded.
+ * @param scaleX - What to divide window's x size on to scale.
+ * @param scaleY - What to divide window's y size on to scale.
+ * @param posX - X position.
+ * @param posY - Y position.
+ * @param window
+ * @return
+ */
 sf::Sprite *Utilities::addButton(sf::Texture *texture, float scaleX, float scaleY, float posX, float posY, sf::RenderWindow *window) {
 
     sf::Sprite *button = new sf::Sprite();
@@ -70,6 +96,19 @@ sf::Sprite *Utilities::addButton(sf::Texture *texture, float scaleX, float scale
 
 
 //Text, textsize, origin x, origin y, position x, position y, window
+
+/**
+ * A factory for adding text. Currently does translation, correct scaling and sets the right font and border.
+ * @param textContent - The text's string
+ * @param textSize
+ * @param originX - How you'd like the origin to be. 0 will leave the origin in x = 0.
+ * @param originY - How you'd like the origin to be. 0 will leave the origin in y = 0.
+ * @param posX - X position.
+ * @param posY  - Y position.
+ * @param window
+ * @param language - Current selected language.
+ * @return
+ */
 sf::Text *Utilities::addText(sf::String textContent, unsigned int textSize, int originX, int originY, float posX, float posY, sf::RenderWindow *window, int language) {
 
     sf::Text *text = new sf::Text(textContent, *this->font, textSize);
@@ -99,7 +138,12 @@ sf::Text *Utilities::addText(sf::String textContent, unsigned int textSize, int 
     return text;
 }
 
-//Tar inn sprite og returnerer true om mouseover
+/**
+ * Checks mouseover of the given sprite and returns result.
+ * @param buttonSprite -  Sprite to check.
+ * @param window
+ * @return - result
+ */
 bool Utilities::checkMouseover(sf::Sprite *buttonSprite, sf::RenderWindow *window) {
 
     return sf::Mouse::getPosition(*window).x + buttonSprite->getGlobalBounds().width / 2 > buttonSprite->getPosition().x &&
@@ -108,7 +152,13 @@ bool Utilities::checkMouseover(sf::Sprite *buttonSprite, sf::RenderWindow *windo
            sf::Mouse::getPosition(*window).y - buttonSprite->getGlobalBounds().height / 2 < buttonSprite->getPosition().y;
 }
 
-//Tar inn sprite og returnerer true om mouseclick
+
+/**
+ * Checks if a given sprite has been clicked and returns the result.
+ * @param buttonSprite - Sprite to check.
+ * @param event
+ * @return - result
+ */
 bool Utilities::checkMouseclick(sf::Sprite *buttonSprite, sf::Event event) {
     return event.mouseButton.x + buttonSprite->getGlobalBounds().width / 2 > buttonSprite->getPosition().x &&
            event.mouseButton.x - buttonSprite->getGlobalBounds().width / 2 < buttonSprite->getPosition().x &&
@@ -116,10 +166,20 @@ bool Utilities::checkMouseclick(sf::Sprite *buttonSprite, sf::Event event) {
            event.mouseButton.y - buttonSprite->getGlobalBounds().height / 2 < buttonSprite->getPosition().y;
 }
 
+/**
+ * Returns the mutebutton
+ * @return - mutebutton
+ */
 sf::Sprite *Utilities::getMuteButton() const {
     return muteButton;
 }
 
+/**
+ * Receives a string and current language, checks if there's a translation and translates if so and returns the result
+ * @param wordToTranslate
+ * @param language - Current selected language
+ * @return - translated word
+ */
 sf::String Utilities::translate(sf::String wordToTranslate, int language) {
     std::transform(wordToTranslate.begin(), wordToTranslate.end(), wordToTranslate.begin(), ::tolower);
     if (languageMap.find(wordToTranslate) != languageMap.end()) {

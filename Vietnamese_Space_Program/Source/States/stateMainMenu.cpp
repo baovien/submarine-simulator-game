@@ -96,8 +96,6 @@ void StateMainMenu::destroy(sf::RenderWindow *window) {
     delete this->background;
     delete this->bgTexture;
 
-    //TODO
-    //sl.~SoundLoader();
 }
 
 void StateMainMenu::handleEvent(sf::RenderWindow *window, sf::Event event) {

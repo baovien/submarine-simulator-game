@@ -1,10 +1,6 @@
 #include "../../Include/States/stateKeybindings.h"
 #include "../../Include/States/stateSettings.h"
 
-/**
- * Init settingsState.
- * @param window
- */
 void StateKeybindings::initialize(sf::RenderWindow *window) {
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
@@ -71,7 +67,6 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
     }
 }
 
-
 void StateKeybindings::update(sf::RenderWindow *window) {
 
     for (int i = 0; i < 8; ++i) {
@@ -100,7 +95,6 @@ void StateKeybindings::update(sf::RenderWindow *window) {
     if(transparencyValue>3)
     transparencyValue-=3;
 }
-
 
 void StateKeybindings::render(sf::RenderWindow *window) {
     window->draw(*this->background);

@@ -1,16 +1,16 @@
 #include <iostream>
 #include "../../Include/Entities/player.h"
 /**
- *
- * @param keybindMap
- * @param lives
- * @param score
- * @param manager
- * @param x
- * @param y
+ * The player's constructor
+ * @param keybindMap - A map with the current keybinds.
+ * @param lives - The player's lives..
+ * @param score - The player's score.
+ * @param manager - The entitymanager.
+ * @param x - Starting x position.
+ * @param y - Starting y position.
  * @param window
- * @param gamemode
- * @param fighter
+ * @param gamemode - An integer keeping track of what game mode you are in.
+ * @param fighter - An integer keeping track of what fighter you have selected.
  * @param soundLoader
  * @return
  */
@@ -247,7 +247,10 @@ void Player::updateEntity(sf::RenderWindow *window) {
     }
 }
 
-//Her sjekker vi om vårt fly kræsjer med noe annet
+/**
+ * Decides the outcome of a collision between the player and the given entity.
+ * @param entity - entity being checked for collision.
+ */
 void Player::collision(Entity *entity) {
     switch (entity->groupID()) {
         case 3: // Indestructable Object nr 1
@@ -282,7 +285,10 @@ void Player::collision(Entity *entity) {
             break;
     }
 }
-
+/**
+ * A function for pausing and restarting the clock in player. Used to keep track of the shield duration.
+ * @param pause A bool deciding wether to pause or restart the clock.
+ */
 void Player::pauseClock(bool pause) {
     if (pause) {
         clock.pause();

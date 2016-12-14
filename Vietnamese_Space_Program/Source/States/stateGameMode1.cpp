@@ -199,6 +199,10 @@ void StateGameMode1::reinitialize(sf::RenderWindow *window) {
 
 }
 
+/**
+ * Spawns power-ups and junk passing through the screen.
+ * @param window
+ */
 void StateGameMode1::spawnObjects(sf::RenderWindow *window) {
     if (clock.getElapsedTime().asSeconds() - powerUpTime > 5.f && waveNum % 5 != 0) {
         powerUpTime = clock.getElapsedTime().asSeconds();
@@ -225,7 +229,10 @@ void StateGameMode1::spawnObjects(sf::RenderWindow *window) {
     }
 }
 
-
+/**
+ * Spawns the waves and puts them in a vector with the pointers to their position in the map inside the entitymanager.
+ * @param window
+ */
 void StateGameMode1::spawnWave(sf::RenderWindow *window) {
     if (waveNum > 5) this->mode = 2;
 
@@ -243,15 +250,17 @@ void StateGameMode1::spawnWave(sf::RenderWindow *window) {
     }
 }
 
+/**
+ * Updates the vector containing the enemies and the boss, in case they were deleted.
+ * Boss and enemies are put in different vectors in case you would like to separate them
+ * and the actions done by them. At the moment, there is no difference in how they're handled
+ * in the vectors.
+ * @param window
+ */
 void StateGameMode1::updateEnemyList(sf::RenderWindow *window) {
 
     //Sjekker enemies
-    for (int i = 0; i < enemyList.size(); i++) {
-        if (enemyList.size() == 0) {
-            enemyList.erase(enemyList.begin() + i);
-            break;
-        }
-
+    for (unsigned int i = 0; i < enemyList.size(); i++) {
         if (enemyList.at((unsigned long) i)->activeEntity() == 0) {
             enemyList.erase(enemyList.begin() + i);
             break;
@@ -260,7 +269,7 @@ void StateGameMode1::updateEnemyList(sf::RenderWindow *window) {
     }
 
     //Sjekker boss
-    for (int i = 0; i < bossList.size(); i++) {
+    for (unsigned int i = 0; i < bossList.size(); i++) {
         if (bossList.size() == 0) {
             bossList.erase(bossList.begin() + i);
             break;
@@ -274,6 +283,11 @@ void StateGameMode1::updateEnemyList(sf::RenderWindow *window) {
     }
 }
 
+/**
+ * Updates the wave text, showing the wave number as it spawns.
+ * @param window
+ * @param choice - a bool telling the function whether to fade the text or update and show it.
+ */
 void StateGameMode1::updateWaveText(sf::RenderWindow *window, bool choice) {
 
     if (choice) {

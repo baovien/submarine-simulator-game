@@ -1,7 +1,16 @@
 #include <iostream>
 #include "../../Include/Entities/indestructableObject.h"
 
-//Initiater objektet, koden vår er satt opp for flere spillere så case 0 er spiller 1.
+/**
+ * Constructor for the objects that fly out of the boss when you kill it.
+ * @param x - Boss' death position x
+ * @param y - Boss' death position y
+ * @param directionX - Boss' death direction x
+ * @param directionY - Boss' death direction y
+ * @param angle - Boss' death angle
+ * @param window
+ * @return
+ */
 IndestructableObject::IndestructableObject(float x, float y, float directionX, float directionY, float angle, sf::RenderWindow* window)
 {
     this->load("asteroid.png");
@@ -21,6 +30,12 @@ IndestructableObject::IndestructableObject(float x, float y, float directionX, f
     this->setRotation(angle);
 }
 
+/**
+ * Constructor for the objects that fly through the screen in game mode 1
+ * @param window
+ * @param theme - Selected theme, deciding what texture to load
+ * @return
+ */
 IndestructableObject::IndestructableObject(sf::RenderWindow* window, int theme) {
     if(theme == 0)
     {
@@ -116,7 +131,10 @@ IndestructableObject::IndestructableObject(sf::RenderWindow* window, int theme) 
     }
 }
 
-//update funksjonen har kontroll på bevegelsen til player.
+/**
+ *  Controls the movement of the entity and destroys it if it goes offscreen
+ * @param window
+ */
 void IndestructableObject::updateEntity(sf::RenderWindow *window) {
     //roterer objektet relativ til dens nåværende posisjon rundt sentrum
     this->rotate(2);
@@ -131,6 +149,10 @@ void IndestructableObject::updateEntity(sf::RenderWindow *window) {
     Entity::updateEntity(window);
 }
 
+/**
+ * Decides the outcome of a collision between the player and the given entity.
+ * @param entity - entity being checked for collision.
+ */
 void IndestructableObject::collision(Entity* entity) {
     switch (entity->groupID()) {
         case 4: // Enemy

@@ -1,5 +1,12 @@
 #include "../../Include/Entities/healthPack.h"
 
+/**
+ * Healthpack's constructor
+ * @param lives - The player's lives.
+ * @param soundLoader
+ * @param window
+ * @return
+ */
 HealthPack::HealthPack(Lives* lives, SoundLoader* soundLoader, sf::RenderWindow* window)
         : soundLoader(soundLoader)
 {
@@ -12,6 +19,11 @@ HealthPack::HealthPack(Lives* lives, SoundLoader* soundLoader, sf::RenderWindow*
     this->setScale(window->getSize().x/1280.f, window->getSize().y/720.f);
     this->setPosition(rand() % 1280, rand() % 720);
 }
+
+/**
+ * Deletes the entity after 4 seconds.
+ * @param window
+ */
 void HealthPack::updateEntity(sf::RenderWindow *window)
 {
     //Tar her her opp verdien som ligger i klokk
@@ -21,6 +33,11 @@ void HealthPack::updateEntity(sf::RenderWindow *window)
         clock.restart(); //restarter clock(nullstiller)
     }
 }
+
+/**
+ * Decides the outcome of a collision between the player and the given entity.
+ * @param entity - entity being checked for collision.
+ */
 void HealthPack::collision(Entity* entity)
 {
     switch(entity->groupID())

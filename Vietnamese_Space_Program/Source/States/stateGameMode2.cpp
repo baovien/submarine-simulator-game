@@ -169,6 +169,10 @@ void StateGameMode2::reinitialize(sf::RenderWindow *window) {
     currentWindowSize = window->getSize();
 }
 
+/**
+ * Spawns enemies and put them in a 2d vector that allows separation between rows and columns to come fairly easy.
+ * @param window
+ */
 void StateGameMode2::spawnEnemies(sf::RenderWindow *window) {
     for (int i = 0; i < 7; ++i) {
         std::vector<Enemy2Object *> tempList;
@@ -183,13 +187,18 @@ void StateGameMode2::spawnEnemies(sf::RenderWindow *window) {
     nextCollissionRight = true;
 }
 
+/**
+ * Turns all the enemies if one of them collides into one of sides of the screen.
+ * Separated between left and right collision to avoid multiple if triggers.
+ * @param window
+ */
 void StateGameMode2::turnEnemies(sf::RenderWindow *window) {
     if (nextCollissionRight) {
-        for (int i = 0; i < enemyList.size(); ++i) {
+        for (unsigned int i = 0; i < enemyList.size(); ++i) {
             if (enemyList.at(i).front()->getPosition().x > window->getSize().x) {
                 nextCollissionRight = !nextCollissionRight;
-                for (int j = 0; j < enemyList.size(); ++j) {
-                    for (int k = 0; k < enemyList.at(j).size(); ++k) {
+                for (unsigned int j = 0; j < enemyList.size(); ++j) {
+                    for (unsigned int k = 0; k < enemyList.at(j).size(); ++k) {
                         if (enemyList.at(j).at(k) != nullptr) {
                             enemyList.at(j).at(k)->velocity.x = enemyList.at(j).at(k)->velocity.x * -1.2f;
                             enemyList.at(j).at(k)->setPosition(enemyList.at(j).at(k)->getPosition().x,
@@ -205,11 +214,11 @@ void StateGameMode2::turnEnemies(sf::RenderWindow *window) {
         }
 
     } else {
-        for (int i = 0; i < enemyList.size(); ++i) {
+        for (unsigned int i = 0; i < enemyList.size(); ++i) {
             if (enemyList.at(i).front()->getPosition().x < 0) {
                 nextCollissionRight = !nextCollissionRight;
-                for (int j = 0; j < enemyList.size(); ++j) {
-                    for (int k = 0; k < enemyList.at(j).size(); ++k) {
+                for (unsigned int j = 0; j < enemyList.size(); ++j) {
+                    for (unsigned int k = 0; k < enemyList.at(j).size(); ++k) {
                         if (enemyList.at(j).at(k) != nullptr) {
                             enemyList.at(j).at(k)->velocity.x = enemyList.at(j).at(k)->velocity.x * -1.2f;
                             enemyList.at(j).at(k)->setPosition(enemyList.at(j).at(k)->getPosition().x,
@@ -226,14 +235,17 @@ void StateGameMode2::turnEnemies(sf::RenderWindow *window) {
     }
 }
 
+/**
+ * Updates the enemylist in case an enemy was destroyed.
+ */
 void StateGameMode2::updateEnemyList() {
-    for (int i = 0; i < enemyList.size(); ++i) {
+    for (unsigned int i = 0; i < enemyList.size(); ++i) {
         if (enemyList.at(i).size() == 0) {
             enemyClock.restart();
             enemyList.erase(enemyList.begin() + i);
             break;
         }
-        for (int j = 0; j < enemyList.at(i).size(); ++j) {
+        for (unsigned int j = 0; j < enemyList.at(i).size(); ++j) {
             if (enemyList.at(i).at(j) != nullptr) {
                 if (enemyList.at(i).at(j)->activeEntity() == 0) {
                     enemyList.at(i).erase(enemyList.at(i).begin() + j);
@@ -244,6 +256,10 @@ void StateGameMode2::updateEnemyList() {
     }
 }
 
+/**
+ * Makes the lowest enemy in a random column shoot.
+ * @param window
+ */
 void StateGameMode2::enemyShoot(sf::RenderWindow *window) {
     //random int fra 0 til size of enemyList
     //hvert halve sekund

@@ -1,6 +1,19 @@
 #include "../../Include/Entities/bullet.h"
 #include <iostream>
 
+/**
+ * Bullet's constructor.
+ * @param score - Player's current score
+ * @param x - Start position x
+ * @param y - Start position y
+ * @param direction - Direction x
+ * @param direction2 - Direction y
+ * @param angle - Rotation given by the player's current direction.
+ * @param soundLoader
+ * @param window
+ * @param fighter - The selected fighter.
+ * @return
+ */
 Bullet::Bullet(Score* score, float x, float y, float direction, float direction2, float angle, SoundLoader* soundLoader, sf::RenderWindow* window, int fighter)
         : soundLoader(soundLoader)
 {
@@ -25,6 +38,18 @@ Bullet::Bullet(Score* score, float x, float y, float direction, float direction2
 
 
 }
+
+/**
+ * The bullet's second constructor.
+ * @param x - Start position x
+ * @param y - Start position y
+ * @param direction - Direction x
+ * @param direction2 - Direction y
+ * @param angle - Rotation given by the player's current direction.
+ * @param window
+ * @param theme - The selected fighter.
+ * @return
+ */
 Bullet::Bullet(float x, float y, float direction, float direction2, float angle , sf::RenderWindow* window, int theme)
 {
     this->active = 1;
@@ -39,6 +64,11 @@ Bullet::Bullet(float x, float y, float direction, float direction2, float angle 
     this->setRotation(angle);
     this->setScale(window->getSize().x/2560.0f, window->getSize().y/1440.0f);
 }
+
+/**
+ * Updates the bullet's position
+ * @param window
+ */
 void Bullet::updateEntity(sf::RenderWindow *window)
 {
     if(this->getPosition().x + this->getGlobalBounds().width/2.f < 0 || this->getPosition().x - this->getGlobalBounds().width/2.f > window->getSize().x||
@@ -49,6 +79,10 @@ void Bullet::updateEntity(sf::RenderWindow *window)
     Entity::updateEntity(window);
 }
 
+/**
+ * Decides the outcome of a collision between the player and the given entity.
+ * @param entity - entity being checked for collision.
+ */
 void Bullet::collision(Entity *entity)
 {
     if(this->groupId == 2)

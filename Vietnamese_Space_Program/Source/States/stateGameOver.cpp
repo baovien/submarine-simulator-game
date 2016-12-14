@@ -5,10 +5,6 @@
 
 #include <cstring>
 
-/**
- * Init settingsState.
- * @param window
- */
 void StateGameOver::initialize(sf::RenderWindow *window) {
 
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
@@ -115,10 +111,6 @@ void StateGameOver::initialize(sf::RenderWindow *window) {
     this->clickToActivate->setOutlineColor(sf::Color::Transparent);
 }
 
-/**
- * Update on keyevent, navigation through settings
- * @param window
- */
 void StateGameOver::update(sf::RenderWindow *window) {
     machine.soundLoaderPointer->updateSounds();
     //Sjekker mouseover for hver knapp og endrer texture om den er mouseovera eller trykket
@@ -136,10 +128,6 @@ void StateGameOver::update(sf::RenderWindow *window) {
     }
 }
 
-/**
- *
- * @param window
- */
 void StateGameOver::render(sf::RenderWindow *window) {
     this->gameOverText->setFillColor(sf::Color::White);
     this->score->setFillColor(sf::Color::White);
@@ -154,7 +142,7 @@ void StateGameOver::render(sf::RenderWindow *window) {
 
     //Itererer gjennom vektoren for å sjekke om scoren spilleren fikk er høyere enn noen av highscoresa
     //Forskjellige ting drawes utifra om spilleren har fått highscore eller ikke
-    for (int i = 0; i < machine.arcadeScorePointer->size(); i++) {
+    for (unsigned int i = 0; i < machine.arcadeScorePointer->size(); i++) {
         if (gameOverScore > machine.arcadeScorePointer->at(i).first) {
             this->highscoreOrNAH = true;
             this->congratulationsText->setFillColor(sf::Color::White);
@@ -309,11 +297,19 @@ void StateGameOver::reinitialize(sf::RenderWindow *window) {
     initialize(window);
 }
 
-//funksjon for å sortere vector i descending order.
+/**
+ * Check if a given value 1 is higher than the other
+ * @param a - value 1
+ * @param b -value 2
+ * @return
+ */
 bool sortDescending(const std::pair<int, std::string> &a, const std::pair<int, std::string> &b) {
     return (a.first > b.first);
 }
 
+/**
+ * puts the score into the current arcade highscore and sorts it.
+ */
 void StateGameOver::saveScoreArcade() {
     //Sjekker om spillerens sitt navn er blank
     if (this->playerName == "") {
@@ -329,6 +325,9 @@ void StateGameOver::saveScoreArcade() {
               sortDescending);
 }
 
+/**
+ * puts the score into the current classic highscore and sorts it.
+ */
 void StateGameOver::saveScoreClassic() {
     //Sjekker om spillerens sitt navn er blank
     if (this->playerName == "") {

@@ -37,6 +37,10 @@
 
 #include "../../Include/Core/soundLoader.h"
 
+/**
+ * Soundloader's constructor
+ * @return
+ */
 SoundLoader::SoundLoader() {
     effectsVolume = 50;
     musicVolume = 50;
@@ -57,8 +61,8 @@ SoundLoader::SoundLoader() {
 }
 
 /**
- *
- * @param effect
+ * Plays sound if not muted
+ * @param effect - Sound to play
  */
 void SoundLoader::playEffect(Audio::Effect effect) {
     if (!*muted) {
@@ -70,9 +74,10 @@ void SoundLoader::playEffect(Audio::Effect effect) {
         sound.play();
     }
 }
+
 /**
- * Fjerner effects som har blitt spilt av og stoppet i listen sounds.
- * Kalles i updateSounds()
+ * Removes effects that have been stopped.
+ * Called in updateSounds
  */
 void SoundLoader::removeStoppedEffects(){
     sounds.remove_if([](const sf::Sound& s){
@@ -81,8 +86,8 @@ void SoundLoader::removeStoppedEffects(){
 }
 
 /**
- * Sjekker om det
- * @param music
+ * Prepares the music to be played.
+ * @param music - Music to prepare
  */
 void SoundLoader::playMusic(Audio::Music music) {
 
@@ -96,8 +101,8 @@ void SoundLoader::playMusic(Audio::Music music) {
 }
 
 /**
- * Sjekker om muteknappene for musikk eller hele lyden er blitt trykket.
- * Fjerner lyedeffekter som er "ferdigspilt"
+ * Plays/pauses music depending on whether it is muted or not
+ * Removes sounds that are complete
  */
 void SoundLoader::updateSounds() {
     if (*muted || *mutedMusic) {
@@ -110,8 +115,8 @@ void SoundLoader::updateSounds() {
 
 /**
  * Henter mutedPointer og mutedMusicPointer fra machine
- * @param muted
- * @param mutedMusic
+ * @param muted - bool to tell if all sounds are muted (Including music)
+ * @param mutedMusic - bool to tell if music is muted
  */
 void SoundLoader::initSoundPointers(bool *muted, bool *mutedMusic) {
     this->muted = muted;
@@ -119,8 +124,7 @@ void SoundLoader::initSoundPointers(bool *muted, bool *mutedMusic) {
 }
 
 /**
- * Kalles hvor det skjer et state-bytte som trengs ny musikk. For eksempel fra GameOverState til MainMenu.
- *
+ *  Stops the music.
  */
 void SoundLoader::stopMusic() {
     this->music.stop();

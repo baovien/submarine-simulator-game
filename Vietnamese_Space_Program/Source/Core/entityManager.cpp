@@ -17,11 +17,20 @@
  * @return
  */
 
-
+/**
+ * EntityManager's constructor
+ * @return
+ */
 EntityManager::EntityManager() {
 
 }
 
+/**
+ * Adds an entity to the map which will be used to handle the entities in other functions in the manager.
+ * Adds a 0 to the key if key is already in use.
+ * @param name key value for map as string.
+ * @param entity - Entity to put into map
+ */
 void EntityManager::addEntity(std::string name, Entity *entity) {
     // uordnet map iterator, denne skal brukes for å lete gjennom alle våre entities.
     std::unordered_map<std::string, Entity *>::const_iterator found = this->entities.find(name);
@@ -37,6 +46,11 @@ void EntityManager::addEntity(std::string name, Entity *entity) {
     this->entities.insert(std::make_pair(name, entity));
 }
 
+/**
+ * Returns an entity after being given the key to it.
+ * @param name - Key for entity
+ * @return
+ */
 Entity *EntityManager::getEntity(std::string name) {
     std::unordered_map<std::string, Entity *>::const_iterator found = this->entities.find(name);
 
@@ -47,6 +61,11 @@ Entity *EntityManager::getEntity(std::string name) {
     }
 }
 
+/**
+ * Updates the entity, checking collision, checking if it should be deleted and if so deletes it.
+ * @param window
+ * @param deltaTime
+ */
 void EntityManager::updateEntity(sf::RenderWindow *window, float* deltaTime) {
     if(deltaTime != nullptr){
         this->deltaTime = deltaTime;
@@ -85,6 +104,10 @@ void EntityManager::updateEntity(sf::RenderWindow *window, float* deltaTime) {
     toRemove.clear();
 }
 
+/**
+ * Draws all entities in the map.
+ * @param window
+ */
 void EntityManager::renderEntity(sf::RenderWindow *window) {
     //Dette tegner alle våre entities
     for (auto &iterator : this->entities) {
@@ -92,6 +115,9 @@ void EntityManager::renderEntity(sf::RenderWindow *window) {
     }
 }
 
+/**
+ * EntityManager's deconstructor.
+ */
 EntityManager::~EntityManager() {
     for (auto &iterator : this->entities) {
         delete iterator.second;

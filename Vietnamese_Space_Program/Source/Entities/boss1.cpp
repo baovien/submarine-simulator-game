@@ -1,6 +1,14 @@
 #include <iostream>
 #include "../../Include/Entities/boss1.h"
-
+/**
+ * The boss' constructor.
+ * @param manager - The entitymanager.
+ * @param player
+ * @param mode - The current selected gamemode.
+ * @param window
+ * @param theme - The current selected theme.
+ * @return
+ */
 BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::RenderWindow* window, int theme)
     : player(player)
 {
@@ -39,7 +47,10 @@ BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::Ren
     this->bar->setColor(sf::Color::Red);
     this->manager->addEntity("HpBar", this->bar);
 }
-
+/**
+ * Controls the boss' movement, shooting and healthbar.
+ * @param window
+ */
 void BossObject::updateEntity(sf::RenderWindow *window) {
 
     // Gjør at bossen følger spilleren vha. pythagoras. Smoothere bevegelse
@@ -139,6 +150,10 @@ void BossObject::updateEntity(sf::RenderWindow *window) {
     }
 }
 
+/**
+ * Decides the outcome of a collision between the player and the given entity.
+ * @param entity - entity being checked for collision.
+ */
 void BossObject::collision(Entity *entity) {
     switch (entity->groupID()) {
         case 2: // Bullets

@@ -1,6 +1,16 @@
 #include <iostream>
 #include "../../Include/Entities/enemy2.h"
 
+/**
+ *
+ * @param manager
+ * @param i - iterator from the for loop creating rows and columns. Used to decide starting position.
+ * @param j - iterator from the for loop creating rows and columns. Used to decide starting position.
+ * @param s - string of the file path of the texture we want to load.
+ * @param window
+ * @param theme - Current selected theme, deciding what texture to load.
+ * @return
+ */
     Enemy2Object::Enemy2Object(EntityManager *manager, int i, int j, std::string s, sf::RenderWindow *window, int theme)
 {
     this->theme = theme;
@@ -23,6 +33,10 @@
 
 }
 
+/**
+ * sets the texture of the enemy given by it's health
+ * @param window
+ */
 void Enemy2Object::updateEntity(sf::RenderWindow *window) {
 
     Entity::updateEntity(window);
@@ -42,6 +56,10 @@ void Enemy2Object::updateEntity(sf::RenderWindow *window) {
 
 }
 
+/**
+ * Decides the outcome of a collision between the player and the given entity.
+ * @param entity - entity being checked for collision.
+ */
 void Enemy2Object::collision(Entity *entity)
 {
 

@@ -312,7 +312,7 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
                                 machine.keybindMap.find("pause")->second = std::make_pair("P", sf::Keyboard::P);
 
                             } else {
-                                for (int i = 0; i < machine.classicScorePointer->size(); i++){
+                                for (unsigned int j = 0; j < machine.classicScorePointer->size(); j++){
                                     machine.arcadeScorePointer->clear();
                                     machine.classicScorePointer->clear();
 
