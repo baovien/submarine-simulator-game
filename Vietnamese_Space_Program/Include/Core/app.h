@@ -12,6 +12,9 @@ class App
 {
 public:
     void run();
+
+    void saveSettings();
+    void loadSettings();
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_APP_H
 
