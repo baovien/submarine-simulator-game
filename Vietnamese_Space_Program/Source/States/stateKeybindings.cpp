@@ -55,15 +55,12 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
         //Text, textsize, origin x, origin y, position x, position y, window
         keyVector[i].titleText = util.addText(wordList[i], 15, 2, 2, keyVector[i].keySquare->getPosition().x, (keyVector[i].keySquare->getPosition().y - keyVector[i].keySquare->getGlobalBounds().height / 1.5f) , window, machine.settingPointer->selectedLanguage);
 
-        keyVector[i].keyText = new sf::Text("" + machine.keybindMap.find(wordList[i])->second.first, *this->keyFont, 20);
-        keyVector[i].keyText->setPosition(keyVector[i].keySquare->getPosition().x, keyVector[i].keySquare->getPosition().y);
-        keyVector[i].keyText->scale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
-        if (keyVector[i].keyText->getGlobalBounds().width * 2 > keyVector[i].keySquare->getGlobalBounds().width) {
-            keyVector[i].keyText->setCharacterSize(12);
-        } else {
-            keyVector[i].keyText->setCharacterSize(22);
-        }
-        keyVector[i].keyText->setOrigin(keyVector[i].keyText->getGlobalBounds().width / 2, keyVector[i].keyText->getGlobalBounds().height / 2);
+        keyVector[i].keyText = util.addText("" + machine.keybindMap.find(wordList[i])->second.first, 22, 2, 2, keyVector[i].keySquare->getPosition().x, keyVector[i].keySquare->getPosition().y, window, machine.settingPointer->selectedLanguage);
+        keyVector[i].keyText->setOutlineColor(sf::Color::Transparent);
+            if (keyVector[i].keyText->getGlobalBounds().width * 2 > keyVector[i].keySquare->getGlobalBounds().width) {
+                keyVector[i].keyText = util.addText("" + machine.keybindMap.find(wordList[i])->second.first, 12, 2, 2, keyVector[i].keySquare->getPosition().x, keyVector[i].keySquare->getPosition().y, window,
+                                                    machine.settingPointer->selectedLanguage);
+            }
     }
 }
 
