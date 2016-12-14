@@ -97,10 +97,10 @@ void Player::updateEntity(sf::RenderWindow *window) {
                 if (speed - dec > 0) speed -= dec;                                                     ////
                 else if (speed + dec < 0) speed += dec;                                                ////
                 else speed = 0;                                                                        ////
-            }                                                                                          /////////
-            this->move((sin(angle) * speed) * (*machine.deltaTimePointer) * window->getSize().x / 1280.f,   ////
-                       (-cos(angle) * speed) * (*machine.deltaTimePointer) * window->getSize().y / 720.f);  ////
-            ////////////////////////////////////////////////////////////////////////////////////////////////////
+            }                                                                                          ////
+            this->velocity.x = sin(angle) * speed;                                                     ////
+            this->velocity.y = -cos(angle) * speed;                                                    ////
+            ///////////////////////////////////////////////////////////////////////////////////////////////
 
             ////////////////////////////////////////////////////////////////////
             ////        Flipper player om han krysser y-aksen               ////
@@ -122,10 +122,8 @@ void Player::updateEntity(sf::RenderWindow *window) {
                     this->overheatValue += 1;
                     this->soundLoader->playEffect(Audio::Effect::PLAYER_SHOOT);
                     this->manager->addEntity("bullet", new Bullet((this->score),
-                                                                  (this->getPosition().x +
-                                                                   (this->getGlobalBounds().width / 2) * sin(angle)),
-                                                                  (this->getPosition().y -
-                                                                   (this->getGlobalBounds().height / 2) * cos(angle)),
+                                                                  (this->getPosition().x + (this->getGlobalBounds().width / 2) * sin(angle)),
+                                                                  (this->getPosition().y - (this->getGlobalBounds().height / 2) * cos(angle)),
                                                                   (-cos(angle)),
                                                                   (sin(angle)),
                                                                   (angle * 180 / pi),
@@ -187,11 +185,10 @@ void Player::updateEntity(sf::RenderWindow *window) {
                     sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second)) {
                     this->manager->addEntity("bullet", new Bullet((this->score),
                                                                   (this->getPosition().x),
-                                                                  (this->getPosition().y -
-                                                                   this->getGlobalBounds().height / 2.f),
+                                                                  (this->getPosition().y - this->getGlobalBounds().height / 2.f),
                                                                   (-1),
                                                                   (0),
-                                                                  0,
+                                                                   0,
                                                                   this->soundLoader,
                                                                   window,
                                                                   machine.selectedObjectsPointer->selectedFighter));

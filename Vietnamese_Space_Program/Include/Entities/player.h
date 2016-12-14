@@ -37,8 +37,6 @@ private:
     std::map<const std::string, std::pair<std::string, int>> keybindMap;
 public:
     bool* isShieldActivePointer = &isShieldActive;
-
-
     void pauseClock(bool pause);
 };
 
