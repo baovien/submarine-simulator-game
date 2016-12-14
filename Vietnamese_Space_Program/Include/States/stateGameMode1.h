@@ -53,14 +53,13 @@ protected:
     float junkTime = 0;
     sfuser::PauseableClock waveClock;
 
-
     void updateWaveText(sf::RenderWindow* window, bool choice);
+
     //Branch: Waves
-    int mode = 1;
     int bossWave = 0;
     int transparencyValue = 0;
-
     int waveNum = 0;
+
     std::vector<EnemyObject*> enemyList;
 
     std::vector<BossObject*> bossList;

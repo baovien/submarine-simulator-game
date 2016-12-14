@@ -9,11 +9,11 @@
  * @param theme - The current selected theme.
  * @return
  */
-BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::RenderWindow* window, int theme, int bossWave)
-    : player(player)
+BossObject::BossObject(EntityManager* manager, Player* player, sf::RenderWindow* window, int theme, int bossWave)
+    : player(player),
+      bossWave(bossWave),
+      theme(theme)
 {
-    this->bossWave = bossWave;
-    this->theme = theme;
     if(theme == 0)this->load("blowfish.png");
     else this->load("Spacestation.png");
     this->active = 1;
@@ -21,17 +21,16 @@ BossObject::BossObject(EntityManager* manager, Player* player, int mode, sf::Ren
     this->health = 10 + (10 * bossWave);
     //this->setRotation(1);
     this->setOrigin(this->getGlobalBounds().height/2.f, this->getGlobalBounds().height/2.f);
-    this->setScale((window->getSize().x/1280.f), (window->getSize().y/720.f));
+    this->setScale((window->getSize().x/1600.f), (window->getSize().y/900.f));
 
     this->manager = manager;
     this->player = player;
-    this->velocity.x = ((window->getSize().x/1280.f)*50) * bossWave;
-
+    this->velocity.x = 30.f + (30.f* bossWave/4.f);
     this->easingAmount = 0.05f;
-    this->maxSpeed = ((window->getSize().x/1280.f)*50) * bossWave;
+    this->maxSpeed = 60.f + (30.f* bossWave/4.f);
     this->pi = 3.141592653599f;
-    this->bulletSpeed = (window->getSize().x/1280.f);
-    this->objectSpeed = (window->getSize().x/1280.f);
+    this->bulletSpeed = 1;
+    this->objectSpeed = 1;
 
     this->randomNumber = rand()%4;
     if (randomNumber == 1) {
@@ -145,8 +144,14 @@ void BossObject::updateEntity(sf::RenderWindow *window) {
 
             this->pauseableClock.restart(); //restarter clock(nullstiller)
         }
-
-        this->bar->updateEntity2(window, 12*this->health , this->getPosition().x, this->getPosition().y + this->getGlobalBounds().height/2.1f);
+        this->bar->updateEntity2(window, this->health , this->getPosition().x, this->getPosition().y + this->getGlobalBounds().height/2.1f);
+        if(player->getPosition().x < this->getPosition().x) {
+            float turn = window->getSize().x/1600.f;
+            turn *= -1;
+            this->setScale(turn, this->getScale().y);
+        }
+        else
+            this->setScale((window->getSize().x/1600.f), (window->getSize().y/900.f));
         Entity::updateEntity(window);
     }
 }
@@ -163,12 +168,6 @@ void BossObject::collision(Entity *entity) {
         case 1: // Player
             this->velocity.x *= -500;
             this->velocity.y *= -500;
-            break;
-        case 5: // Boss
-            this->velocity.x *= -500;
-            this->velocity.y *= -500;
-            entity->velocity.x *= -this->velocity.x;
-            entity->velocity.y *= -this->velocity.y;
             break;
     }
 }

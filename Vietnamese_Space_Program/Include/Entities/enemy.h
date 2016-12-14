@@ -17,7 +17,7 @@ private:
     int health;
     int randomNumber;
     EntityManager* manager;
-    int mode;
+    float mode;
     int theme;
 
     // avstanden x og y fra enemy til skipet.

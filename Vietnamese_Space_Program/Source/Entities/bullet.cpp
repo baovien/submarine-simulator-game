@@ -57,8 +57,8 @@ Bullet::Bullet(float x, float y, float direction, float direction2, float angle 
     this->groupId = 6;
     if(theme == 0)this->load("bubble4.png");
     else this->load("bulllet.png");
-    this->velocity.y = direction * 640;
-    this->velocity.x = direction2 * 640;
+    this->velocity.y = direction * 300;
+    this->velocity.x = direction2 * 300;
     this->setOrigin(this->getGlobalBounds().width/2.f, this->getGlobalBounds().height/2.f);
     this->setPosition(x, y);
     this->setRotation(angle);

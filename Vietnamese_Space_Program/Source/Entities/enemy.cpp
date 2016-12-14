@@ -13,14 +13,13 @@
  * @param theme - Current theme, deciding what texture to load.
  * @return
  */
-EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager* manager, int mode, SoundLoader* soundLoader, int theme)
+EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager* manager, int wave, SoundLoader* soundLoader, int theme)
             : player(player),
               manager(manager),
               soundLoader(soundLoader),
-              mode(mode)
-
+              mode(wave),
+              theme(theme)
 {
-    this->theme = theme;
     if(theme == 0)this->load("happyfish.png");
     else this->load("UFO3.png");
 
@@ -28,19 +27,11 @@ EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager
     this->groupId = 4;
     this->randomNumber = rand() % 4;
     this->easingAmount = 0.05f;
-    this->maxSpeed = 100.0f;
+    this->maxSpeed = 100.0f + mode;
     this->setOrigin(this->getGlobalBounds().height/2.f, this->getGlobalBounds().height/2.f);
     this->setScale(window->getSize().x/2560.0f, window->getSize().y/1440.0f);
-        switch(mode)
-        {
-            case 1:
-                this->health = 2;
-                break;
-            case 2:
-                this->health = 3;
-                break;
-            default:break;
-        }
+    if(this->mode > 5) this->health = 3;
+    else this->health = 2;
     //Spawner enemy utenfor vinduet
     if (randomNumber == 1) {
         this->setPosition(0 - this->getGlobalBounds().width * 2, rand() % window->getSize().y);
@@ -85,23 +76,22 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
     }
     int randomNumber2;
     randomNumber2 = rand() % 1000;
-    if(this->mode == 2 && randomNumber2 < 2)
+    if(this->mode > 5 && randomNumber2 < 2)
     {
-
         //float angle = this->getRotation() * player->pi/180;
         this->manager->addEntity("bullet", new Bullet(this->getPosition().x /*+ (this->getGlobalBounds().width/2) * sin(angle)*/,
                                                       this->getPosition().y /*- (this->getGlobalBounds().height/2) * cos(angle)*/,
-                                                      yDistance/1000.f,
-                                                      xDistance/1000.f,
+                                                      yDistance/900.f,
+                                                      xDistance/900.f,
                                                       0,
                                                       window, theme));
         this->soundLoader->playEffect(Audio::ENEMY_SHOOT);
     }
     //Sjekker om spilleren er til venstre for fienden.
     if(player->getPosition().x < this->getPosition().x){
-        float hehe = window->getSize().x/2560.f;
-        hehe *= -1;
-        this->setScale(hehe, this->getScale().y);
+        float turn = window->getSize().x/2560.f;
+        turn *= -1;
+        this->setScale(turn, this->getScale().y);
         //Sjekker om spilleren er over fienden
         if(player->getPosition().y < this->getPosition().y){
             this->setRotation(-alpha);
@@ -165,8 +155,7 @@ void EnemyObject::collision(Entity *entity) {
             entity->velocity.x = this->velocity.x * -1;
             entity->velocity.y = this->velocity.y * -1;
             break;
-        case 5:
-            break;
+
         default:break;
     }
 }
