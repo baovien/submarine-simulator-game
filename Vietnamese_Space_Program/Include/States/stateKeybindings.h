@@ -7,6 +7,7 @@
 
 class StateKeybindings : public States{
 public:
+
     void initialize(sf::RenderWindow *window);
 
     void update(sf::RenderWindow *window);
@@ -29,10 +30,11 @@ private:
     sf::Text* gameplayText;
     sf::Text* alreadyBoundText;
 
-
-    sf::Texture* ballTexture;
     sf::Texture* bgTexture;
+    sf::Texture* btnTexture;
+    sf::Texture* overlayTexture;
     sf::Sprite* background;
+    sf::Sprite* overlay;
 
     struct keySquares{
         sf::Text* keyText;

@@ -236,7 +236,7 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
     if (event.type == sf::Event::KeyPressed) {
 
         //Back on escapekey
-        if (event.key.code == machine.keybindMap.find("back")->second.second) {
+        if (event.key.code == machine.keybindMap->find("back")->second.second) {
             if (inOverlay) {
                 inOverlay = false;
             } else {
@@ -269,6 +269,9 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
 
                             //controlsknappen trykket
                         case 1:
+                            bgTexture->create(window->getSize().x, window->getSize().y);
+                            bgTexture->update(*window);
+                            *machine.backgroundBehindOverlayPointer = bgTexture->copyToImage();
                             machine.setState(new StateKeybindings());
                             return;
 
@@ -302,14 +305,14 @@ void StateSettings::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         case 5:
                             if (bindsOrScore) {
                                 //RESET BINDS
-                                machine.keybindMap.find("up")->second = std::make_pair("W", sf::Keyboard::W);
-                                machine.keybindMap.find("down")->second = std::make_pair("S", sf::Keyboard::S);
-                                machine.keybindMap.find("left")->second = std::make_pair("A", sf::Keyboard::A);
-                                machine.keybindMap.find("right")->second = std::make_pair("D", sf::Keyboard::D);
-                                machine.keybindMap.find("select")->second = std::make_pair("Return", sf::Keyboard::Return);
-                                machine.keybindMap.find("back")->second = std::make_pair("Escape", sf::Keyboard::Escape);
-                                machine.keybindMap.find("shoot")->second = std::make_pair("Space", sf::Keyboard::Space);
-                                machine.keybindMap.find("pause")->second = std::make_pair("P", sf::Keyboard::P);
+                                machine.keybindMap->find("up")->second = std::make_pair("W", sf::Keyboard::W);
+                                machine.keybindMap->find("down")->second = std::make_pair("S", sf::Keyboard::S);
+                                machine.keybindMap->find("left")->second = std::make_pair("A", sf::Keyboard::A);
+                                machine.keybindMap->find("right")->second = std::make_pair("D", sf::Keyboard::D);
+                                machine.keybindMap->find("select")->second = std::make_pair("Return", sf::Keyboard::Return);
+                                machine.keybindMap->find("back")->second = std::make_pair("Escape", sf::Keyboard::Escape);
+                                machine.keybindMap->find("shoot")->second = std::make_pair("Space", sf::Keyboard::Space);
+                                machine.keybindMap->find("pause")->second = std::make_pair("P", sf::Keyboard::P);
 
                             } else {
                                 for (unsigned int j = 0; j < machine.classicScorePointer->size(); j++){

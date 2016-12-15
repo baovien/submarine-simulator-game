@@ -6,16 +6,23 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
     window->setView(newView);
 
     this->bgTexture = new sf::Texture();
-    this->bgTexture->loadFromFile("Graphics/Sprites/Window/Window_10.png");
+    this->bgTexture->loadFromImage(*machine.backgroundBehindOverlayPointer, sf::IntRect(0,0,window->getSize().x,window->getSize().y));
 
-    this->ballTexture = new sf::Texture();
-    this->ballTexture->loadFromFile("Graphics/Sprites/Buttons/Button_36.png");
+    this->overlayTexture = new sf::Texture();
+    this->overlayTexture->loadFromFile("Graphics/Sprites/Window/Window_10.png");
+
+    this->btnTexture = new sf::Texture();
+    this->btnTexture->loadFromFile("Graphics/Sprites/Buttons/Button_36.png");
 
     this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
-    this->background->setOrigin(this->background->getGlobalBounds().width / 2.f, this->background->getGlobalBounds().height / 2.f);
-    this->background->scale(window->getSize().x / background->getGlobalBounds().width / 2.f, window->getSize().y / background->getGlobalBounds().height / 2.f);
-    this->background->setPosition(window->getSize().x / 2.f, window->getSize().y / 2.f);
+    this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
+
+    this->overlay = new sf::Sprite();
+    this->overlay->setTexture(*this->overlayTexture);
+    this->overlay->setOrigin(this->overlay->getGlobalBounds().width / 2.f, this->overlay->getGlobalBounds().height / 2.f);
+    this->overlay->scale(window->getSize().x / overlay->getGlobalBounds().width / 2.f, window->getSize().y / overlay->getGlobalBounds().height / 2.f);
+    this->overlay->setPosition(window->getSize().x / 2.f, window->getSize().y / 2.f);
 
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/Turtles.otf");
@@ -29,25 +36,25 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
     this->alreadyBoundText->scale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
     this->alreadyBoundText->setFillColor(sf::Color(255, 0, 0, (sf::Uint8) transparencyValue));
 
-    this->movementText = util.addText("Movement", 25, 2, 2, ((window->getSize().x / 2.f) - this->background->getGlobalBounds().width / 4.f), ((window->getSize().y / 2.f) - this->background->getGlobalBounds().height / 2.25f), window, machine.settingPointer->selectedLanguage);
-    this->gameplayText= util.addText("Gameplay", 25, 2, 2, ((window->getSize().x / 2.f) + this->background->getGlobalBounds().width / 4.f), (window->getSize().y / 2.f), window, machine.settingPointer->selectedLanguage);
-    this->menuNavigationText = util.addText("Menu navigation", 25, 2, 2, ((window->getSize().x / 2.f) + this->background->getGlobalBounds().width / 4.f), movementText->getPosition().y, window, machine.settingPointer->selectedLanguage);
+    this->movementText = util.addText("Movement", 25, 2, 2, ((window->getSize().x / 2.f) - this->overlay->getGlobalBounds().width / 4.f), ((window->getSize().y / 2.f) - this->overlay->getGlobalBounds().height / 2.25f), window, machine.settingPointer->selectedLanguage);
+    this->gameplayText= util.addText("Gameplay", 25, 2, 2, ((window->getSize().x / 2.f) + this->overlay->getGlobalBounds().width / 4.f), (window->getSize().y / 2.f), window, machine.settingPointer->selectedLanguage);
+    this->menuNavigationText = util.addText("Menu navigation", 25, 2, 2, ((window->getSize().x / 2.f) + this->overlay->getGlobalBounds().width / 4.f), movementText->getPosition().y, window, machine.settingPointer->selectedLanguage);
 
     positionList.clear();
-    positionList.push_back(sf::Vector2f((window->getSize().x / 2) - this->background->getGlobalBounds().width / 4, (window->getSize().y / 2) - this->background->getGlobalBounds().height / 6));
-    positionList.push_back(sf::Vector2f(positionList[0].x, (window->getSize().y / 2) + this->background->getGlobalBounds().height / 7));
-    positionList.push_back(sf::Vector2f(((window->getSize().x / 2) - this->background->getGlobalBounds().width / 2.4f), positionList[1].y));
-    positionList.push_back(sf::Vector2f(((window->getSize().x / 2) - this->background->getGlobalBounds().width / 2 + this->background->getGlobalBounds().width / 2.4f), positionList[1].y));
-    positionList.push_back(sf::Vector2f(((window->getSize().x / 2) + this->background->getGlobalBounds().width / 4 + this->background->getGlobalBounds().width / 10), positionList[0].y));
-    positionList.push_back(sf::Vector2f((window->getSize().x / 2) + this->background->getGlobalBounds().width / 4 - this->background->getGlobalBounds().width / 10, positionList[4].y));
-    positionList.push_back(sf::Vector2f(positionList[4].x, ((window->getSize().y / 2) + this->background->getGlobalBounds().height / 3.5f)));
-    positionList.push_back(sf::Vector2f(positionList[5].x, ((window->getSize().y / 2) + this->background->getGlobalBounds().height / 3.5f)));
+    positionList.push_back(sf::Vector2f((window->getSize().x / 2) - this->overlay->getGlobalBounds().width / 4, (window->getSize().y / 2) - this->overlay->getGlobalBounds().height / 6));
+    positionList.push_back(sf::Vector2f(positionList[0].x, (window->getSize().y / 2) + this->overlay->getGlobalBounds().height / 7));
+    positionList.push_back(sf::Vector2f(((window->getSize().x / 2) - this->overlay->getGlobalBounds().width / 2.4f), positionList[1].y));
+    positionList.push_back(sf::Vector2f(((window->getSize().x / 2) - this->overlay->getGlobalBounds().width / 2 + this->overlay->getGlobalBounds().width / 2.4f), positionList[1].y));
+    positionList.push_back(sf::Vector2f(((window->getSize().x / 2) + this->overlay->getGlobalBounds().width / 4 + this->overlay->getGlobalBounds().width / 10), positionList[0].y));
+    positionList.push_back(sf::Vector2f((window->getSize().x / 2) + this->overlay->getGlobalBounds().width / 4 - this->overlay->getGlobalBounds().width / 10, positionList[4].y));
+    positionList.push_back(sf::Vector2f(positionList[4].x, ((window->getSize().y / 2) + this->overlay->getGlobalBounds().height / 3.5f)));
+    positionList.push_back(sf::Vector2f(positionList[5].x, ((window->getSize().y / 2) + this->overlay->getGlobalBounds().height / 3.5f)));
 
     for (unsigned int i = 0; i < sizeof(wordList)/ sizeof(*wordList); ++i) {
         keySquares ks = StateKeybindings::keySquares();
         keyVector.push_back(ks);
         keyVector[i].keySquare = new sf::Sprite();
-        keyVector[i].keySquare->setTexture(*this->ballTexture);
+        keyVector[i].keySquare->setTexture(*this->btnTexture);
         keyVector[i].keySquare->setOrigin(keyVector[i].keySquare->getGlobalBounds().width / 2, keyVector[i].keySquare->getGlobalBounds().height / 2);
         keyVector[i].keySquare->scale(window->getSize().x / 2880.f, window->getSize().y / 1620.f);
         keyVector[i].keySquare->setPosition(positionList[i].x, positionList[i].y);
@@ -55,10 +62,10 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
         //Text, textsize, origin x, origin y, position x, position y, window
         keyVector[i].titleText = util.addText(wordList[i], 15, 2, 2, keyVector[i].keySquare->getPosition().x, (keyVector[i].keySquare->getPosition().y - keyVector[i].keySquare->getGlobalBounds().height / 1.5f) , window, machine.settingPointer->selectedLanguage);
 
-        keyVector[i].keyText = util.addText("" + machine.keybindMap.find(wordList[i])->second.first, 22, 2, 2, keyVector[i].keySquare->getPosition().x, keyVector[i].keySquare->getPosition().y, window, machine.settingPointer->selectedLanguage);
+        keyVector[i].keyText = util.addText("" + machine.keybindMap->find(wordList[i])->second.first, 22, 2, 2, keyVector[i].keySquare->getPosition().x, keyVector[i].keySquare->getPosition().y, window, machine.settingPointer->selectedLanguage);
         keyVector[i].keyText->setOutlineColor(sf::Color::Transparent);
             if (keyVector[i].keyText->getGlobalBounds().width * 2 > keyVector[i].keySquare->getGlobalBounds().width) {
-                keyVector[i].keyText = util.addText("" + machine.keybindMap.find(wordList[i])->second.first, 12, 2, 2, keyVector[i].keySquare->getPosition().x, keyVector[i].keySquare->getPosition().y, window,
+                keyVector[i].keyText = util.addText("" + machine.keybindMap->find(wordList[i])->second.first, 12, 2, 2, keyVector[i].keySquare->getPosition().x, keyVector[i].keySquare->getPosition().y, window,
                                                     machine.settingPointer->selectedLanguage);
             }
     }
@@ -72,12 +79,12 @@ void StateKeybindings::update(sf::RenderWindow *window) {
         } else {
             keyVector[i].keySquare->setColor(sf::Color(255, 255, 255, 255));
         }
-        if (machine.keybindMap.find(wordList[i])->second.first == "" && !waitingForInput) {
+        if (machine.keybindMap->find(wordList[i])->second.first == "" && !waitingForInput) {
 
-            machine.keybindMap.find(wordList[i])->second.first = keyList[keyToBind];
-            machine.keybindMap.find(wordList[i])->second.second = keyToBind;
+            machine.keybindMap->find(wordList[i])->second.first = keyList[keyToBind];
+            machine.keybindMap->find(wordList[i])->second.second = keyToBind;
 
-            keyVector[i].keyText->setString("" + machine.keybindMap.find(wordList[i])->second.first);
+            keyVector[i].keyText->setString("" + machine.keybindMap->find(wordList[i])->second.first);
 
             if (keyVector[i].keyText->getGlobalBounds().width * 2 > keyVector[i].keySquare->getGlobalBounds().width) {
                 keyVector[i].keyText->setCharacterSize(12);
@@ -95,7 +102,7 @@ void StateKeybindings::update(sf::RenderWindow *window) {
 
 void StateKeybindings::render(sf::RenderWindow *window) {
     window->draw(*this->background);
-
+    window->draw(*this->overlay);
     window->draw(*this->movementText);
     window->draw(*this->menuNavigationText);
     window->draw(*this->gameplayText);
@@ -125,14 +132,15 @@ void StateKeybindings::destroy(sf::RenderWindow *window) {
     delete this->movementText;
     delete this->alreadyBoundText;
 
-    delete this->ballTexture;
-    delete this->bgTexture;
+    delete this->btnTexture;
+    delete this->overlayTexture;
+    delete this->overlay;
     delete this->background;
 }
 
 void StateKeybindings::handleEvent(sf::RenderWindow *window, sf::Event event) {
     if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == machine.keybindMap.find("back")->second.second) {
+        if (event.key.code == machine.keybindMap->find("back")->second.second) {
             if (!waitingForInput) {
                 machine.setState(new StateSettings);
                 return;
@@ -143,7 +151,7 @@ void StateKeybindings::handleEvent(sf::RenderWindow *window, sf::Event event) {
         if (waitingForInput && event.key.code != -1) {
             bool exists = false;
             for (int i = 0; i < 8; ++i) {
-                if (machine.keybindMap.find(wordList[i])->second.first != keyList[event.key.code]) {
+                if (machine.keybindMap->find(wordList[i])->second.first != keyList[event.key.code]) {
                     exists = false;
                 } else {
                     exists = true;
@@ -165,8 +173,8 @@ void StateKeybindings::handleEvent(sf::RenderWindow *window, sf::Event event) {
                 if (keyPressedInBinds) {
                     keyPressedInBinds = false;
                     waitingForInput = true;
-                    machine.keybindMap.find(wordList[i])->second.first = "";
-                    keyVector[i].keyText->setString(machine.keybindMap.find(wordList[i])->second.first);
+                    machine.keybindMap->find(wordList[i])->second.first = "";
+                    keyVector[i].keyText->setString(machine.keybindMap->find(wordList[i])->second.first);
                     keyVector[i].keyText->setCharacterSize(22);
                 }
             }

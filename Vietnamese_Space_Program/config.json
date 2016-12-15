@@ -1,0 +1,53 @@
+{
+	"highscore" : 
+	{
+		"arcade" : 
+		[
+			{
+				"name" : "Player",
+				"score" : 11
+			},
+			{
+				"name" : "Player",
+				"score" : 0
+			},
+			{
+				"name" : "Player",
+				"score" : 0
+			}
+		],
+		"classic" : 
+		[
+			{
+				"name" : "Player",
+				"score" : 0
+			},
+			{
+				"name" : "Player",
+				"score" : 0
+			},
+			{
+				"name" : "Player",
+				"score" : 0
+			}
+		]
+	},
+	"settings" : 
+	{
+		"fps" : 1,
+		"keybinds" : 
+		{
+			"back" : [ "Escape", 36 ],
+			"down" : [ "S", 18 ],
+			"left" : [ "A", 0 ],
+			"pause" : [ "P", 15 ],
+			"right" : [ "D", 3 ],
+			"select" : [ "Return", 58 ],
+			"shoot" : [ "Space", 57 ],
+			"up" : [ "W", 22 ]
+		},
+		"language" : 2,
+		"mute" : false,
+		"muteMusic" : false
+	}
+}
