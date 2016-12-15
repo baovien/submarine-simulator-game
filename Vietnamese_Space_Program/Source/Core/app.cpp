@@ -71,25 +71,28 @@ void App::run() {
  */
 void App::validateJson(){
     std::ifstream infile("config.json");
-    Json::Value root;
-    infile >> root;
-    infile.close();
+    if(infile.is_open()) {
+        Json::Value root;
+        infile >> root;
+        infile.close();
 
-    std::ofstream os("config.json", std::ofstream::trunc); //Overskriver eksisterende fil.
-    Json::StyledStreamWriter writer;
+        std::ofstream os("config.json", std::ofstream::trunc); //Overskriver eksisterende fil.
+        Json::StyledStreamWriter writer;
 
 
-    //Feilsjekk for fps og språk. Setter default value
-    if(!root["settings"]["fps"].isInt()) root["settings"]["fps"] = 1;
-    if(!root["settings"]["language"].isInt()) root["settings"]["language"] = 0;
-    if(!root["settings"]["mute"].isBool()) root["settings"]["mute"] = false;
-    if(!root["settings"]["muteMusic"].isBool()) root["settings"]["muteMusic"] = false;
-    if(root["settings"]["fps"].asInt() > 2 || root["settings"]["fps"].asInt() < 0) root["settings"]["fps"] = 1;
-    if(root["settings"]["language"].asInt() > 3 || root["settings"]["language"].asInt() < 0) root["settings"]["language"] = 0;
+        //Feilsjekk for fps og språk. Setter default value
+        if (!root["settings"]["fps"].isInt()) root["settings"]["fps"] = 1;
+        if (!root["settings"]["language"].isInt()) root["settings"]["language"] = 0;
+        if (!root["settings"]["mute"].isBool()) root["settings"]["mute"] = false;
+        if (!root["settings"]["muteMusic"].isBool()) root["settings"]["muteMusic"] = false;
+        if (root["settings"]["fps"].asInt() > 2 || root["settings"]["fps"].asInt() < 0) root["settings"]["fps"] = 1;
+        if (root["settings"]["language"].asInt() > 3 || root["settings"]["language"].asInt() < 0)
+            root["settings"]["language"] = 0;
 
-    writer.write(os, root);
+        writer.write(os, root);
 
-    os.close();
+        os.close();
+    }
 }
 
 /**
@@ -144,10 +147,10 @@ void App::saveJson() {
 void App::loadJson() {
     std::ifstream in("config.json");
     Json::Value root;
-    in >> root;
 
     if (in.is_open()) {
         ///////////LOAD DATA////////////
+        in >> root;
 
         //Fjerner verdiene i vectorene.
         machine.arcadeScorePointer->clear();
