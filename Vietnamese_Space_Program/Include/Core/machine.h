@@ -26,8 +26,10 @@ public:
 
     int getGameOverScore() const;
 
+private:
+
     //Brukes i forbindelse med keybinds
-    std::map<const std::string, std::pair<std::string, int>> keybindMap = {{"up",     std::make_pair("W", sf::Keyboard::W)},
+    std::map<const std::string, std::pair<std::string, int>> m_keybindMap = {{"up",     std::make_pair("W", sf::Keyboard::W)},
                                                                            {"down",   std::make_pair("S", sf::Keyboard::S)},
                                                                            {"left",   std::make_pair("A", sf::Keyboard::A)},
                                                                            {"right",  std::make_pair("D", sf::Keyboard::D)},
@@ -35,15 +37,10 @@ public:
                                                                            {"back",   std::make_pair("Escape", sf::Keyboard::Escape)},
                                                                            {"shoot",  std::make_pair("Space", sf::Keyboard::Space)},
                                                                            {"pause",  std::make_pair("P", sf::Keyboard::P)}};
-
-private:
     struct settingStruct {
         int selectedFps;
         int selectedLanguage;
     };
-    bool muted = false;
-    bool mutedMusic = false;
-
     settingStruct settingVariables {1,0};
 
     struct selectedObjects{
@@ -58,20 +55,27 @@ private:
             {{std::make_pair(0, "Player")},
              {std::make_pair(0, "Player")},
              {std::make_pair(0, "Player")}};
+
     std::vector<std::pair<int, std::string>> classicScore =
             {{std::make_pair(0, "Player")},
              {std::make_pair(0, "Player")},
              {std::make_pair(0, "Player")}};
 
+    bool muted = false;
+    bool mutedMusic = false;
     SoundLoader soundLoader;
+    sf::Image backgroundBehindOverlay;
+
 
 private:
     float deltaTime;
 public:
+    sf::Image* backgroundBehindOverlayPointer = &backgroundBehindOverlay;
     float* deltaTimePointer = &deltaTime;
     SoundLoader* soundLoaderPointer = &soundLoader;
     bool* mutedMusicPointer = &mutedMusic;
     bool* mutedPointer = &muted;
+    std::map<const std::string, std::pair<std::string, int>>* keybindMap = &m_keybindMap;
     settingStruct* settingPointer = &settingVariables;
     std::vector<std::pair<int, std::string>>* arcadeScorePointer = &arcadeScore;
     std::vector<std::pair<int, std::string>>* classicScorePointer = &classicScore;
