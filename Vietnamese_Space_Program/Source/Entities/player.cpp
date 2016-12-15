@@ -75,9 +75,6 @@ void Player::updateEntity(sf::RenderWindow *window) {
         /////////////////                                         GAME MODE 1 UPDATE                                  /////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         case 1:
-
-            ///////////////////////////////////////////////////////////////////////////////////////////////
-            ////        Players bevegelse settes her og velocity er alltid 0, så move gjøres her.      ////
             ///////////////////////////////////////////////////////////////////////////////////////////////
             this->setRotation(angle * 180 / pi);                                                       ////
             if (right) angle += turnspeed * (*machine.deltaTimePointer);                               ////

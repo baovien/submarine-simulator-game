@@ -87,12 +87,13 @@ void StateGameMode1::update(sf::RenderWindow *window) {
             return;
         }
         if(enemyList.size() == 0 && bossList.size() == 0 && !waveDone){
-            machine.soundLoaderPointer->playEffect(Audio::Effect::WAVEDONE);
+            if(clock.getElapsedTime().asSeconds()>3){ //Lyden spilles ikke av med en gang
+                machine.soundLoaderPointer->playEffect(Audio::Effect::WAVEDONE);
+            }
             waveDone = true;
             waveClock.restart();
         }
         if (enemyList.size() == 0 && bossList.size() == 0 && waveDone && waveClock.getElapsedTime().asSeconds() > 3) {
-            machine.soundLoaderPointer->playEffect(Audio::Effect::NEXTWAVE);
             waveDone = false;
             waveNum++;
             spawnWave(window);
@@ -244,6 +245,7 @@ void StateGameMode1::spawnWave(sf::RenderWindow *window) {
         bossList.push_back(bossObject);
 
     } else {                  //ENEMYSPAWN
+        machine.soundLoaderPointer->playEffect(Audio::Effect::NEXTWAVE);
         for (int i = 0; i < waveNum; ++i) {
             enemyObject = new EnemyObject(window, this->player, this->manager, this->waveNum, machine.soundLoaderPointer, machine.selectedObjectsPointer->selectedTheme);
             this->manager->addEntity("Enemy", enemyObject);
@@ -275,9 +277,11 @@ void StateGameMode1::updateEnemyList(sf::RenderWindow *window) {
         if (bossList.at((unsigned long) i)->activeEntity() == 0) {
             bossList.erase(bossList.begin() + i);
             break;
-
         }
     }
+
+
+
 }
 
 /**

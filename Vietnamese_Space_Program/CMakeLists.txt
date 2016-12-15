@@ -7,6 +7,9 @@ set(SOURCE_FILES
         Graphics Audio
 
         "Source/main.cpp"
+        "Include/json/json.h"
+        "Include/json/json-forwards.h"
+        "Source/jsoncpp.cpp"
 
         #Core Headers
         "Include/Core/app.h"                   "Source/Core/app.cpp"
@@ -47,4 +50,4 @@ set(SOURCE_FILES
 add_executable(Vietnamese_Space_Program ${SOURCE_FILES})
 
 # Link with SFML dependencies
-target_link_libraries(Vietnamese_Space_Program jsoncpp sfml-graphics sfml-window sfml-system sfml-audio)
+target_link_libraries(Vietnamese_Space_Program sfml-graphics sfml-window sfml-system sfml-audio)
