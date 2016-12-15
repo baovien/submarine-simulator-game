@@ -109,6 +109,24 @@ void StateGameOver::initialize(sf::RenderWindow *window) {
                                          machine.settingPointer->selectedLanguage);
     this->clickToActivate->setFillColor(sf::Color::Transparent);
     this->clickToActivate->setOutlineColor(sf::Color::Transparent);
+
+    for (unsigned int i = 0; i < machine.arcadeScorePointer->size(); i++){
+        if(gameOverScore > machine.arcadeScorePointer->at(i).first && machine.selectedObjectsPointer->selectedGamemode == 1){
+            this->highscoreOrNAH = true;
+            this->congratulationsText->setFillColor(sf::Color::White);
+            this->congratulationsText2->setFillColor(sf::Color::White);
+            break;
+        }
+        if(gameOverScore > machine.classicScorePointer->at(i).first && machine.selectedObjectsPointer->selectedGamemode == 2){
+            this->highscoreOrNAH = true;
+            this->congratulationsText->setFillColor(sf::Color::White);
+            this->congratulationsText2->setFillColor(sf::Color::White);
+            break;
+        }
+    }
+    if(!highscoreOrNAH){
+        this->whatAShameText->setFillColor(sf::Color::White);
+    }
 }
 
 void StateGameOver::update(sf::RenderWindow *window) {
@@ -140,23 +158,16 @@ void StateGameOver::render(sf::RenderWindow *window) {
     window->draw(*this->background);
     window->draw(*this->score);
 
-    //Itererer gjennom vektoren for å sjekke om scoren spilleren fikk er høyere enn noen av highscoresa
-    //Forskjellige ting drawes utifra om spilleren har fått highscore eller ikke
-    for (unsigned int i = 0; i < machine.arcadeScorePointer->size(); i++) {
-        if (gameOverScore > machine.arcadeScorePointer->at(i).first) {
-            this->highscoreOrNAH = true;
-            this->congratulationsText->setFillColor(sf::Color::White);
-            this->congratulationsText2->setFillColor(sf::Color::White);
-            window->draw(*this->congratulationsText);
-            window->draw(*this->congratulationsText2);
-            window->draw(*this->textBox);
-            window->draw(*this->clickToActivate);
-        }
-        if (!this->highscoreOrNAH) {
-            this->whatAShameText->setFillColor(sf::Color::White);
-            window->draw(*this->whatAShameText);
-        }
+    if(highscoreOrNAH){
+        window->draw(*this->congratulationsText);
+        window->draw(*this->congratulationsText2);
+        window->draw(*this->textBox);
+        window->draw(*this->clickToActivate);
+    }else{
+        this->whatAShameText->setFillColor(sf::Color::White);
+        window->draw(*this->whatAShameText);
     }
+
     for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)); ++i) {
         window->draw(*this->menuButtons[i]);
     }
@@ -190,7 +201,7 @@ void StateGameOver::destroy(sf::RenderWindow *window) {
 void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
     if (event.type == sf::Event::KeyPressed) {
         //Back on escapekey hvis tekstboksen ikke er aktiv
-        if (event.key.code == machine.keybindMap.find("back")->second.second && !this->boxIsClicked) {
+        if (event.key.code == machine.keybindMap->find("back")->second.second && !this->boxIsClicked) {
             //Arcade
             if (machine.selectedObjectsPointer->selectedGamemode == 1) {
                 saveScoreArcade();
@@ -203,13 +214,13 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
             return;
         }
             //Sjekker om brukeren har trykket "back" mens tekstboksen er aktiv.
-        else if (event.key.code == machine.keybindMap.find("back")->second.second && this->boxIsClicked) {
+        else if (event.key.code == machine.keybindMap->find("back")->second.second && this->boxIsClicked) {
             //Gjør navnteksten i boksen til defaultverdi: Player
             this->playerName = "";
             this->text->setString("");
             this->boxIsClicked = false;
         } else //Sjekker om brukeren har trykket "select" mens tekstboksen er aktiv, hvis ja, så skal det som står i tekstboksen lagres.
-        if (event.key.code == machine.keybindMap.find("select")->second.second) {
+        if (event.key.code == machine.keybindMap->find("select")->second.second) {
             this->boxIsClicked = false;
         }
     }
