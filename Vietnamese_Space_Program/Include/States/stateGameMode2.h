@@ -29,21 +29,21 @@ public:
     void reinitialize(sf::RenderWindow *window);
 
 protected:
-    Lives* lives;
-    Score* score;
-    sf::Font* font;
-    sf::Text* pausedText;
-    Utilities* util;
-    EntityManager* manager;
-    sf::Texture* bgTexture;
-    sf::Sprite* background;
-    Player* player;
-    Enemy2Object* enemy2Object;
+    Lives* lives = nullptr;
+    Score* score = nullptr;
+    sf::Font* font = nullptr;
+    sf::Text* pausedText = nullptr;
+    Utilities* util = nullptr;
+    EntityManager* manager = nullptr;
+    sf::Texture* bgTexture = nullptr;
+    sf::Sprite* background = nullptr;
+    Player* player = nullptr;
+    Enemy2Object* enemy2Object = nullptr;
     std::vector<std::vector<Enemy2Object*>> enemyList;
     sfuser::PauseableClock enemyClock;
     sf::Clock clockenemy;
-    sf::Texture* pausedTexture;
-    sf::Sprite* pausedBackground;
+    sf::Texture* pausedTexture = nullptr;
+    sf::Sprite* pausedBackground = nullptr;
     sf::Vector2u currentWindowSize;
 
     int wave = 0;

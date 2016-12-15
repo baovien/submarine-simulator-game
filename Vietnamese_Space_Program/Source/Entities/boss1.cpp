@@ -171,3 +171,4 @@ void BossObject::collision(Entity *entity) {
             break;
     }
 }
+

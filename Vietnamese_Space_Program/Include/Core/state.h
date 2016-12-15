@@ -66,9 +66,9 @@ public:
     }
 
     /**
-     * Deconstructor for States.
+     * Destructor for States.
      */
-    ~States()
+    virtual ~States()
     {
 
     }

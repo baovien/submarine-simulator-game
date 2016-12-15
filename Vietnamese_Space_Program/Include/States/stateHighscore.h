@@ -24,25 +24,25 @@ public:
 
 private:
 
-    sf::Texture *bgTexture;
-    sf::Sprite *TableArcade;
-    sf::Sprite *TableClassic;
-    sf::Sprite *background;
+    sf::Texture *bgTexture = nullptr;
+    sf::Sprite *TableArcade = nullptr;
+    sf::Sprite *TableClassic = nullptr;
+    sf::Sprite *background = nullptr;
 
-    sf::Text *title;
-    sf::Text *titleArcade;
-    sf::Text *titleClassic;
+    sf::Text *title = nullptr;
+    sf::Text *titleArcade = nullptr;
+    sf::Text *titleClassic = nullptr;
 
     struct buttonTextures
     {
-        sf::Texture* buttonNormal;
-        sf::Texture* buttonMouseOver;
-        sf::Texture* buttonClicked;
+        sf::Texture* buttonNormal = nullptr;
+        sf::Texture* buttonMouseOver = nullptr;
+        sf::Texture* buttonClicked = nullptr;
     };
 
     buttonTextures backTexture;
-    sf::Sprite* backButton;
-    sf::Texture *tableTexture;
+    sf::Sprite* backButton = nullptr;
+    sf::Texture *tableTexture = nullptr;
 
     std::vector<std::tuple<std::string, std::string, std::string>> highscoreValues;
     std::vector<sf::Text> tableText;

@@ -14,7 +14,7 @@ public:
     virtual void collision(Entity* entity);
 private:
     sfuser::PauseableClock clock; // starter clocken
-    Lives* lives;
-    SoundLoader* soundLoader;
+    Lives* lives = nullptr;
+    SoundLoader* soundLoader = nullptr;
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_HEALTHPACK_H

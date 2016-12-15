@@ -15,7 +15,7 @@ public:
 private:
     int fighter;
     int theme;
-    SoundLoader* soundLoader;
+    SoundLoader* soundLoader = nullptr;
     Score* score;
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_BULLET_H

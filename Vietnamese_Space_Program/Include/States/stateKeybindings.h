@@ -23,23 +23,23 @@ public:
 private:
     Utilities util;
 
-    sf::Font* font;
-    sf::Font* keyFont;
-    sf::Text* movementText;
-    sf::Text* menuNavigationText;
-    sf::Text* gameplayText;
-    sf::Text* alreadyBoundText;
+    sf::Font* font = nullptr;
+    sf::Font* keyFont = nullptr;
+    sf::Text* movementText = nullptr;
+    sf::Text* menuNavigationText = nullptr;
+    sf::Text* gameplayText = nullptr;
+    sf::Text* alreadyBoundText = nullptr;
 
-    sf::Texture* bgTexture;
-    sf::Texture* btnTexture;
-    sf::Texture* overlayTexture;
-    sf::Sprite* background;
-    sf::Sprite* overlay;
+    sf::Texture* bgTexture = nullptr;
+    sf::Texture* btnTexture = nullptr;
+    sf::Texture* overlayTexture = nullptr;
+    sf::Sprite* background = nullptr;
+    sf::Sprite* overlay = nullptr;
 
     struct keySquares{
-        sf::Text* keyText;
-        sf::Text* titleText;
-        sf::Sprite* keySquare;
+        sf::Text* keyText = nullptr;
+        sf::Text* titleText = nullptr;
+        sf::Sprite* keySquare = nullptr;
     };
 
     std::vector<keySquares> keyVector;

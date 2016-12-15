@@ -13,6 +13,6 @@ protected:
     float HP;
     float bossHP;
     float overheatcheck;
-    sf::Font* font;
+    sf::Font* font = nullptr;
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_DYNAMICBAR_H

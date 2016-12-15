@@ -15,7 +15,7 @@ public:
     void addEntity(std::string name, Entity* entity);
     void updateEntity(sf::RenderWindow *window, float* deltaTime);
     void renderEntity(sf::RenderWindow *window);
-    float* deltaTime;
+    float* deltaTime = nullptr;
 protected:
     std::unordered_map<std::string, Entity*> entities;
 public:

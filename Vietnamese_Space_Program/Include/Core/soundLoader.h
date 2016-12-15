@@ -34,6 +34,9 @@ namespace Audio{
 class SoundLoader : sf::NonCopyable
 {
 public:
+    virtual ~SoundLoader();
+
+public:
     SoundLoader();
 
     //Effects

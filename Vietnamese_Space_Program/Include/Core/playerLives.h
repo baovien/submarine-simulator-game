@@ -13,6 +13,8 @@ public:
     void updateLife(std::string livesText);
     int getValue() const;
 
+    virtual ~Lives();
+
 private:
     int value;
 };

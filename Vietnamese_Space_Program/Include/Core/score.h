@@ -8,6 +8,8 @@
 class Score : public sf::Text
 {
 public:
+    virtual ~Score();
+
     Score(sf::Font &font, unsigned int size);
     void incrementScore();
     void updateScore(std::string scoreText);

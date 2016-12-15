@@ -196,3 +196,13 @@ sf::String Utilities::translate(sf::String wordToTranslate, int language) {
     } else return wordToTranslate;
 }
 
+Utilities::~Utilities() {
+    delete this->font;
+    delete this->muteButton;
+    for (int i = 0; i < 2; ++i) {
+        delete this->muteTextures[i].buttonClicked;
+        delete this->muteTextures[i].buttonMouseOver;
+        delete this->muteTextures[i].buttonNormal;
+    }
+}
+

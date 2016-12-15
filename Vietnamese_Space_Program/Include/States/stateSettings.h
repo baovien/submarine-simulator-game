@@ -21,11 +21,11 @@ public:
 private:
     Utilities util;
 
-    sf::Text* title;
+    sf::Text* title = nullptr;
     struct settingsTextureStruct{
-        sf::Texture* buttonNormal;
-        sf::Texture* buttonMouseOver;
-        sf::Texture* buttonClicked;
+        sf::Texture* buttonNormal = nullptr;
+        sf::Texture* buttonMouseOver = nullptr;
+        sf::Texture* buttonClicked = nullptr;
     };
     settingsTextureStruct settingsTextures[8];
     sf::Sprite* settingsButtons[7];
@@ -35,18 +35,18 @@ private:
 
     settingsTextureStruct fpsTextures;
     sf::Sprite* fpsButtons[3];
-    sf::Text* fpsText;
+    sf::Text* fpsText = nullptr;
     sf::Text* fpsNumbers[3];
     std::string fpsWordList[3] = {"30", "60", "120"};
 
     std::string wordList[4] = {"Music", "Controls", "Reset highscore", "Reset controls"};
     sf::Text* mouseOverText[4];
-    sf::Texture* bgTexture;
-    sf::Sprite* background;
+    sf::Texture* bgTexture = nullptr;
+    sf::Sprite* background = nullptr;
 
-    sf::Text* overlayText;
-    sf::Texture* obTexture;
-    sf::Sprite* overlayBackground;
+    sf::Text* overlayText = nullptr;
+    sf::Texture* obTexture = nullptr;
+    sf::Sprite* overlayBackground = nullptr;
     bool inOverlay = false;
     bool bindsOrScore = false; //binds er true, score er false. Denne bruker vi til å sjekke om det er binds eller score som skal resettes
 };

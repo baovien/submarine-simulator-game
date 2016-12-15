@@ -207,9 +207,9 @@ void StateGameMode1::reinitialize(sf::RenderWindow *window) {
  * @param window
  */
 void StateGameMode1::spawnObjects(sf::RenderWindow *window) {
-    if (clock.getElapsedTime().asSeconds() - powerUpTime > 5.f && waveNum % 5 != 0) {
+    if (clock.getElapsedTime().asSeconds() - powerUpTime > 10.f && waveNum % 5 != 0) {
         powerUpTime = clock.getElapsedTime().asSeconds();
-        int random = rand() % 2;
+        int random = rand() % 4;
         switch (random) {
             case 0:
                 this->manager->addEntity("healthPack", new HealthPack(this->lives, machine.soundLoaderPointer, window));

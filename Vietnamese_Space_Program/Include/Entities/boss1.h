@@ -15,9 +15,9 @@ public:
 
     sfuser::PauseableClock pauseableClock;
 private:
-    Player* player;
-    Utilities* util;
-    Bar* bar;
+    Player* player = nullptr;
+    Utilities* util = nullptr;
+    Bar* bar  = nullptr;
     int health, randomNumber;
     double angle;
     int theme;
@@ -25,6 +25,6 @@ private:
     float xDistance, yDistance, distance, easingAmount, maxSpeed, pi, objectSpeed;
     float bulletSpeed;
 
-    EntityManager* manager;
+    EntityManager* manager = nullptr;
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_BOSS1_H

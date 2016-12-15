@@ -45,3 +45,7 @@ int Lives::getValue() const {
     return value;
 }
 
+Lives::~Lives() {
+
+}
+

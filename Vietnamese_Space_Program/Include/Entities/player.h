@@ -29,11 +29,11 @@ private:
     bool firstTimeLoading = true;
     sfuser::PauseableClock clock;
 
-    SoundLoader* soundLoader;
-    Lives* lives;
-    Score* score;
-    Bar* bar;
-    EntityManager* manager;
+    SoundLoader* soundLoader = nullptr;
+    Lives* lives = nullptr;
+    Score* score = nullptr;
+    Bar* bar = nullptr;
+    EntityManager* manager = nullptr;
     std::map<const std::string, std::pair<std::string, int>> keybindMap;
 public:
     bool* isShieldActivePointer = &isShieldActive;

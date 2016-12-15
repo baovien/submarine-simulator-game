@@ -24,45 +24,45 @@ public:
 
 private:
     Utilities util;
-    sf::Text* title;
-    sf::Text* mode;
-    sf::Text* mode2;
-    sf::Text* gamemode2;
-    sf::Texture* backgroundTexture;
-    sf::Texture* enemyFishTexture;
-    sf::Texture* bossTexture;
-    sf::Texture* healthPackTexture;
-    sf::Texture* shieldTexture;
-    sf::Texture* overheatTexture;
-    sf::Texture* junkTexture;
-    sf::Texture* spaceTexture;
-    sf::Texture* classicTexture;
+    sf::Text* title = nullptr;
+    sf::Text* mode = nullptr;
+    sf::Text* mode2 = nullptr;
+    sf::Text* gamemode2 = nullptr;
+    sf::Texture* backgroundTexture = nullptr;
+    sf::Texture* enemyFishTexture = nullptr;
+    sf::Texture* bossTexture = nullptr;
+    sf::Texture* healthPackTexture = nullptr;
+    sf::Texture* shieldTexture = nullptr;
+    sf::Texture* overheatTexture = nullptr;
+    sf::Texture* junkTexture = nullptr;
+    sf::Texture* spaceTexture = nullptr;
+    sf::Texture* classicTexture = nullptr;
 
-    sf::Sprite* background;
-    sf::Sprite* enemyFish;
-    sf::Sprite* boss;
-    sf::Sprite* healthPack;
-    sf::Sprite* shield;
-    sf::Sprite* overheat;
-    sf::Sprite* junk;
-    sf::Sprite* space;
-    sf::Sprite* classic;
+    sf::Sprite* background = nullptr;
+    sf::Sprite* enemyFish = nullptr;
+    sf::Sprite* boss = nullptr;
+    sf::Sprite* healthPack = nullptr;
+    sf::Sprite* shield = nullptr;
+    sf::Sprite* overheat = nullptr;
+    sf::Sprite* junk = nullptr;
+    sf::Sprite* space = nullptr;
+    sf::Sprite* classic = nullptr;
 
-    sf::Text* asteroid1;
-    sf::Text* boss1;
-    sf::Text* powerUp;
-    sf::Text* overheat1;
-    sf::Text* garbage;
+    sf::Text* asteroid1 = nullptr;
+    sf::Text* boss1 = nullptr;
+    sf::Text* powerUp = nullptr;
+    sf::Text* overheat1 = nullptr;
+    sf::Text* garbage = nullptr;
 
 
     struct menuTextureStruct
     {
-        sf::Texture* buttonNormal;
-        sf::Texture* buttonMouseOver;
-        sf::Texture* buttonClicked;
+        sf::Texture* buttonNormal = nullptr;
+        sf::Texture* buttonMouseOver = nullptr;
+        sf::Texture* buttonClicked = nullptr;
     };
     menuTextureStruct buttonTexture;
-    sf::Sprite* button;
+    sf::Sprite* button = nullptr;
 
 };
 

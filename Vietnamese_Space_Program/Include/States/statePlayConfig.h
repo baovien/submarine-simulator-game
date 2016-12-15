@@ -21,27 +21,27 @@ public:
 
 private:
 
-    sf::Text* theme;
-    sf::Text* fighter;
-    sf::Text* gamemode;
-    sf::Text* WaterTheme;
-    sf::Text* SpaceTheme;
-    sf::Text* Submarine;
-    sf::Text* Spaceship;
-    sf::Text* Arcade;
-    sf::Text* Classic;
+    sf::Text* theme = nullptr;
+    sf::Text* fighter = nullptr;
+    sf::Text* gamemode = nullptr;
+    sf::Text* WaterTheme = nullptr;
+    sf::Text* SpaceTheme = nullptr;
+    sf::Text* Submarine = nullptr;
+    sf::Text* Spaceship = nullptr;
+    sf::Text* Arcade = nullptr;
+    sf::Text* Classic = nullptr;
 
-    sf::Texture* bgTexture;
-    sf::Sprite* background;
+    sf::Texture* bgTexture = nullptr;
+    sf::Sprite* background = nullptr;
 
 
 
     //Play- og backbutton
     struct menuTextureStruct
     {
-        sf::Texture* buttonNormal;
-        sf::Texture* buttonMouseOver;
-        sf::Texture* buttonClicked;
+        sf::Texture* buttonNormal = nullptr;
+        sf::Texture* buttonMouseOver = nullptr;
+        sf::Texture* buttonClicked = nullptr;
     };
     menuTextureStruct menuTextures[2];
     sf::Sprite* menuButtons[2];
@@ -49,8 +49,8 @@ private:
     //Alle bildene i playconfig
     struct PictureTextureStruct
     {
-        sf::Texture *buttonNormal;
-        sf::Texture *buttonMouseOver;
+        sf::Texture *buttonNormal = nullptr;
+        sf::Texture *buttonMouseOver = nullptr;
     };
     PictureTextureStruct PictureTexture[6];
     sf::Sprite* PictureButtons[6];

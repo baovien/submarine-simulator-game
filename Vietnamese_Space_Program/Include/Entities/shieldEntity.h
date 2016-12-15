@@ -16,11 +16,11 @@ public:
     virtual void collision(Entity* entity);
 private:
     sfuser::PauseableClock clock; // starter clocken
-    Player* player;
+    Player* player = nullptr;
 
-    SoundLoader* soundLoader;
+    SoundLoader* soundLoader = nullptr;
 public:
-    bool* isShieldActivePointer;
+    bool* isShieldActivePointer = nullptr;
 
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_SHIELDPOWERUP_H

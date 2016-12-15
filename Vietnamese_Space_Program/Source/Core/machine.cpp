@@ -29,6 +29,7 @@ void Machine::setState(States *state)
     if(this->state != NULL)
     {
         this->state->destroy(this->window);
+        delete this->state;
     }
     this->state = state;
     if(this->state != NULL)

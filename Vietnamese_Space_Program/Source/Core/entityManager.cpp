@@ -122,5 +122,7 @@ EntityManager::~EntityManager() {
     for (auto &iterator : this->entities) {
         delete iterator.second;
     }
+    this->deltaTime;
+    this->entitiesPointer;
     this->entities.clear();
 }

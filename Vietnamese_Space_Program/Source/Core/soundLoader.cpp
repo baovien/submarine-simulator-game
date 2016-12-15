@@ -134,3 +134,7 @@ void SoundLoader::initSoundPointers(bool *muted, bool *mutedMusic) {
 void SoundLoader::stopMusic() {
     this->music.stop();
 }
+
+SoundLoader::~SoundLoader() {
+
+}

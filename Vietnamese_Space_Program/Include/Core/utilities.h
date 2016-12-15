@@ -6,13 +6,13 @@
 
 class Utilities {
 private:
-    sf::Font *font;
-    sf::Sprite *muteButton;
+    sf::Font *font = nullptr;
+    sf::Sprite *muteButton = nullptr;
 
     struct muteTextureStruct{
-        sf::Texture* buttonNormal;
-        sf::Texture* buttonMouseOver;
-        sf::Texture* buttonClicked;
+        sf::Texture* buttonNormal = nullptr;
+        sf::Texture* buttonMouseOver = nullptr;
+        sf::Texture* buttonClicked = nullptr;
     };
     muteTextureStruct muteTextures[2];
 
@@ -155,6 +155,7 @@ public:
     //Tar inn sprite og returnerer true om mouseclick
     bool checkMouseclick(sf::Sprite *buttonSprite, sf::Event event);
 
+    ~Utilities();
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_UTIL_H

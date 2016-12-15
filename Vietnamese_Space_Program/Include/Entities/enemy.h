@@ -12,11 +12,11 @@ public:
     virtual void collision(Entity* entity);
 
 private:
-    SoundLoader* soundLoader;
-    Player* player;
+    SoundLoader* soundLoader = nullptr;
+    Player* player = nullptr;
     int health;
     int randomNumber;
-    EntityManager* manager;
+    EntityManager* manager = nullptr;
     float mode;
     int theme;
 

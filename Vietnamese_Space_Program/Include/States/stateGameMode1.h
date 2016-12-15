@@ -31,20 +31,20 @@ public:
 protected:
     sf::Texture overBar;
     sf::Sprite overBarS;
-    Lives* lives;
-    Score* score;
-    sf::Font* font;
-    sf::Text* pausedText;
-    sf::Text* waveText;
-    Utilities* util;
-    EntityManager* manager;
-    sf::Texture* bgTexture;
-    sf::Sprite* background;
-    Player* player;
-    EnemyObject* enemyObject;
-    BossObject* bossObject;
-    sf::Texture* pausedTexture;
-    sf::Sprite* pausedBackground;
+    Lives* lives = nullptr;
+    Score* score = nullptr;
+    sf::Font* font = nullptr;
+    sf::Text* pausedText = nullptr;
+    sf::Text* waveText = nullptr;
+    Utilities* util = nullptr;
+    EntityManager* manager = nullptr;
+    sf::Texture* bgTexture = nullptr;
+    sf::Sprite* background = nullptr;
+    Player* player = nullptr;
+    EnemyObject* enemyObject = nullptr;
+    BossObject* bossObject = nullptr;
+    sf::Texture* pausedTexture = nullptr;
+    sf::Sprite* pausedBackground = nullptr;
     sfuser::PauseableClock clock;
     sf::Vector2u currentWindowSize;
 

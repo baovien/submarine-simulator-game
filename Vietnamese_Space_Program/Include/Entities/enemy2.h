@@ -16,7 +16,7 @@ public:
 private:
     int theme;
     int health;
-    EntityManager* manager;
+    EntityManager* manager = nullptr;
 
 };
 

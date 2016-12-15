@@ -14,7 +14,7 @@ public:
     int activeEntity();
     int groupID();
     void destroyEntity();
-    ~Entity();
+    virtual ~Entity();
 
     sf::Vector2f velocity;
 protected:
@@ -23,7 +23,7 @@ protected:
     int groupId;
     float deltatime;
 private:
-    sf::Texture* texture;
+    sf::Texture* texture = nullptr;
 };
 
 #endif //VIETNAMESE_SPACE_PROGRAM_ENTITY_H

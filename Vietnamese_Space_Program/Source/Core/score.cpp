@@ -38,3 +38,7 @@ int Score::getValue() const
 
     return value;
 }
+
+Score::~Score() {
+
+}

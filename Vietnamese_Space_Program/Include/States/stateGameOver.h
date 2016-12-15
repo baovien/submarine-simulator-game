@@ -27,29 +27,29 @@ private:
     void saveScoreClassic();
 
     Utilities util;
-    sf::Text* gameOverText;
-    sf::Text* score;
-    sf::Text* congratulationsText;
-    sf::Text* congratulationsText2;
-    sf::Text* whatAShameText;
+    sf::Text* gameOverText = nullptr;
+    sf::Text* score = nullptr;
+    sf::Text* congratulationsText = nullptr;
+    sf::Text* congratulationsText2 = nullptr;
+    sf::Text* whatAShameText = nullptr;
 
-    sf::Texture* bgTexture;
-    sf::Sprite* background;
+    sf::Texture* bgTexture = nullptr;
+    sf::Sprite* background = nullptr;
 
     sf::RectangleShape* textBox;
 
     int gameOverScore;
 
     std::string playerName;
-    sf::Text* text;
-    sf::Text* clickToActivate;
+    sf::Text* text = nullptr;
+    sf::Text* clickToActivate = nullptr;
 
     bool highscoreOrNAH, boxIsClicked;
 
     struct menuTextureStruct{
-        sf::Texture* buttonNormal;
-        sf::Texture* buttonMouseOver;
-        sf::Texture* buttonClicked;
+        sf::Texture* buttonNormal = nullptr;
+        sf::Texture* buttonMouseOver = nullptr;
+        sf::Texture* buttonClicked = nullptr;
     };
 
     menuTextureStruct menuTextures[2];
