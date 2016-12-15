@@ -14,8 +14,8 @@
  * @param soundLoader
  * @return
  */
-Player::Player(std::map<const std::string, std::pair<std::string, int>> keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode, int fighter, SoundLoader *soundLoader)
-        : keybindMap(keybindMap),
+Player::Player(std::map<const std::string, std::pair<std::string, int>>* keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode, int fighter, SoundLoader *soundLoader)
+        : keybindMap(*keybindMap),
           fighter(fighter),
           manager(manager),
           gamemode(gamemode),

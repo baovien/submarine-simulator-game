@@ -183,7 +183,7 @@ void StatePlayConfig::destroy(sf::RenderWindow *window) {
 void StatePlayConfig::handleEvent(sf::RenderWindow *window, sf::Event event) {
     if (event.type == sf::Event::KeyPressed) {
         //Back on escapekey
-        if (event.key.code == machine.keybindMap.find("back")->second.second) {
+        if (event.key.code == machine.keybindMap->find("back")->second.second) {
             machine.setState(new StateMainMenu);
             return;
         }

@@ -42,7 +42,7 @@ void StateGameMode2::initialize(sf::RenderWindow *window) {
     this->manager->addEntity("ship", this->player);
 
 
-    this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap.find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2,
+    this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap->find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2,
                                      window->getSize().x / 2.f, window->getSize().y / 2.f, window, machine.settingPointer->selectedLanguage);
 
     this->pausedTexture = new sf::Texture();
@@ -123,12 +123,12 @@ void StateGameMode2::destroy(sf::RenderWindow *window) {
 
 void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event) {
     if (event.type == event.KeyPressed) {
-        if (event.key.code == machine.keybindMap.find("back")->second.second && util->paused) {
+        if (event.key.code == machine.keybindMap->find("back")->second.second && util->paused) {
             machine.soundLoaderPointer->stopMusic();
             machine.setState(new StateMainMenu());
             return;
         }
-        if (event.key.code == machine.keybindMap.find("pause")->second.second) {
+        if (event.key.code == machine.keybindMap->find("pause")->second.second) {
             util->pauseScreen();                        //Kaller pausefunksjonen
         }
     }
@@ -152,7 +152,7 @@ void StateGameMode2::reinitialize(sf::RenderWindow *window) {
     this->lives->setPosition(window->getSize().x - window->getSize().x / 5.f, window->getSize().y / 20.f);
     this->lives->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
 
-    this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap.find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2,
+    this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap->find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2,
                                      window->getSize().x / 2.f, window->getSize().y / 2.f, window, machine.settingPointer->selectedLanguage);
 
     this->pausedBackground->setPosition(window->getSize().x / 2, window->getSize().y / 2);
