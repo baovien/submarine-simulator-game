@@ -56,8 +56,12 @@ SoundLoader::SoundLoader() {
     buffers[Audio::Effect::ENEMY_SHOOT].loadFromFile("Audio/SFX/pop.ogg");
     buffers[Audio::Effect::BULLET_POP].loadFromFile("Audio/SFX/explosion.ogg");
     buffers[Audio::Effect::REPAIR].loadFromFile("Audio/SFX/repair.ogg");
-    buffers[Audio::Effect::WAVEDONE].loadFromFile("Audio/SFX/wavedone.wav");
-    buffers[Audio::Effect::OVERHEAT].loadFromFile("Audio/SFX/overheat.wav");
+    buffers[Audio::Effect::NEXTWAVE].loadFromFile("Audio/SFX/wavedone.wav");
+    buffers[Audio::Effect::OVERHEAT].loadFromFile("Audio/SFX/negative.ogg");
+    buffers[Audio::Effect::BOSSWAVE].loadFromFile("Audio/SFX/bossincoming.ogg");
+    buffers[Audio::Effect::SHIELD].loadFromFile("Audio/SFX/shield.ogg");
+    buffers[Audio::Effect::WAVEDONE].loadFromFile("Audio/SFX/positive.ogg");
+
 }
 
 /**

@@ -39,7 +39,7 @@ void ShieldEntity::updateEntity(sf::RenderWindow *window){
 void ShieldEntity::collision(Entity* entity){
     switch(entity->groupID()){
         case 1: //Player
-            //this->soundLoader->playEffect(Audio::?????);
+            this->soundLoader->playEffect(Audio::Effect::SHIELD);
             *this->isShieldActivePointer = true;
             this->destroyEntity();
             break;

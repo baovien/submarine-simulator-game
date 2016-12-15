@@ -15,7 +15,10 @@ namespace Audio{
         BULLET_POP,
         REPAIR,
         WAVEDONE,
-        OVERHEAT
+        OVERHEAT,
+        BOSSWAVE,
+        NEXTWAVE,
+        SHIELD
     };
 
     enum Music
