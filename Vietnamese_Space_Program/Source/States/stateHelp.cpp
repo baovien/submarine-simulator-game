@@ -97,20 +97,20 @@ void stateHelp::initialize(sf::RenderWindow *window) {
 
     mode2 = util.addText("Gamemode 2", 30 , 2, 2,window->getSize().x / 2.0f, window->getSize().y / 1.5f, window, machine.settingPointer->selectedLanguage);
     mode2->setFillColor(sf::Color(140,255,75));
-
-    gamemode2 = util.addText("This is the classic arcade space shooter game where the player only can move horizontally at the bottom of the screen.\n"
-                                     "The aim is to defeat the enemies by shooting them, while they move horizontally back and forth across the screen as\n"
-                                     "they advance towards the bottom of the screen."
-                                     " The enemies can kill the player by either shooting it \nor by colliding into it."
-                                     " The default keybind for shooting is space.", 18 , 0, 0,window->getSize().x / 16.5f, window->getSize().y / 1.4f, window, machine.settingPointer->selectedLanguage);
+    gamemode2 = util.addText((util.translate("This is the classic arcade space shooter game where the player only can move horizontally at the bottom of the screen.\n"
+                                                     "The goal is to defeat the enemies by shooting them, while they move horizontally back and forth across the screen as\n"
+                                                     "they advance towards the bottom of the screen."
+                                                     " The enemies can kill the player by either shooting it \nor by colliding into it."
+                                                     " The default keybind for shooting is space.", machine.settingPointer->selectedLanguage)),
+                             18 , 0, 0,window->getSize().x / 16.5f, window->getSize().y / 1.4f, window, machine.settingPointer->selectedLanguage);
 
     asteroid1 = util.addText("Enemy spawn in waves. They chase you and will shoot at you after the first boss. The number of enemies \ndepend on the wave. Running into"
-                                     " the enemy will destroy it and damage you unless you are shielded.",
+                                     " the enemy will destroy it and damage you, unless you are shielded.",
                              18, 2, 2, window->getSize().x / 16.5f,
                              window->getSize().y / 5.1f, window, machine.settingPointer->selectedLanguage);
     this->asteroid1->setOrigin(0, 0);
 
-    boss1 = util.addText("Every fifth wave, the boss will spawn. Running into it will kill you.\nThe default key to kill the boss and the enemies is space.",
+    boss1 = util.addText((util.translate("Every fifth wave, the boss will spawn. Running into it will kill you.\nThe default key to shoot the boss and enemies is space.", machine.settingPointer->selectedLanguage)),
                          18, 2, 2, window->getSize().x / 16.5f,
                          window->getSize().y / 3.32f, window, machine.settingPointer->selectedLanguage);
     this->boss1->setOrigin(0, 0);
@@ -127,7 +127,7 @@ void stateHelp::initialize(sf::RenderWindow *window) {
     this->overheat1->setOrigin(0, 0);
 
 
-    garbage = util.addText("Indestructable junk will periodically fly through the screen, damaging everything everuthing in it`s path.",
+    garbage = util.addText("Indestructable junk will periodically fly through the screen, damaging everything in its path.",
                          18, 2, 2, window->getSize().x / 16.5f,
                          window->getSize().y / 1.63f, window, machine.settingPointer->selectedLanguage);
     this->garbage->setOrigin(0, 0);
@@ -232,7 +232,7 @@ void stateHelp::destroy(sf::RenderWindow *window) {
 void stateHelp::handleEvent(sf::RenderWindow *window, sf::Event event) {
 
     if (event.type == event.KeyPressed) {
-        if (event.key.code == machine.keybindMap.find("back")->second.second) {
+        if (event.key.code == machine.keybindMap->find("back")->second.second) {
             machine.setState(new StateMainMenu);
             return;
         }
