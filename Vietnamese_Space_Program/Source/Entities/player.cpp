@@ -120,7 +120,11 @@ void Player::updateEntity(sf::RenderWindow *window) {
                 sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second)) {
                 if (this->overheatValue < 10) {
                     this->overheatValue += 1;
-                    this->soundLoader->playEffect(Audio::Effect::PLAYER_SHOOT);
+                    if(machine.selectedObjectsPointer->selectedFighter == 0){
+                        this->soundLoader->playEffect(Audio::Effect::PLAYER_SHOOT1);
+                    }else{
+                        this->soundLoader->playEffect(Audio::Effect::PLAYER_SHOOT2);
+                    }
                     this->manager->addEntity("bullet", new Bullet((this->score),
                                                                   (this->getPosition().x + (this->getGlobalBounds().width / 2) * sin(angle)),
                                                                   (this->getPosition().y - (this->getGlobalBounds().height / 2) * cos(angle)),
@@ -183,6 +187,11 @@ void Player::updateEntity(sf::RenderWindow *window) {
             if (manager->getEntity("bullet") == NULL) {
                 if (!this->space &&
                     sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second)) {
+                    if(machine.selectedObjectsPointer->selectedFighter == 0){
+                        this->soundLoader->playEffect(Audio::Effect::PLAYER_SHOOT1);
+                    }else{
+                        this->soundLoader->playEffect(Audio::Effect::PLAYER_SHOOT2);
+                    }
                     this->manager->addEntity("bullet", new Bullet((this->score),
                                                                   (this->getPosition().x),
                                                                   (this->getPosition().y - this->getGlobalBounds().height / 2.f),

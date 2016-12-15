@@ -10,7 +10,8 @@
 namespace Audio{
     enum Effect
     {
-        PLAYER_SHOOT,
+        PLAYER_SHOOT1,
+        PLAYER_SHOOT2,
         ENEMY_SHOOT,
         BULLET_POP,
         REPAIR,

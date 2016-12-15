@@ -52,7 +52,8 @@ SoundLoader::SoundLoader() {
     musicPath[Audio::Music::CLASSIC] = ("Audio/Music/classic.ogg");
 
     //SFX
-    buffers[Audio::Effect::PLAYER_SHOOT].loadFromFile("Audio/SFX/missileLaunch.ogg");
+    buffers[Audio::Effect::PLAYER_SHOOT1].loadFromFile("Audio/SFX/missileLaunch.ogg");
+    buffers[Audio::Effect::PLAYER_SHOOT2].loadFromFile("Audio/SFX/shoot2.ogg");
     buffers[Audio::Effect::ENEMY_SHOOT].loadFromFile("Audio/SFX/pop.ogg");
     buffers[Audio::Effect::BULLET_POP].loadFromFile("Audio/SFX/explosion.ogg");
     buffers[Audio::Effect::REPAIR].loadFromFile("Audio/SFX/repair.ogg");
