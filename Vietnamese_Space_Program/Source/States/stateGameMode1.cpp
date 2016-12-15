@@ -17,10 +17,11 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
 
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/background1" + std::to_string(2 + machine.selectedObjectsPointer->selectedTheme) + ".png");
-    this->background = new sf::Sprite();
 
+    this->background = new sf::Sprite();
     this->background->setTexture(*this->bgTexture);
     this->background->scale(window->getSize().x / background->getGlobalBounds().width, window->getSize().y / background->getGlobalBounds().height);
+
     this->font = new sf::Font();
     this->font->loadFromFile("Graphics/font.ttf");
 
@@ -50,7 +51,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     //Init pauseobjekter
     //Text, textsize, origin x, origin y, position x, position y, window, language int
 
-    this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap.find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2,
+    this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap->find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2,
                                      window->getSize().x / 2.f, window->getSize().y / 2.f, window, machine.settingPointer->selectedLanguage);
 
     this->pausedTexture = new sf::Texture();
@@ -86,11 +87,12 @@ void StateGameMode1::update(sf::RenderWindow *window) {
             return;
         }
         if(enemyList.size() == 0 && bossList.size() == 0 && !waveDone){
+            machine.soundLoaderPointer->playEffect(Audio::Effect::WAVEDONE);
             waveDone = true;
             waveClock.restart();
         }
         if (enemyList.size() == 0 && bossList.size() == 0 && waveDone && waveClock.getElapsedTime().asSeconds() > 3) {
-            machine.soundLoaderPointer->playEffect(Audio::Effect::WAVEDONE);
+            machine.soundLoaderPointer->playEffect(Audio::Effect::NEXTWAVE);
             waveDone = false;
             waveNum++;
             spawnWave(window);
@@ -141,12 +143,12 @@ void StateGameMode1::destroy(sf::RenderWindow *window) {
 
 void StateGameMode1::handleEvent(sf::RenderWindow *window, sf::Event event) {
     if (event.type == event.KeyPressed) {
-        if (event.key.code == machine.keybindMap.find("back")->second.second && util->paused) {
+        if (event.key.code == machine.keybindMap->find("back")->second.second && util->paused) {
             machine.soundLoaderPointer->stopMusic();
             machine.setState(new StateMainMenu());
             return;
         }
-        if (event.key.code == machine.keybindMap.find("pause")->second.second) {
+        if (event.key.code == machine.keybindMap->find("pause")->second.second) {
             util->pauseScreen();                        //Kaller pausefunksjonen
         }
 
@@ -178,7 +180,7 @@ void StateGameMode1::reinitialize(sf::RenderWindow *window) {
     this->lives->setPosition(window->getSize().x - window->getSize().x / 5.f, window->getSize().y / 20.f);
     this->lives->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
 
-    this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap.find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2,
+    this->pausedText = util->addText(util->translate("Paused. Press", machine.settingPointer->selectedLanguage) + "\n" + machine.keybindMap->find("back")->second.first + util->translate(" to quit", machine.settingPointer->selectedLanguage), 32, 2, 2,
                                      window->getSize().x / 2.f, window->getSize().y / 2.f, window, machine.settingPointer->selectedLanguage);
 
     this->pausedBackground->setPosition(window->getSize().x / 2, window->getSize().y / 2);
@@ -235,6 +237,7 @@ void StateGameMode1::spawnObjects(sf::RenderWindow *window) {
  */
 void StateGameMode1::spawnWave(sf::RenderWindow *window) {
     if (waveNum % 5 == 0) { //BOSS HVER 5. WAVE
+        machine.soundLoaderPointer->playEffect(Audio::Effect::BOSSWAVE);
         this->bossWave++;
         bossObject = new BossObject(this->manager, this->player,window , machine.selectedObjectsPointer->selectedTheme, this->bossWave);
         this->manager->addEntity("Boss", bossObject);
@@ -269,11 +272,6 @@ void StateGameMode1::updateEnemyList(sf::RenderWindow *window) {
 
     //Sjekker boss
     for (unsigned int i = 0; i < bossList.size(); i++) {
-        if (bossList.size() == 0) {
-            bossList.erase(bossList.begin() + i);
-            break;
-        }
-
         if (bossList.at((unsigned long) i)->activeEntity() == 0) {
             bossList.erase(bossList.begin() + i);
             break;
