@@ -1,6 +1,7 @@
 #include <cstring>
 #include <iostream>
 #include <fstream>
+#include "../../Include/json/json.h"
 #include "../../Include/Core/app.h"
 
 //Tastetrykk som kun skal registreres én gang:
@@ -18,12 +19,13 @@ void App::run() {
 
     window.setKeyRepeatEnabled(false);
 
-    srand(time(0)); //gir random tall utifra hvor mange sekunder har gått siden 1. jan 1970
+    srand((unsigned int) time(0)); //gir random tall utifra hvor mange sekunder har gått siden 1. jan 1970
 
     machine.setWindow(&window);
     machine.setState(new StateMainMenu);
 
-    loadSettings();
+    validateJson();
+    loadJson();
 
     window.setFramerateLimit((unsigned int) ((15 * machine.settingPointer->selectedFps * machine.settingPointer->selectedFps) + 15 * machine.settingPointer->selectedFps + 30));
     // 15x^2+15x+30 gir riktig fps utifra selectedFPS 0=30, 1=60, 2=120. Derfor bruker jeg den funksjonen til å sette initialfps
@@ -42,7 +44,7 @@ void App::run() {
             if (!wait) {
                 //Close down window
                 if (event.type == sf::Event::Closed) {
-                    saveSettings();
+                    saveJson();
                     window.close();
                 } else if (event.type == sf::Event::Resized) {
                     machine.reinitialize();
@@ -57,59 +59,129 @@ void App::run() {
             window.display();
         }
         if (quitGame) {
-            saveSettings();
+            saveJson();
             window.close();
         }
     }
 }
 
-void App::saveSettings() {
-    std::ofstream file("highscore.txt");
-    if (file.is_open()) {
-        //Highscore
-        for (int i = 0; i < 8; ++i) {
-            if (i < 4 && i != 0) {
-                file << std::to_string(machine.arcadeScorePointer->at(i - 1).first) << " " << machine.arcadeScorePointer->at(i - 1).second << std::endl;
-            } else if (i > 4) {
-                file << std::to_string(machine.classicScorePointer->at(i - 5).first) << " " << machine.classicScorePointer->at(i - 5).second << std::endl;
-            }
-        }
-        file.close();
-    } else {
-        std::cout << "Unable to open file" << std::endl;
-    }
+
+/**
+ * Validate
+ */
+void App::validateJson(){
+    std::ifstream infile("config.json");
+    Json::Value root;
+    infile >> root;
+    infile.close();
+
+    std::ofstream os("config.json", std::ofstream::trunc); //Overskriver eksisterende fil.
+    Json::StyledStreamWriter writer;
+
+
+    //Feilsjekk for fps og språk. Setter default value
+    if(!root["settings"]["fps"].isInt()) root["settings"]["fps"] = 1;
+    if(!root["settings"]["language"].isInt()) root["settings"]["language"] = 0;
+    if(!root["settings"]["mute"].isBool()) root["settings"]["mute"] = false;
+    if(!root["settings"]["muteMusic"].isBool()) root["settings"]["muteMusic"] = false;
+    if(root["settings"]["fps"].asInt() > 2 || root["settings"]["fps"].asInt() < 0) root["settings"]["fps"] = 1;
+    if(root["settings"]["language"].asInt() > 3 || root["settings"]["language"].asInt() < 0) root["settings"]["language"] = 0;
+
+    writer.write(os, root);
+
+    os.close();
 }
 
+/**
+ * Save data to config.json
+ */
+void App::saveJson() {
 
-void App::loadSettings() {
-    std::ifstream file("highscore.txt"); // pass file name as argment
+    std::ifstream infile("config.json");
+    if (!infile.is_open()) {
+        std::cout << "Creating new config.json" << std::endl;
+    }
+    infile.close();
 
-    std::string name;
-    int score;
-    std::vector<std::pair<int, std::string>> info;
+    std::ofstream os("config.json", std::ofstream::trunc); //Overskriver eksisterende fil.
+    Json::StyledStreamWriter writer;
+    Json::Value root;
 
-    if (file.is_open()) {
+    ////////////SAVE DATA////////////
+
+    //Highscore
+    for (int i = 0; i < 3; ++i) {
+        root["highscore"]["arcade"][i]["name"] = machine.arcadeScorePointer->at(i).second;
+        root["highscore"]["arcade"][i]["score"] = machine.arcadeScorePointer->at(i).first;
+    }
+    for (int i = 0; i < 3; ++i) {
+        root["highscore"]["classic"][i]["name"] = machine.classicScorePointer->at(i).second;
+        root["highscore"]["classic"][i]["score"] = machine.classicScorePointer->at(i).first;
+    }
+
+    //Settings
+    root["settings"]["muteMusic"] = *machine.mutedMusicPointer;
+    root["settings"]["mute"] = *machine.mutedPointer;
+    root["settings"]["language"] = machine.settingPointer->selectedLanguage;
+    root["settings"]["fps"] = machine.settingPointer->selectedFps;
+
+    //Keybindings
+    for (auto elem : *machine.keybindMap) {
+        root["settings"]["keybinds"][elem.first].append(elem.second.first);
+        root["settings"]["keybinds"][elem.first].append(elem.second.second);
+    }
+
+    /////////////////////////////////
+
+    writer.write(os, root);
+
+    os.close();
+}
+
+/**
+ * Load data from config.json.
+ */
+void App::loadJson() {
+    std::ifstream in("config.json");
+    Json::Value root;
+    in >> root;
+
+    if (in.is_open()) {
+        ///////////LOAD DATA////////////
+
+        //Fjerner verdiene i vectorene.
         machine.arcadeScorePointer->clear();
         machine.classicScorePointer->clear();
 
-        //Read settingsfile
-        while (file >> score >> name) {
-            /* do something with name, var1 etc. */
-            info.push_back(std::make_pair(score, name));
+        //Laster inn highscores for arcade og classic
+        for (Json::Value::iterator it = root["highscore"]["arcade"].begin(); it != root["highscore"]["arcade"].end(); ++it) {
+            machine.arcadeScorePointer->push_back(std::make_pair((*it)["score"].asInt(), (*it)["name"].asString()));
+        }
+        for (Json::Value::iterator it = root["highscore"]["classic"].begin(); it != root["highscore"]["classic"].end(); ++it) {
+            machine.classicScorePointer->push_back(std::make_pair((*it)["score"].asInt(), (*it)["name"].asString()));
         }
 
-        //Load highscore
-        for (int i = 0; i < info.size(); ++i) {
-            if(i < 3){
-                machine.arcadeScorePointer->push_back(info[i]);
-            }else{
-                machine.classicScorePointer->push_back(info[i]);
-            }
+        //Henter settings
+        *machine.mutedMusicPointer = root["settings"]["muteMusic"].asBool();
+        *machine.mutedPointer = root["settings"]["mute"].asBool();
+        machine.settingPointer->selectedLanguage = root["settings"]["language"].asInt();
+        machine.settingPointer->selectedFps = root["settings"]["fps"].asInt();
+
+        //Keybinds
+
+        for (Json::Value::iterator it = root["settings"]["keybinds"].begin(); it != root["settings"]["keybinds"].end(); ++it) {
+
+            machine.keybindMap->find(it.name())->second.first = (*it)[0].asString();
+            machine.keybindMap->find(it.name())->second.second = (*it)[1].asInt();
+
         }
 
-        file.close();
+        ///////////////////////////////
+
+        in.close();
     } else {
-        std::cout << "Unable to open file" << std::endl;
+        std::cout << "Could not find config.json. Applying default values" << std::endl;
     }
+
 }
 

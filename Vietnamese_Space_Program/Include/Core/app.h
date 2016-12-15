@@ -13,8 +13,9 @@ class App
 public:
     void run();
 
-    void saveSettings();
-    void loadSettings();
+    void saveJson();
+    void loadJson();
+    void validateJson();
 };
 #endif //VIETNAMESE_SPACE_PROGRAM_APP_H
 
