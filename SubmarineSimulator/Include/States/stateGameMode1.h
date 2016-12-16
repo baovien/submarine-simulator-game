@@ -58,7 +58,7 @@ protected:
     //Branch: Waves
     int bossWave = 0;
     int transparencyValue = 0;
-    int waveNum = 5;
+    int waveNum = 0;
 
     std::vector<EnemyObject*> enemyList;
 
