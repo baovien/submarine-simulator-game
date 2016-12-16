@@ -9,13 +9,13 @@
  * @param direction - Direction x
  * @param direction2 - Direction y
  * @param angle - Rotation given by the player's current direction.
- * @param soundLoader
+ * @param audioLoader
  * @param window
  * @param fighter - The selected fighter.
  * @return
  */
-Bullet::Bullet(Score* score, float x, float y, float direction, float direction2, float angle, SoundLoader* soundLoader, sf::RenderWindow* window, int fighter)
-        : soundLoader(soundLoader)
+Bullet::Bullet(Score* score, float x, float y, float direction, float direction2, float angle, AudioLoader* audioLoader, sf::RenderWindow* window, int fighter)
+        : audioLoader(audioLoader)
 {
     this->fighter = fighter;
     this->active = 1;
@@ -92,24 +92,24 @@ void Bullet::collision(Entity *entity)
         {
             case 3: // IndestructableObject nr 1
                 this->destroyEntity();
-                this->soundLoader->playEffect(Audio::BULLET_POP);
+                this->audioLoader->playEffect(Audio::BULLET_POP);
                 break;
 
             case 4: // Enemy
                 this->destroyEntity();
                 this->score->incrementScore();
-                this->soundLoader->playEffect(Audio::BULLET_POP);
+                this->audioLoader->playEffect(Audio::BULLET_POP);
                 break;
 
             case 5: // Boss
                 this->destroyEntity();
                 this->score->incrementScore();
-                this->soundLoader->playEffect(Audio::BULLET_POP);
+                this->audioLoader->playEffect(Audio::BULLET_POP);
                 break;
 
             case 9: // IndestructableObject nr 2
                 this->destroyEntity();
-                this->soundLoader->playEffect(Audio::BULLET_POP);
+                this->audioLoader->playEffect(Audio::BULLET_POP);
                 break;
 
             default:

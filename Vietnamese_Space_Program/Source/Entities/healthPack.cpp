@@ -3,12 +3,12 @@
 /**
  * Healthpack's constructor
  * @param lives - The player's lives.
- * @param soundLoader
+ * @param audioLoader
  * @param window
  * @return
  */
-HealthPack::HealthPack(Lives* lives, SoundLoader* soundLoader, sf::RenderWindow* window)
-        : soundLoader(soundLoader)
+HealthPack::HealthPack(Lives* lives, AudioLoader* audioLoader, sf::RenderWindow* window)
+        : audioLoader(audioLoader)
 {
     this->load("wrench.png");
     this->active = 1;
@@ -43,7 +43,7 @@ void HealthPack::collision(Entity* entity)
     switch(entity->groupID())
     {
         case 1:
-            this->soundLoader->playEffect(Audio::REPAIR);
+            this->audioLoader->playEffect(Audio::REPAIR);
             this->destroyEntity();
             this->lives->increaseLife();
             break;

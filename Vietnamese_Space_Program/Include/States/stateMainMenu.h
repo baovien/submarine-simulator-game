@@ -3,7 +3,7 @@
 
 #include "../Core/machine.h"
 #include "../Core/state.h"
-#include "../Core/soundLoader.h"
+#include "../Core/audioLoader.h"
 #include "../Core/utilities.h"
 
 class StateMainMenu : public States{

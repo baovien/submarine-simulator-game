@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../../Include/Entities/boss1.h"
+#include "../../Include/Entities/boss.h"
 /**
  * The boss' constructor.
  * @param manager - The entitymanager.

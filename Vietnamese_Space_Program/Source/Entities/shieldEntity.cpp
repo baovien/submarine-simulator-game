@@ -4,12 +4,12 @@
  * Constructor for the spawning power-up
  * @param window
  * @param player
- * @param soundLoader
+ * @param audioLoader
  * @return
  */
-ShieldEntity::ShieldEntity(sf::RenderWindow* window, Player* player, SoundLoader* soundLoader)
+ShieldEntity::ShieldEntity(sf::RenderWindow* window, Player* player, AudioLoader* audioLoader)
         : player(player),
-          soundLoader(soundLoader)
+          audioLoader(audioLoader)
 {
     this->isShieldActivePointer = player->isShieldActivePointer;
     this->load("shieldPowerUp.png");
@@ -39,7 +39,7 @@ void ShieldEntity::updateEntity(sf::RenderWindow *window){
 void ShieldEntity::collision(Entity* entity){
     switch(entity->groupID()){
         case 1: //Player
-            this->soundLoader->playEffect(Audio::Effect::SHIELD);
+            this->audioLoader->playEffect(Audio::Effect::SHIELD);
             *this->isShieldActivePointer = true;
             this->destroyEntity();
             break;

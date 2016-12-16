@@ -2,7 +2,7 @@
 #define VIETNAMESE_SPACE_PROGRAM_MACHINE_H
 
 #include "state.h"
-#include "soundLoader.h"
+#include "audioLoader.h"
 
 class Machine {
 public:
@@ -63,7 +63,7 @@ private:
 
     bool muted = false;
     bool mutedMusic = false;
-    SoundLoader soundLoader;
+    AudioLoader audioLoader;
     sf::Image backgroundBehindOverlay;
 
 
@@ -72,7 +72,7 @@ private:
 public:
     sf::Image* backgroundBehindOverlayPointer = &backgroundBehindOverlay;
     float* deltaTimePointer = &deltaTime;
-    SoundLoader* soundLoaderPointer = &soundLoader;
+    AudioLoader* audioLoaderPointer = &audioLoader;
     bool* mutedMusicPointer = &mutedMusic;
     bool* mutedPointer = &muted;
     std::map<const std::string, std::pair<std::string, int>>* keybindMap = &m_keybindMap;

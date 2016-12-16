@@ -31,13 +31,13 @@ namespace Audio{
     };
 }
 
-class SoundLoader : sf::NonCopyable
+class AudioLoader : sf::NonCopyable
 {
 public:
-    virtual ~SoundLoader();
+    virtual ~AudioLoader();
 
 public:
-    SoundLoader();
+    AudioLoader();
 
     //Effects
     void playEffect(Audio::Effect soundName);

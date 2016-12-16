@@ -9,14 +9,14 @@
  * @param player
  * @param manager - The entitymanager
  * @param mode - Current wave. Deciding whether the enemy shoots or not.
- * @param soundLoader
+ * @param audioLoader
  * @param theme - Current theme, deciding what texture to load.
  * @return
  */
-EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager* manager, int wave, SoundLoader* soundLoader, int theme)
+EnemyObject::EnemyObject(sf::RenderWindow* window, Player* player, EntityManager* manager, int wave, AudioLoader* audioLoader, int theme)
             : player(player),
               manager(manager),
-              soundLoader(soundLoader),
+              audioLoader(audioLoader),
               mode(wave),
               theme(theme)
 {
@@ -85,7 +85,7 @@ void EnemyObject::updateEntity(sf::RenderWindow *window) {
                                                       xDistance/900.f,
                                                       0,
                                                       window, theme));
-        this->soundLoader->playEffect(Audio::ENEMY_SHOOT);
+        this->audioLoader->playEffect(Audio::ENEMY_SHOOT);
     }
     //Sjekker om spilleren er til venstre for fienden.
     if(player->getPosition().x < this->getPosition().x){

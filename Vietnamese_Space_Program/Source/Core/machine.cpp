@@ -7,7 +7,7 @@
 Machine::Machine()
 {
     this->state = NULL;
-    soundLoaderPointer->initSoundPointers(mutedPointer, mutedMusicPointer);
+    audioLoaderPointer->initSoundPointers(mutedPointer, mutedMusicPointer);
 
 }
 

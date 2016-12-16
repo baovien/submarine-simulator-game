@@ -10,8 +10,8 @@ void StateGameOver::initialize(sf::RenderWindow *window) {
     sf::View newView(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
     window->setView(newView);
 
-    machine.soundLoaderPointer->stopMusic();
-    machine.soundLoaderPointer->playMusic(Audio::Music::GAMEOVER);
+    machine.audioLoaderPointer->stopMusic();
+    machine.audioLoaderPointer->playMusic(Audio::Music::GAMEOVER);
 
     this->highscoreOrNAH = false;
     this->boxIsClicked = false;
@@ -130,7 +130,7 @@ void StateGameOver::initialize(sf::RenderWindow *window) {
 }
 
 void StateGameOver::update(sf::RenderWindow *window) {
-    machine.soundLoaderPointer->updateSounds();
+    machine.audioLoaderPointer->updateSounds();
     //Sjekker mouseover for hver knapp og endrer texture om den er mouseovera eller trykket
     util.checkMuteMouseOver(window);
     for (unsigned int i = 0; i < (sizeof(menuTextures) / sizeof(*menuTextures)); ++i) {
@@ -271,14 +271,14 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         if (machine.selectedObjectsPointer->selectedGamemode == 1) {
                             saveScoreArcade();
                             machine.setState(new StateGameMode1());
-                            machine.soundLoaderPointer->stopMusic();
+                            machine.audioLoaderPointer->stopMusic();
                             return;
                         }
                             //Classic
                         else if (machine.selectedObjectsPointer->selectedGamemode == 2) {
                             saveScoreClassic();
                             machine.setState(new StateGameMode2());
-                            machine.soundLoaderPointer->stopMusic();
+                            machine.audioLoaderPointer->stopMusic();
                             return;
 
                         }
@@ -292,7 +292,7 @@ void StateGameOver::handleEvent(sf::RenderWindow *window, sf::Event event) {
                         else if (machine.selectedObjectsPointer->selectedGamemode == 2) {
                             saveScoreClassic();
                         }
-                        machine.soundLoaderPointer->stopMusic();
+                        machine.audioLoaderPointer->stopMusic();
                         machine.setState(new StateMainMenu());
                         return;
                     default:

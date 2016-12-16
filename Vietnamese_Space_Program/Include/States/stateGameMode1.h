@@ -7,12 +7,12 @@
 #include "../Entities/player.h"
 #include "../Entities/enemy.h"
 #include "../Entities/indestructableObject.h"
-#include "../Entities/boss1.h"
+#include "../Entities/boss.h"
 #include "../Core/playerLives.h"
 #include "../Core/entityManager.h"
 #include "../Core/score.h"
 #include "../Entities/healthPack.h"
-#include "../Core/soundLoader.h"
+#include "../Core/audioLoader.h"
 #include "../Entities/indestructableObject.h"
 #include "../Core/pauseableClock.h"
 #include "../Entities/shieldEntity.h"
@@ -58,7 +58,7 @@ protected:
     //Branch: Waves
     int bossWave = 0;
     int transparencyValue = 0;
-    int waveNum = 0;
+    int waveNum = 5;
 
     std::vector<EnemyObject*> enemyList;
 

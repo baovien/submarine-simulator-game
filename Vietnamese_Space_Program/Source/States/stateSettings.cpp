@@ -112,7 +112,7 @@ void StateSettings::initialize(sf::RenderWindow *window) {
 
 void StateSettings::update(sf::RenderWindow *window) {
     //Sjekker mutedMusicpointer er satt
-    machine.soundLoaderPointer->updateSounds();
+    machine.audioLoaderPointer->updateSounds();
 
     if (!inOverlay) {
         util.checkMuteMouseOver(window);

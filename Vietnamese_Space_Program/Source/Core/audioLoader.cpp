@@ -1,10 +1,10 @@
 /*******************************************
- * Alle states har soundloaderen under machine (machine->soundLoaderPeker).
+ * Alle states har soundloaderen under machine (machine->audioLoaderPeker).
  * For å få lyd til et objekt, f.eks healthPack, må det dependencyinjectes inn.
- * 1. Det gjøres ved å include soundLoader.h i objektets header og lage en peker SoundLoader* soundloader.
- * 2. Deretter tas healthpack konstruktøren inn pekeren. Skriv så this->soundLoader = soundloader
- *    eller soundLoader(soundLoader) etter konstruktøren.
- * 3. Nå kan du bruke this->soundLoader til å kalle en lyd i ønsket klasse.
+ * 1. Det gjøres ved å include audioLoader.h i objektets header og lage en peker AudioLoader* soundloader.
+ * 2. Deretter tas healthpack konstruktøren inn pekeren. Skriv så this->audioLoader = soundloader
+ *    eller audioLoader(audioLoader) etter konstruktøren.
+ * 3. Nå kan du bruke this->audioLoader til å kalle en lyd i ønsket klasse.
  *
  * /////Legge til musikk
  *
@@ -14,14 +14,14 @@
  * /////Spille av musikk
  *
  *      I konstruktøren til en state, skriv
- *      machine->soundLoaderPeker.stopMusic();          //Må stoppe musikken for å kunne starte ny musikk
- *      machine->soundLoaderPeker.playMusic(Audio::Music::NAVN_PÅ_MUSIKK);
+ *      machine->audioLoaderPeker.stopMusic();          //Må stoppe musikken for å kunne starte ny musikk
+ *      machine->audioLoaderPeker.playMusic(Audio::Music::NAVN_PÅ_MUSIKK);
  *
  *      I updaten til en state skriv
- *      machine->soundLoaderPeker.updateSounds();
+ *      machine->audioLoaderPeker.updateSounds();
  *
  *      Alle steder i staten der det byttes til en ny state, skriv
- *      machine->soundLoaderPeker.stopMusic();
+ *      machine->audioLoaderPeker.stopMusic();
  *
  * /////Legge til lyd
  *
@@ -31,17 +31,17 @@
  * /////Spille av en lyd (DEPENDENCY INJECT)
  *
  *      Kall funksjonen under
- *      soundLoader->playEffect(Audio::NAVN_PÅ_LYDEFFEKT)
+ *      audioLoader->playEffect(Audio::NAVN_PÅ_LYDEFFEKT)
  *
  *******************************************/
 
-#include "../../Include/Core/soundLoader.h"
+#include "../../Include/Core/audioLoader.h"
 
 /**
  * Soundloader's constructor
  * @return
  */
-SoundLoader::SoundLoader() {
+AudioLoader::AudioLoader() {
     effectsVolume = 50;
     musicVolume = 50;
 
@@ -69,7 +69,7 @@ SoundLoader::SoundLoader() {
  * Plays sound if not muted
  * @param effect - Sound to play
  */
-void SoundLoader::playEffect(Audio::Effect effect) {
+void AudioLoader::playEffect(Audio::Effect effect) {
     if (!*muted) {
         this->sounds.push_back(sf::Sound());
         sf::Sound &sound = sounds.back();
@@ -84,7 +84,7 @@ void SoundLoader::playEffect(Audio::Effect effect) {
  * Removes effects that have been stopped.
  * Called in updateSounds
  */
-void SoundLoader::removeStoppedEffects(){
+void AudioLoader::removeStoppedEffects(){
     sounds.remove_if([](const sf::Sound& s){
         return s.getStatus() == sf::Sound::Stopped;
     });
@@ -94,7 +94,7 @@ void SoundLoader::removeStoppedEffects(){
  * Prepares the music to be played.
  * @param music - Music to prepare
  */
-void SoundLoader::playMusic(Audio::Music music) {
+void AudioLoader::playMusic(Audio::Music music) {
 
 
     if(this->music.getStatus() != this->music.Playing ){
@@ -109,7 +109,7 @@ void SoundLoader::playMusic(Audio::Music music) {
  * Plays/pauses music depending on whether it is muted or not
  * Removes sounds that are complete
  */
-void SoundLoader::updateSounds() {
+void AudioLoader::updateSounds() {
     if (*muted || *mutedMusic) {
         this->music.pause();
     } else if (this->music.getStatus() == this->music.Paused || this->music.getStatus() == this->music.Stopped) {
@@ -123,7 +123,7 @@ void SoundLoader::updateSounds() {
  * @param muted - bool to tell if all sounds are muted (Including music)
  * @param mutedMusic - bool to tell if music is muted
  */
-void SoundLoader::initSoundPointers(bool *muted, bool *mutedMusic) {
+void AudioLoader::initSoundPointers(bool *muted, bool *mutedMusic) {
     this->muted = muted;
     this->mutedMusic = mutedMusic;
 }
@@ -131,10 +131,10 @@ void SoundLoader::initSoundPointers(bool *muted, bool *mutedMusic) {
 /**
  *  Stops the music.
  */
-void SoundLoader::stopMusic() {
+void AudioLoader::stopMusic() {
     this->music.stop();
 }
 
-SoundLoader::~SoundLoader() {
+AudioLoader::~AudioLoader() {
 
 }

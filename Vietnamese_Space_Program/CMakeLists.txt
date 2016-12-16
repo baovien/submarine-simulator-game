@@ -20,12 +20,12 @@ set(SOURCE_FILES
         "Include/Core/state.h"
         "Include/Core/score.h"                 "Source/Core/score.cpp"
         "Include/Core/utilities.h"
-        "Include/Core/soundLoader.h"           "Source/Core/soundLoader.cpp"
+        "Include/Core/audioLoader.h"           "Source/Core/audioLoader.cpp"
         "Include/Core/pauseableClock.h"           "Source/Core/pauseableClock.cpp"
 
         #Entities Headers
         "Include/Entities/indestructableObject.h"          "Source/Entities/indestructableObject.cpp"
-        "Include/Entities/boss1.h"             "Source/Entities/boss1.cpp"
+        "Include/Entities/boss.h"             "Source/Entities/boss.cpp"
         "Include/Entities/bullet.h"            "Source/Entities/bullet.cpp"
         "Include/Entities/player.h"            "Source/Entities/player.cpp"
         "Include/Entities/enemy.h"             "Source/Entities/enemy.cpp"

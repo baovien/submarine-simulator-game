@@ -82,7 +82,7 @@ void StateHighscore::initialize(sf::RenderWindow *window) {
 void StateHighscore::update(sf::RenderWindow *window) {
 
     util.checkMuteMouseOver(window);
-    machine.soundLoaderPointer->updateSounds();
+    machine.audioLoaderPointer->updateSounds();
 
     if (util.checkMouseover(backButton, window)) {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {

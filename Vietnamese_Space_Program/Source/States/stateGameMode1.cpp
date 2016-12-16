@@ -9,8 +9,8 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     window->setView(newView);
     currentWindowSize = window->getSize();
 
-    machine.soundLoaderPointer->stopMusic();
-    machine.soundLoaderPointer->playMusic(Audio::Music::ARCADE);
+    machine.audioLoaderPointer->stopMusic();
+    machine.audioLoaderPointer->playMusic(Audio::Music::ARCADE);
 
     this->manager = new EntityManager();
     this->util = new Utilities;
@@ -38,7 +38,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
     this->lives->setScale(window->getSize().x / 1280.f, window->getSize().y / 720.f);
 
     //Init player
-    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2.f, window->getSize().y / 2.f, window, 1, machine.selectedObjectsPointer->selectedFighter, machine.soundLoaderPointer);
+    this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2.f, window->getSize().y / 2.f, window, 1, machine.selectedObjectsPointer->selectedFighter, machine.audioLoaderPointer);
     this->manager->addEntity("ship", this->player);
 
     //this->bossObject = new BossObject(this->manager, this->player, this->mode, window);
@@ -67,7 +67,7 @@ void StateGameMode1::initialize(sf::RenderWindow *window) {
 }
 
 void StateGameMode1::update(sf::RenderWindow *window) {
-    machine.soundLoaderPointer->updateSounds();
+    machine.audioLoaderPointer->updateSounds();
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
@@ -82,13 +82,13 @@ void StateGameMode1::update(sf::RenderWindow *window) {
         //Når playerliv blir 0, kommer gameOver splashscreen
         if (this->lives->getValue() <= 0) {
             machine.setGameOverScore(this->score->getValue());
-            machine.soundLoaderPointer->stopMusic();
+            machine.audioLoaderPointer->stopMusic();
             machine.setState(new StateGameOver);
             return;
         }
         if(enemyList.size() == 0 && bossList.size() == 0 && !waveDone){
             if(clock.getElapsedTime().asSeconds()>3){ //Lyden spilles ikke av med en gang
-                machine.soundLoaderPointer->playEffect(Audio::Effect::WAVEDONE);
+                machine.audioLoaderPointer->playEffect(Audio::Effect::WAVEDONE);
             }
             waveDone = true;
             waveClock.restart();
@@ -145,7 +145,7 @@ void StateGameMode1::destroy(sf::RenderWindow *window) {
 void StateGameMode1::handleEvent(sf::RenderWindow *window, sf::Event event) {
     if (event.type == event.KeyPressed) {
         if (event.key.code == machine.keybindMap->find("back")->second.second && util->paused) {
-            machine.soundLoaderPointer->stopMusic();
+            machine.audioLoaderPointer->stopMusic();
             machine.setState(new StateMainMenu());
             return;
         }
@@ -212,11 +212,11 @@ void StateGameMode1::spawnObjects(sf::RenderWindow *window) {
         int random = rand() % 4;
         switch (random) {
             case 0:
-                this->manager->addEntity("healthPack", new HealthPack(this->lives, machine.soundLoaderPointer, window));
+                this->manager->addEntity("healthPack", new HealthPack(this->lives, machine.audioLoaderPointer, window));
                 break;
             case 1:
                 if (!*player->isShieldActivePointer)
-                    this->manager->addEntity("shieldEntity", new ShieldEntity(window, this->player, machine.soundLoaderPointer));
+                    this->manager->addEntity("shieldEntity", new ShieldEntity(window, this->player, machine.audioLoaderPointer));
                 break;
             default:
                 break;
@@ -238,16 +238,16 @@ void StateGameMode1::spawnObjects(sf::RenderWindow *window) {
  */
 void StateGameMode1::spawnWave(sf::RenderWindow *window) {
     if (waveNum % 5 == 0) { //BOSS HVER 5. WAVE
-        machine.soundLoaderPointer->playEffect(Audio::Effect::BOSSWAVE);
+        machine.audioLoaderPointer->playEffect(Audio::Effect::BOSSWAVE);
         this->bossWave++;
         bossObject = new BossObject(this->manager, this->player,window , machine.selectedObjectsPointer->selectedTheme, this->bossWave);
         this->manager->addEntity("Boss", bossObject);
         bossList.push_back(bossObject);
 
     } else {                  //ENEMYSPAWN
-        machine.soundLoaderPointer->playEffect(Audio::Effect::NEXTWAVE);
+        machine.audioLoaderPointer->playEffect(Audio::Effect::NEXTWAVE);
         for (int i = 0; i < waveNum; ++i) {
-            enemyObject = new EnemyObject(window, this->player, this->manager, this->waveNum, machine.soundLoaderPointer, machine.selectedObjectsPointer->selectedTheme);
+            enemyObject = new EnemyObject(window, this->player, this->manager, this->waveNum, machine.audioLoaderPointer, machine.selectedObjectsPointer->selectedTheme);
             this->manager->addEntity("Enemy", enemyObject);
             enemyList.push_back(enemyObject);
         }

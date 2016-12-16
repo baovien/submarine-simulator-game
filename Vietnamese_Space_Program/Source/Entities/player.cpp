@@ -11,17 +11,17 @@
  * @param window
  * @param gamemode - An integer keeping track of what game mode you are in.
  * @param fighter - An integer keeping track of what fighter you have selected.
- * @param soundLoader
+ * @param audioLoader
  * @return
  */
-Player::Player(std::map<const std::string, std::pair<std::string, int>>* keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode, int fighter, SoundLoader *soundLoader)
+Player::Player(std::map<const std::string, std::pair<std::string, int>>* keybindMap, Lives *lives, Score *score, EntityManager *manager, float x, float y, sf::RenderWindow *window, int gamemode, int fighter, AudioLoader *audioLoader)
         : keybindMap(*keybindMap),
           fighter(fighter),
           manager(manager),
           gamemode(gamemode),
           score(score),
           lives(lives),
-          soundLoader(soundLoader) {
+          audioLoader(audioLoader) {
     this->active = 1;
     this->groupId = 1;
     switch (gamemode) {
@@ -118,9 +118,9 @@ void Player::updateEntity(sf::RenderWindow *window) {
                 if (this->overheatValue < 10) {
                     this->overheatValue += 1;
                     if(machine.selectedObjectsPointer->selectedFighter == 0){
-                        this->soundLoader->playEffect(Audio::Effect::PLAYER_SHOOT1);
+                        this->audioLoader->playEffect(Audio::Effect::PLAYER_SHOOT1);
                     }else{
-                        this->soundLoader->playEffect(Audio::Effect::PLAYER_SHOOT2);
+                        this->audioLoader->playEffect(Audio::Effect::PLAYER_SHOOT2);
                     }
                     this->manager->addEntity("bullet", new Bullet((this->score),
                                                                   (this->getPosition().x + (this->getGlobalBounds().width / 2) * sin(angle)),
@@ -128,11 +128,11 @@ void Player::updateEntity(sf::RenderWindow *window) {
                                                                   (-cos(angle)),
                                                                   (sin(angle)),
                                                                   (angle * 180 / pi),
-                                                                  this->soundLoader,
+                                                                  this->audioLoader,
                                                                   window, machine.selectedObjectsPointer->selectedFighter));
                 } else if (this->overheatValue > 10) {
                     this->overheatValue = 15;
-                    soundLoader->playEffect(Audio::OVERHEAT);
+                    audioLoader->playEffect(Audio::OVERHEAT);
                 }
             }
             this->bar->updateEntity(window, this->overheatValue);
@@ -185,9 +185,9 @@ void Player::updateEntity(sf::RenderWindow *window) {
                 if (!this->space &&
                     sf::Keyboard::isKeyPressed((sf::Keyboard::Key) keybindMap.find("shoot")->second.second)) {
                     if(machine.selectedObjectsPointer->selectedFighter == 0){
-                        this->soundLoader->playEffect(Audio::Effect::PLAYER_SHOOT1);
+                        this->audioLoader->playEffect(Audio::Effect::PLAYER_SHOOT1);
                     }else{
-                        this->soundLoader->playEffect(Audio::Effect::PLAYER_SHOOT2);
+                        this->audioLoader->playEffect(Audio::Effect::PLAYER_SHOOT2);
                     }
                     this->manager->addEntity("bullet", new Bullet((this->score),
                                                                   (this->getPosition().x),
@@ -195,7 +195,7 @@ void Player::updateEntity(sf::RenderWindow *window) {
                                                                   (-1),
                                                                   (0),
                                                                    0,
-                                                                  this->soundLoader,
+                                                                  this->audioLoader,
                                                                   window,
                                                                   machine.selectedObjectsPointer->selectedFighter));
                 }

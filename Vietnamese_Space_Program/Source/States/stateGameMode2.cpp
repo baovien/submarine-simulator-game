@@ -12,8 +12,8 @@ void StateGameMode2::initialize(sf::RenderWindow *window) {
     window->setView(newView);
     currentWindowSize = window->getSize();
 
-    machine.soundLoaderPointer->stopMusic();
-    machine.soundLoaderPointer->playMusic(Audio::Music::CLASSIC);
+    machine.audioLoaderPointer->stopMusic();
+    machine.audioLoaderPointer->playMusic(Audio::Music::CLASSIC);
 
     this->bgTexture = new sf::Texture();
     this->bgTexture->loadFromFile("Graphics/Sprites/background1" + std::to_string(2+machine.selectedObjectsPointer->selectedTheme)+".png");
@@ -38,7 +38,7 @@ void StateGameMode2::initialize(sf::RenderWindow *window) {
 
     manager = new EntityManager();
     this->player = new Player(machine.keybindMap, this->lives, this->score, this->manager, window->getSize().x / 2.f,
-                              window->getSize().y, window, 2, machine.selectedObjectsPointer->selectedFighter, machine.soundLoaderPointer);
+                              window->getSize().y, window, 2, machine.selectedObjectsPointer->selectedFighter, machine.audioLoaderPointer);
     this->manager->addEntity("ship", this->player);
 
 
@@ -60,7 +60,7 @@ void StateGameMode2::initialize(sf::RenderWindow *window) {
 }
 
 void StateGameMode2::update(sf::RenderWindow *window) {
-    machine.soundLoaderPointer->updateSounds();
+    machine.audioLoaderPointer->updateSounds();
 
     if (!util->paused) //Stopper spillet fra å oppdateres når det pauses
     {
@@ -124,7 +124,7 @@ void StateGameMode2::destroy(sf::RenderWindow *window) {
 void StateGameMode2::handleEvent(sf::RenderWindow *window, sf::Event event) {
     if (event.type == event.KeyPressed) {
         if (event.key.code == machine.keybindMap->find("back")->second.second && util->paused) {
-            machine.soundLoaderPointer->stopMusic();
+            machine.audioLoaderPointer->stopMusic();
             machine.setState(new StateMainMenu());
             return;
         }

@@ -46,39 +46,39 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
     }
 
     //THEMES
-    this->theme = util.addText("SELECT THEME", 35, 2, 2, window->getSize().x / 6.0f, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
+    this->theme = util.addText("Select Theme", 35, 2, 2, window->getSize().x / 6.0f, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
     //WATERTHEME
     PictureButtons[0]->scale(window->getSize().x / 3456.0f, window->getSize().y / 1944.0f);
     PictureButtons[0]->setPosition(window->getSize().x / 6.0f, window->getSize().y / 4.5f);
-    this->WaterTheme = util.addText("WATER", 30, 2, 2, window->getSize().x / 6.0f, window->getSize().y / 4.5f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
+    this->WaterTheme = util.addText("Water", 30, 2, 2, window->getSize().x / 6.0f, window->getSize().y / 4.5f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
     //SPACETHEME
     PictureButtons[1]->scale(window->getSize().x / 3456.0f, window->getSize().y / 1944.f);
     PictureButtons[1]->setPosition(window->getSize().x / 6.0f, window->getSize().y / 2.1f);
-    this->SpaceTheme = util.addText("SPACE", 30, 2, 2, window->getSize().x / 6.0f, window->getSize().y / 2.1f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
+    this->SpaceTheme = util.addText("Space", 30, 2, 2, window->getSize().x / 6.0f, window->getSize().y / 2.1f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
 
     //GAMEMODE
-    this->gamemode = util.addText("SELECT GAMEMODE", 35, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
+    this->gamemode = util.addText("Select Gamemode", 35, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
     //ARCADE
     PictureButtons[4]->scale(window->getSize().x / 3456.0f, window->getSize().y / 1944.0f);
     PictureButtons[4]->setPosition(window->getSize().x / 2.0f, window->getSize().y / 4.5f);
-    this->Arcade = util.addText("ARCADE", 30, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 4.5f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
+    this->Arcade = util.addText("Arcade", 30, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 4.5f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
     //CLASSIC
     PictureButtons[5]->scale(window->getSize().x / 3456.0f, window->getSize().y / 1944.0f);
     PictureButtons[5]->setPosition(window->getSize().x / 2.0f, window->getSize().y / 2.1f);
-    this->Classic = util.addText("CLASSIC", 30, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 2.1f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
+    this->Classic = util.addText("Classic", 30, 2, 2, window->getSize().x / 2.0f, window->getSize().y / 2.1f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
 
     //FIGHTERS
-    this->fighter = util.addText("SELECT FIGHTER", 35, 2, 2, window->getSize().x - window->getSize().x / 6.f, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
+    this->fighter = util.addText("Select Fighter", 35, 2, 2, window->getSize().x - window->getSize().x / 6.f, window->getSize().y / 24.0f, window, machine.settingPointer->selectedLanguage);
     //SUBMARINE
     PictureButtons[2]->scale(window->getSize().x / 1536.0f, window->getSize().y / 864.0f);
     PictureButtons[2]->rotate(90);
     PictureButtons[2]->setPosition( window->getSize().x - window->getSize().x / 6.f, window->getSize().y / 4.5f);
-    this->Submarine = util.addText("SUBMARINE", 30, 2, 2, window->getSize().x - window->getSize().x / 6.f, window->getSize().y / 4.5f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
+    this->Submarine = util.addText("Submarine", 30, 2, 2, window->getSize().x - window->getSize().x / 6.f, window->getSize().y / 4.5f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
     //SPACEFIGHTER
     PictureButtons[3]->scale(window->getSize().x / 1536.0f, window->getSize().y / 864.0f);
     PictureButtons[3]->rotate(90);
     PictureButtons[3]->setPosition(window->getSize().x - window->getSize().x / 6.f, window->getSize().y / 2.1f);
-    this->Spaceship = util.addText("SPACESHIP", 30, 2, 2, window->getSize().x - window->getSize().x / 6.f, window->getSize().y / 2.1f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
+    this->Spaceship = util.addText("Spaceship", 30, 2, 2, window->getSize().x - window->getSize().x / 6.f, window->getSize().y / 2.1f + window->getSize().y/9.5f, window, machine.settingPointer->selectedLanguage);
 
     //PLAY-button posisjonen og skalinga
     menuButtons[0]->scale(window->getSize().x / 1536.0f, window->getSize().y / 864.0f);
@@ -93,7 +93,7 @@ void StatePlayConfig::initialize(sf::RenderWindow *window) {
 
 void StatePlayConfig::update(sf::RenderWindow *window) {
     util.checkMuteMouseOver(window);
-    machine.soundLoaderPointer->updateSounds();
+    machine.audioLoaderPointer->updateSounds();
 
     for (unsigned int i = 0; i < sizeof(menuTextures) / sizeof(*menuTextures); ++i) {
         if (util.checkMouseover(menuButtons[i], window)) {
