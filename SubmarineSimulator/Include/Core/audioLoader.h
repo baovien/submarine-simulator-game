@@ -31,7 +31,7 @@ namespace Audio{
     };
 }
 
-class AudioLoader : sf::NonCopyable
+class AudioLoader
 {
 public:
     virtual ~AudioLoader();
