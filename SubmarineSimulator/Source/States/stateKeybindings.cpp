@@ -6,7 +6,7 @@ void StateKeybindings::initialize(sf::RenderWindow *window) {
     window->setView(newView);
 
     this->bgTexture = new sf::Texture();
-    this->bgTexture->loadFromImage(*machine.backgroundBehindOverlayPointer, sf::IntRect(0,0,window->getSize().x,window->getSize().y));
+    this->bgTexture->loadFromImage(*machine.backgroundBehindOverlayPointer);
 
     this->overlayTexture = new sf::Texture();
     this->overlayTexture->loadFromFile("Graphics/Sprites/Window/Window_10.png");
