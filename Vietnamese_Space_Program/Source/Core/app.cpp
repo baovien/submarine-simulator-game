@@ -3,6 +3,7 @@
 #include <fstream>
 #include "../../Include/json/json.h"
 #include "../../Include/Core/app.h"
+#include "../../Include/States/stateCredits.h"
 
 //Tastetrykk som kun skal registreres én gang:
 //if(event.key.code == sf::Keyboard::DINTAST){ KODE }
@@ -15,7 +16,7 @@
  */
 void App::run() {
 
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "Vietnamese Space Program"); //, sf::Style::Titlebar | sf::Style::Close) FULL HD OMG
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "Submarine Simluator"); //, sf::Style::Titlebar | sf::Style::Close) FULL HD OMG
 
     window.setKeyRepeatEnabled(false);
 
@@ -25,7 +26,7 @@ void App::run() {
     loadJson();
     
     machine.setWindow(&window);
-    machine.setState(new StateMainMenu);
+    machine.setState(new StateCredits);
 
 
     window.setFramerateLimit((unsigned int) ((15 * machine.settingPointer->selectedFps * machine.settingPointer->selectedFps) + 15 * machine.settingPointer->selectedFps + 30));
