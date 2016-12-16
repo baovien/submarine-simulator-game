@@ -38,6 +38,7 @@ set(SOURCE_FILES
         "Include/States/stateGameMode1.h"      "Source/States/stateGameMode1.cpp"
         "Include/States/stateGameMode2.h"      "Source/States/stateGameMode2.cpp"
         "Include/States/stateGameOver.h"       "Source/States/stateGameOver.cpp"
+        "Include/States/stateCredits.h"        "Source/States/stateCredits.cpp"
         "Include/States/stateHighscore.h"      "Source/States/stateHighscore.cpp"
         "Include/States/stateKeybindings.h"    "Source/States/stateKeybindings.cpp"
         "Include/States/statePlayConfig.h"     "Source/States/statePlayConfig.cpp"
