@@ -5,7 +5,7 @@
 
 ### Synopsis
 
-A asteroids inspired game written in C++ with SFML. Group project in DAT220 at University of Agder, Grimstad.
+An asteroids inspired game written in C++ with SFML. Group project in DAT220 at University of Agder, Grimstad.
 
 ## Libraries and Tools
 
