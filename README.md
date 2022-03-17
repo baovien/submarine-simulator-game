@@ -1,10 +1,5 @@
 ![alt text](logo.png "logo") 
 # Submarine Simulator
-
-## Asian Games inc. 
-
-### Synopsis
-
 An asteroids inspired game written in C++ with SFML. Group project in DAT220 at University of Agder, Grimstad.
 
 ## Libraries and Tools
